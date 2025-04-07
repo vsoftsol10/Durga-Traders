@@ -8,9 +8,7 @@ import './footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
-      <Grid container spacing={4} justifyContent="space-between">
-        
-        {/* Logo and Social Icons Section */}
+      <Grid container spacing={4} justifyContent="space-between" alignItems="flex-start">
         <Grid item xs={12} sm={6} md={3}>
           <Typography variant="h4" component="h3" gutterBottom className="footer-title">
             Durga Traders
@@ -30,7 +28,7 @@ const Footer = () => {
           </Box>
         </Grid>
 
-        {/* Main Works Section */}
+      
         <Grid item xs={12} sm={6} md={3}>
           <Typography variant="h5" gutterBottom className="footer-subtitle">
             Main Works
@@ -50,7 +48,6 @@ const Footer = () => {
           </Box>
         </Grid>
 
-        {/* Quick Link Section */}
         <Grid item xs={12} sm={6} md={3}>
           <Typography variant="h5" gutterBottom className="footer-subtitle">
             Quick Link
@@ -67,7 +64,8 @@ const Footer = () => {
           </Box>
         </Grid>
 
-       
+
+      
         <Grid item xs={12} sm={6} md={3}>
           <Typography variant="h5" gutterBottom className="footer-subtitle">
             Get In Touch
