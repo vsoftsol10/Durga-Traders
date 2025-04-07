@@ -6,7 +6,7 @@ import Particles from './Particles/Particles';
 const Home = () => {
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             
             <div style={{ width: '100%', height: '600px', position: 'relative' }}>
             <h2>Home</h2>
