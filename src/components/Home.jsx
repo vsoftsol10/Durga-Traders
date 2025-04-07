@@ -10,18 +10,15 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
-
+import { Box } from '@mui/material';  // Added Box for alignment
+import Rating from '@mui/material/Rating';  // Added Rating for star rating
 
 const CustomCard = ({ title, image, description, altText }) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt={altText}
-        height="140"
-        image={image}
-      />
+      <CardMedia component="img" alt={altText} height="140" image={image} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
@@ -50,6 +47,34 @@ const Home = () => {
     { title: 'AQUA-09', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Some lizards can run incredibly fast, like the spiny-tailed lizard.', altText: 'Aqua-Img 9' },
   ];
 
+  const services = [
+    { title: 'Wide Service Network', alt: 'ServiceImg1', image: '/path/to/image1.jpg' },
+    { title: 'Easy Returns', alt: 'ServiceImg2', image: '/path/to/image2.jpg' },
+    { title: 'Guarantee', alt: 'ServiceImg3', image: '/path/to/image3.jpg' },
+    { title: 'Free 1 Year Warranty', alt: 'ServiceImg4', image: '/path/to/image4.jpg' },
+  ];
+
+  const testimonials = [
+    {
+      name: 'Nirmal',
+      location: 'Chennai',
+      feedback: 'It removed all the bad taste and odor from our tap water. It’s refreshing to drink now!',
+      rating: 4,
+    },
+    {
+      name: 'Vijay Kumar',
+      location: 'Coimbatore',
+      feedback: 'We use this RO system in our factory where we need large quantities of purified water for our production lines. It’s been running smoothly for over a year without any major issues.',
+      rating: 5,
+    },
+    {
+      name: 'Ajmal',
+      location: 'Madurai',
+      feedback: 'We installed this RO system in our restaurant, and the difference in water quality is incredible. We no longer have issues with the taste of our drinks and coffee. It’s pure, crisp water.',
+      rating: 3,
+    },
+  ];
+
   return (
     <div>
       <Header />
@@ -66,12 +91,16 @@ const Home = () => {
         />
       </div>
 
-      <div className='banner'>
-
+      <div className="banner" style={{ height: '250px', backgroundColor: '#f0f0f0' }}>
+        <Typography variant="h4" align="center" style={{ paddingTop: '100px' }}>
+          {/* Add banner content here if needed */}
+        </Typography>
       </div>
 
-      <div className='services'>
-        <h2>Services</h2>
+      <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Our Services
+        </Typography>
         <Grid container spacing={3} justifyContent="center">
           {cardsData.map((card, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
@@ -84,33 +113,57 @@ const Home = () => {
             </Grid>
           ))}
         </Grid>
-        </div>
+      </Container>
 
-        <div>
-        <Grid container spacing={4} alignItems="center" direction="row">
-          <Grid item xs={12} md={6} display="flex" flexDirection="column" alignItems="flex-start">
-            <Typography variant="h4" align="center" gutterBottom>
-              About Us
-            </Typography>
-            <Typography paragraph>
-              <b>Durga Traders (DTRO)</b> stands to its sense of purpose - to provide safe, pure & healthy water to the common by giving creative, innovative, and affordable water purifiers. DTRO mainly deals with Reverse Osmosis-based water treatment components, Domestic, Commercial, and Industrial R.O systems. We have good engineering and technical professionals with more than 14 years of experience in the water treatment field.
-            </Typography>
-            <Typography paragraph>
-              Durga Traders, since 2006, has grown to become recognized as a leader in quality, reliability, and innovation. Durga Traders proudly offers the Home Domestic RO Products, Industrial RO using Reverse Osmosis (RO) and Ultraviolet (UV) & UF (ultra-filtration) technologies, including Water Softener, Iron Removal purifiers.
-            </Typography>
-            <Typography paragraph>
-              With this rich experience, the company aims to serve you the best forever. Also, DTRO deals with national and international suppliers and is developing indigenous capabilities to provide good quality products.
-            </Typography>
-            <Typography paragraph>
-              We believe that the customer is king, and we always uphold customers at the highest level in our organization. We strive to maintain a lifelong relationship with all our customers. We have helped many industries, schools, colleges, hospitals, and government installations all around Tamil Nadu with their specific water treatment needs.
-            </Typography>
-          </Grid>
-
-          <Grid item xs={12} md={6} display="flex" justifyContent="center" alignItems="center">
-            <img src={Dtaqua} alt="Durga Traders Water Treatment" style={{ width: '100%', height: 'auto' }} />
-          </Grid>
+      <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Quality Service
+        </Typography>
+        <Grid container spacing={3} justifyContent="center">
+          {services.map((service, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src={service.image}
+                  alt={service.alt}
+                  style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+                />
+                <Typography variant="h6" style={{ marginTop: '20px' }}>
+                  {service.title}
+                </Typography>
+              </div>
+            </Grid>
+          ))}
         </Grid>
-      </div>
+      </Container>
+
+      <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Testimonial
+        </Typography>
+        <Grid container spacing={4} justifyContent="center">
+          {testimonials.map((testimonial, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ maxWidth: 345, height: '100%' }}> {/* Ensuring equal card height */}
+                <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+                  <Typography variant="h6" gutterBottom>
+                    {testimonial.name} - {testimonial.location}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {testimonial.feedback}
+                  </Typography>
+                  <Box display="flex" alignItems="center">
+                    <Rating name={`rating-${index}`} value={testimonial.rating} precision={0.5} readOnly />
+                    <Typography variant="body2" sx={{ marginLeft: 1 }}>
+                      {testimonial.rating} / 5
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
 
       <Footer />
     </div>
