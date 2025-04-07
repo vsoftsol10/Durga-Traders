@@ -71,9 +71,9 @@
   }
   
   @keyframes floatTopLeft {
-    0% { transform: rotate(135deg) translateY(0); }
-    50% { transform: rotate(135deg) translateY(10px); }
-    100% { transform: rotate(135deg) translateY(0); }
+    0% { transform: rotate(315deg) translateY(0); }
+    50% { transform: rotate(315deg) translateY(-10px); }
+    100% { transform: rotate(315deg) translateY(0); }
   }
   
   @keyframes floatTopRight {
