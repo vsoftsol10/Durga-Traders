@@ -113,7 +113,7 @@ function Navbar() {
           </div>
         </div>
         <a 
-          href="/#" 
+          href="/service" 
           className={`nav-link ${activeLink === "service" ? "active" : ""}`}
           onMouseEnter={() => handleMouseEnter("service")}
           onMouseLeave={handleMouseLeave}

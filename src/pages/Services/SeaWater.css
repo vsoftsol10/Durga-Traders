@@ -1,0 +1,300 @@
+/* Main Container Styles */
+.ro-container {
+    background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
+    min-height: 100vh;
+    font-family: sans-serif;
+  }
+  
+  /* Hero Section Styles */
+  .ro-hero {
+    padding: 4rem 0;
+    background: linear-gradient(to right, #2563eb, #0891b2);
+    color: white;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 1s ease;
+  }
+  
+  .ro-hero.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .ro-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .ro-hero-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .ro-hero-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+  
+  .ro-hero-image {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  
+  .ro-hero-image-container:hover .ro-hero-image {
+    transform: scale(1.05);
+  }
+  
+  .ro-hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    padding: 1.5rem;
+  }
+  
+  .ro-hero-tagline {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  /* Main Content Styles */
+  .ro-main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+  }
+  
+  .ro-content-card {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 1s ease;
+    transition-delay: 0.3s;
+  }
+  
+  .ro-content-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .ro-section-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #dbeafe;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .ro-icon {
+    color: #3b82f6;
+    margin-right: 0.75rem;
+  }
+  
+  .ro-section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e40af;
+  }
+  
+  .ro-intro-text {
+    font-size: 1.125rem;
+    color: #4b5563;
+    margin-bottom: 2rem;
+  }
+  
+  /* Service Section Styles */
+  .ro-service-section {
+    margin-bottom: 2.5rem;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 1s ease;
+  }
+  
+  .ro-service-section.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  /* Delay Classes */
+  .delay-400 {
+    transition-delay: 0.4s;
+  }
+  
+  .delay-500 {
+    transition-delay: 0.5s;
+  }
+  
+  .delay-600 {
+    transition-delay: 0.6s;
+  }
+  
+  .delay-700 {
+    transition-delay: 0.7s;
+  }
+  
+  .delay-800 {
+    transition-delay: 0.8s;
+  }
+  
+  .delay-900 {
+    transition-delay: 0.9s;
+  }
+  
+  .ro-service-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .ro-service-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1d4ed8;
+    margin-left: 0.5rem;
+  }
+  
+  .ro-service-content {
+    padding-left: 2rem;
+    border-left: 2px solid #dbeafe;
+  }
+  
+  .ro-service-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #eff6ff;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .ro-service-item:hover, .ro-service-item.hovered {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .ro-service-item-content {
+    display: flex;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+  }
+  
+  .ro-service-item:hover .ro-service-item-content, 
+  .ro-service-item.hovered .ro-service-item-content {
+    color: #2563eb;
+  }
+  
+  .ro-service-item-icon {
+    margin-top: 0.25rem;
+    margin-right: 0.5rem;
+    color: #93c5fd;
+    transition: all 0.3s ease;
+  }
+  
+  .ro-service-item:hover .ro-service-item-icon,
+  .ro-service-item.hovered .ro-service-item-icon {
+    color: #3b82f6;
+  }
+  
+  .ro-service-item-title {
+    font-size: 1.125rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  
+  .ro-service-item-description {
+    color: #4b5563;
+  }
+  
+  /* Call to Action Styles */
+  .ro-cta-card {
+    background: linear-gradient(to right, #3b82f6, #22d3ee);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 1s ease;
+    transition-delay: 1s;
+  }
+  
+  .ro-cta-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .ro-cta-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .ro-cta-text {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .ro-cta-button {
+    background-color: white;
+    color: #2563eb;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .ro-cta-button:hover {
+    background-color: #f0f9ff;
+    transform: scale(1.05);
+  }
+  
+  /* Animation for water droplet icons on service item hover */
+  @keyframes dropletPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  .ro-service-item:hover .ro-service-item-icon,
+  .ro-service-item.hovered .ro-service-item-icon {
+    animation: dropletPulse 1.5s infinite;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .ro-hero-title {
+      font-size: 2rem;
+    }
+    
+    .ro-section-title {
+      font-size: 1.25rem;
+    }
+    
+    .ro-service-content {
+      padding-left: 1rem;
+    }
+    
+    .ro-cta-title {
+      font-size: 1.5rem;
+    }
+    
+    .ro-cta-text {
+      font-size: 1rem;
+    }
+  }

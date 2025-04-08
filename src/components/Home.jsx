@@ -38,17 +38,7 @@ const CustomCard = ({ title, image, description, altText }) => {
 };
 
 const Home = () => {
-  const cardsData = [
-    { title: 'AQUA-01', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species.', altText: 'Aqua-Img 1' },
-    { title: 'AQUA-02', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards are found in various habitats, ranging from deserts to rainforests.', altText: 'Aqua-Img 2' },
-    { title: 'AQUA-03', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Some species of lizards can change color for camouflage.', altText: 'Aqua-Img 3' },
-    { title: 'AQUA-04', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards are often insectivores, feeding on small insects and spiders.', altText: 'Aqua-Img 4' },
-    { title: 'AQUA-05', image: '/static/images/cards/contemplative-reptile.jpg', description: 'The iguana is a popular pet lizard species known for its size.', altText: 'Aqua-Img 5' },
-    { title: 'AQUA-06', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Some lizards can grow to be over 6 feet long, like the Komodo dragon.', altText: 'Aqua-Img 6' },
-    { title: 'AQUA-07', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards use their long tails for balance and defense.', altText: 'Aqua-Img 7' },
-    { title: 'AQUA-08', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Many lizards are arboreal, living in trees or shrubs.', altText: 'Aqua-Img 8' },
-    { title: 'AQUA-09', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Some lizards can run incredibly fast, like the spiny-tailed lizard.', altText: 'Aqua-Img 9' },
-  ];
+ 
 
   return (
     <div>
@@ -70,21 +60,7 @@ const Home = () => {
 
       </div>
 
-      <div className='services'>
-        <h2>Services</h2>
-        <Grid container spacing={3} justifyContent="center">
-          {cardsData.map((card, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <CustomCard
-                title={card.title}
-                image={card.image}
-                description={card.description}
-                altText={card.altText}
-              />
-            </Grid>
-          ))}
-        </Grid>
-        </div>
+      
 
       
 
