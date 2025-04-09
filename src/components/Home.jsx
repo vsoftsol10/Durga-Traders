@@ -34,10 +34,6 @@ const carouselImages = [
 ];
 
 const Home = () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> origin/main
   const sliderRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -56,8 +52,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // Animation for the image
-    gsap.fromTo(
+       gsap.fromTo(
       imageRef.current,
       { opacity: 0, x: -200 },
       {
@@ -155,7 +150,7 @@ const Home = () => {
         sparkCount={8}
         duration={400}
       >
-        {/* <Header /> */}
+       
 
         <div className="carousel-container">
           <Slider ref={sliderRef} {...settings}>
@@ -233,7 +228,7 @@ const Home = () => {
           </Box>
         </Container>
 
-        {/* 3. "Why Durga Traders" section */}
+       
         <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
           <Typography variant="h4" align="center" gutterBottom>
             Why Durga Traders
@@ -288,7 +283,7 @@ const Home = () => {
           </Box>
         </Container>
 
-        {/* 4. "Best Seller" section moved below "Why Durga" */}
+   
         <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
           <Typography variant="h4" align="center" gutterBottom>
             Best Seller
@@ -351,37 +346,102 @@ const Home = () => {
           </Box>
         </Container>
 
-        {/* 5. Hydration section */}
-        <Container maxWidth='xlg'>
-          <Box
-            display="flex"
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            alignItems="center"
-            justifyContent="space-between"
-            sx={{ padding: '20px', gap: '20px' }}
-          >
-            <Box sx={{ flex: 1, textAlign: 'center' }}>
-              <img
-                src={HydrateImg}
-                alt="Hydrate"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: '8px',
-                }}
-              />
-            </Box>
+        
+        <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', py: 6 }}>
+  <Container maxWidth="xl">
+    <Box
+      display="flex"
+      flexDirection={{ xs: 'column', md: 'row' }}
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{ 
+        padding: { xs: '30px', md: '40px' }, 
+        gap: '40px',
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        borderRadius: '16px',
+        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.05)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
+      <Box 
+        sx={{ 
+          flex: 1,
+          textAlign: 'center',
+          width: '100%'
+        }}
+      >
+        <img
+          src={HydrateImg}
+          alt="Hydrate"
+          style={{
+            width: '90%',
+            maxWidth: '500px',
+            height: 'auto',
+            borderRadius: '12px',
+            boxShadow: '0 8px 20px rgba(0, 140, 210, 0.15)'
+          }}
+        />
+      </Box>
 
-            <Box sx={{ flex: 1, textAlign: 'left' }}>
-              <Typography variant="h4" gutterBottom>
-                Hydration is Key
-              </Typography>
-              <Typography variant="body1">
-                Staying hydrated is crucial for maintaining good health. Our products are designed to help you achieve optimal hydration levels every day. Learn more about the benefits of drinking clean and purified water.
-              </Typography>
-            </Box>
-          </Box>
-        </Container>
+      <Box 
+        sx={{ 
+          flex: 1.2, 
+          textAlign: 'left',
+          zIndex: 1
+        }}
+      >
+        <Typography 
+          variant="h3" 
+          gutterBottom
+          sx={{ 
+            color: '#0277bd',
+            fontWeight: 'bold',
+            mb: 3
+          }}
+        >
+          Hydration is Key
+        </Typography>
+        <Typography 
+          variant="body1"
+          sx={{
+            fontSize: '1.1rem',
+            lineHeight: 1.8,
+            color: '#424242'
+          }}
+        >
+          Staying hydrated is crucial for maintaining good health. Our products are designed to help you achieve optimal hydration levels every day. Learn more about the benefits of drinking clean and purified water.
+        </Typography>
+      </Box>
+      
+      {/* Water effect background elements */}
+      <Box
+        sx={{
+          position: 'absolute',
+          width: '200px',
+          height: '200px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(3,169,244,0.1) 0%, rgba(3,169,244,0) 70%)',
+          bottom: '-50px',
+          right: '10%',
+          zIndex: 0
+        }}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          width: '150px',
+          height: '150px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(3,169,244,0.1) 0%, rgba(3,169,244,0) 70%)',
+          top: '-30px',
+          left: '15%',
+          zIndex: 0
+        }}
+      />
+    </Box>
+  </Container>
+</Box>
 
         {/* 6. Testimonials section moved to the bottom */}
         <Container maxWidth="lg" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
@@ -418,38 +478,6 @@ const Home = () => {
 
         {/* <Footer /> */}
       </ClickSpark>
-<<<<<<< HEAD
-=======
- 
-
-  return (
-    <div>
-      {/* <Header /> */}
-      <div style={{ width: '100%', height: '500px', position: 'relative' }}>
-        <Particles
-          particleColors={['#a1c8e8', '#1d7eb5']}
-          particleCount={200}
-          particleSpread={10}
-          speed={0.1}
-          particleBaseSize={200}
-          moveParticlesOnHover={true}
-          alphaParticles={false}
-          disableRotation={false}
-        />
-      </div>
-
-      <div className='banner'>
-
-      </div>
-
-      
-
-      
-
-      {/* <Footer /> */}
->>>>>>> origin/main
-=======
->>>>>>> origin/main
     </div>
   );
 };
