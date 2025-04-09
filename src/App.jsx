@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import './App.css'
-import CommercialProducts from './components/CommercialProducts'
-// import AboutUs from './pages/aboutUs'
+import AboutUs from './pages/aboutUs'
 import Home from './components/Home'
 import Header from './components/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -19,6 +18,8 @@ import STPServices from './pages/Services/STPServices'
 import ETPServices from './pages/Services/ETPServices'
 import DispenserService from './pages/Services/DispenserService'
 
+import CommercialProducts from './components/CommercialProducts'
+// import Home from './components/Home'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -40,8 +41,11 @@ function App() {
         <Route path='/services/stp-services' element={<STPServices/>} />
         <Route path='/services/etp-services' element={<ETPServices/>} />
         <Route path='/services/dispenser-services' element={<DispenserService/> } />
+        <Route path='/commercial-products' element={<CommercialProducts/>} />
       </Routes>
       <Footer/>
+      {/* <Home /> */}
+      {/* <CommercialProducts/> */}
     </>
   );
 

@@ -35,6 +35,9 @@ const carouselImages = [
 
 const Home = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/main
   const sliderRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -152,7 +155,7 @@ const Home = () => {
         sparkCount={8}
         duration={400}
       >
-        <Header />
+        {/* <Header /> */}
 
         <div className="carousel-container">
           <Slider ref={sliderRef} {...settings}>
@@ -413,8 +416,9 @@ const Home = () => {
           </Box>
         </Container>
 
-        <Footer />
+        {/* <Footer /> */}
       </ClickSpark>
+<<<<<<< HEAD
 =======
  
 
@@ -443,6 +447,8 @@ const Home = () => {
       
 
       {/* <Footer /> */}
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
     </div>
   );

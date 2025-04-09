@@ -69,7 +69,7 @@ const CommercialProducts = () => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <Container sx={{ minHeight: '300px' }}>
         <Box sx={{ textAlign: 'center', mb: 2 }}>
           <Typography variant="h3" sx={{ fontWeight: 'bold' }}>
@@ -151,7 +151,7 @@ const CommercialProducts = () => {
           </Grid>
         </Box>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
