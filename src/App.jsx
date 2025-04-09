@@ -18,6 +18,8 @@ import STPServices from './pages/Services/STPServices'
 import ETPServices from './pages/Services/ETPServices'
 import DispenserService from './pages/Services/DispenserService'
 
+import CommercialProducts from './components/CommercialProducts'
+// import Home from './components/Home'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -39,8 +41,11 @@ function App() {
         <Route path='/services/stp-services' element={<STPServices/>} />
         <Route path='/services/etp-services' element={<ETPServices/>} />
         <Route path='/services/dispenser-services' element={<DispenserService/> } />
+        <Route path='/commercial-products' element={<CommercialProducts/>} />
       </Routes>
       <Footer/>
+      {/* <Home /> */}
+      {/* <CommercialProducts/> */}
     </>
   );
 
