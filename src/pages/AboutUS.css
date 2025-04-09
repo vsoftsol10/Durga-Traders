@@ -1,0 +1,197 @@
+.about-container {
+    width: 100%; /* Changed from 120% to remove extra space */
+    min-height: 100vh;
+    margin: 0;
+    padding: 3rem 2rem;
+    background-color: #f8fdff;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Home button styles */
+  .home-button {
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Changed from 0px to give some spacing from edge */
+    background-color: #0056a3;
+    color: rgb(255, 255, 255);
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  .home-button:hover {
+    background-color: #00c6ff;
+    box-shadow: 0 4px 8px rgba(0, 86, 163, 0.2);
+  }
+  
+  /* Water droplet decorations */
+  .water-droplet {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at 30% 70%, #ffffff 0%, #00c6ff 100%);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0.7;
+  }
+  
+  .top-left {
+    top: 100px; /* Increased from 60px to avoid overlap with home button */
+    left: 30px;
+    transform: rotate(135deg);
+    animation: floatTopLeft 4s ease-in-out infinite;
+  }
+  
+  .top-right {
+    top: 30px;
+    right: 60px;
+    transform: rotate(225deg);
+    animation: floatTopRight 5s ease-in-out infinite;
+  }
+  
+  .bottom-left {
+    bottom: 40px;
+    left: 60px;
+    transform: rotate(45deg);
+    animation: floatBottomLeft 4.5s ease-in-out infinite;
+  }
+  
+  .bottom-right {
+    bottom: 60px;
+    right: 40px;
+    transform: rotate(315deg);
+    animation: floatBottomRight 3.5s ease-in-out infinite;
+  }
+  
+  @keyframes floatTopLeft {
+    0% { transform: rotate(315deg) translateY(0); }
+    50% { transform: rotate(315deg) translateY(-10px); }
+    100% { transform: rotate(315deg) translateY(0); }
+  }
+  
+  @keyframes floatTopRight {
+    0% { transform: rotate(225deg) translateY(0); }
+    50% { transform: rotate(225deg) translateY(-10px); }
+    100% { transform: rotate(225deg) translateY(0); }
+  }
+  
+  @keyframes floatBottomLeft {
+    0% { transform: rotate(45deg) translateX(0); }
+    50% { transform: rotate(45deg) translateX(10px); }
+    100% { transform: rotate(45deg) translateX(0); }
+  }
+  
+  @keyframes floatBottomRight {
+    0% { transform: rotate(315deg) translateX(0); }
+    50% { transform: rotate(315deg) translateX(-10px); }
+    100% { transform: rotate(315deg) translateX(0); }
+  }
+  
+  .about-title {
+    color: #0056a3;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  .about-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #0056a3, #00c6ff);
+  }
+  
+  .about-subtitle {
+    color: #0056a3;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+    text-align: center;
+  }
+  
+  .about-description {
+    color: #444;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .about-description::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #00c6ff;
+  }
+  
+  /* Highlight special feature sections */
+  .feature-highlight {
+    background-color: rgba(0, 198, 255, 0.1);
+    border-left: 4px solid #00c6ff;
+    padding: 1rem;
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  /* Add a subtle water-themed background pattern */
+  .about-container {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230077be' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .about-title {
+      font-size: 2rem;
+    }
+    
+    .about-subtitle {
+      font-size: 1.5rem;
+    }
+    
+    .about-description {
+      font-size: 1rem;
+    }
+    
+    .water-droplet {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .home-button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Make sure body and html have no margin/padding for full-screen effect */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  /* Additional fullscreen fixes */
+  #root {
+    height: 100%;
+    width: 100%;
+  }

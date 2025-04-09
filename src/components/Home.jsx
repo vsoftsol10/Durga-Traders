@@ -34,6 +34,7 @@ const carouselImages = [
 ];
 
 const Home = () => {
+<<<<<<< HEAD
   const sliderRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -414,6 +415,35 @@ const Home = () => {
 
         <Footer />
       </ClickSpark>
+=======
+ 
+
+  return (
+    <div>
+      {/* <Header /> */}
+      <div style={{ width: '100%', height: '500px', position: 'relative' }}>
+        <Particles
+          particleColors={['#a1c8e8', '#1d7eb5']}
+          particleCount={200}
+          particleSpread={10}
+          speed={0.1}
+          particleBaseSize={200}
+          moveParticlesOnHover={true}
+          alphaParticles={false}
+          disableRotation={false}
+        />
+      </div>
+
+      <div className='banner'>
+
+      </div>
+
+      
+
+      
+
+      {/* <Footer /> */}
+>>>>>>> origin/main
     </div>
   );
 };
