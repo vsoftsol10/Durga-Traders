@@ -1,12 +1,14 @@
 import './App.css'
-import Home from './components/Home'
+import CommercialProducts from './components/CommercialProducts'
+// import Home from './components/Home'
 
 function App() {
 
 
   return (
     <>
-      <Home />
+      {/* <Home /> */}
+      <CommercialProducts/>
     </>
   )
 }

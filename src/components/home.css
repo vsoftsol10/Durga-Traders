@@ -3,24 +3,3 @@
     margin: 0px;
     box-sizing: border-box;
 }
-
-.about {
-    display: flex;
-    justify-content: space-between; /* Aligns the text on the left and the image on the right */
-    align-items: center; /* Vertically aligns the content */
-    gap: 20px; /* Adds space between the content and the image */
-  }
-  
-  .abtUs {
-    width: 60%; /* Ensures the text occupies 60% of the space */
-  }
-  
-  .abtUsImg {
-    width: 35%; /* Ensures the image occupies 35% of the space */
-  }
-  
-  .abtUsImg img {
-    width: 100%; /* Makes the image take full width of its container */
-    height: auto; /* Maintains aspect ratio */
-  }
-  

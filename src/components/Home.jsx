@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import gsap from 'gsap';
 import './home.css';
+import ClickSpark from './ClickSpark/ClickSpark';
 import Header from './Header';
 import Footer from './Footer';
-import Dtaqua from '../assets/DT-AQUATOUCH.png';
-import Particles from './Particles/Particles';
+import AquaImg from '../assets/about-1.png';
+import HydrateImg from '../assets/Hydrateman.png';
+import AFT from '../assets/Advance Filtration.png';
+import CHS from '../assets/Commitment 001.png';
+import Sustain from '../assets/Sustainability.png';
+import CustSats from '../assets/Customer.png';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,9 +17,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { Box } from '@mui/material';  // Added Box for alignment
-import Rating from '@mui/material/Rating';  // Added Rating for star rating
+import { Box } from '@mui/material';
+
 
 const CustomCard = ({ title, image, description, altText }) => {
   return (
@@ -35,137 +40,358 @@ const CustomCard = ({ title, image, description, altText }) => {
 };
 
 const Home = () => {
-  const cardsData = [
-    { title: 'AQUA-01', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species.', altText: 'Aqua-Img 1' },
-    { title: 'AQUA-02', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards are found in various habitats, ranging from deserts to rainforests.', altText: 'Aqua-Img 2' },
-    { title: 'AQUA-03', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Some species of lizards can change color for camouflage.', altText: 'Aqua-Img 3' },
-    { title: 'AQUA-04', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards are often insectivores, feeding on small insects and spiders.', altText: 'Aqua-Img 4' },
-    { title: 'AQUA-05', image: '/static/images/cards/contemplative-reptile.jpg', description: 'The iguana is a popular pet lizard species known for its size.', altText: 'Aqua-Img 5' },
-    { title: 'AQUA-06', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Some lizards can grow to be over 6 feet long, like the Komodo dragon.', altText: 'Aqua-Img 6' },
-    { title: 'AQUA-07', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Lizards use their long tails for balance and defense.', altText: 'Aqua-Img 7' },
-    { title: 'AQUA-08', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Many lizards are arboreal, living in trees or shrubs.', altText: 'Aqua-Img 8' },
-    { title: 'AQUA-09', image: '/static/images/cards/contemplative-reptile.jpg', description: 'Some lizards can run incredibly fast, like the spiny-tailed lizard.', altText: 'Aqua-Img 9' },
-  ];
+
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+   
+    gsap.fromTo(
+      imageRef.current,  
+      { opacity: 0, x: -200 }, 
+      {
+        opacity: 1, 
+        x: 0,  
+        duration: 1, 
+        ease: 'power3.out', 
+      }
+    );
+  }, []);
 
   const services = [
-    { title: 'Wide Service Network', alt: 'ServiceImg1', image: '/path/to/image1.jpg' },
-    { title: 'Easy Returns', alt: 'ServiceImg2', image: '/path/to/image2.jpg' },
-    { title: 'Guarantee', alt: 'ServiceImg3', image: '/path/to/image3.jpg' },
-    { title: 'Free 1 Year Warranty', alt: 'ServiceImg4', image: '/path/to/image4.jpg' },
+    {
+      image: AFT,
+      title: 'Advanced Filtration Technology',
+      description: 'Our systems use the latest filtration technologies to ensure your water is purified to the highest standards',
+    },
+    {
+      image: CHS,
+      title: 'Commitment to Health and Safety',
+      description: 'We understand the importance of clean water for your health. Our products are rigorously tested to meet the highest safety standards.',
+    },
+    {
+      image: Sustain,
+      title: 'Sustainability',
+      description: 'We are not just about providing clean water, but also protecting our planet. Our eco-friendly filtration systems help reduce environmental impact by eliminating the need for bottled water, reducing plastic waste, and promoting long-term sustainable water solutions.',
+    },
+    {
+      image: CustSats,
+      title: 'Customer Satisfaction',
+      description: 'Your satisfaction is our top priority. We offer personalized customer support and services to ensure you are always happy with your water filter system.',
+    },
   ];
+
+  const products = [
+    {
+      title: 'DT-ROMA',
+      modelName: 'WP-1000',
+      description: 'An advanced water purifier with multi-stage filtration.',
+      image: '/path/to/product1.jpg',
+      alt: 'product1',
+    },
+    {
+      title: 'Water Purifier 2',
+      modelName: 'WP-2000',
+      description: 'A high-performance purifier for large families.',
+      image: '/path/to/product2.jpg',
+      alt: 'product2',
+    },
+    {
+      title: 'Water Purifier 3',
+      modelName: 'WP-3000',
+      description: 'Compact and efficient purifier for apartments.',
+      image: '/path/to/product3.jpg',
+      alt: 'product3',
+    },
+    {
+      title: 'Water Purifier 4',
+      modelName: 'WP-4000',
+      description: 'A premium purifier with state-of-the-art technology.',
+      image: '/path/to/product4.jpg',
+      alt: 'product4',
+    },
+  ]
 
   const testimonials = [
     {
       name: 'Nirmal',
       location: 'Chennai',
       feedback: 'It removed all the bad taste and odor from our tap water. It’s refreshing to drink now!',
-      rating: 4,
     },
     {
       name: 'Vijay Kumar',
       location: 'Coimbatore',
       feedback: 'We use this RO system in our factory where we need large quantities of purified water for our production lines. It’s been running smoothly for over a year without any major issues.',
-      rating: 5,
     },
     {
       name: 'Ajmal',
       location: 'Madurai',
       feedback: 'We installed this RO system in our restaurant, and the difference in water quality is incredible. We no longer have issues with the taste of our drinks and coffee. It’s pure, crisp water.',
-      rating: 3,
     },
   ];
 
   return (
     <div>
-      <Header />
-      <div style={{ width: '100%', height: '500px', position: 'relative' }}>
-        <Particles
-          particleColors={['#a1c8e8', '#1d7eb5']}
-          particleCount={200}
-          particleSpread={10}
-          speed={0.1}
-          particleBaseSize={200}
-          moveParticlesOnHover={true}
-          alphaParticles={false}
-          disableRotation={false}
-        />
-      </div>
+      <ClickSpark
+        sparkColor='#fff'
+        sparkSize={10}
+        sparkRadius={15}
+        sparkCount={8}
+        duration={400}
+      >
+        <Header />
 
-      <div className="banner" style={{ height: '250px', backgroundColor: '#f0f0f0' }}>
-        <Typography variant="h4" align="center" style={{ paddingTop: '100px' }}>
-          {/* Add banner content here if needed */}
-        </Typography>
-      </div>
+        <div className="banner" style={{ height: '250px', backgroundColor: '#f0f0f0' }}>
+          <Typography variant="h4" align="center" style={{ paddingTop: '100px' }}>
 
-      <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Our Services
-        </Typography>
-        <Grid container spacing={3} justifyContent="center">
-          {cardsData.map((card, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <CustomCard
-                title={card.title}
-                image={card.image}
-                description={card.description}
-                altText={card.altText}
+          </Typography>
+        </div>
+
+        <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', sm: 'row' }}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Box
+              sx={{
+                width: { xs: '80%', sm: '40%' },
+                marginBottom: { xs: '20px', sm: '0' },
+              }}
+              display="flex"
+              justifyContent="center"
+            >
+              {/* Use ref to target this image for GSAP animation */}
+              <img
+                src={AquaImg}
+                alt="water"
+                ref={imageRef}  // Attach ref to this image element
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '8px',
+                }}
               />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+            </Box>
 
-      <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Quality Service
-        </Typography>
-        <Grid container spacing={3} justifyContent="center">
-          {services.map((service, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <div style={{ textAlign: 'center' }}>
-                <img
-                  src={service.image}
-                  alt={service.alt}
-                  style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
-                />
-                <Typography variant="h6" style={{ marginTop: '20px' }}>
-                  {service.title}
-                </Typography>
-              </div>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+            <Box
+              sx={{
+                width: { xs: '100%', sm: '60%' },
+                paddingLeft: { sm: '20px' },
+              }}
+              textAlign="center"
+            >
+              <Typography variant="h3" align="center">
+                Your Trusted Partner for<br /> Clean and Safe Water
+              </Typography>
+              <Typography variant="body1" align="center" sx={{ marginTop: '20px' }}>
+                Water is vital for the survival of every living creature, not just humans. Regular intake of clean, pure water is crucial for maintaining good health. When choosing water, it's important to ensure it meets natural pH balance standards and tastes refreshing. Without these qualities, your health could be at risk in the near future.
+              </Typography>
+              <Box display="flex" justifyContent="center" sx={{ marginTop: '20px' }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: '#00bcd4',
+                    color: 'white',
+                    padding: '10px 20px',
+                    '&:hover': {
+                      backgroundColor: '#008c99',
+                    },
+                  }}
+                >
+                  Know More
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        </Container>
 
-      <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Testimonial
-        </Typography>
-        <Grid container spacing={4} justifyContent="center">
-          {testimonials.map((testimonial, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card sx={{ maxWidth: 345, height: '100%' }}> {/* Ensuring equal card height */}
-                <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
-                  <Typography variant="h6" gutterBottom>
-                    {testimonial.name} - {testimonial.location}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    {testimonial.feedback}
-                  </Typography>
-                  <Box display="flex" alignItems="center">
-                    <Rating name={`rating-${index}`} value={testimonial.rating} precision={0.5} readOnly />
-                    <Typography variant="body2" sx={{ marginLeft: 1 }}>
-                      {testimonial.rating} / 5
+        <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Best Seller
+          </Typography>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            {products.map((product, index) => (
+              <Box
+                key={index}
+                sx={{
+                  width: { xs: '100%', sm: '45%', md: '22%' },
+                  padding: '10px',
+                  textAlign: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <Card
+                  sx={{
+                    height: '350px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'transform 0.3s ease, background-color 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      backgroundColor: '#f5f5f5',
+                    },
+                  }}
+                >
+
+                  <CardContent sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+                    <img
+                      src={product.image}
+                      alt={product.alt}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        borderRadius: '8px',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </CardContent>
+
+
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                      {product.title}
                     </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+                    <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
+                      {products.modelName}
+                    </Typography>
+                    <Typography sx={{ marginBottom: '10px' }} paragraph>
+                      {product.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions sx={{ justifyContent: 'center' }}>
+                    <Button size="small" variant="contained" color="primary">
+                      Buy Now
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Box>
+            ))}
+          </Box>
+        </Container>
 
-      <Footer />
+        <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Why Durga Traders
+          </Typography>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            {services.map((service, index) => (
+              <Box
+                key={index}
+                sx={{
+                  width: { xs: '100%', sm: '45%', md: '22%' },
+                  padding: '10px',
+                  textAlign: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <Card
+                  sx={{
+                    height: '389px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'transform 0.3s ease, background-color 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      backgroundColor: '#f5f5f5',
+                    },
+                  }}
+                >
+
+                  <CardContent sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      style={{
+                        width: '50%',
+                        height: 'auto',
+                        borderRadius: '8px',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </CardContent>
+
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                      {service.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
+                      {service.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+
+        <Container maxWidth='xlg'>
+          <Box
+            display="flex"
+            flexDirection={{ xs: 'column', sm: 'row' }}
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ padding: '20px', gap: '20px' }}
+          >
+
+            <Box sx={{ flex: 1, textAlign: 'center' }}>
+              <img
+                src={HydrateImg}
+                alt="Hydrate"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '8px',
+                }}
+              />
+            </Box>
+
+
+            <Box sx={{ flex: 1, textAlign: 'left' }}>
+              <Typography variant="h4" gutterBottom>
+                Hydration is Key
+              </Typography>
+              <Typography variant="body1">
+                Staying hydrated is crucial for maintaining good health. Our products are designed to help you achieve optimal hydration levels every day. Learn more about the benefits of drinking clean and purified water.
+              </Typography>
+            </Box>
+          </Box>
+        </Container>
+
+        <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Testimonials
+          </Typography>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            {testimonials.map((testimonial, index) => (
+              <Box
+                key={index}
+                sx={{
+                  width: { xs: '100%', sm: '45%', md: '30%' },
+                  padding: '10px',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Card sx={{ height: '100%' }}>
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                      {testimonial.name} - {testimonial.location}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" paragraph>
+                      {testimonial.feedback}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+
+        <Footer />
+      </ClickSpark>
     </div>
   );
 };
