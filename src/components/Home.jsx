@@ -2,8 +2,14 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './home.css';
 import ClickSpark from './ClickSpark/ClickSpark';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import Header from './Header';
 import Footer from './Footer';
+import HomeOne from '../assets/Durga home page5.gif';
+import HomeTwo from '../assets/Durga home page6.gif';
+import HomeThree from '../assets/Durga home page7.gif';
 import AquaImg from '../assets/about-1.png';
 import HydrateImg from '../assets/Hydrateman.png';
 import AFT from '../assets/Advance Filtration.png';
@@ -20,41 +26,48 @@ import { Container } from '@mui/material';
 import { Box } from '@mui/material';
 
 
-const CustomCard = ({ title, image, description, altText }) => {
-  return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" alt={altText} height="140" image={image} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Read More</Button>
-      </CardActions>
-    </Card>
-  );
-};
+// Fixed images array for carousel
+const carouselImages = [
+  HomeOne,
+  HomeTwo,
+  HomeThree
+];
 
 const Home = () => {
-
+  const sliderRef = useRef(null);
   const imageRef = useRef(null);
 
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+    arrows: true,
+    className: "center"
+  };
+
   useEffect(() => {
-   
+    // Animation for the image
     gsap.fromTo(
-      imageRef.current,  
-      { opacity: 0, x: -200 }, 
+      imageRef.current,
+      { opacity: 0, x: -200 },
       {
-        opacity: 1, 
-        x: 0,  
-        duration: 1, 
-        ease: 'power3.out', 
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power3.out',
       }
     );
+
+
+    if (sliderRef.current) {
+      sliderRef.current.slickPlay();
+    }
   }, []);
 
   const services = [
@@ -109,30 +122,30 @@ const Home = () => {
       image: '/path/to/product4.jpg',
       alt: 'product4',
     },
-  ]
+  ];
 
   const testimonials = [
     {
       name: 'Nirmal',
       location: 'Chennai',
-      feedback: 'It removed all the bad taste and odor from our tap water. It’s refreshing to drink now!',
+      feedback: 'It removed all the bad taste and odor from our tap water. Its refreshing to drink now!',
     },
     {
       name: 'Vijay Kumar',
       location: 'Coimbatore',
-      feedback: 'We use this RO system in our factory where we need large quantities of purified water for our production lines. It’s been running smoothly for over a year without any major issues.',
+      feedback: 'We use this RO system in our factory where we need large quantities of purified water for our production lines. Its been running smoothly for over a year without any major issues.',
     },
     {
       name: 'Ajmal',
       location: 'Madurai',
-      feedback: 'We installed this RO system in our restaurant, and the difference in water quality is incredible. We no longer have issues with the taste of our drinks and coffee. It’s pure, crisp water.',
+      feedback: 'We installed this RO system in our restaurant, and the difference in water quality is incredible. We no longer have issues with the taste of our drinks and coffee. Its pure, crisp water.',
     },
   ];
 
   return (
     <div>
       <ClickSpark
-        sparkColor='#fff'
+        sparkColor="#fff"
         sparkSize={10}
         sparkRadius={15}
         sparkCount={8}
@@ -140,10 +153,21 @@ const Home = () => {
       >
         <Header />
 
-        <div className="banner" style={{ height: '250px', backgroundColor: '#f0f0f0' }}>
-          <Typography variant="h4" align="center" style={{ paddingTop: '100px' }}>
-
-          </Typography>
+        <div className="carousel-container">
+          <Slider ref={sliderRef} {...settings}>
+            {carouselImages.map((image, index) => (
+              <div key={index} className="carousel-slide">
+                <img
+                  src={image}
+                  alt={`Durga Water Purifier Slide ${index + 1}`}
+                  style={{
+                    width: '100%',
+                    objectFit: 'fill',
+                  }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
 
         <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
@@ -161,11 +185,10 @@ const Home = () => {
               display="flex"
               justifyContent="center"
             >
-              {/* Use ref to target this image for GSAP animation */}
               <img
                 src={AquaImg}
                 alt="water"
-                ref={imageRef}  // Attach ref to this image element
+                ref={imageRef}
                 style={{
                   width: '100%',
                   height: 'auto',
@@ -206,70 +229,7 @@ const Home = () => {
           </Box>
         </Container>
 
-        <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
-          <Typography variant="h4" align="center" gutterBottom>
-            Best Seller
-          </Typography>
-          <Box display="flex" flexWrap="wrap" justifyContent="center">
-            {products.map((product, index) => (
-              <Box
-                key={index}
-                sx={{
-                  width: { xs: '100%', sm: '45%', md: '22%' },
-                  padding: '10px',
-                  textAlign: 'center',
-                  marginBottom: '20px',
-                }}
-              >
-                <Card
-                  sx={{
-                    height: '350px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'transform 0.3s ease, background-color 0.3s ease',
-                    '&:hover': {
-                      transform: 'scale(1.05)',
-                      backgroundColor: '#f5f5f5',
-                    },
-                  }}
-                >
-
-                  <CardContent sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={product.image}
-                      alt={product.alt}
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        borderRadius: '8px',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </CardContent>
-
-
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
-                      {product.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
-                      {products.modelName}
-                    </Typography>
-                    <Typography sx={{ marginBottom: '10px' }} paragraph>
-                      {product.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions sx={{ justifyContent: 'center' }}>
-                    <Button size="small" variant="contained" color="primary">
-                      Buy Now
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Box>
-            ))}
-          </Box>
-        </Container>
-
+        {/* 3. "Why Durga Traders" section */}
         <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
           <Typography variant="h4" align="center" gutterBottom>
             Why Durga Traders
@@ -297,7 +257,6 @@ const Home = () => {
                     },
                   }}
                 >
-
                   <CardContent sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
                     <img
                       src={service.image}
@@ -325,6 +284,70 @@ const Home = () => {
           </Box>
         </Container>
 
+        {/* 4. "Best Seller" section moved below "Why Durga" */}
+        <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Best Seller
+          </Typography>
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            {products.map((product, index) => (
+              <Box
+                key={index}
+                sx={{
+                  width: { xs: '100%', sm: '45%', md: '22%' },
+                  padding: '10px',
+                  textAlign: 'center',
+                  marginBottom: '20px',
+                }}
+              >
+                <Card
+                  sx={{
+                    height: '350px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'transform 0.3s ease, background-color 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      backgroundColor: '#f5f5f5',
+                    },
+                  }}
+                >
+                  <CardContent sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+                    <img
+                      src={product.image}
+                      alt={product.alt}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        borderRadius: '8px',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </CardContent>
+
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                      {product.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
+                      {product.modelName}
+                    </Typography>
+                    <Typography sx={{ marginBottom: '10px' }} paragraph>
+                      {product.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions sx={{ justifyContent: 'center' }}>
+                    <Button size="small" variant="contained" color="primary">
+                      Buy Now
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+
+        {/* 5. Hydration section */}
         <Container maxWidth='xlg'>
           <Box
             display="flex"
@@ -333,7 +356,6 @@ const Home = () => {
             justifyContent="space-between"
             sx={{ padding: '20px', gap: '20px' }}
           >
-
             <Box sx={{ flex: 1, textAlign: 'center' }}>
               <img
                 src={HydrateImg}
@@ -346,7 +368,6 @@ const Home = () => {
               />
             </Box>
 
-
             <Box sx={{ flex: 1, textAlign: 'left' }}>
               <Typography variant="h4" gutterBottom>
                 Hydration is Key
@@ -358,7 +379,8 @@ const Home = () => {
           </Box>
         </Container>
 
-        <Container maxWidth="lg" style={{ paddingTop: '40px' }}>
+        {/* 6. Testimonials section moved to the bottom */}
+        <Container maxWidth="lg" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
           <Typography variant="h4" align="center" gutterBottom>
             Testimonials
           </Typography>

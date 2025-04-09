@@ -1,5 +1,47 @@
+
 *{
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
 }
+
+/* .carousel-container{
+    min-height: 90vh;
+    max-width: 1000%;
+    width: 1700px;
+    
+} */
+
+
+.carousel-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .slick-list {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+  
+  .slick-slide {
+    width: 100%;
+    margin-right: 0;
+  }
+  
+  .slick-slide img {
+    width: 100%;
+    /* height: 100%; */
+    object-fit: fill;
+  }
+  
+  .slick-prev, .slick-next {
+    z-index: 1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .carousel-container {
+      padding: 0 10px;
+    }
+  }

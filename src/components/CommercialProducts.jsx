@@ -1,12 +1,13 @@
 import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import './CommercialProduct.css';
-import ROimg from '../assets/RO-bck.png';
-import ClickSpark from './ClickSpark/ClickSpark';
+import RoImg from '../assets/RObck.jpg';
+
 
 const CommercialProducts = () => {
+
   const breadcrumbs = [
     <Link href="/" underline="hover" color="inherit" key="home">
       Home
@@ -18,49 +19,49 @@ const CommercialProducts = () => {
     {
       id: 1,
       image: '/path/to/product1.jpg',
-      title: 'DT-250 AUTO',
+      title: 'Product 1',
       price: '$99.99',
       description: 'Description for product 1'
     },
     {
       id: 2,
       image: '/path/to/product2.jpg',
-      title: 'DT-500 AUTO',
+      title: 'Product 2',
       price: '$149.99',
       description: 'Description for product 2'
     },
     {
       id: 3,
       image: '/path/to/product3.jpg',
-      title: 'DT-1000 AUTO',
+      title: 'Product 3',
       price: '$199.99',
       description: 'Description for product 3'
     },
     {
       id: 4,
       image: '/path/to/product4.jpg',
-      title: 'DT-3000 AUTO',
+      title: 'Product 4',
       price: '$249.99',
       description: 'Description for product 4'
     },
     {
       id: 5,
       image: '/path/to/product5.jpg',
-      title: 'DT-5000 AUTO',
+      title: 'Product 5',
       price: '$299.99',
       description: 'Description for product 5'
     },
     {
       id: 6,
       image: '/path/to/product6.jpg',
-      title: 'DT-100 CLOSED',
+      title: 'Product 6',
       price: '$349.99',
       description: 'Description for product 6'
     },
     {
       id: 7,
       image: '/path/to/product7.jpg',
-      title: 'DT-100 OPEN',
+      title: 'Product 7',
       price: '$399.99',
       description: 'Description for product 7'
     }
@@ -68,13 +69,6 @@ const CommercialProducts = () => {
 
   return (
     <div>
-      <ClickSpark
-        sparkColor='#fff'
-        sparkSize={10}
-        sparkRadius={15}
-        sparkCount={8}
-        duration={400}
-      >
       <Header />
       <Container sx={{ minHeight: '300px' }}>
         <Box sx={{ textAlign: 'center', mb: 2 }}>
@@ -89,7 +83,7 @@ const CommercialProducts = () => {
         </Box>
       </Container>
 
-      <Container maxWidth='xlg' sx={{ height: '300px' }}>
+      <Container maxWidth='xlg' sx={{ height: '450px' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
           <Box sx={{ flex: 1, pr: 2 }}>
             <Typography variant="h4">
@@ -100,9 +94,9 @@ const CommercialProducts = () => {
               Our RO systems are the best solution for households, offices, and businesses that need a reliable and efficient water purification system.
             </Typography>
           </Box>
-          <Box sx={{ flex: 1 }}>
-            {/* <img
-              src={ROimg}
+          <Box sx={{ flex: 1 }}  className="image-content">
+            <img
+              src={RoImg}
               alt="RO Water Purification System"
               style={{
                 width: '50%',
@@ -110,7 +104,7 @@ const CommercialProducts = () => {
                 borderRadius: '80px',
                 objectFit: 'cover'
               }}
-            /> */}
+            />
           </Box>
         </Box>
       </Container>
@@ -158,7 +152,6 @@ const CommercialProducts = () => {
         </Box>
       </Container>
       <Footer />
-      </ClickSpark>
     </div>
   );
 };
