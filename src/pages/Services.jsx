@@ -14,7 +14,14 @@ import { keyframes } from '@mui/system';
 
 // Import images
 import reverseOsmosisImg from "../assets/service/Reverse-Osmosis.png";
-
+import SeaWater from "../assets/service/SeaWater-Desalination.png";
+import surfaceWater from "../assets/service/Surface-Water-Treatment.png";
+import waterSoftening from "../assets/service/Water-Softening-System.png";
+import ironRemoval from "../assets/service/Iron-Removal.png"
+import dmPlant from "../assets/service/DM-Plant.png" 
+import stp from "../assets/service/STP-Services.png"
+import etp from "../assets/service/ETP-Services.webp"
+import dispenser from "../assets/service/Dispenser-Services.png"
 // Animation keyframes
 const dropAnimation = keyframes`
   0% { transform: translateY(-20px); opacity: 0 }
@@ -132,56 +139,56 @@ const Services = () => {
       title: 'SeaWater Desalination', 
       description: 'Converting seawater into fresh, potable water through specialized high-efficiency systems.',
       color: 'teal',
-      image: reverseOsmosisImg,
+      image: SeaWater,
       path: '/services/seawater-desalination'
     },
     { 
       title: 'Surface Water Treatment', 
       description: 'Transforming river and lake water into safe, crystal-clear water for drinking and irrigation.',
       color: 'cyan',
-      image: reverseOsmosisImg,
+      image: surfaceWater,
       path: '/services/surface-water-treatment'
     },
     { 
       title: 'Water Softening System', 
       description: 'Removing hardness minerals for softer water thats gentler on skin, clothes, and appliances.',
       color: 'lightblue',
-      image: reverseOsmosisImg,
+      image: waterSoftening,
       path: '/services/water-softening'
     },
     { 
       title: 'Iron Removal', 
       description: 'Eliminating iron and related impurities to prevent staining and preserve appliance life.',
       color: 'orange',
-      image: reverseOsmosisImg,
+      image: ironRemoval,
       path: '/services/iron-removal'
     },
     { 
       title: 'DM Plant', 
       description: 'Industrial-grade demineralization for ultra-pure water essential for specialized applications.',
       color: 'indigo',
-      image: reverseOsmosisImg,
+      image: dmPlant,
       path: '/services/dm-plant'
     },
     { 
       title: 'STP Services', 
       description: 'Comprehensive sewage treatment solutions meeting environmental standards for discharge or reuse.',
       color: 'green',
-      image: reverseOsmosisImg,
+      image: stp,
       path: '/services/stp-services'
     },
     { 
       title: 'ETP Services', 
       description: 'Advanced effluent treatment removing industrial contaminants for environmentally safe discharge.',
       color: 'emerald',
-      image: reverseOsmosisImg,
+      image: etp,
       path: '/services/etp-services'
     },
     { 
       title: 'Dispenser Services', 
       description: 'Premium water dispensers for instant access to purified water in residential and commercial settings.',
       color: 'sky',
-      image: reverseOsmosisImg,
+      image: dispenser,
       path: '/services/dispenser-services'
     },
   ];

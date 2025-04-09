@@ -12,6 +12,11 @@ import ReverseOsmosis from './pages/Services/ReverseOsmosis'
 import SeaWater from './pages/Services/SeaWater'
 import SurfaceWaterTreatement from './pages/Services/SurfaceWaterTreatement'
 import WaterSoftening from './pages/Services/WaterSoftening'
+import IronRemoval from './pages/Services/IronRemoval'
+import DMPlant from './pages/Services/DMPlant'
+import STPServices from './pages/Services/STPServices'
+import ETPServices from './pages/Services/ETPServices'
+import DispenserService from './pages/Services/DispenserService'
 
 
 function App() {
@@ -29,6 +34,11 @@ function App() {
         <Route path='/services/seawater-desalination' element={<SeaWater/>} />
         <Route path='/services/surface-water-treatment' element={<SurfaceWaterTreatement/>} />
         <Route path='/services/water-softening' element={<WaterSoftening/>} />
+        <Route path='/services/iron-removal' element={<IronRemoval/> } />
+        <Route path='/services/dm-plant'  element={<DMPlant/>}/>
+        <Route path='/services/stp-services' element={<STPServices/>} />
+        <Route path='/services/etp-services' element={<ETPServices/>} />
+        <Route path='/services/dispenser-services' element={<DispenserService/> } />
       </Routes>
       <Footer/>
     </>
