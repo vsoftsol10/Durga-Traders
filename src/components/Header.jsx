@@ -55,12 +55,14 @@ function Navbar() {
   return (
     <header>
       <h2 className="logo">
+        <a href="/">
         <span className="logo-text">Durga</span>
         <span className="logo-accent">Traders</span>
+        </a>
       </h2>
       <nav ref={navRef}>
         <a 
-          href="/#" 
+          href="/" 
           className={`nav-link ${activeLink === "home" ? "active" : ""}`}
           onMouseEnter={() => handleMouseEnter("home")}
           onMouseLeave={handleMouseLeave}

@@ -19,6 +19,7 @@ import ETPServices from './pages/Services/ETPServices'
 import DispenserService from './pages/Services/DispenserService'
 
 import CommercialProducts from './components/CommercialProducts'
+import ProductPage from './pages/Products/ProductPage'
 // import Home from './components/Home'
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path='/services/etp-services' element={<ETPServices/>} />
         <Route path='/services/dispenser-services' element={<DispenserService/> } />
         <Route path='/commercial-products' element={<CommercialProducts/>} />
+        <Route path='/personal-products' element={<ProductPage/>} />
       </Routes>
       <Footer/>
       {/* <Home /> */}

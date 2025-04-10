@@ -219,6 +219,7 @@ const Home = () => {
                     padding: '10px 20px',
                     '&:hover': {
                       backgroundColor: '#008c99',
+                      boxShadow: '0 4px 8px rgba(50, 175, 197, 0.49)'
                     },
                   }}
                 >

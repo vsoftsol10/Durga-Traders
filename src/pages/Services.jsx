@@ -375,7 +375,7 @@ const Services = () => {
             variant="contained" 
             size="large"
             component={RouterLink}
-            to="/products"
+            to="/commercial-products"
             sx={{ 
               bgcolor: 'white', 
               color: '#1E88E5',
