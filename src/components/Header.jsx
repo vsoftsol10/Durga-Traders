@@ -55,7 +55,7 @@ function Navbar() {
   return (
     <header>
       <h2 className="logo">
-        <a href="/">
+        <a href="/" className="logolink">
         <span className="logo-text">Durga</span>
         <span className="logo-accent">Traders</span>
         </a>

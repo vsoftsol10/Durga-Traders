@@ -106,10 +106,14 @@
 	animation: float 6s ease-in-out infinite;
   }
   
+  .logolink{
+	text-decoration: none;
+  }
   .logo-text {
 	font-weight: bold;
 	margin-right: 4px;
 	position: relative;
+
   }
   
   .logo-accent {

@@ -39,6 +39,11 @@ body {
   bottom: -50px;
 }
 
+.ProductPoster{
+  width: 100%;
+  margin-bottom: 40px;
+}
+
 /* Background effects */
 .water-background {
   position: fixed;

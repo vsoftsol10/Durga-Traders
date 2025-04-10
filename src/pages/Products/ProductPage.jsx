@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ProductPage.css'
+
+import personProduct from "../../assets/Personal-Products.gif"
+
 import purifier from '../../assets/water_purifier.jpg'
 
 // Mock products data
@@ -387,7 +390,7 @@ const ProductPage = () => {
                 Our products combine innovation with elegance for your healthier lifestyle.
               </p>
             </div>
-            
+            <img src={personProduct} alt="Poster" className='ProductPoster' />
             {/* Product grid */}
             <div className="product-grid">
               {products.map((product, index) => (
@@ -426,5 +429,6 @@ const ProductPage = () => {
     </CartContext.Provider>
   );
 };
+
 
 export default ProductPage;

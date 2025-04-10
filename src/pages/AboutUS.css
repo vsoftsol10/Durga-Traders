@@ -11,6 +11,7 @@
     background-color: transparent !important;
     background-image: none !important;
   }
+
   
   /* Home button styles */
   .home-button {
@@ -34,7 +35,11 @@
     background-color: #00c6ff;
     box-shadow: 0 4px 8px rgba(0, 86, 163, 0.2);
   }
-  
+  .aboutImage{
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+  }
   /* Water droplet decorations */
   .water-droplet {
     position: absolute;

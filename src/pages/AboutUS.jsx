@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./AboutUs.css";
-
+import aboutGif from "../assets/About.gif"
 const AboutUs = () => {
   return (
     <div className="about-container">
@@ -17,6 +17,8 @@ const AboutUs = () => {
       <div className="water-droplet bottom-right"></div>
       
       <h1 className="about-title">About Us</h1>
+
+      <img src={aboutGif} alt="AboutGif"  className="aboutImage"/>
       
       <p className="about-description">
         Durga Traders (DTRO) stands to its sense of purpose - to provides safe,
