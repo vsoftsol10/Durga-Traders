@@ -3,10 +3,13 @@
     min-height: 100vh;
     margin: 0;
     padding: 3rem 2rem;
-    background-color: #f8fdff;
+    /* background-color: transparent; Transparent white */
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    /* margin-bottom: 20px; */
+    background-color: transparent !important;
+    background-image: none !important;
   }
   
   /* Home button styles */

@@ -1,8 +1,9 @@
 /* Main Container Styles */
 .ro-container {
-    background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
-    min-height: 100vh;
-    font-family: sans-serif;
+  background-color: transparent !important;
+  background-image: none !important;    
+  min-height: 100vh;
+  font-family: sans-serif;
   }
   
   /* Hero Section Styles */

@@ -88,7 +88,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: 80px;
+	height: 100px;
 	padding: 0 2rem;
 	background: linear-gradient(135deg, #8192be, #a9b2d8, #6b7db0);
 	background-size: 200% 200%;

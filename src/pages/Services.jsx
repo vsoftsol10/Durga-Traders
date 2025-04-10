@@ -213,8 +213,8 @@ const Services = () => {
       pt: 8, 
       pb: 12,
       px: { xs: 2, sm: 4, md: 6 },
-      background: 'white',
-      overflow: 'hidden'
+      background: 'transparent',
+      overflow: 'hidden',
     }}>
       {/* Animated water drops in header */}
       {drops.map((drop, index) => (
