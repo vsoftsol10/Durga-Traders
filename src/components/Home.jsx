@@ -1,12 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './home.css';
-import ClickSpark from './ClickSpark/ClickSpark';
+import AnimatedTestimonials from './AnimatedTestimonials';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Header from './Header';
-import Footer from './Footer';
 import HomeOne from '../assets/Durga home page5.gif';
 import HomeTwo from '../assets/Durga home page6.gif';
 import HomeThree from '../assets/Durga home page7.gif';
@@ -139,20 +137,23 @@ const Home = () => {
       location: 'Madurai',
       feedback: 'We installed this RO system in our restaurant, and the difference in water quality is incredible. We no longer have issues with the taste of our drinks and coffee. Its pure, crisp water.',
     },
+    {
+      name: 'Gobi Dass',
+      location: 'Madurai',
+      feedback: 'We bought RO for our house, from Enquiry,Site visit,product explanation to execution, their approach was very Proffessional and also suggested us a correct and essential products.I strongly recommend Durga Traders for water related solutions.',
+    },
+    {
+      name: 'Chandru Kanagasabapathy',
+      location: 'Madurai',
+      feedback: 'Durga Traders playing a vital role in sales and service of the plant....Their expertise in this area making one of the pioneer in this field ....wish them best in luck....',
+    },
   ];
 
   return (
+ 
     <div>
-      <ClickSpark
-        sparkColor="#fff"
-        sparkSize={10}
-        sparkRadius={15}
-        sparkCount={8}
-        duration={400}
-      >
-       
-
-        <div className="carousel-container">
+     
+          <div className="carousel-container">
           <Slider ref={sliderRef} {...settings}>
             {carouselImages.map((image, index) => (
               <div key={index} className="carousel-slide">
@@ -282,8 +283,7 @@ const Home = () => {
             ))}
           </Box>
         </Container>
-
-   
+         
         <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
           <Typography variant="h4" align="center" gutterBottom>
             Best Seller
@@ -444,40 +444,8 @@ const Home = () => {
 </Box>
 
         {/* 6. Testimonials section moved to the bottom */}
-        <Container maxWidth="lg" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-          <Typography variant="h4" align="center" gutterBottom>
-            Testimonials
-          </Typography>
-          <Box display="flex" flexWrap="wrap" justifyContent="center">
-            {testimonials.map((testimonial, index) => (
-              <Box
-                key={index}
-                sx={{
-                  width: { xs: '100%', sm: '45%', md: '30%' },
-                  padding: '10px',
-                  marginBottom: '20px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Card sx={{ height: '100%' }}>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      {testimonial.name} - {testimonial.location}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" paragraph>
-                      {testimonial.feedback}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Box>
-            ))}
-          </Box>
-        </Container>
-
-        {/* <Footer /> */}
-      </ClickSpark>
+        
+        <AnimatedTestimonials testimonials={testimonials} />
     </div>
   );
 };

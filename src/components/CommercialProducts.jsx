@@ -1,5 +1,6 @@
 import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import './CommercialProduct.css';
@@ -7,6 +8,8 @@ import RoImg from '../assets/RObck.jpg';
 
 
 const CommercialProducts = () => {
+
+  const navigate = useNavigate();
 
   const breadcrumbs = [
     <Link href="/" underline="hover" color="inherit" key="home">
@@ -79,11 +82,11 @@ const CommercialProducts = () => {
       {/* Wider hero section */}
       <Box sx={{ width: '100%', backgroundColor: '#f8f9fa' }}>
         <Container maxWidth="xl" sx={{ mb: 8, py: 6 }}>
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              flexDirection: { xs: 'column', md: 'row' }, 
-              alignItems: 'center', 
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              alignItems: 'center',
               gap: 8,
               borderRadius: 2,
               width: '100%',
@@ -100,9 +103,9 @@ const CommercialProducts = () => {
                 Our RO systems are the best solution for households, offices, and businesses that need a reliable and efficient water purification system.
               </Typography>
             </Box>
-            <Box 
-              sx={{ 
-                flex: 1, 
+            <Box
+              sx={{
+                flex: 1,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center'
@@ -125,82 +128,79 @@ const CommercialProducts = () => {
       </Box>
 
       <Container maxWidth="xl">
-  <Box sx={{ mb: 4, textAlign: 'center' }}>
-    <Typography variant="h4" sx={{ 
-      fontWeight: 'bold', 
-      borderBottom: '3px solid #0277bd', 
-      pb: 1, 
-      display: 'inline-block' 
-    }}>
-      Our Products
-    </Typography>
-  </Box>
-  <Box sx={{ mb: 8, display: 'flex', justifyContent: 'center' }}>
-    <Grid 
-      container 
-      spacing={4} 
-      justifyContent="center"
-      sx={{ maxWidth: '1500px' }}
-    >
-      {products.map((product) => (
-        <Grid 
-          item 
-          xs={12} 
-          sm={6} 
-          md={4} 
-          lg={3} 
-          key={product.id} 
-          sx={{ display: 'flex', justifyContent: 'center' }}
-        >
-          <Card 
-            sx={{ 
-              width: { xs: '100%', sm: '350px' },
-              maxWidth: '350px',
-              height: '450px', 
-              display: 'flex', 
-              flexDirection: 'column',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              '&:hover': {
-                transform: 'translateY(-8px)',
-                boxShadow: '0 12px 24px rgba(0,0,0,0.1)'
-              }
-            }}
+        <Box sx={{ mb: 4, textAlign: 'center' }}>
+          <Typography variant="h4" sx={{
+            fontWeight: 'bold',
+            borderBottom: '3px solid #0277bd',
+            pb: 1,
+            display: 'inline-block'
+          }}>
+            Our Products
+          </Typography>
+        </Box>
+        <Box sx={{ mb: 8, display: 'flex', justifyContent: 'center' }}>
+          <Grid
+            container
+            spacing={4}
+            justifyContent="center"
+            sx={{ maxWidth: '1500px' }}
           >
-            <CardMedia
-              component="img"
-              height="280"
-              image={product.image}
-              alt={product.title}
-              sx={{ objectFit: 'cover' }}
-            />
-            <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 3 }}>
-              <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
-                {product.title}
-              </Typography>
-              <Typography gutterBottom variant="h6" color="text.primary" sx={{ mb: 2 }}>
-                {product.price}
-              </Typography>
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{ 
-                  mt: 'auto',
-                  py: 1.5,
-                  backgroundColor: '#0277bd',
-                  '&:hover': {
-                    backgroundColor: '#01579b'
-                  }
-                }}
+            {products.map((product) => (
+              <Grid
+                item xs={6} sm={6} md={4} lg={3}
+                key={product.id}
+                sx={{ display: 'flex', justifyContent: 'center' }}
               >
-                More Details
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
-  </Box>
-</Container>
+                <Card
+                  sx={{
+                    width: { xs: '100%', sm: '350px' },
+                    maxWidth: '350px',
+                    height: '450px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'transform 0.3s, box-shadow 0.3s',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 12px 24px rgba(0,0,0,0.1)'
+                    }
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="280"
+                    image={product.image}
+                    alt={product.title}
+                    sx={{ objectFit: 'cover' }}
+                  />
+                  <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 3 }}>
+                    <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+                      {product.title}
+                    </Typography>
+                    <Typography gutterBottom variant="h6" color="text.primary" sx={{ mb: 2 }}>
+                      {product.price}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      onClick={() => navigate(`/product/${product.id}`)}
+                      sx={{
+                        mt: 'auto',
+                        py: 1.5,
+                        backgroundColor: '#0277bd',
+                        '&:hover': {
+                          backgroundColor: '#01579b'
+                        }
+                      }}
+                    >
+                      More Details
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
       {/* <Footer /> */}
     </div>
   );
