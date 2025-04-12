@@ -21,15 +21,32 @@ import ProductPage from './pages/Products/ProductPage'
 // import Home from './components/Home'
 import CommercilaProductOne from './components/CommercilaProductOne'
 import WaterBackground from './Animation/WaterBackground'
+import SignIn from './Admin/SignIn';
+import Dashboard from './Admin/Dashboard';
 
 function App() {
   const [count, setCount] = useState(0)
   
   return (
     <>
-      <Header/>
+  
+    <Routes>
+      <Route path='/admin' element={<SignIn/>} />  
+      <Route path='/admin/dashboard' element={<Dashboard/>}/>
+
+      <Route path='/*' element={<MainLayout/>} />
+    </Routes>
+
+    </>
+  );
+}
+function MainLayout() {
+  return(
+    <>
+     <Header/>
       <WaterBackground>
         <Routes>
+
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs/>} />
@@ -50,7 +67,8 @@ function App() {
       </WaterBackground>
       <Footer/>
     </>
-  );
+  )
+
 }
 
 export default App
