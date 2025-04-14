@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Container, Typography, Box, Button, Breadcrumbs, Link, 
-  Card, CardMedia, Divider, Paper, Grid, Table, TableBody,
-  TableCell, TableContainer, TableRow, Rating, Stack
+import {
+    Container, Typography, Box, Button, Breadcrumbs, Link,
+    Card, CardMedia, Divider, Paper, Grid, Table, TableBody,
+    TableCell, TableContainer, TableRow, Rating, Stack
 } from '@mui/material';
 import CommercialSeven from '../assets/CommercialSeven.jpeg';
 
@@ -58,7 +58,7 @@ const CommercialProductSix = () => {
 
             {/* Back Button */}
             <Box sx={{ mb: 3, textAlign: 'center' }}>
-                <Button 
+                <Button
                     variant="outlined"
                     onClick={() => navigate('/commercial-products')}
                 >
@@ -153,23 +153,22 @@ const CommercialProductSix = () => {
                     </Box>
 
                     <Divider sx={{ my: 3 }} />
-
-                    {/* Button for Contacting on WhatsApp */}
-                    <Button 
-                        variant="contained"
-                        href="https://wa.me/917094310049" // WhatsApp link
-                        target="_blank"
-                        sx={{
-                            backgroundColor: '#0277bd',
-                            '&:hover': { backgroundColor: '#01579b' },
-                            py: 1.5,
-                            px: 4,
-                            display: 'block',
-                            margin: '0 auto',
-                        }}
-                    >
-                        Contact for Pricing
-                    </Button>
+                    <Box textAlign="center">
+                        <Button
+                            variant="contained"
+                            href="https://wa.me/917094310049"
+                            sx={{
+                                backgroundColor: '#0277bd',
+                                '&:hover': {
+                                    backgroundColor: '#01579b'
+                                },
+                                py: 1.5,
+                                px: 4
+                            }}
+                        >
+                            Contact for Pricing
+                        </Button>
+                    </Box>
                 </Box>
             </Paper>
         </Container>
