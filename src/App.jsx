@@ -16,10 +16,15 @@ import DMPlant from './pages/Services/DMPlant'
 import STPServices from './pages/Services/STPServices'
 import ETPServices from './pages/Services/ETPServices'
 import DispenserService from './pages/Services/DispenserService'
-import CommercialProducts from './components/CommercialProducts'
-import ProductPage from './pages/Products/ProductPage'
-// import Home from './components/Home'
-import CommercilaProductOne from './components/CommercilaProductOne'
+import CommercialProducts from './components/CommercialProducts';
+import ProductPage from './pages/Products/ProductPage';
+import CommercialProductOne from './components/CommercialProductOne';
+import CommercialProductTwo from './components/CommercialProductTwo';
+import CommercialProductThree from './components/CommercialProductThree';
+import CommercialProductFour from './components/CommercialProductFour';
+import CommercialProductFive from './components/CommercialProductFive';
+import CommercialProductSix from './components/CommercialProductSix';
+import CommercialProductSeven from './components/CommercialProductSeven';
 import WaterBackground from './Animation/WaterBackground'
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
@@ -66,8 +71,14 @@ function MainLayout() {
           <Route path='/services/etp-services' element={<ETPServices/>} />
           <Route path='/services/dispenser-services' element={<DispenserService/> } />
           <Route path='/personal-products' element={<ProductPage/>} />
-          <Route path='/commercial-products' element={<CommercialProducts/>} />
-          <Route path='/product/:id' element={<CommercilaProductOne />} />
+          <Route path="/commercial-products" element={<CommercialProducts />} />
+        <Route path="/product/1" element={<CommercialProductOne />} />
+        <Route path="/product/2" element={<CommercialProductTwo/>} />
+        <Route path="/product/3" element= {<CommercialProductThree/>}/>
+        <Route path='/product/4' element={<CommercialProductFour />}/>
+        <Route path='/product/5' element={<CommercialProductFive />}/>
+        <Route path='/product/6' element={<CommercialProductSix />}/>
+        <Route path='/product/7' element={<CommercialProductSeven />}/>
         </Routes>
       </WaterBackground>
       <Footer/>

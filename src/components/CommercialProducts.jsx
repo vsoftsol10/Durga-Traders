@@ -1,10 +1,15 @@
 import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
 import './CommercialProduct.css';
 import RoImg from '../assets/RObck.jpg';
+import CommercialOne from '../assets/CommercialOne.jpeg';
+import CommercialTwo from '../assets/CommercialTwo.jpeg';
+import CommercialFour from '../assets/CommercialFour.jpeg';
+import CommercialFive from '../assets/CommercialFive.jpeg';
+import CommercialSix from '../assets/CommercialSix.jpeg';
+import CommercialSeven from '../assets/CommercialSeven.jpeg';
+import CommercialEight from '../assets/CommercialEight.jpeg'
 
 
 const CommercialProducts = () => {
@@ -21,45 +26,46 @@ const CommercialProducts = () => {
   const products = [
     {
       id: 1,
-      image: '/path/to/product1.jpg',
-      title: 'Product 1',
-      price: '$99.99',
+      image: CommercialOne,
+      title: 'DT-250 AUTO',
+      model: '2251AMO',
     },
     {
       id: 2,
-      image: '/path/to/product2.jpg',
-      title: 'Product 2',
-      price: '$149.99',
+      image: CommercialTwo,
+      title: 'DT-500 AUTO',
+      model: '2501AMO',
     },
+    
     {
       id: 3,
-      image: '/path/to/product3.jpg',
-      title: 'Product 3',
-      price: '$199.99',
+      image: CommercialFour,
+      title: 'DT-2000 AUTO',
+      model: '22K1AMO',
     },
     {
       id: 4,
-      image: '/path/to/product4.jpg',
-      title: 'Product 4',
-      price: '$249.99',
+      image: CommercialFive,
+      title: 'DT-1000 AUTO',
+      model: '21K1AMO',
     },
     {
       id: 5,
-      image: '/path/to/product5.jpg',
-      title: 'Product 5',
-      price: '$299.99',
+      image: CommercialSix,
+      title: 'DT-5000 AUTO',
+      model: '25K1AMO',
     },
     {
       id: 6,
-      image: '/path/to/product6.jpg',
-      title: 'Product 6',
-      price: '$349.99',
+      image: CommercialSeven,
+      title: 'DT-100 CLOSED',
+      model: '21C1AMO',
     },
     {
       id: 7,
-      image: '/path/to/product7.jpg',
-      title: 'Product 7',
-      price: '$399.99',
+      image: CommercialEight,
+      title: 'DT-100 OPEN',
+      model: '21C2AMO',
     }
   ];
 
@@ -177,7 +183,7 @@ const CommercialProducts = () => {
                       {product.title}
                     </Typography>
                     <Typography gutterBottom variant="h6" color="text.primary" sx={{ mb: 2 }}>
-                      {product.price}
+                      {product.model}
                     </Typography>
                     <Button
                       variant="contained"
