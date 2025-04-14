@@ -45,31 +45,44 @@ const SignIn = () => {
     setLoading(true);
   
     try {
-      // Firebase uses email instead of username for authentication
       const { email, password } = credentials;
-      
-      // Sign in with Firebase Authentication
+  
+      // Sign in using Firebase Authentication
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
-      console.log('User signed in:', user);
-      
-      // Simply navigate to dashboard after successful authentication
-      // You can implement role-based access later when you set up Firestore
+  
+      // Check user role in Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      console.log('User UID:', user.uid);
+
+      const userDocSnap = await getDoc(userDocRef);
+  
+      if (!userDocSnap.exists()) {
+        throw new Error("No user profile found in Firestore.");
+      }
+  
+      const userData = userDocSnap.data();
+
+      if (userData.role !== "admin") {
+        throw new Error("Access denied: You are not an admin.");
+      }
+  
+      console.log("Admin signed in successfully!");
       navigate('/admin/dashboard');
-      
+  
     } catch (error) {
       console.error('Error signing in:', error);
-      
-      // Provide user-friendly error messages
+  
       if (error.code === 'auth/invalid-email') {
         setError('Please enter a valid email address.');
       } else if (error.code === 'auth/user-not-found') {
         setError('No account found with this email address.');
       } else if (error.code === 'auth/wrong-password') {
         setError('Incorrect password. Please try again.');
-      } else if (error.code === 'auth/too-many-requests') {
-        setError('Too many failed login attempts. Please try again later.');
+      } else if (error.message === 'Access denied: You are not an admin.') {
+        setError('You are not authorized to access the admin panel.');
+      } else if (error.message === 'No user profile found in Firestore.') {
+        setError('No user profile found. Contact support.');
       } else {
         setError('Failed to sign in. Please try again later.');
       }
@@ -77,6 +90,7 @@ const SignIn = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="admin-signin-container">
@@ -144,23 +158,6 @@ const SignIn = () => {
               {loading ? 'SIGNING IN...' : 'SIGN IN'}
             </button>
           </form>
-          
-          <div className="form-links">
-            <button 
-              className="form-link"
-              onClick={() => navigate('/admin/register')}
-              disabled={loading}
-            >
-              Create new account
-            </button>
-            <button 
-              className="form-link"
-              onClick={() => navigate('/admin/forgot-password')}
-              disabled={loading}
-            >
-              Forgot password?
-            </button>
-          </div>
         </div>
       </div>
     </div>

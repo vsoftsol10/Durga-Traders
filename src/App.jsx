@@ -30,12 +30,17 @@ function App() {
   return (
     <>
   
+
+    <WaterBackground>
+
     <Routes>
+    
       <Route path='/admin' element={<SignIn/>} />  
       <Route path='/admin/dashboard' element={<Dashboard/>}/>
 
       <Route path='/*' element={<MainLayout/>} />
     </Routes>
+    </WaterBackground>
 
     </>
   );
