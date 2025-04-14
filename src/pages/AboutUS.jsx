@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./AboutUs.css";
+import "./AboutUS.css";
 import aboutGif from "../assets/About.gif"
 const AboutUs = () => {
   return (
