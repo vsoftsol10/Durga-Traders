@@ -85,6 +85,7 @@
   }
   
   header {
+
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -97,6 +98,7 @@
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 	position: relative;
 	z-index: 100;
+	gap: 2rem;
   }
   
   /* Logo Animation */
@@ -104,6 +106,8 @@
 	position: relative;
 	display: flex;
 	animation: float 6s ease-in-out infinite;
+	top: 20px;
+
   }
   
   .logolink{
@@ -137,6 +141,8 @@
   nav {
 	display: flex;
 	align-items: center;
+	flex-grow: 0; /* Don't allow nav to grow beyond its content */
+  margin-left: 37%;
   }
   
   .nav-link {
@@ -369,6 +375,11 @@
 	header .nav-btn {
 	  visibility: visible;
 	  opacity: 1;
+	  position: absolute;
+	  right: 1rem;
+	  top: 50%;
+	  transform: translateY(-50%);
+	  z-index: 1001;
 	}
   
 	header nav {
@@ -487,4 +498,18 @@
 	  margin-bottom: 120px; /* Add space ONLY when open */
 	  padding-bottom: 20px; /* Add padding ONLY when open */
 	}
+	header {
+		position: relative;
+		padding: 0 1rem;
+	  }
+	  
+	  .logolink {
+		position: absolute;
+		left: 0.5rem;
+		top: 25px;
+		transform: translateY(-50%);
+		z-index: 1001;
+		animation: float 6s ease-in-out infinite;
+		font-size: 1.2rem;
+	  }
   }

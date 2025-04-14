@@ -71,7 +71,18 @@ const Home = () => {
   const renderCarousel = () => {
     if (carouselImages.length === 1) {
       return (
-        <div className="carousel-container" style={{ position: 'relative', textAlign: 'center' }}>
+        <div className="carousel-container" style={{ position: 'relative', textAlign: 'center', overflow: 'hidden' }}>
+          {/* Top wave SVG - more pronounced like in the image */}
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 1 }}>
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
+              <path
+                fill="#fff"
+                d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+              ></path>
+            </svg>
+          </div>
+          
+          {/* Main carousel image */}
           <img
             src={carouselImages[0]}
             alt="Durga Water Purifier"
@@ -82,21 +93,68 @@ const Home = () => {
             }}
           />
         
-          {/* Wavy SVG */}
+          {/* Bottom wave SVG - more pronounced like in the image */}
           <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', zIndex: 1 }}>
-            <svg viewBox="0 0 1440 320" style={{ display: 'block' }}>
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
               <path
                 fill="#fff"
-                fillOpacity="1"
-                d="M0,128L48,160C96,192,192,256,288,256C384,256,480,192,576,154.7C672,117,768,107,864,128C960,149,1056,203,1152,218.7C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                d="M0,64L80,53.3C160,43,320,21,480,16C640,11,800,21,960,32C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
               ></path>
             </svg>
+          </div>
+          
+          {/* Side wave styling - for the curved sides */}
+          <div style={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            width: '100%', 
+            height: '100%', 
+            pointerEvents: 'none',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              height: '100%',
+              width: '40px',
+              background: 'linear-gradient(to left, #fff, rgba(255,255,255,0))',
+              borderLeft: '1px solid rgba(255,255,255,0.3)',
+              borderTopLeftRadius: '100%',
+              borderBottomLeftRadius: '100%',
+              transform: 'scaleX(0.5)'
+            }}></div>
+            
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              height: '100%',
+              width: '40px',
+              background: 'linear-gradient(to right, #fff, rgba(255,255,255,0))',
+              borderRight: '1px solid rgba(255,255,255,0.3)',
+              borderTopRightRadius: '100%',
+              borderBottomRightRadius: '100%',
+              transform: 'scaleX(0.5)'
+            }}></div>
           </div>
         </div>
       );
     } else {
+      // The code for multiple images remains the same but we can add wave effects here too
       return (
-        <div className="carousel-container">
+        <div className="carousel-container" style={{ position: 'relative', overflow: 'hidden' }}>
+          {/* Top wave SVG */}
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 1 }}>
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
+              <path
+                fill="#fff"
+                d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+              ></path>
+            </svg>
+          </div>
+          
           <Slider ref={sliderRef} {...settings}>
             {carouselImages.map((image, index) => (
               <div key={index} className="carousel-slide">
@@ -111,11 +169,57 @@ const Home = () => {
               </div>
             ))}
           </Slider>
+          
+          {/* Bottom wave SVG */}
+          <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', zIndex: 1 }}>
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
+              <path
+                fill="#fff"
+                d="M0,64L80,53.3C160,43,320,21,480,16C640,11,800,21,960,32C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+              ></path>
+            </svg>
+          </div>
+          
+          {/* Side wave styling */}
+          <div style={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            width: '100%', 
+            height: '100%', 
+            pointerEvents: 'none',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              height: '100%',
+              width: '40px',
+              background: 'linear-gradient(to left, #fff, rgba(255,255,255,0))',
+              borderLeft: '1px solid rgba(255,255,255,0.3)',
+              borderTopLeftRadius: '100%',
+              borderBottomLeftRadius: '100%',
+              transform: 'scaleX(0.5)'
+            }}></div>
+            
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              height: '100%',
+              width: '40px',
+              background: 'linear-gradient(to right, #fff, rgba(255,255,255,0))',
+              borderRight: '1px solid rgba(255,255,255,0.3)',
+              borderTopRightRadius: '100%',
+              borderBottomRightRadius: '100%',
+              transform: 'scaleX(0.5)'
+            }}></div>
+          </div>
         </div>
       );
     }
   };
-  
 
   const services = [
     {

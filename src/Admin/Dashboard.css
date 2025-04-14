@@ -1,0 +1,555 @@
+/* Premium Water Purifier Dashboard - Modern & Professional */
+
+
+/* Base Styles & Reset */
+.dashboard-container * {
+  display: block;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: static !important;
+  z-index: auto !important;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color:#ffffff21; 
+
+}
+
+/* .dashboard-container {
+  padding: 30px;
+  max-width: 100%;
+  margin: 0;
+  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #2b3a4a;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+} */
+
+.dashboard-container h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #1a3d66;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 12px;
+  margin-bottom: 25px;
+  display: inline-block;
+  animation: borderPulse 2s infinite alternate;
+  letter-spacing: 0.5px;
+}
+
+/* Debug Info Panel - Hidden in production */
+.debug-info, 
+.debug-message {
+  display: none;
+}
+
+/* Add Product Form Styling */
+.add-product-form {
+  background: #fff;
+  padding: 25px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(52, 152, 219, 0.1);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-product-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(52, 152, 219, 0.2);
+}
+
+.add-product-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #3498db, #1abc9c, #3498db);
+  background-size: 200% 100%;
+  animation: gradientMove 3s infinite linear;
+}
+
+.add-product-form h3 {
+  font-size: 22px;
+  color: #1a3d66;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.add-product-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #e1e5eb;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #f8f9fa;
+  color: #495057;
+  transition: all 0.3s ease;
+}
+
+.add-product-form input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+  background-color: #fff;
+  outline: none;
+}
+
+.add-product-form input::placeholder {
+  color: #adb5bd;
+}
+
+.add-product-form button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-product-form button:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+  transform: translateY(-2px);
+}
+
+.add-product-form button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.4);
+}
+
+.add-product-form button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.add-product-form button:hover::after {
+  animation: ripple 1s ease-out;
+}
+
+/* Product List Styling */
+.product-list {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.product-list h3 {
+  font-size: 22px;
+  color: #1a3d66;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  grid-column: 1 / -1;
+}
+
+.product-list h3::after {
+  content: '';
+  flex-grow: 1;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(52, 152, 219, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+  margin-left: 15px;
+}
+
+/* Product Cards */
+.product-card {
+  border: none;
+  padding: 10px;
+  margin-bottom: 0px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.product-card img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  margin: 0;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
+  margin-bottom: 15px;
+}
+
+.product-card:hover img {
+  transform: scale(0.9);
+}
+
+.product-card .content-wrapper {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a3d66;
+  margin: 0 0 12px 0;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.product-card h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #3498db, #2980b9);
+  transition: width 0.3s ease;
+}
+
+.product-card:hover h4::after {
+  width: 80px;
+}
+
+.product-card p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6c757d;
+}
+
+.product-card .description {
+  margin-bottom: 15px;
+  font-style: italic;
+  color: #777;
+  flex-grow: 1;
+}
+
+.product-card .feature {
+  background-color: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #2c3e50;
+  margin: 5px 0;
+  border-left: 3px solid #3498db;
+}
+
+.product-card .price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a3d66;
+  margin: 10px 0;
+}
+
+.product-card .price span {
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: normal;
+}
+
+.product-card .rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.product-card .rating .droplets {
+  color: #3498db;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin-right: 8px;
+}
+
+.product-card .rating .value {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.product-card .buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.product-card button {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.product-card .edit-btn {
+  background-color: #3498db;
+  color: white;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.product-card .edit-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+}
+
+.product-card .delete-btn {
+  background-color: white;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+.product-card .delete-btn:hover {
+  background-color: #e74c3c;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(231, 76, 60, 0.3);
+}
+
+/* Edit mode styling */
+.product-card .edit-mode {
+  padding: 15px;
+}
+
+.product-card input {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border: 1px solid #e1e5eb;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.product-card input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+.product-card .edit-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.product-card .update-btn {
+  background-color: #27ae60;
+  color: white;
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.product-card .update-btn:hover {
+  background-color: #219653;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(39, 174, 96, 0.4);
+}
+
+.product-card .cancel-btn {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-card .cancel-btn:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+/* Empty state styling */
+.product-list > p {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #3498db;
+  grid-column: 1 / -1;
+}
+
+.product-list > p:first-of-type {
+  animation: pulse 2s infinite;
+}
+
+/* Premium water purifier badge */
+/* .product-card::before {
+  content: "Premium";
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  box-shadow: 0 3px 8px rgba(52, 152, 219, 0.4);
+  z-index: 1;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+} */
+
+.product-card:hover::before {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 5px 12px rgba(52, 152, 219, 0.5);
+}
+
+
+.editButton{
+  background-color: #3498db;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.editButton:hover{
+  box-shadow: 0 5px 12px rgba(52, 152, 219, 0.5);
+
+}
+
+.deleteButton {
+  background-color:  red; 
+  margin-bottom: 10px;
+
+}
+.deleteButton:hover{
+  box-shadow: 0 5px 12px rgba(214, 72, 72, 0.616);
+
+}
+
+/* Water-themed animations */
+@keyframes borderPulse {
+  0% { border-color: #3498db; }
+  50% { border-color: #2980b9; }
+  100% { border-color: #3498db; }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .product-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 15px;
+  }
+  
+  .product-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-card .buttons {
+    flex-direction: column;
+  }
+  
+  .product-card button {
+    width: 100%;
+  }
+}
+
+/* Remove debug messages from production */
+.dashboard-container:after,
+.product-list:after,
+.product-card:after {
+  display: none;
+}
