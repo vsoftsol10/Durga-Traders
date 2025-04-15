@@ -140,7 +140,7 @@
     padding-left: 20px;
   }
   
-  .about-description::before {
+  /* .about-description::before {
     content: "";
     position: absolute;
     left: 0;
@@ -149,7 +149,7 @@
     height: 6px;
     border-radius: 50%;
     background-color: #00c6ff;
-  }
+  } */
   
   /* Highlight special feature sections */
   .feature-highlight {
