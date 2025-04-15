@@ -163,7 +163,7 @@ const Home = () => {
         />
 
         {/* New Wavy Divider */}
-        <WavyDivider topColor="#ffffff" bottomColor="#ffffff" />
+        {/* <WavyDivider topColor="#ffffff" bottomColor="#ffffff" /> */}
       </div>
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
