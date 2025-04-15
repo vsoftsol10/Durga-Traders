@@ -385,7 +385,7 @@
 	header nav {
 		position: fixed;
 		top: -100vh;
-		left: 0;
+		left: -118px;
 		height: 100%;
 		width: 100%;
 		display: flex;

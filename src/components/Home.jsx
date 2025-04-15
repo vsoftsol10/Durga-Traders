@@ -2,15 +2,13 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './home.css';
 import AnimatedTestimonials from './AnimatedTestimonials';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import WavyDivider from '../Animation/WavyDivider';
 import HomeOne from '../assets/Durga Traders gif home page.gif';
 import BigSale from '../assets/Offersales.gif';
 import BestSell1 from '../assets/bestseller1.png';
-import BestSell2 from '../assets/bestseller2.png'
-import BestSell3 from '../assets/bestseller3.png'
-import BestSell4 from '../assets/bestseller4.png'
+import BestSell2 from '../assets/bestseller2.png';
+import BestSell3 from '../assets/bestseller3.png';
+import BestSell4 from '../assets/bestseller4.png';
 import AquaImg from '../assets/about-1.png';
 import HydrateImg from '../assets/Hydrateman.png';
 import AFT from '../assets/Advance Filtration.png';
@@ -61,165 +59,11 @@ const Home = () => {
       }
     );
 
-    // Only start slider if there's more than one image
     if (sliderRef.current && carouselImages.length > 1) {
       sliderRef.current.slickPlay();
     }
   }, []);
 
-  // If there's only one image, render it directly without the slider
-  const renderCarousel = () => {
-    if (carouselImages.length === 1) {
-      return (
-        <div className="carousel-container" style={{ position: 'relative', textAlign: 'center', overflow: 'hidden' }}>
-          {/* Top wave SVG - more pronounced like in the image */}
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 1 }}>
-            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
-              <path
-                fill="#fff"
-                d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
-              ></path>
-            </svg>
-          </div>
-          
-          {/* Main carousel image */}
-          <img
-            src={carouselImages[0]}
-            alt="Durga Water Purifier"
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'cover',
-            }}
-          />
-        
-          {/* Bottom wave SVG - more pronounced like in the image */}
-          <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', zIndex: 1 }}>
-            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
-              <path
-                fill="#fff"
-                d="M0,64L80,53.3C160,43,320,21,480,16C640,11,800,21,960,32C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
-              ></path>
-            </svg>
-          </div>
-          
-          {/* Side wave styling - for the curved sides */}
-          <div style={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            width: '100%', 
-            height: '100%', 
-            pointerEvents: 'none',
-            overflow: 'hidden'
-          }}>
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              height: '100%',
-              width: '40px',
-              background: 'linear-gradient(to left, #fff, rgba(255,255,255,0))',
-              borderLeft: '1px solid rgba(255,255,255,0.3)',
-              borderTopLeftRadius: '100%',
-              borderBottomLeftRadius: '100%',
-              transform: 'scaleX(0.5)'
-            }}></div>
-            
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              height: '100%',
-              width: '40px',
-              background: 'linear-gradient(to right, #fff, rgba(255,255,255,0))',
-              borderRight: '1px solid rgba(255,255,255,0.3)',
-              borderTopRightRadius: '100%',
-              borderBottomRightRadius: '100%',
-              transform: 'scaleX(0.5)'
-            }}></div>
-          </div>
-        </div>
-      );
-    } else {
-      // The code for multiple images remains the same but we can add wave effects here too
-      return (
-        <div className="carousel-container" style={{ position: 'relative', overflow: 'hidden' }}>
-          {/* Top wave SVG */}
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 1 }}>
-            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
-              <path
-                fill="#fff"
-                d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
-              ></path>
-            </svg>
-          </div>
-          
-          <Slider ref={sliderRef} {...settings}>
-            {carouselImages.map((image, index) => (
-              <div key={index} className="carousel-slide">
-                <img
-                  src={image}
-                  alt={`Durga Water Purifier Slide ${index + 1}`}
-                  style={{
-                    width: '100%',
-                    objectFit: 'fill',
-                  }}
-                />
-              </div>
-            ))}
-          </Slider>
-          
-          {/* Bottom wave SVG */}
-          <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', zIndex: 1 }}>
-            <svg preserveAspectRatio="none" viewBox="0 0 1440 120" style={{ display: 'block', width: '100%' }}>
-              <path
-                fill="#fff"
-                d="M0,64L80,53.3C160,43,320,21,480,16C640,11,800,21,960,32C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
-              ></path>
-            </svg>
-          </div>
-          
-          {/* Side wave styling */}
-          <div style={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            width: '100%', 
-            height: '100%', 
-            pointerEvents: 'none',
-            overflow: 'hidden'
-          }}>
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              height: '100%',
-              width: '40px',
-              background: 'linear-gradient(to left, #fff, rgba(255,255,255,0))',
-              borderLeft: '1px solid rgba(255,255,255,0.3)',
-              borderTopLeftRadius: '100%',
-              borderBottomLeftRadius: '100%',
-              transform: 'scaleX(0.5)'
-            }}></div>
-            
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              height: '100%',
-              width: '40px',
-              background: 'linear-gradient(to right, #fff, rgba(255,255,255,0))',
-              borderRight: '1px solid rgba(255,255,255,0.3)',
-              borderTopRightRadius: '100%',
-              borderBottomRightRadius: '100%',
-              transform: 'scaleX(0.5)'
-            }}></div>
-          </div>
-        </div>
-      );
-    }
-  };
 
   const services = [
     {
@@ -305,8 +149,22 @@ const Home = () => {
 
   return (
     <div>
-      {/* Use the conditional rendering function instead of direct slider */}
-      {renderCarousel()}
+     <div style={{ position: 'relative' }}>
+  <img
+    src={HomeOne}
+    alt="homeSlide"
+    style={{
+      width: '100%',
+      height: 'auto',
+      display: 'block',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+    }}
+  />
+  
+  {/* New Wavy Divider */}
+  <WavyDivider topColor="#ffffff" bottomColor="#ffffff" />
+</div>
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
         <Box
@@ -449,97 +307,96 @@ const Home = () => {
       </div>
 
       <Container maxWidth={false} sx={{ px: { xs: 2, sm: 5, md: 10 }, pt: '40px' }}>
-  <Box textAlign="center" mb={5}>
-    <Typography
-      variant="h4"
-      gutterBottom
-      sx={{
-        fontWeight: 'bold',
-        color: '#0277bd',
-        position: 'relative',
-        display: 'inline-block',
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          width: '60%',
-          height: '3px',
-          bottom: '-10px',
-          left: '20%',
-          backgroundColor: '#00bcd4',
-          borderRadius: '2px',
-        }
-      }}
-    >
-      Our Best Selling Products
-    </Typography>
-  </Box>
+        <Box textAlign="center" mb={5}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              color: '#0277bd',
+              position: 'relative',
+              display: 'inline-block',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                width: '60%',
+                height: '3px',
+                bottom: '-10px',
+                left: '20%',
+                backgroundColor: '#00bcd4',
+                borderRadius: '2px',
+              }
+            }}
+          >
+            Our Best Selling Products
+          </Typography>
+        </Box>
 
-  <Box display="flex" flexWrap="wrap" justifyContent="center">
-    {products.map((product, index) => (
-      <Box
-        key={index}
-        sx={{
-          width: { xs: '100%', sm: '48%', md: '28%' },
-          padding: '10px',
-          textAlign: 'center',
-          marginBottom: '20px',
-          display: 'flex',
-        }}
-      >
-        <Card
-          sx={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            flexGrow: 1,
-            borderRadius: '15px',
-            transition: 'transform 0.3s ease, background-color 0.3s ease',
-            '&:hover': {
-              transform: 'scale(1.05)',
-              backgroundColor: '#f5f5f5',
-            },
-          }}
-        >
-          {/* Image Section */}
-          <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
-            <img
-              src={product.image}
-              alt={product.alt}
-              style={{
-                width: '70%',
-                height: 'auto',
-                borderRadius: '8px',
-                objectFit: 'cover',
+        <Box display="flex" flexWrap="wrap" justifyContent="center">
+          {products.map((product, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: { xs: '100%', sm: '48%', md: '28%' },
+                padding: '10px',
+                textAlign: 'center',
+                marginBottom: '20px',
+                display: 'flex',
               }}
-            />
-          </CardContent>
+            >
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  flexGrow: 1,
+                  borderRadius: '15px',
+                  transition: 'transform 0.3s ease, background-color 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                    backgroundColor: '#f5f5f5',
+                  },
+                }}
+              >
+                {/* Image Section */}
+                <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <img
+                    src={product.image}
+                    alt={product.alt}
+                    style={{
+                      width: '70%',
+                      height: 'auto',
+                      borderRadius: '8px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </CardContent>
 
-          {/* Text Content */}
-          <CardContent sx={{ flexGrow: 1 }}>
-            <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
-              {product.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
-              {product.modelName}
-            </Typography>
-            <Typography sx={{ marginBottom: '10px' }} paragraph>
-              {product.description}
-            </Typography>
-          </CardContent>
+                {/* Text Content */}
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                    {product.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
+                    {product.modelName}
+                  </Typography>
+                  <Typography sx={{ marginBottom: '10px' }} paragraph>
+                    {product.description}
+                  </Typography>
+                </CardContent>
 
-          {/* Button */}
-          <CardActions sx={{ justifyContent: 'center' }}>
-            <Button size="small" variant="contained" color="primary">
-              Buy Now
-            </Button>
-          </CardActions>
-        </Card>
-      </Box>
-    ))}
-  </Box>
-</Container>
-
+                {/* Button */}
+                <CardActions sx={{ justifyContent: 'center' }}>
+                  <Button size="small" variant="contained" color="primary">
+                    Buy Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Box>
+          ))}
+        </Box>
+      </Container>
 
       <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', py: 6 }}>
         <Container maxWidth="xl">
