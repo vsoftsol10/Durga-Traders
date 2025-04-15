@@ -377,24 +377,24 @@
 	  opacity: 1;
 	  position: absolute;
 	  right: 1rem;
-	  top: 50%;
-	  transform: translateY(-50%);
-	  z-index: 1001;
+	  top: 60%;
+	  transform: translateY(-30%);
+	  z-index: 1000;
 	}
   
 	header nav {
 		position: fixed;
-		top: -100vh;
-		left: -379px;
-		height: 100vh;
-		width: 100%;
+		top: -100%;
+		left: -382px;;
+		height: 100%;
+		width: 150%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: 1.5rem;
 		background-color: var(--mainColor);
-		transition: 1s;
+		transition: 2s;
 		z-index: 1000;
 	}
   
@@ -513,3 +513,5 @@
 		font-size: 1.2rem;
 	  }
   }
+
+  

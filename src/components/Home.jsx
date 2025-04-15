@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './home.css';
 import AnimatedTestimonials from './AnimatedTestimonials';
+import ScrollFloat from '../Animation/ScrollFloat';
 import WavyDivider from '../Animation/WavyDivider';
 import HomeOne from '../assets/Durga Traders gif home page.gif';
 import BigSale from '../assets/Offersales.gif';
@@ -155,7 +156,7 @@ const Home = () => {
           alt="homeSlide"
           style={{
             width: '100%',
-            height: 'auto',
+            height: '85vh',
             display: 'block',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
@@ -165,6 +166,130 @@ const Home = () => {
         {/* New Wavy Divider */}
         <WavyDivider topColor="#ffffff" bottomColor="#ffffff" />
       </div>
+
+      <Container maxWidth={false} sx={{ px: { xs: 2, sm: 5, md: 10 }, pt: '40px' }}>
+        <Box textAlign="center" mb={5}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              color: '#022279',
+              position: 'relative',
+              display: 'inline-block',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                width: '60%',
+                height: '3px',
+                backgroundColor: '#00C7E8',
+                bottom: '-10px',
+                left: '20%',
+                borderRadius: '2px',
+              }
+            }}
+          >
+            <ScrollFloat
+              animationDuration={1}
+              ease='back.inOut(2)'
+              scrollStart='center bottom+=50%'
+              scrollEnd='bottom bottom-=40%'
+              stagger={0.03}
+            >
+              Best Selling Products
+            </ScrollFloat>
+          </Typography>
+        </Box>
+
+        <Box display="flex" flexWrap="wrap" justifyContent="center">
+          {products.map((product, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: { xs: '100%', sm: '48%', md: '23%' },
+                padding: '10px',
+                textAlign: 'center',
+                marginBottom: '20px',
+                display: 'flex',
+              }}
+            >
+
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  flexGrow: 1,
+                  borderRadius: '15px',
+                  transition: 'transform 0.3s ease, background-color 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                    backgroundColor: '#f5f5f5',
+                  },
+                }}
+              >
+                {/* Image Section */}
+                <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <img
+                    src={product.image}
+                    alt={product.alt}
+                    style={{
+                      width: '70%',
+                      height: 'auto',
+                      borderRadius: '8px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </CardContent>
+
+                {/* Text Content */}
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                    {product.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
+                    {product.modelName}
+                  </Typography>
+                  <Typography sx={{ marginBottom: '10px' }} paragraph>
+                    {product.description}
+                  </Typography>
+                </CardContent>
+
+                {/* Button */}
+                <CardActions sx={{ justifyContent: 'center', gap: 2, pb: 2 }}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: '#022279',
+                      color: 'white',
+                      '&:hover': {
+                        backgroundColor: '#011956',
+                      }
+                    }}
+                  >
+                    Book Demo
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: '#022279',
+                      color: 'white',
+                      '&:hover': {
+                        backgroundColor: '#011956',
+                      }
+                    }}
+                  >
+                    Buy Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Box>
+          ))}
+        </Box>
+      </Container>
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
         <Box
@@ -233,7 +358,7 @@ const Home = () => {
             gutterBottom
             sx={{
               fontWeight: 'bold',
-              color: '#0277bd',
+              color: '#022279',
               position: 'relative',
               display: 'inline-block',
               '&::after': {
@@ -243,12 +368,20 @@ const Home = () => {
                 height: '3px',
                 bottom: '-10px',
                 left: '20%',
-                backgroundColor: '#00bcd4',
+                backgroundColor: '#00C7E8',
                 borderRadius: '2px',
               }
             }}
           >
-            Why Durga Traders
+            <ScrollFloat
+              animationDuration={1}
+              ease='back.inOut(2)'
+              scrollStart='center bottom+=50%'
+              scrollEnd='bottom bottom-=40%'
+              stagger={0.03}
+            >
+              Why Durga Traders
+            </ScrollFloat>
           </Typography>
         </Box>
 
@@ -305,99 +438,6 @@ const Home = () => {
       <div>
         <img src={BigSale} alt='off' style={{ width: '100%' }} />
       </div>
-
-      <Container maxWidth={false} sx={{ px: { xs: 2, sm: 5, md: 10 }, pt: '40px' }}>
-        <Box textAlign="center" mb={5}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              fontWeight: 'bold',
-              color: '#0277bd',
-              position: 'relative',
-              display: 'inline-block',
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                width: '60%',
-                height: '3px',
-                bottom: '-10px',
-                left: '20%',
-                backgroundColor: '#00bcd4',
-                borderRadius: '2px',
-              }
-            }}
-          >
-            Our Best Selling Products
-          </Typography>
-        </Box>
-
-        <Box display="flex" flexWrap="wrap" justifyContent="center">
-          {products.map((product, index) => (
-            <Box
-              key={index}
-              sx={{
-                width: { xs: '100%', sm: '48%', md: '23%' }, 
-                padding: '10px',
-                textAlign: 'center',
-                marginBottom: '20px',
-                display: 'flex',
-              }}
-            >
-
-              <Card
-                sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  flexGrow: 1,
-                  borderRadius: '15px',
-                  transition: 'transform 0.3s ease, background-color 0.3s ease',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                    backgroundColor: '#f5f5f5',
-                  },
-                }}
-              >
-                {/* Image Section */}
-                <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <img
-                    src={product.image}
-                    alt={product.alt}
-                    style={{
-                      width: '70%',
-                      height: 'auto',
-                      borderRadius: '8px',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </CardContent>
-
-                {/* Text Content */}
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
-                    {product.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
-                    {product.modelName}
-                  </Typography>
-                  <Typography sx={{ marginBottom: '10px' }} paragraph>
-                    {product.description}
-                  </Typography>
-                </CardContent>
-
-                {/* Button */}
-                <CardActions sx={{ justifyContent: 'center' }}>
-                  <Button size="small" variant="contained" color="primary">
-                    Buy Now
-                  </Button>
-                </CardActions>
-              </Card>
-            </Box>
-          ))}
-        </Box>
-      </Container>
 
       <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', py: 6 }}>
         <Container maxWidth="xl">
@@ -496,6 +536,10 @@ const Home = () => {
       </Box>
 
       <AnimatedTestimonials testimonials={testimonials} />
+
+      <Container>
+
+      </Container>
     </div>
   );
 };

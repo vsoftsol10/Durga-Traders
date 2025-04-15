@@ -15,6 +15,11 @@ import CommercialSlide from '../assets/Durga Traders Commercial.gif';
 
 const CommercialProducts = () => {
   const [animated, setAnimated] = useState(false);
+  const [openPincodeModal, setOpenPincodeModal] = useState(true);
+const [pincode, setPincode] = useState('');
+const [resultMessage, setResultMessage] = useState('');
+const [resultType, setResultType] = useState(''); // 'success' or 'error'
+
   const navigate = useNavigate();
 
   // Trigger animation after component mounts
@@ -28,6 +33,12 @@ const CommercialProducts = () => {
     </Link>,
     <Typography key="commercial-products"><b>Commercial Products</b></Typography>
   ];
+
+  const isTamilNaduPincode = (pincode) => {
+    const pin = parseInt(pincode);
+    return pin >= 600001 && pin <= 643253;
+  };
+  
 
   const products = [
     {
@@ -86,11 +97,7 @@ const CommercialProducts = () => {
 
   return (
     <div>
-      <img src={CommercialSlide} style={{width:'100%'}}/>
-      <div>
-        
-      </div>
-      <Container maxWidth="xl" sx={{ minHeight: '300px' }}>
+       <Container maxWidth="xl" sx={{ minHeight: '300px' }}>
         <Box sx={{ textAlign: 'center', mb: 4, pt: 4 }}>
           <Typography variant="h3" sx={headingStyle}>
             Commercial Products
@@ -102,6 +109,7 @@ const CommercialProducts = () => {
           </Breadcrumbs>
         </Box>
       </Container>
+      <img src={CommercialSlide} style={{width:'100%'}}/>  
 
       <Container maxWidth="xl">
         <Box sx={{ mb: 4, textAlign: 'center' }}>
@@ -225,6 +233,57 @@ const CommercialProducts = () => {
       </Box>
       </Container>
       {/* <Footer /> */}
+      {openPincodeModal && (
+  <Box
+    sx={{
+      position: 'fixed',
+      top: 0, left: 0, right: 0, bottom: 0,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      zIndex: 9999
+    }}
+  >
+    <Box sx={{ backgroundColor: '#fff', p: 4, borderRadius: 2, textAlign: 'center', maxWidth: 400 }}>
+      <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>Enter Your Pincode</Typography>
+      <input
+        type="text"
+        value={pincode}
+        onChange={(e) => setPincode(e.target.value)}
+        placeholder="e.g. 600001"
+        style={{ padding: '10px', width: '80%', marginBottom: '20px', fontSize: '16px' }}
+      />
+      <br />
+      <Button
+        variant="contained"
+        onClick={() => {
+          if (isTamilNaduPincode(pincode)) {
+            setResultType('success');
+            setResultMessage('🎉 Yay! We deliver to your area in Tamil Nadu!');
+          } else {
+            setResultType('error');
+            setResultMessage('🚫 Sorry, service not available in your region.');
+          }
+        }}
+        sx={{ backgroundColor: '#0277bd', '&:hover': { backgroundColor: '#01579b' } }}
+      >
+        Submit
+      </Button>
+
+      {resultMessage && (
+        <Typography sx={{ mt: 3, color: resultType === 'success' ? 'green' : 'red', fontWeight: 'bold' }}>
+          {resultMessage}
+        </Typography>
+      )}
+
+      {(resultMessage && (
+        <Button onClick={() => setOpenPincodeModal(false)} sx={{ mt: 2 }}>
+          Continue
+        </Button>
+      ))}
+    </Box>
+  </Box>
+)}
+
     </div>
   );
 };

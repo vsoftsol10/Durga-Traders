@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Container, Box } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import ScrollFloat from '../Animation/ScrollFloat';
 
 const AnimatedTestimonials = ({ testimonials }) => {
   // Create a ref for each testimonial card
@@ -104,7 +105,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
     gutterBottom
     sx={{
       fontWeight: 'bold',
-      color: '#0277bd',
+      color: '#022279',
       position: 'relative',
       display: 'inline-block',
       mb: 5,
@@ -115,13 +116,21 @@ const AnimatedTestimonials = ({ testimonials }) => {
         height: '3px',
         bottom: '-10px',
         left: '20%',
-        backgroundColor: '#00bcd4',
+        backgroundColor: '#00C7E8',
         borderRadius: '2px'
       }
     }}
   >
-    What Our Customers Say
-  </Typography>
+    <ScrollFloat
+  animationDuration={1}
+  ease='back.inOut(2)'
+  scrollStart='center bottom+=50%'
+  scrollEnd='bottom bottom-=40%'
+  stagger={0.03}
+>
+What Our Customers Say
+</ScrollFloat>
+    </Typography>
 </Box>
 
 
