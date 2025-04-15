@@ -353,12 +353,12 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
               <span>Free</span>
             </div>
             <div className="summary-row">
-              <span>Tax (8%)</span>
-              <span>₹{(safeTotalPrice * 0.08).toFixed(2)}</span>
+              <span>Tax (18%)</span>
+              <span>₹{(safeTotalPrice * 0.18).toFixed(2)}</span>
             </div>
             <div className="summary-row total">
               <span>Total</span>
-              <span>₹{(safeTotalPrice * 1.08).toFixed(2)}</span>
+              <span>₹{(safeTotalPrice * 1.18).toFixed(2)}</span>
             </div>
           </div>
           

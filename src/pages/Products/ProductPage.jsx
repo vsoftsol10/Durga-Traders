@@ -168,7 +168,7 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
     // Navigate to checkout page
     navigate("/checkout");
   }
-  
+
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -236,11 +236,11 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
             </div>
             <div className="summary-row">
               <span>Tax</span>
-              <span>₹{(totalPrice * 0.08).toFixed(2)}</span>
+              <span>₹{(totalPrice * 0.18).toFixed(2)}</span>
             </div>
             <div className="summary-row total">
               <span>Total</span>
-              <span>₹{(totalPrice * 1.08).toFixed(2)}</span>
+              <span>₹{(totalPrice * 1.18).toFixed(2)}</span>
             </div>
             
             <button className="place-order-button"  onClick={goToCheckout} >
