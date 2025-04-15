@@ -50,12 +50,12 @@ const Home = () => {
   useEffect(() => {
     gsap.fromTo(
       imageRef.current,
-      { opacity: 0, x: -200 },
+      { opacity: 0, x: -100 },
       {
         opacity: 1,
         x: 0,
-        duration: 1,
-        ease: 'power3.out',
+        duration: 5,
+        ease: 'power5.out',
       }
     );
 
@@ -149,22 +149,22 @@ const Home = () => {
 
   return (
     <div>
-     <div style={{ position: 'relative' }}>
-  <img
-    src={HomeOne}
-    alt="homeSlide"
-    style={{
-      width: '100%',
-      height: 'auto',
-      display: 'block',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-    }}
-  />
-  
-  {/* New Wavy Divider */}
-  <WavyDivider topColor="#ffffff" bottomColor="#ffffff" />
-</div>
+      <div style={{ position: 'relative' }}>
+        <img
+          src={HomeOne}
+          alt="homeSlide"
+          style={{
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
+
+        {/* New Wavy Divider */}
+        <WavyDivider topColor="#ffffff" bottomColor="#ffffff" />
+      </div>
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
         <Box
@@ -337,13 +337,14 @@ const Home = () => {
             <Box
               key={index}
               sx={{
-                width: { xs: '100%', sm: '48%', md: '28%' },
+                width: { xs: '100%', sm: '48%', md: '23%' }, 
                 padding: '10px',
                 textAlign: 'center',
                 marginBottom: '20px',
                 display: 'flex',
               }}
             >
+
               <Card
                 sx={{
                   height: '100%',
