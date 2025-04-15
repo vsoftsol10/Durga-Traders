@@ -29,6 +29,7 @@ import CommercialProductSeven from './components/CommercialProductSeven';
 import WaterBackground from './Animation/WaterBackground'
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -72,6 +73,7 @@ function MainLayout() {
           <Route path='/services/etp-services' element={<ETPServices/>} />
           <Route path='/services/dispenser-services' element={<DispenserService/> } />
           <Route path='/personal-products' element={<ProductPage/>} />
+          <Route path='/checkout' element={<CheckoutPage/>} />
           <Route path="/commercial-products" element={<CommercialProducts />} />
         <Route path="/product/1" element={<CommercialProductOne />} />
         <Route path="/product/2" element={<CommercialProductTwo/>} />

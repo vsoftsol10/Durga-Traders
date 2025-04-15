@@ -3,6 +3,7 @@ import './ProductPage.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from  '../../firebase'; // You'll need to create this file
 import personProduct from "../../assets/Personal-Products.gif";
+import { useNavigate } from 'react-router-dom';
 
 // CartContext
 const CartContext = React.createContext();
@@ -65,7 +66,7 @@ const ProductItem = ({ product, index, addToCart }) => {
             alt={product.name} 
             className="product-image"
           />
-          <div className="product-price">${product.price}</div>
+          <div className="product-price">₹{product.price}</div>
         </div>
         
         <div className="rating-container">
@@ -146,7 +147,7 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
           Checkout
         </span>
         <span className="checkout-price">
-          ${totalPrice}
+          ₹{totalPrice}
         </span>
         {cartItems.length > 0 && (
           <span className="cart-badge">{cartItems.length}</span>
@@ -158,6 +159,16 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
 
 // Checkout Page Component
 const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart }) => {
+  const navigate=useNavigate();
+  const goToCheckout = () => {
+    // Store cart data in sessionStorage
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    sessionStorage.setItem('totalPrice', totalPrice);
+    
+    // Navigate to checkout page
+    navigate("/checkout");
+  }
+  
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -217,7 +228,7 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
           <div className="checkout-summary">
             <div className="summary-row">
               <span>Subtotal ({cartItems.length} items)</span>
-              <span>${totalPrice}</span>
+              <span>₹{totalPrice}</span>
             </div>
             <div className="summary-row">
               <span>Shipping</span>
@@ -225,14 +236,14 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
             </div>
             <div className="summary-row">
               <span>Tax</span>
-              <span>${(totalPrice * 0.08).toFixed(2)}</span>
+              <span>₹{(totalPrice * 0.08).toFixed(2)}</span>
             </div>
             <div className="summary-row total">
               <span>Total</span>
-              <span>${(totalPrice * 1.08).toFixed(2)}</span>
+              <span>₹{(totalPrice * 1.08).toFixed(2)}</span>
             </div>
             
-            <button className="place-order-button">
+            <button className="place-order-button"  onClick={goToCheckout} >
               Place Order
             </button>
           </div>
@@ -250,6 +261,7 @@ const ProductPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
+  const navigate=useNavigate();
   
   // Fetch products from Firebase
   useEffect(() => {
