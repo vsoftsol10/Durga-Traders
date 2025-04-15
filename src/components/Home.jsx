@@ -2,15 +2,13 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './home.css';
 import AnimatedTestimonials from './AnimatedTestimonials';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import WavyDivider from '../Animation/WavyDivider';
 import HomeOne from '../assets/Durga Traders gif home page.gif';
 import BigSale from '../assets/Offersales.gif';
 import BestSell1 from '../assets/bestseller1.png';
-import BestSell2 from '../assets/bestseller2.png'
-import BestSell3 from '../assets/bestseller3.png'
-import BestSell4 from '../assets/bestseller4.png'
+import BestSell2 from '../assets/bestseller2.png';
+import BestSell3 from '../assets/bestseller3.png';
+import BestSell4 from '../assets/bestseller4.png';
 import AquaImg from '../assets/about-1.png';
 import HydrateImg from '../assets/Hydrateman.png';
 import AFT from '../assets/Advance Filtration.png';
@@ -52,70 +50,20 @@ const Home = () => {
   useEffect(() => {
     gsap.fromTo(
       imageRef.current,
-      { opacity: 0, x: -200 },
+      { opacity: 0, x: -100 },
       {
         opacity: 1,
         x: 0,
-        duration: 1,
-        ease: 'power3.out',
+        duration: 5,
+        ease: 'power5.out',
       }
     );
 
-    // Only start slider if there's more than one image
     if (sliderRef.current && carouselImages.length > 1) {
       sliderRef.current.slickPlay();
     }
   }, []);
 
-  // If there's only one image, render it directly without the slider
-  const renderCarousel = () => {
-    if (carouselImages.length === 1) {
-      return (
-        <div className="carousel-container" style={{ position: 'relative', textAlign: 'center' }}>
-          <img
-            src={carouselImages[0]}
-            alt="Durga Water Purifier"
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'cover',
-            }}
-          />
-        
-          {/* Wavy SVG */}
-          <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', zIndex: 1 }}>
-            <svg viewBox="0 0 1440 320" style={{ display: 'block' }}>
-              <path
-                fill="#fff"
-                fillOpacity="1"
-                d="M0,128L48,160C96,192,192,256,288,256C384,256,480,192,576,154.7C672,117,768,107,864,128C960,149,1056,203,1152,218.7C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="carousel-container">
-          <Slider ref={sliderRef} {...settings}>
-            {carouselImages.map((image, index) => (
-              <div key={index} className="carousel-slide">
-                <img
-                  src={image}
-                  alt={`Durga Water Purifier Slide ${index + 1}`}
-                  style={{
-                    width: '100%',
-                    objectFit: 'fill',
-                  }}
-                />
-              </div>
-            ))}
-          </Slider>
-        </div>
-      );
-    }
-  };
-  
 
   const services = [
     {
@@ -201,8 +149,22 @@ const Home = () => {
 
   return (
     <div>
-      {/* Use the conditional rendering function instead of direct slider */}
-      {renderCarousel()}
+      <div style={{ position: 'relative' }}>
+        <img
+          src={HomeOne}
+          alt="homeSlide"
+          style={{
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
+
+        {/* New Wavy Divider */}
+        <WavyDivider topColor="#ffffff" bottomColor="#ffffff" />
+      </div>
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
         <Box
@@ -345,97 +307,97 @@ const Home = () => {
       </div>
 
       <Container maxWidth={false} sx={{ px: { xs: 2, sm: 5, md: 10 }, pt: '40px' }}>
-  <Box textAlign="center" mb={5}>
-    <Typography
-      variant="h4"
-      gutterBottom
-      sx={{
-        fontWeight: 'bold',
-        color: '#0277bd',
-        position: 'relative',
-        display: 'inline-block',
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          width: '60%',
-          height: '3px',
-          bottom: '-10px',
-          left: '20%',
-          backgroundColor: '#00bcd4',
-          borderRadius: '2px',
-        }
-      }}
-    >
-      Our Best Selling Products
-    </Typography>
-  </Box>
+        <Box textAlign="center" mb={5}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              color: '#0277bd',
+              position: 'relative',
+              display: 'inline-block',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                width: '60%',
+                height: '3px',
+                bottom: '-10px',
+                left: '20%',
+                backgroundColor: '#00bcd4',
+                borderRadius: '2px',
+              }
+            }}
+          >
+            Our Best Selling Products
+          </Typography>
+        </Box>
 
-  <Box display="flex" flexWrap="wrap" justifyContent="center">
-    {products.map((product, index) => (
-      <Box
-        key={index}
-        sx={{
-          width: { xs: '100%', sm: '48%', md: '28%' },
-          padding: '10px',
-          textAlign: 'center',
-          marginBottom: '20px',
-          display: 'flex',
-        }}
-      >
-        <Card
-          sx={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            flexGrow: 1,
-            borderRadius: '15px',
-            transition: 'transform 0.3s ease, background-color 0.3s ease',
-            '&:hover': {
-              transform: 'scale(1.05)',
-              backgroundColor: '#f5f5f5',
-            },
-          }}
-        >
-          {/* Image Section */}
-          <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
-            <img
-              src={product.image}
-              alt={product.alt}
-              style={{
-                width: '70%',
-                height: 'auto',
-                borderRadius: '8px',
-                objectFit: 'cover',
+        <Box display="flex" flexWrap="wrap" justifyContent="center">
+          {products.map((product, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: { xs: '100%', sm: '48%', md: '23%' }, 
+                padding: '10px',
+                textAlign: 'center',
+                marginBottom: '20px',
+                display: 'flex',
               }}
-            />
-          </CardContent>
+            >
 
-          {/* Text Content */}
-          <CardContent sx={{ flexGrow: 1 }}>
-            <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
-              {product.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
-              {product.modelName}
-            </Typography>
-            <Typography sx={{ marginBottom: '10px' }} paragraph>
-              {product.description}
-            </Typography>
-          </CardContent>
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  flexGrow: 1,
+                  borderRadius: '15px',
+                  transition: 'transform 0.3s ease, background-color 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                    backgroundColor: '#f5f5f5',
+                  },
+                }}
+              >
+                {/* Image Section */}
+                <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <img
+                    src={product.image}
+                    alt={product.alt}
+                    style={{
+                      width: '70%',
+                      height: 'auto',
+                      borderRadius: '8px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </CardContent>
 
-          {/* Button */}
-          <CardActions sx={{ justifyContent: 'center' }}>
-            <Button size="small" variant="contained" color="primary">
-              Buy Now
-            </Button>
-          </CardActions>
-        </Card>
-      </Box>
-    ))}
-  </Box>
-</Container>
+                {/* Text Content */}
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                    {product.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
+                    {product.modelName}
+                  </Typography>
+                  <Typography sx={{ marginBottom: '10px' }} paragraph>
+                    {product.description}
+                  </Typography>
+                </CardContent>
 
+                {/* Button */}
+                <CardActions sx={{ justifyContent: 'center' }}>
+                  <Button size="small" variant="contained" color="primary">
+                    Buy Now
+                  </Button>
+                </CardActions>
+              </Card>
+            </Box>
+          ))}
+        </Box>
+      </Container>
 
       <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', py: 6 }}>
         <Container maxWidth="xl">

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import "./SignIn.css";
 import water from "../assets/water.webp";
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 // Firebase configuration
 const firebaseConfig = {

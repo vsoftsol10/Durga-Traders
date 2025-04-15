@@ -60,136 +60,135 @@ const CommercialProductOne = () => {
 
     return (
         <Container maxWidth="xl" sx={{ py: 4 }}>
-  {/* Breadcrumbs */}
-  <Box sx={{ mb: 4 }}>
-    <Breadcrumbs separator="››">
-      {breadcrumbs}
-    </Breadcrumbs>
-  </Box>
+            {/* Breadcrumbs */}
+            <Box sx={{ mb: 4, textAlign: 'center' }}>
+                <Breadcrumbs separator="››" sx={{ justifyContent: 'center', display: 'flex' }}>
+                    {breadcrumbs}
+                </Breadcrumbs>
+            </Box>
 
-  {/* Back Button */}
-  <Box sx={{ mb: 3 }}>
-    <Button variant="outlined" onClick={() => navigate('/commercial-products')}>
-      Back to Products
-    </Button>
-  </Box>
+            {/* Back Button */}
+            <Box sx={{ mb: 3, textAlign: 'center' }}>
+                <Button variant="outlined" onClick={() => navigate('/commercial-products')}>
+                    Back to Products
+                </Button>
+            </Box>
 
-  {/* Center-Aligned Main Card */}
-  <Box display="flex" justifyContent="center">
-    <Paper elevation={2} sx={{ p: { xs: 2, md: 4 }, borderRadius: 2, maxWidth: 1200, width: '100%' }}>
-      <Typography variant="h4" fontWeight="bold" color="#0277bd" sx={{ mb: 3, textAlign: 'center' }}>
-        DT-250 AUTO
-      </Typography>
+            {/* Main Content Card Centered */}
+            <Box display="flex" justifyContent="center">
+                <Paper elevation={2} sx={{ p: { xs: 2, md: 4 }, borderRadius: 2, maxWidth: 1200, width: '100%', textAlign: 'center' }}>
+                    <Typography variant="h4" fontWeight="bold" color="#0277bd" sx={{ mb: 3 }}>
+                        DT-250 AUTO
+                    </Typography>
 
-      <Grid container spacing={4} sx={{ mb: 4 }}>
-        {/* Left: Image and Rating */}
-        <Grid item xs={12} md={5}>
-          <Card>
-            <CardMedia
-              component="img"
-              image={CommercialOne}
-              alt="DT-250 AUTO"
-              sx={{ height: 300, objectFit: 'cover' }}
-            />
-          </Card>
+                    {/* Image + Specs */}
+                    <Grid container spacing={4} justifyContent="center">
+                        {/* Image + Rating */}
+                        <Grid item xs={12} md={5} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    image={CommercialOne}
+                                    alt="DT-250 AUTO"
+                                    sx={{ height: 300, objectFit: 'cover' }}
+                                />
+                            </Card>
+                            <Box sx={{ mt: 2 }}>
+                                <Stack direction="row" alignItems="center" spacing={1} justifyContent="center">
+                                    <Typography variant="subtitle1" fontWeight="medium">
+                                        Product Rating:
+                                    </Typography>
+                                    <Rating
+                                        name="product-rating"
+                                        value={value}
+                                        precision={0.5}
+                                        onChange={(event, newValue) => setValue(newValue)}
+                                    />
+                                    <Typography variant="body2" color="text.secondary">
+                                        ({value} out of 5)
+                                    </Typography>
+                                </Stack>
+                            </Box>
+                        </Grid>
 
-          <Box sx={{ mt: 2 }}>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography variant="subtitle1" fontWeight="medium">
-                Product Rating:
-              </Typography>
-              <Rating
-                name="product-rating"
-                value={value}
-                precision={0.5}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              />
-              <Typography variant="body2" color="text.secondary">
-                ({value} out of 5)
-              </Typography>
-            </Stack>
-          </Box>
-        </Grid>
+                        {/* Specs Table */}
+                        <Grid item xs={12} md={7}>
+                            <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+                                SPECIFICATIONS
+                            </Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                <TableContainer component={Paper} variant="outlined" sx={{ maxWidth: 600 }}>
+                                    <Table size="small">
+                                        <TableBody>
+                                            {specifications.map((spec, index) => (
+                                                <TableRow
+                                                    key={index}
+                                                    sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}
+                                                >
+                                                    <TableCell sx={{ fontWeight: 'bold', width: '40%' }}>
+                                                        {spec.name}
+                                                    </TableCell>
+                                                    <TableCell>{spec.value}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Box>
+                        </Grid>
+                    </Grid>
 
-        {/* Right: Specs */}
-        <Grid item xs={12} md={7}>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-            SPECIFICATIONS
-          </Typography>
-          <TableContainer component={Paper} variant="outlined">
-            <Table size="small">
-              <TableBody>
-                {specifications.map((spec, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}
-                  >
-                    <TableCell sx={{ fontWeight: 'bold', width: '40%' }}>
-                      {spec.name}
-                    </TableCell>
-                    <TableCell>{spec.value}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
+                    {/* Description and Features */}
+                    <Box sx={{ mt: 4 }}>
+                        <Typography variant="h6" sx={{ mb: 2 }}>
+                            Product Code: 2251AMO
+                        </Typography>
 
-      {/* Description and CTA */}
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Product Code: 2251AMO
-        </Typography>
+                        <Typography variant="body1" sx={{ mb: 3 }}>
+                            The DT-250 AUTO is our entry-level commercial RO system with 250 liters per day capacity,
+                            perfect for small offices and retail spaces.
+                        </Typography>
 
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          The DT-250 AUTO is our entry-level commercial RO system with 250 liters per day capacity, perfect for small offices and retail spaces.
-        </Typography>
+                        <Typography variant="h6" sx={{ mb: 2 }}>
+                            Key Features:
+                        </Typography>
 
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Key Features:
-        </Typography>
+                        <Box component="ul" sx={{ pl: 2, textAlign: 'left', display: 'inline-block' }}>
+                            <Typography component="li" sx={{ mb: 1 }}>
+                                Fully automatic operation
+                            </Typography>
+                            <Typography component="li" sx={{ mb: 1 }}>
+                                Advanced 5-stage filtration
+                            </Typography>
+                            <Typography component="li" sx={{ mb: 1 }}>
+                                Smart controller with auto-flush system
+                            </Typography>
+                            <Typography component="li" sx={{ mb: 1 }}>
+                                Compact design for space-saving installation
+                            </Typography>
+                        </Box>
 
-        <Box component="ul" sx={{ pl: 2 }}>
-          <Typography component="li" sx={{ mb: 1 }}>
-            Fully automatic operation
-          </Typography>
-          <Typography component="li" sx={{ mb: 1 }}>
-            Advanced 5-stage filtration
-          </Typography>
-          <Typography component="li" sx={{ mb: 1 }}>
-            Smart controller with auto-flush system
-          </Typography>
-          <Typography component="li" sx={{ mb: 1 }}>
-            Compact design for space-saving installation
-          </Typography>
-        </Box>
+                        <Divider sx={{ my: 3 }} />
 
-        <Divider sx={{ my: 3 }} />
-
-        {/* Centered Button */}
-        <Box textAlign="center">
-          <Button
-            variant="contained"
-            href="https://wa.me/917094310049"
-            sx={{
-              backgroundColor: '#0277bd',
-              '&:hover': {
-                backgroundColor: '#01579b'
-              },
-              py: 1.5,
-              px: 4
-            }}
-          >
-            Contact for Pricing
-          </Button>
-        </Box>
-      </Box>
-    </Paper>
-  </Box>
-</Container>
+                        {/* CTA Button Centered */}
+                        <Box textAlign="center">
+                            <Button
+                                variant="contained"
+                                href="https://wa.me/917094310049"
+                                sx={{
+                                    backgroundColor: '#0277bd',
+                                    '&:hover': { backgroundColor: '#01579b' },
+                                    py: 1.5,
+                                    px: 4
+                                }}
+                            >
+                                Contact for Pricing
+                            </Button>
+                        </Box>
+                    </Box>
+                </Paper>
+            </Box>
+        </Container>
     );
 };
 

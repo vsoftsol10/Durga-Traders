@@ -155,22 +155,22 @@ const CommercialProductSeven = () => {
 
                     <Divider sx={{ my: 3 }} />
 
-                    {/* Button for Contacting on WhatsApp */}
-                    <Button 
-                        variant="contained"
-                        href="https://wa.me/917094310049" // WhatsApp link
-                        target="_blank"
-                        sx={{
-                            backgroundColor: '#0277bd',
-                            '&:hover': { backgroundColor: '#01579b' },
-                            py: 1.5,
-                            px: 4,
-                            display: 'block',
-                            margin: '0 auto',
-                        }}
-                    >
-                        Contact for Pricing
-                    </Button>
+                    <Box textAlign="center">
+                        <Button
+                            variant="contained"
+                            href="https://wa.me/917094310049"
+                            sx={{
+                                backgroundColor: '#0277bd',
+                                '&:hover': {
+                                    backgroundColor: '#01579b'
+                                },
+                                py: 1.5,
+                                px: 4
+                            }}
+                        >
+                            Contact for Pricing
+                        </Button>
+                    </Box>
                 </Box>
             </Paper>
         </Container>

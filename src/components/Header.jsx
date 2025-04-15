@@ -7,6 +7,7 @@ function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false); // NEW
 
   // Check if viewport is mobile
   useEffect(() => {
@@ -14,18 +15,14 @@ function Navbar() {
       setIsMobile(window.innerWidth <= 1024);
     };
     
-    // Initial check
     checkIfMobile();
-    
-    // Add event listener
     window.addEventListener('resize', checkIfMobile);
-    
-    // Clean up
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
+    setIsNavOpen((prev) => !prev); // Toggle nav open state
   };
 
   const toggleDropdown = (e) => {
@@ -45,7 +42,6 @@ function Navbar() {
     }
   };
 
-  // Close mobile menu when clicking a link
   const handleLinkClick = () => {
     if (isMobile && navRef.current.classList.contains("responsive_nav")) {
       showNavbar();
@@ -56,10 +52,11 @@ function Navbar() {
     <header>
       <h2 className="logo">
         <a href="/" className="logolink">
-        <span className="logo-text">Durga</span>
-        <span className="logo-accent">Traders</span>
+          <span className="logo-text">Durga</span>
+          <span className="logo-accent">Traders</span>
         </a>
       </h2>
+
       <nav ref={navRef}>
         <a 
           href="/" 
@@ -81,6 +78,7 @@ function Navbar() {
           <span className="link-text">About Us</span>
           <span className="link-hover-effect"></span>
         </a>
+
         <div 
           className={`dropdown-container ${isDropdownOpen ? "open" : ""}`}
           onMouseEnter={() => handleMouseEnter("products")}
@@ -114,6 +112,7 @@ function Navbar() {
             </a>
           </div>
         </div>
+
         <a 
           href="/service" 
           className={`nav-link ${activeLink === "service" ? "active" : ""}`}
@@ -134,13 +133,20 @@ function Navbar() {
           <span className="link-text">Contact Us</span>
           <span className="link-hover-effect"></span>
         </a>
-        <button className="nav-btn nav-close-btn" onClick={showNavbar}>
-          <FaTimes />
-        </button>
       </nav>
-      <button className="nav-btn" onClick={showNavbar}>
-        <FaBars />
-      </button>
+
+      {/* 🔁 Only show one icon at a time based on nav open state */}
+      {isMobile && (
+        isNavOpen ? (
+          <button className="nav-btn nav-close-btn" onClick={showNavbar}>
+            <FaTimes />
+          </button>
+        ) : (
+          <button className="nav-btn" onClick={showNavbar}>
+            <FaBars />
+          </button>
+        )
+      )}
     </header>
   );
 }

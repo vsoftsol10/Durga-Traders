@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Container, Typography, Box, Button, Breadcrumbs, Link, 
-  Card, CardMedia, Divider, Paper, Grid, Table, TableBody,
-  TableCell, TableContainer, TableRow, Rating, Stack
+import {
+    Container, Typography, Box, Button, Breadcrumbs, Link,
+    Card, CardMedia, Divider, Paper, Grid, Table, TableBody,
+    TableCell, TableContainer, TableRow, Rating, Stack
 } from '@mui/material';
 import CommercialFour from '../assets/CommercialFour.jpeg';
 
@@ -66,7 +66,7 @@ const CommercialProductThree = () => {
             </Box>
 
             <Box sx={{ mb: 3, textAlign: 'center' }}>
-                <Button 
+                <Button
                     variant="outlined"
                     onClick={() => navigate('/commercial-products')}
                 >
@@ -114,21 +114,21 @@ const CommercialProductThree = () => {
                         <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
                             SPECIFICATIONS
                         </Typography>
-                        
+
                         <TableContainer component={Paper} variant="outlined">
                             <Table size="small">
                                 <TableBody>
                                     {specifications.map((spec, index) => (
-                                        <TableRow 
+                                        <TableRow
                                             key={index}
-                                            sx={{ 
+                                            sx={{
                                                 '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' }
                                             }}
                                         >
-                                            <TableCell 
-                                                component="th" 
+                                            <TableCell
+                                                component="th"
                                                 scope="row"
-                                                sx={{ 
+                                                sx={{
                                                     fontWeight: 'bold',
                                                     width: '40%',
                                                     borderBottom: '1px solid rgba(224, 224, 224, 1)'
@@ -136,8 +136,8 @@ const CommercialProductThree = () => {
                                             >
                                                 {spec.name}
                                             </TableCell>
-                                            <TableCell 
-                                                sx={{ 
+                                            <TableCell
+                                                sx={{
                                                     borderBottom: '1px solid rgba(224, 224, 224, 1)'
                                                 }}
                                             >
@@ -181,22 +181,22 @@ const CommercialProductThree = () => {
 
                     <Divider sx={{ my: 3 }} />
 
-                    {/* Button for Contacting on WhatsApp */}
-                    <Button 
-                        variant="contained"
-                        href="https://wa.me/917094310049" // WhatsApp link
-                        target="_blank"
-                        sx={{
-                            backgroundColor: '#0277bd',
-                            '&:hover': { backgroundColor: '#01579b' },
-                            py: 1.5,
-                            px: 4,
-                            display: 'block',
-                            margin: '0 auto',
-                        }}
-                    >
-                        Contact for Pricing
-                    </Button>
+                    <Box textAlign="center">
+                        <Button
+                            variant="contained"
+                            href="https://wa.me/917094310049"
+                            sx={{
+                                backgroundColor: '#0277bd',
+                                '&:hover': {
+                                    backgroundColor: '#01579b'
+                                },
+                                py: 1.5,
+                                px: 4
+                            }}
+                        >
+                            Contact for Pricing
+                        </Button>
+                    </Box>
                 </Box>
             </Paper>
         </Container>
