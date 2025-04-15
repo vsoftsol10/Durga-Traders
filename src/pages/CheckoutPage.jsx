@@ -40,7 +40,7 @@ const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
           <h3>Payment Summary</h3>
           <div className="summary-item">
             <span>Order Total:</span>
-            <span>${((orderDetails?.totalAmount || 0) * 1.08).toFixed(2)}</span>
+            <span>₹{((orderDetails?.totalAmount || 0) * 1.08).toFixed(2)}</span>
           </div>
         </div>
         
@@ -333,7 +333,7 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
                     <h3 className="product-name">{item.name}</h3>
                     <p className="product-model">{item.feature || 'Standard Model'}</p>
                   </div>
-                  <div className="product-price">${item.price}</div>
+                  {/* <div className="product-price">₹{item.price}</div> */}
                 </div>
               ))
             ) : (
