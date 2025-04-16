@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Container, Box } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 
+
 const AnimatedTestimonials = ({ testimonials }) => {
   // Create a ref for each testimonial card
   const testimonialRefs = useRef([]);
@@ -26,7 +27,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
     testimonialRefs.current.forEach((card, index) => {
       // Initial state - hide cards
       gsap.set(card, { y: 50, opacity: 0 });
-      
+
       // Create scroll trigger for each card
       gsap.to(card, {
         scrollTrigger: {
@@ -52,7 +53,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
           duration: 0.3,
           ease: "power2.out"
         });
-        
+
         // Find and animate the quote icon inside this card
         const quoteIcon = card.querySelector('.quote-icon');
         if (quoteIcon) {
@@ -73,7 +74,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
           duration: 0.3,
           ease: "power2.out"
         });
-        
+
         // Reset the quote icon animation
         const quoteIcon = card.querySelector('.quote-icon');
         if (quoteIcon) {
@@ -90,8 +91,8 @@ const AnimatedTestimonials = ({ testimonials }) => {
     // Cleanup event listeners
     return () => {
       testimonialRefs.current.forEach((card) => {
-        card.removeEventListener('mouseenter', () => {});
-        card.removeEventListener('mouseleave', () => {});
+        card.removeEventListener('mouseenter', () => { });
+        card.removeEventListener('mouseleave', () => { });
       });
     };
   }, [testimonials]);
@@ -99,30 +100,31 @@ const AnimatedTestimonials = ({ testimonials }) => {
   return (
     <Container maxWidth="xlg" style={{ paddingTop: '60px', paddingBottom: '60px' }}>
       <Box sx={{ textAlign: 'center' }}>
-  <Typography 
-    variant="h4" 
-    gutterBottom
-    sx={{
-      fontWeight: 'bold',
-      color: '#0277bd',
-      position: 'relative',
-      display: 'inline-block',
-      mb: 5,
-      '&::after': {
-        content: '""',
-        position: 'absolute',
-        width: '60%',
-        height: '3px',
-        bottom: '-10px',
-        left: '20%',
-        backgroundColor: '#00bcd4',
-        borderRadius: '2px'
-      }
-    }}
-  >
-    What Our Customers Say
-  </Typography>
-</Box>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            fontSize: '3rem',
+            color: '#022279',
+            position: 'relative',
+            display: 'inline-block',
+            mb: 5,
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              width: '60%',
+              height: '3px',
+              bottom: '-10px',
+              left: '20%',
+              backgroundColor: '#00C7E8',
+              borderRadius: '2px'
+            }
+          }}
+        >
+          What Our Customers Say
+        </Typography>
+      </Box>
 
 
       <Box display="flex" flexWrap="wrap" justifyContent="center">
@@ -138,10 +140,10 @@ const AnimatedTestimonials = ({ testimonials }) => {
               justifyContent: 'space-between',
             }}
           >
-            <Card 
+            <Card
               ref={addToRefs}
-              sx={{ 
-                height: '100%', 
+              sx={{
+                height: '100%',
                 borderRadius: '12px',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
                 transition: 'all 0.3s ease',
@@ -150,7 +152,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
                 padding: '10px'
               }}
             >
-              <FormatQuoteIcon 
+              <FormatQuoteIcon
                 className="quote-icon"
                 sx={{
                   position: 'absolute',
@@ -165,10 +167,10 @@ const AnimatedTestimonials = ({ testimonials }) => {
                 }}
               />
               <CardContent sx={{ pt: 3 }}>
-                <Typography 
-                  variant="body1" 
-                  sx={{ 
-                    fontStyle: 'italic', 
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontStyle: 'italic',
                     mb: 3,
                     color: '#424242',
                     lineHeight: 1.6
@@ -176,17 +178,17 @@ const AnimatedTestimonials = ({ testimonials }) => {
                 >
                   "{testimonial.feedback}"
                 </Typography>
-                <Box sx={{ 
-                  display: 'flex', 
+                <Box sx={{
+                  display: 'flex',
                   flexDirection: 'column',
                   backgroundColor: '#f5f9fa',
                   borderRadius: '8px',
                   padding: '12px',
                   marginTop: 'auto'
                 }}>
-                  <Typography 
-                    variant="h6" 
-                    sx={{ 
+                  <Typography
+                    variant="h6"
+                    sx={{
                       fontWeight: 'bold',
                       color: '#0277bd',
                       fontSize: '1.1rem'
@@ -194,8 +196,8 @@ const AnimatedTestimonials = ({ testimonials }) => {
                   >
                     {testimonial.name}
                   </Typography>
-                  <Typography 
-                    variant="subtitle2" 
+                  <Typography
+                    variant="subtitle2"
                     color="text.secondary"
                   >
                     {testimonial.location}

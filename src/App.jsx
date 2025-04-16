@@ -31,6 +31,7 @@ import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
 
+
 function App() {
   const [count, setCount] = useState(0)
   
@@ -55,6 +56,7 @@ function App() {
 function MainLayout() {
   return(
     <>
+    
      <Header/>
       <WaterBackground>
         <Routes>
