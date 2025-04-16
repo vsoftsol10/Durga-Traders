@@ -1,15 +1,19 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import './home.css';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import AnimatedTestimonials from './AnimatedTestimonials';
-import ScrollFloat from '../Animation/ScrollFloat';
-import WavyDivider from '../Animation/WavyDivider';
-import HomeOne from '../assets/Durga Traders gif home page.gif';
+import HomeOne from '../assets/Durga Traders Home page slider 1.gif';
+import HomeTwo from '../assets/Durga Traders Home page slider 2.gif';
+import HomeThree from '../assets/Durga Traders Home page slider 3.gif';
+import HomeFour from '../assets/Durga Traders Home page slider 4.gif';
 import BigSale from '../assets/Offersales.gif';
-import BestSell1 from '../assets/bestseller1.png';
-import BestSell2 from '../assets/bestseller2.png';
-import BestSell3 from '../assets/bestseller3.png';
-import BestSell4 from '../assets/bestseller4.png';
+import BestSell1 from '../assets/Durga Product 01.png';
+import BestSell2 from '../assets/Durga Product 03.png';
+import BestSell3 from '../assets/Durga Product 04.png';
+import BestSell4 from '../assets/Durga Product 02.png';
 import AquaImg from '../assets/about-1.png';
 import HydrateImg from '../assets/Hydrateman.png';
 import AFT from '../assets/Advance Filtration.png';
@@ -25,26 +29,27 @@ import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
 import { Box } from '@mui/material';
 
-// Fixed images array for carousel - only one image
-const carouselImages = [
-  HomeOne,
-];
 
 const Home = () => {
   const sliderRef = useRef(null);
   const imageRef = useRef(null);
 
-  // Modified settings to handle single image correctly
+  // Define the colors to match the CommercialProducts page
+  const primaryColor = '#022279';
+  const secondaryColor = '#00c7e8';
+
+  const carouselImages = [HomeOne, HomeTwo, HomeThree, HomeFour];
+
   const settings = {
     dots: true,
-    infinite: carouselImages.length > 1, // Only enable infinite if more than one image
-    speed: 600,
+    infinite: carouselImages.length > 1,
+    speed: 200,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: carouselImages.length > 1, // Only enable autoplay if more than one image
-    autoplaySpeed: 3000,
+    autoplay: carouselImages.length > 1,
+    autoplaySpeed: 4000,
     pauseOnHover: true,
-    arrows: carouselImages.length > 1, // Only show arrows if more than one image
+    arrows: carouselImages.length > 1,
     className: "center"
   };
 
@@ -150,21 +155,23 @@ const Home = () => {
 
   return (
     <div>
-      <div style={{ position: 'relative' }}>
-        <img
-          src={HomeOne}
-          alt="homeSlide"
-          style={{
-            width: '100%',
-            height: '85vh',
-            display: 'block',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
-
-        {/* New Wavy Divider */}
-        <WavyDivider topColor="#ffffff" bottomColor="#ffffff" />
+      <div style={{ marginBottom: '40px' }}>
+        <Slider ref={sliderRef} {...settings}>
+          {carouselImages.map((img, index) => (
+            <div key={index}>
+              <img
+                src={img}
+                alt={`Slide ${index + 1}`}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  maxHeight: '600px',
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+          ))}
+        </Slider>
       </div>
 
       <Container maxWidth={false} sx={{ px: { xs: 2, sm: 5, md: 10 }, pt: '40px' }}>
@@ -173,8 +180,9 @@ const Home = () => {
             variant="h4"
             gutterBottom
             sx={{
+              fontSize: '3rem',
               fontWeight: 'bold',
-              color: '#022279',
+              color: primaryColor,
               position: 'relative',
               display: 'inline-block',
               '&::after': {
@@ -182,22 +190,14 @@ const Home = () => {
                 position: 'absolute',
                 width: '60%',
                 height: '3px',
-                backgroundColor: '#00C7E8',
+                backgroundColor: secondaryColor,
                 bottom: '-10px',
                 left: '20%',
                 borderRadius: '2px',
               }
             }}
           >
-            <ScrollFloat
-              animationDuration={1}
-              ease='back.inOut(2)'
-              scrollStart='center bottom+=50%'
-              scrollEnd='bottom bottom-=40%'
-              stagger={0.03}
-            >
-              Best Selling Products
-            </ScrollFloat>
+            Best Selling Products
           </Typography>
         </Box>
 
@@ -227,6 +227,8 @@ const Home = () => {
                     transform: 'scale(1.05)',
                     backgroundColor: '#f5f5f5',
                   },
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
               >
                 {/* Image Section */}
@@ -243,48 +245,66 @@ const Home = () => {
                   />
                 </CardContent>
 
-                {/* Text Content */}
+                {/* Text Content - Visible always */}
                 <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold', color: primaryColor }}>
                     {product.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
-                    {product.modelName}
-                  </Typography>
-                  <Typography sx={{ marginBottom: '10px' }} paragraph>
-                    {product.description}
                   </Typography>
                 </CardContent>
 
-                {/* Button */}
-                <CardActions sx={{ justifyContent: 'center', gap: 2, pb: 2 }}>
+                {/* Overlay content - Only visible on hover/tap */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                    padding: '20px',
+                    '&:hover': {
+                      opacity: 1,
+                    },
+                    '@media (hover: none)': {
+                      '&:active': {
+                        opacity: 1,
+                      }
+                    }
+                  }}
+                >
+                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold', color: primaryColor }}>
+                    {product.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px', fontWeight: 'bold' }}>
+                    {product.modelName}
+                  </Typography>
+                  <Typography sx={{ marginBottom: '20px' }} paragraph>
+                    {product.description}
+                  </Typography>
                   <Button
-                    size="small"
+                    size="medium"
                     variant="contained"
                     sx={{
-                      backgroundColor: '#022279',
+                      backgroundColor: secondaryColor,
                       color: 'white',
                       '&:hover': {
-                        backgroundColor: '#011956',
-                      }
+                        backgroundColor: primaryColor,
+                      },
+                      borderRadius: '8px',
+                      px: 3,
+                      py: 1,
+                      fontWeight: 'bold'
                     }}
                   >
-                    Book Demo
+                    Read More
                   </Button>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    sx={{
-                      backgroundColor: '#022279',
-                      color: 'white',
-                      '&:hover': {
-                        backgroundColor: '#011956',
-                      }
-                    }}
-                  >
-                    Buy Now
-                  </Button>
-                </CardActions>
+                </Box>
               </Card>
             </Box>
           ))}
@@ -325,7 +345,7 @@ const Home = () => {
             }}
             textAlign="center"
           >
-            <Typography variant="h3" align="center">
+            <Typography variant="h3" align="center" sx={{ color: primaryColor }}>
               Your Trusted Partner for<br /> Clean and Safe Water
             </Typography>
             <Typography variant="body1" align="center" sx={{ marginTop: '20px' }}>
@@ -335,11 +355,12 @@ const Home = () => {
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: '#00bcd4',
+                  backgroundColor: primaryColor,
                   color: 'white',
                   padding: '10px 20px',
                   '&:hover': {
-                    backgroundColor: '#008c99',
+                    backgroundColor: secondaryColor,
+                    color: 'black',
                     boxShadow: '0 4px 8px rgba(50, 175, 197, 0.49)'
                   },
                 }}
@@ -358,7 +379,8 @@ const Home = () => {
             gutterBottom
             sx={{
               fontWeight: 'bold',
-              color: '#022279',
+              fontSize: '3rem',
+              color: primaryColor,
               position: 'relative',
               display: 'inline-block',
               '&::after': {
@@ -368,20 +390,12 @@ const Home = () => {
                 height: '3px',
                 bottom: '-10px',
                 left: '20%',
-                backgroundColor: '#00C7E8',
+                backgroundColor: secondaryColor,
                 borderRadius: '2px',
               }
             }}
           >
-            <ScrollFloat
-              animationDuration={1}
-              ease='back.inOut(2)'
-              scrollStart='center bottom+=50%'
-              scrollEnd='bottom bottom-=40%'
-              stagger={0.03}
-            >
-              Why Durga Traders
-            </ScrollFloat>
+            Why Durga Traders
           </Typography>
         </Box>
 
@@ -402,6 +416,7 @@ const Home = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   transition: 'transform 0.3s ease, background-color 0.3s ease',
+                  borderRadius: '15px',
                   '&:hover': {
                     transform: 'scale(1.05)',
                     backgroundColor: '#f5f5f5',
@@ -422,7 +437,7 @@ const Home = () => {
                 </CardContent>
 
                 <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold' }}>
+                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold', color: primaryColor }}>
                     {service.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
@@ -487,7 +502,7 @@ const Home = () => {
                 variant="h3"
                 gutterBottom
                 sx={{
-                  color: '#0277bd',
+                  color: primaryColor,
                   fontWeight: 'bold',
                   mb: 3
                 }}
@@ -504,6 +519,23 @@ const Home = () => {
               >
                 Staying hydrated is crucial for maintaining good health. Our products are designed to help you achieve optimal hydration levels every day. Learn more about the benefits of drinking clean and purified water.
               </Typography>
+              
+              <Button
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  backgroundColor: secondaryColor,
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: primaryColor,
+                  },
+                  borderRadius: '8px',
+                  px: 3,
+                  py: 1
+                }}
+              >
+                Learn More
+              </Button>
             </Box>
 
             {/* Water effect background elements */}
@@ -513,7 +545,7 @@ const Home = () => {
                 width: '200px',
                 height: '200px',
                 borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(3,169,244,0.1) 0%, rgba(3,169,244,0) 70%)',
+                background: `radial-gradient(circle, ${secondaryColor}20 0%, ${secondaryColor}00 70%)`,
                 bottom: '-50px',
                 right: '10%',
                 zIndex: 0
@@ -525,7 +557,7 @@ const Home = () => {
                 width: '150px',
                 height: '150px',
                 borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(3,169,244,0.1) 0%, rgba(3,169,244,0) 70%)',
+                background: `radial-gradient(circle, ${secondaryColor}20 0%, ${secondaryColor}00 70%)`,
                 top: '-30px',
                 left: '15%',
                 zIndex: 0
