@@ -30,6 +30,7 @@ import WaterBackground from './Animation/WaterBackground'
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
+import Marquee from './components/Marquee';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -55,6 +56,7 @@ function App() {
 function MainLayout() {
   return(
     <>
+    {/* <Marquee/> */}
      <Header/>
       <WaterBackground>
         <Routes>
