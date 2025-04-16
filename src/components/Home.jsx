@@ -96,30 +96,38 @@ const Home = () => {
 
   const products = [
     {
-      title: 'DT-ROMA',
-      modelName: 'WP-1000',
-      description: 'An advanced water purifier with multi-stage filtration.',
+      title: 'DT-CLEANWATER',
+      modelName: '1101AMOT',
+      descriptionOne: '•	Suitable for all Water Sources.',
+      descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
+      descriptionThree: '•	Stages Of Purification: 8 Stages',
       image: BestSell1,
       alt: 'product1',
     },
     {
-      title: 'Water Purifier 2',
-      modelName: 'WP-2000',
-      description: 'A high-performance purifier for large families.',
+      title: 'DT-WATERLILY',
+      modelName: '1301AMOT',
+      descriptionOne: '•	Suitable for all Water Sources.',
+      descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
+      descriptionThree: '•	Stages Of Purification: 8 Stages',
       image: BestSell2,
       alt: 'product2',
     },
     {
-      title: 'Water Purifier 3',
-      modelName: 'WP-3000',
-      description: 'Compact and efficient purifier for apartments.',
+      title: 'DT-ROMA',
+      modelName: '1401AMOT',
+      descriptionOne: '•	Suitable for all Water Sources.',
+      descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
+      descriptionThree: '•	RO + UF + UV 8 Stage Purification',
       image: BestSell3,
       alt: 'product3',
     },
     {
-      title: 'Water Purifier 4',
-      modelName: 'WP-4000',
-      description: 'A premium purifier with state-of-the-art technology.',
+      title: 'DT-AQUATOUCH',
+      modelName: '1201AMOT',
+      descriptionOne: '•	Suitable for all Water Sources.',
+      descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
+      descriptionThree: '•	Stages Of Purification: 8 Stages',
       image: BestSell4,
       alt: 'product4',
     },
@@ -237,7 +245,7 @@ const Home = () => {
                     src={product.image}
                     alt={product.alt}
                     style={{
-                      width: '70%',
+                      width: '130%',
                       height: 'auto',
                       borderRadius: '8px',
                       objectFit: 'cover',
@@ -259,7 +267,7 @@ const Home = () => {
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '100%',
+                    height: '95%',
                     backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -285,7 +293,13 @@ const Home = () => {
                     {product.modelName}
                   </Typography>
                   <Typography sx={{ marginBottom: '20px' }} paragraph>
-                    {product.description}
+                    {product.descriptionOne}
+                  </Typography>
+                  <Typography sx={{ marginBottom: '20px' }} paragraph>
+                    {product.descriptionTwo}
+                  </Typography>
+                  <Typography sx={{ marginBottom: '20px' }} paragraph>
+                    {product.descriptionThree}
                   </Typography>
                   <Button
                     size="medium"
