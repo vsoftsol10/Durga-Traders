@@ -424,7 +424,7 @@ body {
   flex-grow: 1;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  /* -webkit-line-clamp: 2; Limit to 2 lines */
   -webkit-box-orient: vertical;
 }
 
@@ -1065,7 +1065,7 @@ body {
   
   .product-description {
     font-size: 0.9rem;
-    -webkit-line-clamp: 2;
+    /* -webkit-line-clamp: 2; */
   }
   
   .cart-container {
