@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import './App.css'
-import AboutUs from './pages/aboutUs'
 import Home from './components/Home'
 import Header from './components/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import AboutUs from './pages/AboutUS'
 import ContactUs from './pages/ContactUs'
 import Footer from './components/Footer'
 import Services from './pages/Services'
@@ -28,6 +29,8 @@ import CommercialProductSeven from './components/CommercialProductSeven';
 import WaterBackground from './Animation/WaterBackground'
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
+import CheckoutPage from './pages/CheckoutPage';
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -53,6 +56,7 @@ function App() {
 function MainLayout() {
   return(
     <>
+    
      <Header/>
       <WaterBackground>
         <Routes>
@@ -71,6 +75,7 @@ function MainLayout() {
           <Route path='/services/etp-services' element={<ETPServices/>} />
           <Route path='/services/dispenser-services' element={<DispenserService/> } />
           <Route path='/personal-products' element={<ProductPage/>} />
+          <Route path='/checkout' element={<CheckoutPage/>} />
           <Route path="/commercial-products" element={<CommercialProducts />} />
         <Route path="/product/1" element={<CommercialProductOne />} />
         <Route path="/product/2" element={<CommercialProductTwo/>} />

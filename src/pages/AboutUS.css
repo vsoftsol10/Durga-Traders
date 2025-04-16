@@ -2,7 +2,7 @@
     width: 100%; /* Changed from 120% to remove extra space */
     min-height: 100vh;
     margin: 0;
-    padding: 3rem 2rem;
+    padding: 3rem .1rem;
     /* background-color: transparent; Transparent white */
     box-sizing: border-box;
     position: relative;
@@ -35,10 +35,18 @@
     background-color: #00c6ff;
     box-shadow: 0 4px 8px rgba(0, 86, 163, 0.2);
   }
-  .aboutImage{
+  .imageContainer {
     width: 100%;
-    height: auto;
+    max-width: 100vw; /* Viewport width */
+    padding: 0;
+    overflow: hidden; /* Prevents horizontal scrolling */
+  }
+  
+  .aboutImage {
+    width: 100%;
+    height: auto; /* Maintains aspect ratio */
     margin-bottom: 50px;
+    object-fit: contain; /* Ensures image fits within container */
   }
   /* Water droplet decorations */
   .water-droplet {
@@ -137,10 +145,11 @@
     margin-bottom: 1.5rem;
     text-align: justify;
     position: relative;
-    padding-left: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
   }
   
-  .about-description::before {
+  /* .about-description::before {
     content: "";
     position: absolute;
     left: 0;
@@ -149,7 +158,7 @@
     height: 6px;
     border-radius: 50%;
     background-color: #00c6ff;
-  }
+  } */
   
   /* Highlight special feature sections */
   .feature-highlight {
@@ -158,6 +167,8 @@
     padding: 1rem;
     margin: 2rem 0;
     border-radius: 0 4px 4px 0;
+    margin-left: 5%;
+    margin-right: 5%;
   }
   
   /* Add a subtle water-themed background pattern */

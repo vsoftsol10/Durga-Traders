@@ -55,7 +55,9 @@
   /* Contact form section */
   .contact-form {
     flex: 1;
-    background: var(--white);
+    /* background: var(--white); */
+    background-color:#ffffff;
+
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
@@ -190,7 +192,8 @@
   /* Contact info section */
   .contact-info {
     flex: 1;
-    background: var(--white);
+    /* background: var(--white); */
+    background-color:#ffffff;
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);

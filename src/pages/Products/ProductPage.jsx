@@ -1,96 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './ProductPage.css'
+import './ProductPage.css';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from  '../../firebase'; // You'll need to create this file
+import personProduct from "../../assets/Personal-Products.gif";
+import { useNavigate } from 'react-router-dom';
 
-import personProduct from "../../assets/Personal-Products.gif"
-
-import purifier from '../../assets/water_purifier.jpg'
-
-// Mock products data
-const products = [
-  {
-    id: 1,
-    name: 'DT-CLEANWATER',
-    description: 'Advanced RO technology with 7-stage purification.',
-    image: purifier,
-    price: 299,
-    rating: 4.8,
-    feature: 'Removes 99.9% impurities'
-  },
-  {
-    id: 2,
-    name: 'DT-AQUATOUCH',
-    description: 'UV purification that eliminates harmful bacteria and viruses.',
-    image: purifier,
-    price: 249,
-    rating: 4.7,
-    feature: 'Zero maintenance'
-  },
-  {
-    id: 3,
-    name: 'DT-WATERLILY',
-    description: 'Premium water softener with smart regeneration technology.',
-    image: purifier,
-    price: 379,
-    rating: 4.9,
-    feature: 'App controlled'
-  },
-  {
-    id: 4,
-    name: 'DT-ROMA',
-    description: 'Compact RO with mineralization technology.',
-    image: purifier,
-    price: 319,
-    rating: 4.6,
-    feature: 'Adds essential minerals'
-  },
-  {
-    id: 5,
-    name: 'WHALE 25',
-    description: 'Advanced UV purification with TDS controller.',
-    image: purifier,
-    price: 289,
-    rating: 4.7,
-    feature: 'Digital display'
-  },
-  {
-    id: 6,
-    name: 'SKID 25 LPH',
-    description: 'Intelligent water softener with salt optimization.',
-    image: purifier,
-    price: 349,
-    rating: 4.8,
-    feature: 'Self-cleaning'
-  },
-  {
-    id: 7,
-    name: '50 LPH OPEN',
-    description: 'Compact RO with mineralization technology.',
-    image: purifier,
-    price: 319,
-    rating: 4.6,
-    feature: 'Adds essential minerals'
-  },
-  {
-    id: 8,
-    name: '50 LPH CLOSED',
-    description: 'Advanced UV purification with TDS controller.',
-    image: purifier,
-    price: 289,
-    rating: 4.7,
-    feature: 'Digital display'
-  },
-  {
-    id: 9,
-    name: 'DT-UNDERSINK',
-    description: 'Intelligent water softener with salt optimization.',
-    image: purifier,
-    price: 349,
-    rating: 4.8,
-    feature: 'Self-cleaning'
-  }
-];
-
-// Cart Context
+// CartContext
 const CartContext = React.createContext();
 
 // Modern Product Item Component
@@ -151,7 +66,7 @@ const ProductItem = ({ product, index, addToCart }) => {
             alt={product.name} 
             className="product-image"
           />
-          <div className="product-price">${product.price}</div>
+          <div className="product-price">₹{product.price}</div>
         </div>
         
         <div className="rating-container">
@@ -232,7 +147,7 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
           Checkout
         </span>
         <span className="checkout-price">
-          ${totalPrice}
+          ₹{totalPrice}
         </span>
         {cartItems.length > 0 && (
           <span className="cart-badge">{cartItems.length}</span>
@@ -244,6 +159,16 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
 
 // Checkout Page Component
 const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart }) => {
+  const navigate=useNavigate();
+  const goToCheckout = () => {
+    // Store cart data in sessionStorage
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    sessionStorage.setItem('totalPrice', totalPrice);
+    
+    // Navigate to checkout page
+    navigate("/checkout");
+  }
+
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -303,7 +228,7 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
           <div className="checkout-summary">
             <div className="summary-row">
               <span>Subtotal ({cartItems.length} items)</span>
-              <span>${totalPrice}</span>
+              <span>₹{totalPrice}</span>
             </div>
             <div className="summary-row">
               <span>Shipping</span>
@@ -311,14 +236,14 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
             </div>
             <div className="summary-row">
               <span>Tax</span>
-              <span>${(totalPrice * 0.08).toFixed(2)}</span>
+              <span>₹{(totalPrice * 0.18).toFixed(2)}</span>
             </div>
             <div className="summary-row total">
               <span>Total</span>
-              <span>${(totalPrice * 1.08).toFixed(2)}</span>
+              <span>₹{(totalPrice * 1.18).toFixed(2)}</span>
             </div>
             
-            <button className="place-order-button">
+            <button className="place-order-button"  onClick={goToCheckout} >
               Place Order
             </button>
           </div>
@@ -330,9 +255,36 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
 
 // Main Product Page Component
 const ProductPage = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
+  const navigate=useNavigate();
+  
+  // Fetch products from Firebase
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const productsCollection = collection(db, 'products');
+        const productsSnapshot = await getDocs(productsCollection);
+        const productsList = productsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setProducts(productsList);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("Failed to load products. Please try again later.");
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
   
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
@@ -390,18 +342,34 @@ const ProductPage = () => {
                 Our products combine innovation with elegance for your healthier lifestyle.
               </p>
             </div>
-            <img src={personProduct} alt="Poster" className='ProductPoster' />
-            {/* Product grid */}
-            <div className="product-grid">
-              {products.map((product, index) => (
-                <ProductItem 
-                  key={product.id} 
-                  product={product} 
-                  index={index} 
-                  addToCart={addToCart}
-                />
-              ))}
-            </div>
+            <img src={personProduct} alt="Poster" className="ProductPoster" />
+            
+            {/* Loading state */}
+            {loading ? (
+              <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Loading products...</p>
+              </div>
+            ) : error ? (
+              <div className="error-container">
+                <p className="error-message">{error}</p>
+                <button className="retry-button" onClick={() => window.location.reload()}>
+                  Retry
+                </button>
+              </div>
+            ) : (
+              /* Product grid */
+              <div className="product-grid">
+                {products.map((product, index) => (
+                  <ProductItem 
+                    key={product.id} 
+                    product={product} 
+                    index={index} 
+                    addToCart={addToCart}
+                  />
+                ))}
+              </div>
+            )}
             
             {/* Cart/Checkout Button */}
             <Cart 
@@ -429,6 +397,5 @@ const ProductPage = () => {
     </CartContext.Provider>
   );
 };
-
 
 export default ProductPage;
