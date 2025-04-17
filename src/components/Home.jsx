@@ -163,7 +163,7 @@ const Home = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '40px' }}>
+      <div style={{ marginBottom: '20px' }}>
         <Slider ref={sliderRef} {...settings}>
           {carouselImages.map((img, index) => (
             <div key={index}>
@@ -584,8 +584,33 @@ const Home = () => {
 
       <AnimatedTestimonials testimonials={testimonials} />
 
-      <Container>
-
+      <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
+        <Box textAlign="center" mb={5}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              fontSize: '3rem',
+              color: primaryColor,
+              position: 'relative',
+              display: 'inline-block',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                width: '60%',
+                height: '3px',
+                bottom: '-10px',
+                left: '20%',
+                backgroundColor: secondaryColor,
+                borderRadius: '2px',
+              }
+            }}
+          >
+            Services
+          </Typography>
+        </Box>
+                
       </Container>
     </div>
   );

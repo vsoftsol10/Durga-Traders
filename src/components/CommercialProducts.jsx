@@ -105,7 +105,7 @@ const CommercialProducts = () => {
   const secondaryColor = '#00c7e8';
 
   return (
-    <div style={{ backgroundColor: '#f8f9fa' }}>
+    <div>
       <Container maxWidth="xl" sx={{ minHeight: 100 }}>
         <Box sx={{ mb: 4, marginTop: 6 }}>
           <Breadcrumbs separator="››">
