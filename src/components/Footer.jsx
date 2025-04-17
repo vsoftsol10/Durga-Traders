@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './Footer.css'; // Import the separate CSS file
+import './footer.css'; // Import the separate CSS file
 import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {
