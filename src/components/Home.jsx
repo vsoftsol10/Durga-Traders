@@ -10,10 +10,10 @@ import HomeTwo from '../assets/Durga Traders Home page slider 2.gif';
 import HomeThree from '../assets/Durga Traders Home page slider 3.gif';
 import HomeFour from '../assets/Durga Traders Home page slider 4.gif';
 import BigSale from '../assets/Offersales.gif';
-import BestSell1 from '../assets/Durga Product 01.png';
-import BestSell2 from '../assets/Durga Product 03.png';
-import BestSell3 from '../assets/Durga Product 04.png';
-import BestSell4 from '../assets/Durga Product 02.png';
+import BestSellOne from '../assets/Durga Product 01.png';
+import BestSellTwo from '../assets/Durga Product 03.png';
+import BestSellThree from '../assets/Durga Product 04.png';
+import BestSellFour from '../assets/Durga Product 02.png';
 import AquaImg from '../assets/about-1.png';
 import HydrateImg from '../assets/Hydrateman.png';
 import AFT from '../assets/Advance Filtration.png';
@@ -101,7 +101,7 @@ const Home = () => {
       descriptionOne: '•	Suitable for all Water Sources.',
       descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
       descriptionThree: '•	Stages Of Purification: 8 Stages',
-      image: BestSell1,
+      image: BestSellOne,
       alt: 'product1',
     },
     {
@@ -110,7 +110,7 @@ const Home = () => {
       descriptionOne: '•	Suitable for all Water Sources.',
       descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
       descriptionThree: '•	Stages Of Purification: 8 Stages',
-      image: BestSell2,
+      image: BestSellTwo,
       alt: 'product2',
     },
     {
@@ -119,7 +119,7 @@ const Home = () => {
       descriptionOne: '•	Suitable for all Water Sources.',
       descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
       descriptionThree: '•	RO + UF + UV 8 Stage Purification',
-      image: BestSell3,
+      image: BestSellThree,
       alt: 'product3',
     },
     {
@@ -128,7 +128,7 @@ const Home = () => {
       descriptionOne: '•	Suitable for all Water Sources.',
       descriptionTwo: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
       descriptionThree: '•	Stages Of Purification: 8 Stages',
-      image: BestSell4,
+      image: BestSellFour,
       alt: 'product4',
     },
   ];
@@ -249,6 +249,7 @@ const Home = () => {
                       height: 'auto',
                       borderRadius: '8px',
                       objectFit: 'cover',
+                      backgroundRepeat:'no-repeat'
                     }}
                   />
                 </CardContent>
