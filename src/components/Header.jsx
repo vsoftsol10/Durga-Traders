@@ -196,7 +196,7 @@ function Navbar() {
                       </svg>
                     </div>
                     <div className="dropdown-item-content">
-                      <span className="dropdown-item-title">Personal Products</span>
+                      <span className="dropdown-item-title">Residential Products</span>
                       <span className="dropdown-item-desc">Products for individual use</span>
                     </div>
                     <span className="dropdown-item-bg"></span>

@@ -157,6 +157,71 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
   );
 };
 
+// Pincode Modal Component
+const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
+  const [pincode, setPincode] = useState('');
+  const [resultType, setResultType] = useState('');
+  const [resultMessage, setResultMessage] = useState('');
+
+  // Function to check if pincode is from Tamil Nadu
+  const isTamilNaduPincode = (code) => {
+    // Tamil Nadu pincodes typically start with 6
+    // This is a simplified check - in a real app, you might want a more comprehensive validation
+    return code.length === 6 && code.startsWith('6');
+  };
+
+  if (!open) return null;
+
+  return (
+    <div className="pincode-modal-overlay">
+      <div className="pincode-modal">
+        <h2 className="pincode-modal-title">Your PIN code?</h2>
+        <input
+          type="text"
+          value={pincode}
+          onChange={(e) => setPincode(e.target.value)}
+          placeholder="e.g. 600001"
+          className="pincode-input"
+        />
+        <button 
+          className="pincode-submit-button"
+          onClick={() => {
+            if (isTamilNaduPincode(pincode)) {
+              setResultType('success');
+              setResultMessage('🎉 Yay! We deliver to your area in Tamil Nadu!');
+            } else {
+              setResultType('error');
+              setResultMessage('🚫 Sorry, service not available in your region.');
+            }
+          }}
+        >
+          Submit
+        </button>
+        
+        <div className="pincode-info-box">
+          <h3 className="pincode-info-title">Why we collect Pin code?</h3>
+          <p>Suppliers available in Tamil Nadu Regions only</p>
+        </div>
+        
+        {resultMessage && (
+          <div className={`pincode-result ${resultType}`}>
+            {resultMessage}
+          </div>
+        )}
+        
+        {resultMessage && (
+          <button 
+            className="pincode-continue-button"
+            onClick={onClose}
+          >
+            Continue
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // Checkout Page Component
 const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart }) => {
   const navigate=useNavigate();
@@ -210,7 +275,7 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
                   <p className="cart-item-description">{item.description}</p>
                   <div className="cart-item-feature">{item.feature}</div>
                 </div>
-                <div className="cart-item-price">${item.price}</div>
+                <div className="cart-item-price">₹{item.price}</div>
                 <button 
                   className="remove-item-button" 
                   onClick={() => removeFromCart(index)}
@@ -243,7 +308,7 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
               <span>₹{(totalPrice * 1.18).toFixed(2)}</span>
             </div>
             
-            <button className="place-order-button"  onClick={goToCheckout} >
+            <button className="place-order-button" onClick={goToCheckout}>
               Place Order
             </button>
           </div>
@@ -261,7 +326,12 @@ const ProductPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
-  const navigate=useNavigate();
+  const [openPincodeModal, setOpenPincodeModal] = useState(true); // Open by default
+  const navigate = useNavigate();
+  
+  // Colors for styling
+  const primaryColor = '#0062cc';
+  const secondaryColor = '#0099ff';
   
   // Fetch products from Firebase
   useEffect(() => {
@@ -321,6 +391,14 @@ const ProductPage = () => {
         {/* Background elements */}
         <div className="water-background"></div>
         <div className="light-rays"></div>
+        
+        {/* Pincode Modal */}
+        <PincodeModal 
+          open={openPincodeModal} 
+          onClose={() => setOpenPincodeModal(false)}
+          primaryColor={primaryColor}
+          secondaryColor={secondaryColor}
+        />
         
         {!showCheckout ? (
           <>
@@ -388,11 +466,11 @@ const ProductPage = () => {
         )}
         
         {/* Bottom wave decoration */}
-        <div className="bottom-wave">
+        {/* <div className="bottom-wave">
           <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z" fill="#0062cc" opacity="0.2"></path>
           </svg>
-        </div>
+        </div> */}
       </div>
     </CartContext.Provider>
   );
