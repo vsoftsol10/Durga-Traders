@@ -810,6 +810,9 @@ border: 2px solid #022279;
 	.logo {
 	  max-height: 50px;
 	}
+	.mobile-logo{
+		width:60%
+	}
 	
 	.dropdown-item-icon {
 	  width: 32px;
@@ -839,6 +842,9 @@ border: 2px solid #022279;
   
 	.logo-accent {
 	  font-size: 0.7rem;
+	}
+	.mobile-logo{
+		width: 60%;
 	}
   
 	.logo-graphic {
@@ -882,7 +888,9 @@ border: 2px solid #022279;
 	.logo {
 	  max-height: 35px;
 	}
-	
+	.mobile-logo{
+		width: 65%;
+	}
 	.action-btn {
 	  width: 30px;
 	  height: 30px;
