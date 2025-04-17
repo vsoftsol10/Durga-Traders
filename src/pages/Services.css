@@ -1,0 +1,455 @@
+/* Services.css */
+
+.services-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  overflow-x: hidden; /* Prevent horizontal scrollbar for animations */
+}
+
+/* Header Styles with animations */
+.services-header {
+  text-align: center;
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.services-header.header-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.services-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #022279; /* Primary brand color */
+  margin-bottom: 16px;
+}
+
+.fade-in-down {
+  animation: fadeInDown 1s ease forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1.2s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+.services-divider {
+  height: 4px;
+  width: 80px;
+  background-color: #00c7e8; /* Secondary brand color */
+  margin: 0 auto 24px;
+}
+
+.slide-in {
+  animation: slideIn 1s ease forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.services-header p {
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Service Section Styles */
+.service-section {
+  margin-bottom: 40px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.service-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(2, 34, 121, 0.15);
+}
+
+.animate-on-scroll {
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-in[data-animation="slide-right"] {
+  animation: slideInRight 0.8s ease forwards;
+}
+
+.animate-in[data-animation="slide-left"] {
+  animation: slideInLeft 0.8s ease forwards;
+}
+
+.animate-in[data-animation="fade-up"] {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.service-row {
+  display: flex;
+  min-height: 350px;
+}
+
+/* This is the key change - using desktop-only media query for alternating layout */
+@media (min-width: 993px) {
+  .alternate-layout .service-row {
+    flex-direction: row-reverse;
+  }
+}
+
+.service-content, .service-image {
+  width: 50%;
+  position: relative;
+}
+
+.service-content {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.service-image {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f9ff;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.water-ripple {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,199,232,0.2) 0%, rgba(2,34,121,0.05) 70%, rgba(255,255,255,0) 100%);
+  animation: rippleEffect 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+.service-image img {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.floating-animation {
+  animation: floating 4s ease-in-out infinite;
+}
+
+.service-section:hover .service-image img {
+  transform: scale(1.05);
+}
+
+.service-content h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #022279; /* Primary brand color */
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.title-animate::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #00c7e8;
+  transition: width 0.6s ease;
+}
+
+.service-section:hover .title-animate::after {
+  width: 60px;
+}
+
+.service-content p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.service-btn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  background-color: #00c7e8; /* Secondary brand color */
+  color: white;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-btn:hover {
+  background-color: #022279; /* Primary brand color on hover */
+  transform: translateY(-2px);
+}
+
+.arrow-icon {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.service-btn:hover .arrow-icon {
+  transform: translateX(4px);
+  animation: arrowBounce 1s ease infinite;
+}
+
+/* Button ripple effect */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background-color: rgba(255, 255, 255, 0.3);
+  animation: ripple 0.6s ease-out;
+}
+
+/* CTA Section */
+.cta-section {
+  margin-top: 80px;
+  padding: 60px 40px;
+  text-align: center;
+  background-color: #022279; /* Primary brand color */
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(2, 34, 121, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0,199,232,0.2) 0%, rgba(2,34,121,0) 70%);
+  animation: bgShift 15s ease infinite alternate;
+  z-index: 0;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background-color: #00c7e8; /* Secondary brand color */
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+.cta-btn:hover {
+  background-color: white;
+  color: #022279; /* Primary brand color */
+  transform: translateY(-2px);
+  animation: none;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes rippleEffect {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 199, 232, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 199, 232, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 199, 232, 0);
+  }
+}
+
+@keyframes bgShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .service-row {
+    flex-direction: column;
+  }
+  
+  .service-content, .service-image {
+    width: 100%;
+  }
+  
+  .service-image {
+    min-height: 250px;
+  }
+  
+  .services-header h1, .cta-section h2 {
+    font-size: 2.5rem;
+  }
+  
+  .service-content h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .services-header h1, .cta-section h2 {
+    font-size: 2rem;
+  }
+  
+  .service-content {
+    padding: 30px 20px;
+  }
+  
+  .service-content h2 {
+    font-size: 1.6rem;
+  }
+  
+  .service-btn, .cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
