@@ -3,9 +3,9 @@ import gsap from 'gsap';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Container, Box } from '@mui/material';
+import { Container, Box, Rating } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-
+import StarIcon from '@mui/icons-material/Star';
 
 const AnimatedTestimonials = ({ testimonials }) => {
   // Create a ref for each testimonial card
@@ -60,7 +60,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
           gsap.to(quoteIcon, {
             rotate: 10,
             scale: 1.2,
-            color: "#00bcd4",
+            color: "#022279", // Updated to use the deep blue color
             duration: 0.4
           });
         }
@@ -106,7 +106,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
           sx={{
             fontWeight: 'bold',
             fontSize: '3rem',
-            color: '#022279',
+            color: '#022279', // Deep blue color as specified
             position: 'relative',
             display: 'inline-block',
             mb: 5,
@@ -117,7 +117,7 @@ const AnimatedTestimonials = ({ testimonials }) => {
               height: '3px',
               bottom: '-10px',
               left: '20%',
-              backgroundColor: '#00C7E8',
+              backgroundColor: '#00C7E8', // Bright cyan color as specified
               borderRadius: '2px'
             }
           }}
@@ -125,7 +125,6 @@ const AnimatedTestimonials = ({ testimonials }) => {
           What Our Customers Say
         </Typography>
       </Box>
-
 
       <Box display="flex" flexWrap="wrap" justifyContent="center">
         {testimonials.map((testimonial, index) => (
@@ -149,7 +148,12 @@ const AnimatedTestimonials = ({ testimonials }) => {
                 transition: 'all 0.3s ease',
                 position: 'relative',
                 overflow: 'visible',
-                padding: '10px'
+                padding: '10px',
+                '&:hover': {
+                  borderColor: '#00C7E8', // Add cyan border on hover
+                  borderWidth: '2px',
+                  borderStyle: 'solid'
+                }
               }}
             >
               <FormatQuoteIcon
@@ -167,6 +171,23 @@ const AnimatedTestimonials = ({ testimonials }) => {
                 }}
               />
               <CardContent sx={{ pt: 3 }}>
+                {/* Rating stars added below */}
+                <Box sx={{ display: 'flex', mb: 2, justifyContent: 'flex-end' }}>
+                  <Rating
+                    value={testimonial.rating || 4.5}
+                    precision={0.5}
+                    readOnly
+                    emptyIcon={<StarIcon style={{ opacity: 0.55, color: '#bdbdbd' }} fontSize="inherit" />}
+                    icon={<StarIcon style={{ color: '#FFD700' }} fontSize="inherit" />}
+                  />
+                  <Typography 
+                    variant="body2" 
+                    sx={{ ml: 1, fontWeight: 'bold', color: '#022279' }}
+                  >
+                    {testimonial.rating || 4.5}
+                  </Typography>
+                </Box>
+                
                 <Typography
                   variant="body1"
                   sx={{
@@ -184,13 +205,14 @@ const AnimatedTestimonials = ({ testimonials }) => {
                   backgroundColor: '#f5f9fa',
                   borderRadius: '8px',
                   padding: '12px',
-                  marginTop: 'auto'
+                  marginTop: 'auto',
+                  borderLeft: '4px solid #00C7E8' // Added cyan accent on the left
                 }}>
                   <Typography
                     variant="h6"
                     sx={{
                       fontWeight: 'bold',
-                      color: '#0277bd',
+                      color: '#022279', // Updated to deep blue color
                       fontSize: '1.1rem'
                     }}
                   >
@@ -211,9 +233,5 @@ const AnimatedTestimonials = ({ testimonials }) => {
     </Container>
   );
 };
-
-// Usage in your Home component:
-// Replace your existing testimonials section with:
-// <AnimatedTestimonials testimonials={testimonials} />
 
 export default AnimatedTestimonials;
