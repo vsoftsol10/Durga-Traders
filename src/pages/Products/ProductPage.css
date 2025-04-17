@@ -1264,6 +1264,9 @@ body {
   .page-title {
     font-size: 2.5rem;
   }
+  .back-button{
+    margin-bottom: 50px;
+  }
   
   .title-accent::after {
     bottom: -8px;
