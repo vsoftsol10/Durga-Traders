@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import './ContactUs.css';
 
 const ContactUs = () => {
+  const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -9,7 +11,9 @@ const ContactUs = () => {
     message: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,24 +61,44 @@ const ContactUs = () => {
     e.preventDefault();
     
     if (validateForm()) {
-      // Form submission logic would go here
-      console.log("Form submitted:", formData);
+      setIsSubmitting(true);
       
-      // Show success message
-      setShowSuccess(true);
-      
-      // Reset form
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        message: ''
-      });
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 5000);
+      // EmailJS send email
+      emailjs.sendForm(
+        'service_fnbx113', // Replace with your EmailJS service ID
+        'template_60ljv7r', // Replace with your EmailJS template ID
+        form.current,
+        '-phEEgE8W6dtkQh0L' // Replace with your EmailJS public key
+      )
+        .then((result) => {
+          console.log('Email sent successfully:', result.text);
+          
+          // Show success message
+          setShowSuccess(true);
+          setShowError(false);
+          
+          // Reset form
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            message: ''
+          });
+          
+          // Hide success message after 5 seconds
+          setTimeout(() => {
+            setShowSuccess(false);
+          }, 5000);
+        }, (error) => {
+          console.error('Failed to send email:', error.text);
+          setShowError(true);
+          setTimeout(() => {
+            setShowError(false);
+          }, 5000);
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
     }
   };
 
@@ -83,7 +107,7 @@ const ContactUs = () => {
       {/* Left: Contact Form */}
       <div className="contact-form">
         <h2>Get in Touch</h2>
-        <form onSubmit={handleSubmit}>
+        <form ref={form} onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input 
@@ -140,8 +164,12 @@ const ContactUs = () => {
             {formErrors.message && <span className="error-message">{formErrors.message}</span>}
           </div>
           
-          <button type="submit" className="water-drop-btn">
-            Send Message
+          <button 
+            type="submit" 
+            className="water-drop-btn"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Sending...' : 'Send Message'}
             <span className="btn-overlay"></span>
           </button>
         </form>
@@ -181,18 +209,6 @@ const ContactUs = () => {
                 <a href="mailto:durgatradersmdu@gmail.com">durgatradersmdu@gmail.com</a>
               </div>
             </div>
-            
-            {/* <div className="contact-item">
-              <div className="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-              </div>
-              <div className="contact-text">
-                <h3>Phone</h3>
-                <a href="tel:04522371049">0452 2371049</a>
-              </div>
-            </div> */}
             
             <div className="contact-item">
               <div className="icon">
@@ -247,6 +263,18 @@ const ContactUs = () => {
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
           <span>Message sent successfully! We'll get back to you soon.</span>
+        </div>
+      )}
+      
+      {/* Error Message */}
+      {showError && (
+        <div className="error-notification">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>Failed to send message. Please try again later.</span>
         </div>
       )}
     </div>

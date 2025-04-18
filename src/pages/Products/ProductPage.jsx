@@ -12,6 +12,21 @@ const CartContext = React.createContext();
 const ProductItem = ({ product, index, addToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!showOptions) return;
+    
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.cart-options-container')) {
+        setShowOptions(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [showOptions]);
   
   useEffect(() => {
     // Staggered animation on initial load
@@ -48,8 +63,69 @@ const ProductItem = ({ product, index, addToCart }) => {
     return stars;
   };
 
-  const handleAddToCart = () => {
-    addToCart(product);
+  const handleAddToCartClick = (e) => {
+    e.stopPropagation(); // Prevent event from bubbling up
+    setShowOptions(!showOptions);
+  };
+
+  const selectOption = (optionName, optionPrice, e) => {
+    e.stopPropagation(); // Prevent event from bubbling up
+    
+    // Create a copy of the product with the selected option details
+    const productWithOption = {
+      ...product,
+      selectedOption: optionName,
+      price: optionPrice
+    };
+    
+    addToCart(productWithOption);
+    setShowOptions(false);
+  };
+  
+  // Render options function - handles cases where product might not have options
+  const renderOptions = () => {
+    // If no price options exist, just use the default product price
+    if (!product.priceOptions || product.priceOptions.length === 0) {
+      return (
+        <div 
+          className="option-item"
+          onClick={(e) => selectOption(product.name, product.price, e)}
+        >
+          <span className="option-name">{product.name}</span>
+          <span className="option-price">₹{product.price}</span>
+          <button 
+            className="option-buy-now"
+            onClick={(e) => {
+              e.stopPropagation();
+              selectOption(product.name, product.price, e);
+            }}
+          >
+            Buy Now
+          </button>
+        </div>
+      );
+    }
+    
+    // Otherwise render all available options
+    return product.priceOptions.map((option, idx) => (
+      <div 
+        key={idx} 
+        className="option-item"
+        onClick={(e) => selectOption(option.name, option.price, e)}
+      >
+        <span className="option-name">{option.name}</span>
+        <span className="option-price">₹{option.price}</span>
+        <button 
+          className="option-buy-now"
+          onClick={(e) => {
+            e.stopPropagation();
+            selectOption(option.name, option.price, e);
+          }}
+        >
+          Buy Now
+        </button>
+      </div>
+    ));
   };
   
   return (
@@ -88,16 +164,25 @@ const ProductItem = ({ product, index, addToCart }) => {
         <p className="product-description">{product.description}</p>
         
         <div className="product-footer">
-          <button className="cta-button" onClick={handleAddToCart}>
-            <span className="button-text">Add to Cart</span>
-            <span className="button-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-              </svg>
-            </span>
-          </button>
+          <div className="cart-options-container">
+            <button className="cta-button" onClick={handleAddToCartClick}>
+              <span className="button-text">Add to Cart</span>
+              <span className="button-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+              </span>
+            </button>
+            
+            {/* Options Dropdown */}
+            {showOptions && (
+              <div className="options-dropdown">
+                {renderOptions()}
+              </div>
+            )}
+          </div>
           
           <button className="details-button">
             <span>Details</span>
@@ -135,6 +220,7 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
       <button 
         className={`checkout-button ${cartItems.length > 0 ? 'has-items' : ''}`}
         onClick={navigateToCheckout}
+        disabled={cartItems.length === 0}
       >
         <span className="checkout-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -147,7 +233,7 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
           Checkout
         </span>
         <span className="checkout-price">
-          ₹{totalPrice}
+          ₹{totalPrice.toFixed(2)}
         </span>
         {cartItems.length > 0 && (
           <span className="cart-badge">{cartItems.length}</span>
@@ -272,7 +358,10 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
                 </div>
                 <div className="cart-item-details">
                   <h3 className="cart-item-name">{item.name}</h3>
-                  <p className="cart-item-description">{item.description}</p>
+                  <p className="cart-item-description">
+                    {item.selectedOption ? <span className="selected-option">{item.selectedOption} - </span> : ''}
+                    {item.description}
+                  </p>
                   <div className="cart-item-feature">{item.feature}</div>
                 </div>
                 <div className="cart-item-price">₹{item.price}</div>
@@ -293,7 +382,7 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
           <div className="checkout-summary">
             <div className="summary-row">
               <span>Subtotal ({cartItems.length} items)</span>
-              <span>₹{totalPrice}</span>
+              <span>₹{totalPrice.toFixed(2)}</span>
             </div>
             <div className="summary-row">
               <span>Shipping</span>
@@ -333,17 +422,20 @@ const ProductPage = () => {
   const primaryColor = '#0062cc';
   const secondaryColor = '#0099ff';
   
-  // Fetch products from Firebase
+  // Fetch products from Firebase with price options directly from database
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
         const productsCollection = collection(db, 'products');
         const productsSnapshot = await getDocs(productsCollection);
+        
+        // Map products directly from Firebase, expecting price options to be included
         const productsList = productsSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
+        
         setProducts(productsList);
         setLoading(false);
       } catch (err) {
@@ -356,24 +448,26 @@ const ProductPage = () => {
     fetchProducts();
   }, []);
   
+  // Calculate total price whenever cart items change
+  useEffect(() => {
+    const newTotal = cartItems.reduce((sum, item) => sum + (item.price || 0), 0);
+    setTotalPrice(newTotal);
+  }, [cartItems]);
+  
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
-    setTotalPrice(prev => prev + product.price);
+    // Total price will be updated by the useEffect
   };
   
   const removeFromCart = (index) => {
-    // Create a copy of the current cart items
     const updatedCart = [...cartItems];
-    // Get the price of the item to be removed
-    const removedItemPrice = updatedCart[index].price;
-    // Remove the item at the specified index
     updatedCart.splice(index, 1);
-    // Update cart items and total price
     setCartItems(updatedCart);
-    setTotalPrice(prev => prev - removedItemPrice);
+    // Total price will be updated by the useEffect
   };
   
   const navigateToCheckout = () => {
+    if (cartItems.length === 0) return; // Prevent checkout with empty cart
     setShowCheckout(true);
     // Scroll to top
     window.scrollTo(0, 0);
@@ -464,13 +558,6 @@ const ProductPage = () => {
             removeFromCart={removeFromCart}
           />
         )}
-        
-        {/* Bottom wave decoration */}
-        {/* <div className="bottom-wave">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z" fill="#0062cc" opacity="0.2"></path>
-          </svg>
-        </div> */}
       </div>
     </CartContext.Provider>
   );
