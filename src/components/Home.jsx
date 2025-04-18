@@ -17,6 +17,8 @@ import BestSellThree from '../assets/Durga Product 04.png';
 import BestSellFour from '../assets/Durga Product 02.png';
 import Bookdemo from '../assets/Book demo icon.png';
 import Warranty from '../assets/Warranty icon.png';
+import FreeConsult from '../assets/Free consultation icon.png';
+import PurchaseSupport from '../assets/Purchase support icon.png';
 import Support from '../assets/Service support icon.png';
 import AquaImg from '../assets/about-1.png';
 import HydrateImg from '../assets/Hydrateman.png';
@@ -136,6 +138,14 @@ const Home = () => {
   const service = [{
     image: Bookdemo,
     title: 'Book Demo'
+  },
+  {
+    image: FreeConsult,
+    title: 'Free Consultation'
+  },
+  {
+    image: PurchaseSupport,
+    title: 'Purchase Support'
   },
   {
     image: Warranty,
@@ -617,7 +627,7 @@ const Home = () => {
             <Box
               key={index}
               sx={{
-                width: { xs: '100%', sm: '45%', md: '22%' },
+                width: { xs: '100%', sm: '45%', md: '19%' }, // Changed this
                 padding: '10px',
                 textAlign: 'center',
                 marginBottom: '20px',
@@ -634,7 +644,6 @@ const Home = () => {
                   boxShadow: 'none',
                 }}
               >
-                {/* Image below the title */}
                 <CardContent sx={{ flexGrow: 1 }}>
                   <img
                     src={services.image}
