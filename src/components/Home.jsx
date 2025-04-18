@@ -6,10 +6,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import AnimatedTestimonials from './AnimatedTestimonials';
-import HomeOne from '../assets/Durga Traders Home page slider 1.gif';
-import HomeTwo from '../assets/Durga Traders Home page slider 2.gif';
-import HomeThree from '../assets/Durga Traders Home page slider 3.gif';
-import HomeFour from '../assets/Durga Traders Home page slider 4.gif';
+import HomeOne from '../assets/Commercial & Residential.gif';
+import HomeTwo from '../assets/residential purifier.gif';
+import HomeThree from '../assets/COMMERCIAL purifier.gif';
+import HomeFour from '../assets/Water Importance.gif';
 import BigSale from '../assets/Offersales.gif';
 import BestSellOne from '../assets/Durga Product 01.png';
 import BestSellTwo from '../assets/Durga Product 03.png';
@@ -39,6 +39,8 @@ import { Box } from '@mui/material';
 const Home = () => {
   const sliderRef = useRef(null);
   const imageRef = useRef(null);
+  const questionMarkRef = useRef(null);
+  const exclamationMarkRef = useRef(null);
 
   // Define the colors to match the CommercialProducts page
   const primaryColor = '#022279';
@@ -74,6 +76,35 @@ const Home = () => {
     if (sliderRef.current && carouselImages.length > 1) {
       sliderRef.current.slickPlay();
     }
+    
+    // Animation for the question mark
+    if (questionMarkRef.current) {
+      // Create a hanging/swinging animation
+      gsap.to(questionMarkRef.current, {
+        rotation: 15,
+        duration: 1.5,
+        ease: "elastic.out(1, 0.3)",
+        transformOrigin: "top center",
+        repeat: -1,
+        yoyo: true,
+        repeatDelay: 2
+      });
+    }
+    
+    // Animation for the exclamation mark
+    if (exclamationMarkRef.current) {
+      // Create a slightly different hanging animation
+      gsap.to(exclamationMarkRef.current, {
+        rotation: -15,
+        duration: 1.8,
+        ease: "elastic.out(1, 0.4)",
+        transformOrigin: "top center",
+        repeat: -1,
+        yoyo: true,
+        repeatDelay: 1.5,
+        delay: 0.5 // Slightly offset from question mark for visual interest
+      });
+    }
   }, []);
 
 
@@ -91,7 +122,7 @@ const Home = () => {
     {
       image: Sustain,
       title: 'Sustainability',
-      description: 'We are not just about providing clean water, but also protecting our planet. Our eco-friendly filtration systems help reduce environmental impact by eliminating the need for bottled water, reducing plastic waste, and promoting long-term sustainable water solutions.',
+      description: 'We deliver clean water while caring for the planet. Our eco-friendly filters cut plastic waste by replacing bottled water with sustainable solutions. Pure water, greener future.',
     },
     {
       image: CustSats,
@@ -104,32 +135,28 @@ const Home = () => {
     {
       title: 'DT-CLEANWATER',
       modelName: '1101AMOT',
-      descriptionOne: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
-      descriptionTwo: '•	Stages Of Purification: 8 Stages',
+      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column...',
       image: BestSellOne,
       alt: 'product1',
     },
     {
       title: 'DT-WATERLILY',
       modelName: '1301AMOT',
-      descriptionOne: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
-      descriptionTwo: '•	Stages Of Purification: 8 Stages',
+      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column..',
       image: BestSellTwo,
       alt: 'product2',
     },
     {
       title: 'DT-ROMA',
       modelName: '1401AMOT',
-      descriptionOne: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
-      descriptionTwo: '•	RO + UF + UV 8 Stage Purification',
+      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Co....',
       image: BestSellThree,
       alt: 'product3',
     },
     {
       title: 'DT-AQUATOUCH',
       modelName: '1201AMOT',
-      descriptionOne: '•	Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column .',
-      descriptionTwo: '•	Stages Of Purification: 8 Stages',
+      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column...',
       image: BestSellFour,
       alt: 'product4',
     },
@@ -182,6 +209,21 @@ const Home = () => {
       location: 'Madurai',
       feedback: 'Durga Traders playing a vital role in sales and service of the plant....Their expertise in this area making one of the pioneer in this field ....wish them best in luck....',
     },
+    {
+      name: 'R. K. Samy',
+      location: 'Madurai',
+      feedback: 'Durga traders service very good, They are keep timing and quality also, I suggest to all, They are providing good sales and services at reasonable price, Thank you.'
+    },
+    {
+      name: 'Kandasamy Prakash',
+      location: 'Karaikudi',
+      feedback: 'Excellent service. On time service. Good work.'
+    },
+    {
+      name: 'Bharati Senthil',
+      location: 'Thiruvanamalai',
+      feedback: 'Friendly Customer service, low cost & immediate response'
+    }
   ];
 
   return (
@@ -268,12 +310,11 @@ const Home = () => {
                     src={product.image}
                     alt={product.alt}
                     style={{
-                      width: '130%',
-                      height: 'auto',
+                      width: '100%',
+                      height: '300px',
                       borderRadius: '8px',
                       objectFit: 'cover',
-                      backgroundRepeat: 'no-repeat'
-                    }}
+                      }}
                   />
                 </CardContent>
 
@@ -287,7 +328,7 @@ const Home = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    padding: '20px',
+                    padding: '5px',
                   }}
                 >
                   <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold', color: primaryColor }}>
@@ -371,8 +412,17 @@ const Home = () => {
             }}
             textAlign="center"
           >
-            <Typography variant="h3" align="center" sx={{ color: primaryColor }}>
-              Your Trusted Partner for<br /> Clean and Safe Water
+            <Typography variant="h3" align="center" sx={{ color: primaryColor, position: 'relative', display: 'inline-block' }}>
+              Your Trusted Partner for<br /> Clean & Safe Water
+              <span ref={exclamationMarkRef} style={{ 
+                display: 'inline-block',
+                fontSize: '1.1em',
+                fontWeight: 'bold',
+                marginLeft: '5px',
+                color: secondaryColor,
+                transform: 'translateY(-3px)',
+                transformOrigin: 'top center'
+              }}>!</span>
             </Typography>
             <Typography variant="body1" align="center" sx={{ marginTop: '20px', color: 'black' }}>
               Water is vital for the survival of every living creature, not just humans. Regular intake of clean, pure water is crucial for maintaining good health. When choosing water, it's important to ensure it meets natural pH balance standards and tastes refreshing. Without these qualities, your health could be at risk in the near future.
@@ -422,6 +472,15 @@ const Home = () => {
             }}
           >
             Why Durga Traders
+            <span ref={questionMarkRef} style={{ 
+              display: 'inline-block',
+              fontSize: '1.1em',
+              fontWeight: 'bold',
+              marginLeft: '5px',
+              color: secondaryColor,
+              transform: 'translateY(-3px)',
+              transformOrigin: 'top center'
+            }}>?</span>
           </Typography>
         </Box>
 

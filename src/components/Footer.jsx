@@ -5,12 +5,39 @@ import { useNavigate } from 'react-router-dom';
 export default function Footer() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
   
   useEffect(() => {
     setIsVisible(true);
     setCurrentYear(new Date().getFullYear());
   }, []);
 
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  // Define navigation paths for main works
+  const mainWorksPaths = {
+    "Reserve Osmosis": "/services/reverse-osmosis",
+    "SeaWater Desalination": "/services/seawater-desalination",
+    "Surface Water Treatment": "/services/surface-water-treatment",
+    "Water Softening System": "/services/water-softening",
+    "Iron Removal": "/services/iron-removal",
+    "DM Plant": "/services/dm-plant",
+    "STP Services": "/services/stp-services",
+    "ETP Services": "/services/etp-services",
+    "Dispenser Services": "/services/dispenser-services"
+  };
+
+  // Define navigation paths for quick links
+  const quickLinksPaths = {
+    "Home": "/",
+    "About Us": "/aboutUs",
+    "Personal Products": "/personal-products",
+    "Commercial Products": "/commercial-products",
+    "Services": "/service",
+    "Contact Us": "/contact"
+  };
 
   return (
     <footer className={`footer ${isVisible ? 'footer--visible' : ''}`}>
@@ -46,7 +73,7 @@ export default function Footer() {
               </span>
             </h3>
             <div className="footer__social">
-              <button className="footer__social-button" >
+              <button className="footer__social-button" onClick={() => window.open('https://facebook.com/durgatraders', '_blank')}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="footer__social-icon" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                 </svg>
@@ -59,11 +86,16 @@ export default function Footer() {
           <div className="footer__section footer__main-works">
             <h4 className="footer__section-title">Main Works</h4>
             <ul className="footer__list">
-              {["Reserve Osmosis", "SeaWater Desalination", "Surface Water Treatment", 
-                "Water Softening System", "Iron Removal", "DM Plant", 
-                "STP Services", "ETP Services", "Dispenser Services"].map((item, i) => (
+              {Object.entries(mainWorksPaths).map(([item, path], i) => (
                 <li key={i} className="footer__list-item">
-                  <a href="#" className="footer__link">
+                  <a 
+                    href={path} 
+                    className="footer__link"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation(path);
+                    }}
+                  >
                     <span className="footer__link-arrow">›</span>
                     {item}
                   </a>
@@ -76,10 +108,16 @@ export default function Footer() {
           <div className="footer__section footer__quick-links">
             <h4 className="footer__section-title">Quick Links</h4>
             <ul className="footer__list">
-              {["Home", "About Us", "Personal Products", "Commercial Products", 
-                "Services", "Contact Us"].map((link, i) => (
+              {Object.entries(quickLinksPaths).map(([link, path], i) => (
                 <li key={i} className="footer__list-item">
-                  <a href="#" className="footer__link">
+                  <a 
+                    href={path} 
+                    className="footer__link"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation(path);
+                    }}
+                  >
                     <span className="footer__link-arrow">›</span>
                     {link}
                   </a>
