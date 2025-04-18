@@ -654,7 +654,7 @@ const CommercialProducts = () => {
         }}>
           Why we collect Pin code?
         </Typography>
-        <Typography variant="body1" sx={{ fontSize: '0.95rem' }}>
+        <Typography variant="body1" sx={{ fontSize: '0.95rem', color:'black'}}>
           Suppliers available in Tamil Nadu Regions only
         </Typography>
       </Box>
