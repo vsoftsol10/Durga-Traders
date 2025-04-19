@@ -27,6 +27,7 @@ import CommercialProductFive from './components/CommercialProductFive';
 import CommercialProductSix from './components/CommercialProductSix';
 import CommercialProductSeven from './components/CommercialProductSeven';
 import WaterBackground from './Animation/WaterBackground'
+import Blog from './components/Blog';
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
@@ -84,6 +85,7 @@ function MainLayout() {
         <Route path='/product/5' element={<CommercialProductFive />}/>
         <Route path='/product/6' element={<CommercialProductSix />}/>
         <Route path='/product/7' element={<CommercialProductSeven />}/>
+        <Route path='/blog' element={<Blog/>}/>
         </Routes>
       </WaterBackground>
       <Footer/>

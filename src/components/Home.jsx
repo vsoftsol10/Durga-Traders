@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import './home.css';
 import Slider from 'react-slick';
@@ -10,6 +11,7 @@ import HomeOne from '../assets/Commercial & Residential.gif';
 import HomeTwo from '../assets/residential purifier.gif';
 import HomeThree from '../assets/COMMERCIAL purifier.gif';
 import HomeFour from '../assets/Water Importance.gif';
+import HomeFive from '../assets/Weather Water.gif';
 import BigSale from '../assets/Offersales.gif';
 import BestSellOne from '../assets/Durga Product 01.png';
 import BestSellTwo from '../assets/Durga Product 03.png';
@@ -41,12 +43,14 @@ const Home = () => {
   const imageRef = useRef(null);
   const questionMarkRef = useRef(null);
   const exclamationMarkRef = useRef(null);
+  const navigate = useNavigate();
+
 
   // Define the colors to match the CommercialProducts page
   const primaryColor = '#022279';
   const secondaryColor = '#00c7e8';
 
-  const carouselImages = [HomeOne, HomeTwo, HomeThree, HomeFour];
+  const carouselImages = [HomeOne, HomeTwo, HomeThree, HomeFour, HomeFive];
 
   const settings = {
     dots: true,
@@ -76,7 +80,7 @@ const Home = () => {
     if (sliderRef.current && carouselImages.length > 1) {
       sliderRef.current.slickPlay();
     }
-    
+
     // Animation for the question mark
     if (questionMarkRef.current) {
       // Create a hanging/swinging animation
@@ -90,7 +94,7 @@ const Home = () => {
         repeatDelay: 2
       });
     }
-    
+
     // Animation for the exclamation mark
     if (exclamationMarkRef.current) {
       // Create a slightly different hanging animation
@@ -238,8 +242,8 @@ const Home = () => {
                 style={{
                   width: '100%',
                   height: 'auto',
-                  maxHeight: '600px',
-                  objectFit: 'cover',
+                  maxHeight: '750px',
+                  // objectFit: 'cover',
                 }}
               />
             </div>
@@ -314,7 +318,7 @@ const Home = () => {
                       height: '300px',
                       borderRadius: '8px',
                       objectFit: 'cover',
-                      }}
+                    }}
                   />
                 </CardContent>
 
@@ -414,7 +418,7 @@ const Home = () => {
           >
             <Typography variant="h3" align="center" sx={{ color: primaryColor, position: 'relative', display: 'inline-block' }}>
               Your Trusted Partner for<br /> Clean & Safe Water
-              <span ref={exclamationMarkRef} style={{ 
+              <span ref={exclamationMarkRef} style={{
                 display: 'inline-block',
                 fontSize: '1.1em',
                 fontWeight: 'bold',
@@ -472,7 +476,7 @@ const Home = () => {
             }}
           >
             Why Durga Traders
-            <span ref={questionMarkRef} style={{ 
+            <span ref={questionMarkRef} style={{
               display: 'inline-block',
               fontSize: '1.1em',
               fontWeight: 'bold',
@@ -607,6 +611,7 @@ const Home = () => {
 
               <Button
                 variant="contained"
+                onClick={() => navigate('/blog')}
                 sx={{
                   mt: 3,
                   backgroundColor: secondaryColor,
@@ -619,8 +624,9 @@ const Home = () => {
                   py: 1
                 }}
               >
-                Learn More
+                Discover More Details
               </Button>
+
             </Box>
 
             {/* Water effect background elements */}
