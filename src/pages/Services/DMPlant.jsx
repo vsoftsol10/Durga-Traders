@@ -4,15 +4,30 @@ import './DMPlant.css'; // Import the CSS file
 import DMplant from "../../assets/dmplant.jpg"
 const DMPlant=()=> {
   const [isVisible, setIsVisible] = useState(false);
-      
-        useEffect(() => {
-          setIsVisible(true);
-        }, []);
-      
-      
-      
-        return (
-          <div className="ro-container">
+  const navigate = useNavigate(); // Initialize useNavigate hook
+    
+    useEffect(() => {
+      setIsVisible(true);
+    }, []);
+    
+    // Function to handle navigation back to the service page
+    const handleBackClick = () => {
+      navigate('/service'); // Adjust this path to match your route to the services page
+    };
+    
+    return (
+      <div className="ro-container">
+        {/* Back button at the top left corner */}
+        <div className="back-button-container">
+          <button 
+            className="back-button" 
+            onClick={handleBackClick}
+            // aria-label="Back to Services"
+          >
+            <ArrowLeft size={20} />
+            <span>Back to Services</span>
+          </button>
+        </div>
             {/* Hero Section with Animation */}
             <div className={`ro-hero ${isVisible ? 'visible' : ''}`}>
               <div className="ro-hero-content">
