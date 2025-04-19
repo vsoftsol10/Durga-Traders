@@ -151,15 +151,15 @@ const CommercialProducts = () => {
               }}
             >
               <Box sx={{ flex: 1.5, width: '100%' }}>
-                <Typography variant="h4" sx={{ 
-                  mb: 3, 
-                  fontWeight: 'bold', 
+                <Typography variant="h4" sx={{
+                  mb: 3,
+                  fontWeight: 'bold',
                   color: primaryColor,
                   fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem', lg: '2.5rem' } // Responsive heading
                 }}>
                   Clean, Safe, and Pure Water for Your Family
                 </Typography>
-                <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8, color:'black' }}>
+                <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'black' }}>
                   At <b>Durga Traders</b>, we provide cutting-edge commercial water systems designed to meet the highest standards of purity, performance, and reliability. Whether you're a business, factory, hotel, or healthcare center, our water solutions ensure your team and customers enjoy clean, safe, and great-tasting water every single time.
                 </Typography>
                 <Button
@@ -271,8 +271,8 @@ const CommercialProducts = () => {
                     p: 3,
                     backgroundColor: '#f8f9fa'
                   }}>
-                    <Typography gutterBottom variant="h5" component="div" sx={{ 
-                      fontWeight: 'bold', 
+                    <Typography gutterBottom variant="h5" component="div" sx={{
+                      fontWeight: 'bold',
                       color: primaryColor,
                       fontSize: { xs: '1.25rem', md: '1.5rem' } // Responsive product title
                     }}>
@@ -288,16 +288,19 @@ const CommercialProducts = () => {
                       sx={{
                         mt: 'auto',
                         py: 1.5,
-                        backgroundColor: secondaryColor,
+                        background: 'linear-gradient(90deg, #022279 0%, #00C7E8 100%)',
                         '&:hover': {
-                          backgroundColor: primaryColor
+                          background: 'linear-gradient(90deg, #021a5c 0%, #00a5c7 100%)' // slightly darker gradient on hover
                         },
                         borderRadius: '8px',
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        color: '#fff',
+                        textTransform: 'none'
                       }}
                     >
                       More Details
                     </Button>
+
                   </CardContent>
                 </Card>
               </Grid>
@@ -363,9 +366,9 @@ const CommercialProducts = () => {
                       <path d="M10 14h4"></path>
                     </svg>
                   </Box>
-                  <Typography variant="h6" component="h3" align="center" sx={{ 
-                    fontWeight: 'bold', 
-                    color: primaryColor, 
+                  <Typography variant="h6" component="h3" align="center" sx={{
+                    fontWeight: 'bold',
+                    color: primaryColor,
                     mb: 2,
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
                   }}>
@@ -411,9 +414,9 @@ const CommercialProducts = () => {
                       <path d="M15 12v0"></path>
                     </svg>
                   </Box>
-                  <Typography variant="h6" component="h3" align="center" sx={{ 
-                    fontWeight: 'bold', 
-                    color: primaryColor, 
+                  <Typography variant="h6" component="h3" align="center" sx={{
+                    fontWeight: 'bold',
+                    color: primaryColor,
                     mb: 2,
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
                   }}>
@@ -459,9 +462,9 @@ const CommercialProducts = () => {
                       <path d="M19.66 15l-3.46-3.48a4 4 0 0 0-5.42-.24L7 14.74"></path>
                     </svg>
                   </Box>
-                  <Typography variant="h6" component="h3" align="center" sx={{ 
-                    fontWeight: 'bold', 
-                    color: primaryColor, 
+                  <Typography variant="h6" component="h3" align="center" sx={{
+                    fontWeight: 'bold',
+                    color: primaryColor,
                     mb: 2,
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
                   }}>
@@ -506,9 +509,9 @@ const CommercialProducts = () => {
                       <path d="M3.2 14.8a4 4 0 0 0 5.7 5.7 4 4 0 1 0-5.7-5.7"></path>
                     </svg>
                   </Box>
-                  <Typography variant="h6" component="h3" align="center" sx={{ 
-                    fontWeight: 'bold', 
-                    color: primaryColor, 
+                  <Typography variant="h6" component="h3" align="center" sx={{
+                    fontWeight: 'bold',
+                    color: primaryColor,
                     mb: 2,
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
                   }}>
@@ -550,9 +553,9 @@ const CommercialProducts = () => {
                       <path d="m8 21 1-1c6.1-6.1 10-12 9-5s-8 9-2 6"></path>
                     </svg>
                   </Box>
-                  <Typography variant="h6" component="h3" align="center" sx={{ 
-                    fontWeight: 'bold', 
-                    color: primaryColor, 
+                  <Typography variant="h6" component="h3" align="center" sx={{
+                    fontWeight: 'bold',
+                    color: primaryColor,
                     mb: 2,
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
                   }}>
@@ -567,131 +570,156 @@ const CommercialProducts = () => {
           </Grid>
         </Container>
       </Container>
-      
+
       {openPincodeModal && (
-  <Box
-    sx={{
-      position: 'fixed',
-      top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      zIndex: 9999,
-      overflow: 'auto', // Allow scrolling if modal is larger than screen
-      padding: '20px' // Consistent padding around modal
-    }}
-  >
-    <Box sx={{
-      backgroundColor: '#fff',
-      padding: '30px',
-      borderRadius: '16px',
-      textAlign: 'center',
-      width: '380px', // Fixed width
-      minWidth: '380px', // Minimum width to prevent shrinking
-      boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-      border: `2px solid ${secondaryColor}`,
-      margin: 'auto', // Center the modal
-      position: 'relative' // For positioning of elements inside
-    }}>
-      <Typography variant="h5" sx={{ 
-        fontWeight: 'bold', 
-        mb: 3, 
-        color: primaryColor,
-        fontSize: '1.5rem'  // Fixed font size
-      }}>
-        Share location Pin code
-      </Typography>
-      <input
-        type="text"
-        value={pincode}
-        onChange={(e) => setPincode(e.target.value)}
-        placeholder="e.g. 600001"
-        style={{
-          padding: '12px',
-          width: '280px', // Fixed width
-          marginBottom: '24px',
-          fontSize: '16px',
-          borderRadius: '8px',
-          border: `1px solid ${secondaryColor}`,
-          outline: 'none'
-        }}
-      />
-      <br />
-      <Button
-        variant="contained"
-        onClick={() => {
-          if (isTamilNaduPincode(pincode)) {
-            setResultType('success');
-            setResultMessage('🎉 Yay! We deliver to your area in Tamil Nadu!');
-          } else {
-            setResultType('error');
-            setResultMessage('🚫 Sorry, service not available in your region.');
-          }
-        }}
-        sx={{
-          backgroundColor: secondaryColor,
-          '&:hover': { backgroundColor: primaryColor },
-          borderRadius: '8px',
-          py: 1.2,
-          px: 3,
-          fontWeight: 'bold'
-        }}
-      >
-        Submit
-      </Button>
-
-      <Box sx={{ 
-        mt: 3, 
-        backgroundColor: '#f0f6ff', 
-        p: 2.5, 
-        borderRadius: '8px' 
-      }}>
-        <Typography variant="h6" sx={{ 
-          fontWeight: 'bold', 
-          color: primaryColor,
-          fontSize: '1rem' // Fixed font size
-        }}>
-          Why we collect Pin code?
-        </Typography>
-        <Typography variant="body1" sx={{ fontSize: '0.95rem' }}>
-          Suppliers available in Tamil Nadu Regions only
-        </Typography>
-      </Box>
-
-      {resultMessage && (
-        <Typography sx={{
-          mt: 3,
-          color: resultType === 'success' ? 'green' : 'red',
-          fontWeight: 'bold',
-          p: 2,
-          backgroundColor: resultType === 'success' ? '#e8f5e9' : '#ffebee',
-          borderRadius: '8px',
-          fontSize: '1rem' // Fixed font size
-        }}>
-          {resultMessage}
-        </Typography>
-      )}
-
-      {(resultMessage && (
-        <Button
-          onClick={() => setOpenPincodeModal(false)}
+        <Box
           sx={{
-            mt: 2,
-            backgroundColor: primaryColor,
-            color: 'white',
-            '&:hover': { backgroundColor: secondaryColor },
-            borderRadius: '8px',
-            py: 1,
-            px: 3
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            overflow: 'auto', // Allow scrolling if modal is larger than screen
+            padding: '20px' // Consistent padding around modal
           }}
         >
-          Continue
-        </Button>
-      ))}
-    </Box>
-  </Box>
-)}
+          <Box sx={{
+            backgroundColor: '#fff',
+            padding: '30px',
+            borderRadius: '16px',
+            textAlign: 'center',
+            width: '380px', // Fixed width
+            minWidth: '380px', // Minimum width to prevent shrinking
+            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+            border: `2px solid ${secondaryColor}`,
+            margin: 'auto', // Center the modal
+            position: 'relative' // For positioning of elements inside
+          }}>
+            {/* Add close button here */}
+            <Button
+              onClick={() => setOpenPincodeModal(false)}
+              sx={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                minWidth: '36px',
+                width: '36px',
+                height: '36px',
+                borderRadius: '50%',
+                p: 0,
+                color: 'grey.500',
+                '&:hover': {
+                  backgroundColor: 'rgba(0,0,0,0.04)',
+                  color: 'grey.700'
+                }
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </Button>
+
+            <Typography variant="h5" sx={{
+              fontWeight: 'bold',
+              mb: 3,
+              color: primaryColor,
+              fontSize: '1.5rem'  // Fixed font size
+            }}>
+              Share location Pin code
+            </Typography>
+            <input
+              type="text"
+              value={pincode}
+              onChange={(e) => setPincode(e.target.value)}
+              placeholder="e.g. 600001"
+              style={{
+                padding: '12px',
+                width: '280px', // Fixed width
+                marginBottom: '24px',
+                fontSize: '16px',
+                borderRadius: '8px',
+                border: `1px solid ${secondaryColor}`,
+                outline: 'none'
+              }}
+            />
+            <br />
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (isTamilNaduPincode(pincode)) {
+                  setResultType('success');
+                  setResultMessage('🎉 Great news! We deliver to your location.');
+                } else {
+                  setResultType('error');
+                  setResultMessage('🚫 Sorry, our service is not yet available in your area.');
+                }
+              }}
+              sx={{
+                backgroundColor: secondaryColor,
+                '&:hover': { backgroundColor: primaryColor },
+                borderRadius: '8px',
+                py: 1.2,
+                px: 3,
+                fontWeight: 'bold'
+              }}
+            >
+              Submit
+            </Button>
+
+            <Box sx={{
+              mt: 3,
+              backgroundColor: '#f0f6ff',
+              p: 2.5,
+              borderRadius: '8px'
+            }}>
+              <Typography variant="h6" sx={{
+                fontWeight: 'bold',
+                color: primaryColor,
+                fontSize: '1rem' // Fixed font size
+              }}>
+                Why we collect Pin code?
+              </Typography>
+              <Typography variant="body1" sx={{ fontSize: '0.95rem', color: 'black' }}>
+                We collect your PIN code to connect you with the nearest available suppliers and ensure faster service in your region.
+              </Typography>
+            </Box>
+
+            {resultMessage && (
+              <Typography sx={{
+                mt: 3,
+                color: resultType === 'success' ? 'green' : 'red',
+                fontWeight: 'bold',
+                p: 2,
+                backgroundColor: resultType === 'success' ? '#e8f5e9' : '#ffebee',
+                borderRadius: '8px',
+                fontSize: '1rem' // Fixed font size
+              }}>
+                {resultMessage}
+              </Typography>
+            )}
+
+            {(resultMessage && (
+              <Button
+                onClick={() => setOpenPincodeModal(false)}
+                sx={{
+                  mt: 2,
+                  backgroundColor: primaryColor,
+                  color: 'white',
+                  '&:hover': { backgroundColor: secondaryColor },
+                  borderRadius: '8px',
+                  py: 1,
+                  px: 3
+                }}
+              >
+                Continue
+              </Button>
+            ))}
+          </Box>
+        </Box>
+      )}
     </div>
   );
 };
