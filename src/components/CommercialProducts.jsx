@@ -162,22 +162,6 @@ const CommercialProducts = () => {
                 <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'black' }}>
                   At <b>Durga Traders</b>, we provide cutting-edge commercial water systems designed to meet the highest standards of purity, performance, and reliability. Whether you're a business, factory, hotel, or healthcare center, our water solutions ensure your team and customers enjoy clean, safe, and great-tasting water every single time.
                 </Typography>
-                <Button
-                  variant="contained"
-                  sx={{
-                    mt: 4,
-                    py: 1.5,
-                    px: 4,
-                    backgroundColor: secondaryColor,
-                    '&:hover': {
-                      backgroundColor: primaryColor
-                    },
-                    borderRadius: '8px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  Learn More
-                </Button>
               </Box>
               <Box
                 sx={{
