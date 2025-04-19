@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import "./header.css";
-import logo from "../assets/durga-logo.png"
+import logo from "../assets/durga-logo.png";
 
 function Navbar() {
   // States
@@ -11,11 +11,46 @@ function Navbar() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isHeaderMinimized, setIsHeaderMinimized] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   
   // Refs
   const navRef = useRef();
   const headerRef = useRef();
   const searchInputRef = useRef();
+
+  // Initialize cart count from localStorage and set up event listener
+  useEffect(() => {
+    // Function to update cart count
+    const updateCartCount = () => {
+      try {
+        const storedCart = localStorage.getItem('cartItems');
+        if (storedCart) {
+          const parsedCart = JSON.parse(storedCart);
+          setCartCount(parsedCart.length);
+        } else {
+          setCartCount(0);
+        }
+      } catch (error) {
+        console.error("Error reading cart from localStorage:", error);
+        setCartCount(0);
+      }
+    };
+    
+    // Initial cart count
+    updateCartCount();
+    
+    // Listen for cart updates
+    const handleCartUpdate = (event) => {
+      setCartCount(event.detail.count);
+    };
+    
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    
+    // Clean up event listener
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+    };
+  }, []);
 
   // Check viewport size and handle scroll effects
   useEffect(() => {
@@ -99,12 +134,11 @@ function Navbar() {
       <div className="header-container">
         {/* Logo Section with animated elements */}
         <div className="logoBackground">
-        <div className="logo-container">
+          <div className="logo-container">
             <a href="/" className="logolink">
-              <img src={logo} alt="Durga Traders"  className="logo"/>
+              <img src={logo} alt="Durga Traders" className="logo"/>
             </a>
-        </div>
-
+          </div>
         </div>
 
         {/* Navigation with modern interactions */}
@@ -113,7 +147,7 @@ function Navbar() {
           <div className="nav-content">
             <div className="mobile-nav-header">
               <div className="mobile-logo">
-              <img src={logo} alt="Durga Traders"  className="mbl-logo"/>
+                <img src={logo} alt="Durga Traders" className="mbl-logo"/>
               </div>
               <button className="nav-close-btn" onClick={showNavbar}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -218,7 +252,6 @@ function Navbar() {
                     </div>
                     <span className="dropdown-item-bg"></span>
                   </a>
-                 
                 </div>
               </div>
             </div>
@@ -263,7 +296,6 @@ function Navbar() {
                     <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                   </svg>
                 </a>
-               
               </div>
             </div>
           </div>
@@ -271,18 +303,14 @@ function Navbar() {
 
         {/* Header action buttons */}
         <div className="header-actions">
-         
-          
           <a href="/personal-products" className="action-btn-cart-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1"></circle>
               <circle cx="20" cy="21" r="1"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
             </svg>
-            {/* <span className="cart-count">0</span> */}
+            <span className="cart-count">{cartCount}</span>
           </a>
-
-          
 
           <button className="mobile-menu-btn" onClick={showNavbar}>
             <span className="hamburger-line"></span>

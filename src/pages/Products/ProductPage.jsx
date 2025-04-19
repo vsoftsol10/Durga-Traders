@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductPage.css';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from  '../../firebase'; // You'll need to create this file
+import { db } from '../../firebase'; // You'll need to create this file
 import personProduct from "../../assets/Personal-Products.gif";
 import { useNavigate } from 'react-router-dom';
 
@@ -184,12 +184,12 @@ const ProductItem = ({ product, index, addToCart }) => {
             )}
           </div>
           
-          <button className="details-button">
+          {/* <button className="details-button">
             <span>Details</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
-          </button>
+          </button> */}
         </div>
       </div>
       
@@ -248,20 +248,29 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
   const [pincode, setPincode] = useState('');
   const [resultType, setResultType] = useState('');
   const [resultMessage, setResultMessage] = useState('');
-
+  
   // Function to check if pincode is from Tamil Nadu
   const isTamilNaduPincode = (code) => {
     // Tamil Nadu pincodes typically start with 6
     // This is a simplified check - in a real app, you might want a more comprehensive validation
     return code.length === 6 && code.startsWith('6');
   };
-
+  
   if (!open) return null;
-
+  
   return (
     <div className="pincode-modal-overlay">
       <div className="pincode-modal">
-        <h2 className="pincode-modal-title">Your PIN code?</h2>
+        <div className="pincode-modal-header">
+          <h2 className="pincode-modal-title">Share Your Location PIN!</h2>
+          <button 
+            className="pincode-close-button"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
         <input
           type="text"
           value={pincode}
@@ -269,7 +278,7 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
           placeholder="e.g. 600001"
           className="pincode-input"
         />
-        <button 
+        <button
           className="pincode-submit-button"
           onClick={() => {
             if (isTamilNaduPincode(pincode)) {
@@ -284,11 +293,11 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
           Submit
         </button>
         
-        <div className="pincode-info-box">
+        {/* <div className="pincode-info-box">
           <h3 className="pincode-info-title">Why we collect Pin code?</h3>
           <p>Suppliers available in Tamil Nadu Regions only</p>
         </div>
-        
+         */}
         {resultMessage && (
           <div className={`pincode-result ${resultType}`}>
             {resultMessage}
@@ -296,7 +305,7 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
         )}
         
         {resultMessage && (
-          <button 
+          <button
             className="pincode-continue-button"
             onClick={onClose}
           >
@@ -362,7 +371,7 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
                     {item.selectedOption ? <span className="selected-option">{item.selectedOption} - </span> : ''}
                     {item.description}
                   </p>
-                  <div className="cart-item-feature">{item.feature}</div>
+                  {/* <div className="cart-item-feature">{item.feature}</div> */}
                 </div>
                 <div className="cart-item-price">₹{item.price}</div>
                 <button 
@@ -422,6 +431,37 @@ const ProductPage = () => {
   const primaryColor = '#0062cc';
   const secondaryColor = '#0099ff';
   
+  // Load initial cart data from localStorage on component mount
+  useEffect(() => {
+    try {
+      const storedCart = localStorage.getItem('cartItems');
+      if (storedCart) {
+        const parsedCart = JSON.parse(storedCart);
+        setCartItems(parsedCart);
+      }
+    } catch (error) {
+      console.error("Error loading cart from localStorage:", error);
+    }
+  }, []);
+  
+  // Calculate total price whenever cart items change
+  useEffect(() => {
+    const newTotal = cartItems.reduce((sum, item) => sum + (item.price || 0), 0);
+    setTotalPrice(newTotal);
+    
+    // Save cart items to localStorage and dispatch custom event
+    try {
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      // Create and dispatch a custom event to notify other components
+      const event = new CustomEvent('cartUpdated', { 
+        detail: { count: cartItems.length } 
+      });
+      window.dispatchEvent(event);
+    } catch (error) {
+      console.error("Error saving cart to localStorage:", error);
+    }
+  }, [cartItems]);
+  
   // Fetch products from Firebase with price options directly from database
   useEffect(() => {
     const fetchProducts = async () => {
@@ -448,21 +488,20 @@ const ProductPage = () => {
     fetchProducts();
   }, []);
   
-  // Calculate total price whenever cart items change
-  useEffect(() => {
-    const newTotal = cartItems.reduce((sum, item) => sum + (item.price || 0), 0);
-    setTotalPrice(newTotal);
-  }, [cartItems]);
-  
   const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    setCartItems(prevItems => {
+      const newItems = [...prevItems, product];
+      return newItems;
+    });
     // Total price will be updated by the useEffect
   };
   
   const removeFromCart = (index) => {
-    const updatedCart = [...cartItems];
-    updatedCart.splice(index, 1);
-    setCartItems(updatedCart);
+    setCartItems(prevItems => {
+      const updatedCart = [...prevItems];
+      updatedCart.splice(index, 1);
+      return updatedCart;
+    });
     // Total price will be updated by the useEffect
   };
   
@@ -509,10 +548,10 @@ const ProductPage = () => {
                 <span className="drop drop-5"></span> 
                 <span className="drop drop-6"></span> 
               </div>
-              <p className="page-subtitle">
+              {/* <p className="page-subtitle">
                 Experience crystal clear water with our cutting-edge purification technology.
                 Our products combine innovation with elegance for your healthier lifestyle.
-              </p>
+              </p> */}
             </div>
             <img src={personProduct} alt="Poster" className="ProductPoster" />
             

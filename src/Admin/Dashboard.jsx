@@ -21,9 +21,19 @@ const Dashboard = () => {
     image: '',
     price: '',
     rating: '',
+    priceOptions: []
+  });
+
+  const [currentOption, setCurrentOption] = useState({
+    name: '',
+    price: ''
   });
 
   const [editingProduct, setEditingProduct] = useState(null);
+  const [editingOption, setEditingOption] = useState({
+    name: '',
+    price: ''
+  });
 
   const productsRef = collection(db, 'products');
 
@@ -80,6 +90,36 @@ const Dashboard = () => {
     }
   };
 
+  const addPriceOption = () => {
+    if (!currentOption.name || !currentOption.price) {
+      alert('Please provide both name and price for the option');
+      return;
+    }
+    
+    setNewProduct({
+      ...newProduct,
+      priceOptions: [
+        ...newProduct.priceOptions,
+        { ...currentOption, price: Number(currentOption.price) }
+      ]
+    });
+    
+    // Reset the current option fields
+    setCurrentOption({
+      name: '',
+      price: ''
+    });
+  };
+
+  const removePriceOption = (index) => {
+    const updatedOptions = [...newProduct.priceOptions];
+    updatedOptions.splice(index, 1);
+    setNewProduct({
+      ...newProduct,
+      priceOptions: updatedOptions
+    });
+  };
+
   const handleAdd = async () => {
     if (!newProduct.name || !newProduct.price || !newProduct.image) {
       alert('Please fill in required fields (Name, Price, and Image URL)');
@@ -91,8 +131,20 @@ const Dashboard = () => {
         ...newProduct,
         price: Number(newProduct.price),
         rating: parseFloat(newProduct.rating) || 0,
+        priceOptions: newProduct.priceOptions.map(option => ({
+          name: option.name,
+          price: Number(option.price)
+        }))
       });
-      setNewProduct({ name: '', description: '', feature: '', image: '', price: '', rating: '' });
+      setNewProduct({ 
+        name: '', 
+        description: '', 
+        feature: '', 
+        image: '', 
+        price: '', 
+        rating: '',
+        priceOptions: [] 
+      });
       fetchProducts();
     } catch (error) {
       console.error("Error adding product:", error);
@@ -111,7 +163,42 @@ const Dashboard = () => {
   };
 
   const handleEdit = (product) => {
-    setEditingProduct(product);
+    // Ensure priceOptions is defined when editing
+    const productWithOptions = {
+      ...product,
+      priceOptions: product.priceOptions || []
+    };
+    setEditingProduct(productWithOptions);
+  };
+
+  const addEditingPriceOption = () => {
+    if (!editingOption.name || !editingOption.price) {
+      alert('Please provide both name and price for the option');
+      return;
+    }
+    
+    setEditingProduct({
+      ...editingProduct,
+      priceOptions: [
+        ...(editingProduct.priceOptions || []),
+        { ...editingOption, price: Number(editingOption.price) }
+      ]
+    });
+    
+    // Reset the editing option fields
+    setEditingOption({
+      name: '',
+      price: ''
+    });
+  };
+
+  const removeEditingPriceOption = (index) => {
+    const updatedOptions = [...(editingProduct.priceOptions || [])];
+    updatedOptions.splice(index, 1);
+    setEditingProduct({
+      ...editingProduct,
+      priceOptions: updatedOptions
+    });
   };
 
   const handleUpdate = async () => {
@@ -121,6 +208,10 @@ const Dashboard = () => {
         ...editingProduct,
         price: Number(editingProduct.price),
         rating: parseFloat(editingProduct.rating) || 0,
+        priceOptions: (editingProduct.priceOptions || []).map(option => ({
+          name: option.name,
+          price: Number(option.price)
+        }))
       });
       setEditingProduct(null);
       fetchProducts();
@@ -137,12 +228,6 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <h2>Admin Dashboard</h2>
-      {/* <div className="debug-info">
-        <p>Debug Info:</p>
-        <p>Products Count: {products.length}</p>
-        <p>Loading State: {loading ? 'Loading' : 'Not Loading'}</p>
-        <p>Error State: {error ? error : 'No Errors'}</p>
-      </div> */}
 
       <div className="add-product-form">
         <h3>Add Product</h3>
@@ -172,7 +257,7 @@ const Dashboard = () => {
         />
         <input
           type="number"
-          placeholder="Price (required)"
+          placeholder="Base Price (required)"
           value={newProduct.price}
           onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
         />
@@ -183,6 +268,49 @@ const Dashboard = () => {
           value={newProduct.rating}
           onChange={(e) => setNewProduct({ ...newProduct, rating: e.target.value })}
         />
+
+        {/* Price Options Section */}
+        <div className="price-options-section">
+          <h4>Price Options</h4>
+          
+          <div className="price-options-list">
+            {newProduct.priceOptions.map((option, index) => (
+              <div key={index} className="price-option-item">
+                <span>{index}: {option.name} - ₹{option.price}</span>
+                <button 
+                  type="button" 
+                  onClick={() => removePriceOption(index)}
+                  className="remove-option-btn"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+          
+          <div className="add-option-form">
+            <input
+              type="text"
+              placeholder="Option Name"
+              value={currentOption.name}
+              onChange={(e) => setCurrentOption({ ...currentOption, name: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Option Price"
+              value={currentOption.price}
+              onChange={(e) => setCurrentOption({ ...currentOption, price: e.target.value })}
+            />
+            <button 
+              type="button" 
+              onClick={addPriceOption}
+              className="add-option-btn"
+            >
+              Add Option
+            </button>
+          </div>
+        </div>
+        
         <button onClick={handleAdd}>Add Product</button>
       </div>
 
@@ -234,6 +362,49 @@ const Dashboard = () => {
                     value={editingProduct.rating || ''}
                     onChange={(e) => setEditingProduct({ ...editingProduct, rating: e.target.value })}
                   />
+                  
+                  {/* Edit Price Options Section */}
+                  <div className="edit-price-options-section">
+                    <h4>Price Options</h4>
+                    
+                    <div className="price-options-list">
+                      {(editingProduct.priceOptions || []).map((option, index) => (
+                        <div key={index} className="price-option-item">
+                          <span>{index}: {option.name} - ₹{option.price}</span>
+                          <button 
+                            type="button" 
+                            onClick={() => removeEditingPriceOption(index)}
+                            className="remove-option-btn"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="add-option-form">
+                      <input
+                        type="text"
+                        placeholder="Option Name"
+                        value={editingOption.name}
+                        onChange={(e) => setEditingOption({ ...editingOption, name: e.target.value })}
+                      />
+                      <input
+                        type="number"
+                        placeholder="Option Price"
+                        value={editingOption.price}
+                        onChange={(e) => setEditingOption({ ...editingOption, price: e.target.value })}
+                      />
+                      <button 
+                        type="button" 
+                        onClick={addEditingPriceOption}
+                        className="add-option-btn"
+                      >
+                        Add Option
+                      </button>
+                    </div>
+                  </div>
+                  
                   <button onClick={handleUpdate}>Update</button>
                   <button onClick={() => setEditingProduct(null)}>Cancel</button>
                 </>
@@ -250,6 +421,19 @@ const Dashboard = () => {
                   <p><b>Feature:</b> {product.feature || 'None'}</p>
                   <p><b>Price:</b> ₹{product.price || '0'}</p>
                   <p><b>Rating:</b> {'⭐'.repeat(Math.round(product.rating || 0))} ({product.rating || '0'})</p>
+                  
+                  {/* Display Price Options */}
+                  {product.priceOptions && product.priceOptions.length > 0 && (
+                    <div className="product-price-options">
+                      <p><b>Price Options:</b></p>
+                      <ul>
+                        {product.priceOptions.map((option, idx) => (
+                          <li key={idx}>{option.name}: ₹{option.price}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  
                   <button onClick={() => handleEdit(product)} className='editButton'>Edit</button>
                   <button onClick={() => handleDelete(product.id)} className='deleteButton'>Delete</button>
                 </>

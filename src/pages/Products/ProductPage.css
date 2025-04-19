@@ -224,6 +224,7 @@ body {
   gap: 35px;
   max-width: 1400px;
   margin: 0 auto;
+
 }
 
 /* Product card styles */
@@ -231,7 +232,7 @@ body {
   position: relative;
   overflow: visible !important; /* Changed from hidden to prevent dropdown clipping */
   border-radius: 20px;
-  background: var(--card-bg);
+  background-color: #022279;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateY(30px);
@@ -244,6 +245,7 @@ body {
 .product-card.animate-in {
   transform: translateY(0);
   opacity: 1;
+  
 }
 
 .product-card.hovered {
@@ -283,6 +285,29 @@ body {
   background: var(--primary-light);
 }
 /* Pincode Modal Styles */
+.pincode-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 25px;
+}
+
+.pincode-close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
+  color: #ff1414;
+  margin-top:-70px;
+  margin-right:-20px
+}
+
+.pincode-close-button:hover {
+  opacity: 0.7;
+}
+
 .pincode-modal-overlay {
   position: fixed;
   top: 0;
@@ -931,7 +956,7 @@ body {
   position: absolute;
   top: -8px;
   right: -8px;
-  background-color: #ff9800;
+  background-color: #0011ff;
   color: white;
   border-radius: 50%;
   width: 22px;
