@@ -2,18 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Droplet, Settings, Wrench, Activity, ArrowUpCircle, Navigation } from 'lucide-react';
 import './ETPServices.css'; // Import the CSS file
 import ETP from "../../assets/ETP-Services.jpg"
+import { useNavigate } from 'react-router-dom';
 
 const ETPServices=()=> {
   const [isVisible, setIsVisible] = useState(false);
-         
+         const navigate=useNavigate();
            useEffect(() => {
              setIsVisible(true);
            }, []);
-         
+          
+           const handleBack=()=>{
+            navigate("/service");
+           }
          
          
            return (
              <div className="ro-container">
+
                {/* Hero Section with Animation */}
                <div className={`ro-hero ${isVisible ? 'visible' : ''}`}>
                  <div className="ro-hero-content">

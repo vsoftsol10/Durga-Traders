@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Droplet, Settings, Wrench, Activity, ArrowUpCircle, Navigation } from 'lucide-react';
+import { Droplet, Settings, Wrench, Activity, ArrowLeft, Navigation } from 'lucide-react';
 import './DMPlant.css'; // Import the CSS file
 import DMplant from "../../assets/dmplant.jpg"
+import { useNavigate } from 'react-router-dom';
 const DMPlant=()=> {
   const [isVisible, setIsVisible] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate hook
-    
-    useEffect(() => {
-      setIsVisible(true);
-    }, []);
-    
-    // Function to handle navigation back to the service page
-    const handleBackClick = () => {
-      navigate('/service'); // Adjust this path to match your route to the services page
-    };
-    
-    return (
-      <div className="ro-container">
-        {/* Back button at the top left corner */}
-        <div className="back-button-container">
-          <button 
-            className="back-button" 
-            onClick={handleBackClick}
-            // aria-label="Back to Services"
-          >
-            <ArrowLeft size={20} />
-            <span>Back to Services</span>
-          </button>
-        </div>
+  const navigate=useNavigate();
+      
+        useEffect(() => {
+          setIsVisible(true);
+        }, []);
+      
+      const handleBack=()=>{
+        navigate(-1);
+      }
+      
+        return (
+          <div className="ro-container">
+             {/* Back button at the top left corner */}
+                  <div className="back-button-container">
+                    <button 
+                      className="back-button" 
+                      onClick={handleBack}
+                      // aria-label="Back to Services"
+                    >
+                      <ArrowLeft size={20} />
+                      <span>Back to Services</span>
+                    </button>
+                  </div>
             {/* Hero Section with Animation */}
             <div className={`ro-hero ${isVisible ? 'visible' : ''}`}>
               <div className="ro-hero-content">

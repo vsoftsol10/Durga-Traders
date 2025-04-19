@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Droplet, Settings, Wrench, Activity, ArrowUpCircle, Navigation } from 'lucide-react';
+import { Droplet, Settings, Wrench, Activity, ArrowLeft, Navigation } from 'lucide-react';
 import './SurfaceWaterTreatement.css'; // Import the CSS file
 import SurfaceWaterTreatment from "../../assets/Surface-Water-Treatment.jpg"
+import { useNavigate } from 'react-router-dom';
 const SurfaceWaterTreatement=() =>{
   const [isVisible, setIsVisible] = useState(false);
- 
+  const navigate=useNavigate();
    useEffect(() => {
      setIsVisible(true);
    }, []);
- 
+
+   const handleBack=()=>{
+    navigate("/service", { replace: true });
+   }
  
  
    return (
      <div className="ro-container">
+                   {/* Back button at the top left corner */}
+                   <div className="back-button-container">
+                          <button 
+                            className="back-button" 
+                            onClick={handleBack}
+                            // aria-label="Back to Services"
+                          >
+                            <ArrowLeft size={20} />
+                            <span>Back to Services</span>
+                          </button>
+                        </div>
        {/* Hero Section with Animation */}
        <div className={`ro-hero ${isVisible ? 'visible' : ''}`}>
          <div className="ro-hero-content">

@@ -127,7 +127,7 @@
 	max-width: 1440px;
 	margin: 0 auto;
 	position: relative;
-	width: 100%;
+	width: 90%;
   }
   
   /* Logo Styling */
@@ -652,7 +652,7 @@ border: 2px solid #022279;
   }
   
   /* Responsive Design - Enhanced for all screen sizes */
-  @media (max-width: 1440px) {
+  @media (min-width: 1444px) {
 	.nav-link {
 	  margin: 0 0.5rem;
 	  padding: 8px 10px;
@@ -661,9 +661,12 @@ border: 2px solid #022279;
 	.header-container {
 	  padding: 0 1.5rem;
 	}
-	/* .logo-container{
+	.logo-container{
 		margin-left: 10px;
-	} */
+	}
+	.header-container{
+		width: 90%;
+	}
 	.logoBackground{
 		margin-left: 5px;
 
@@ -710,6 +713,7 @@ border: 2px solid #022279;
 	  width: 280px;
 	}
   }
+
   
   @media (max-width: 1024px) {
 	nav .nav-content {
