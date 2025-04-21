@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './ProductPage.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase'; // You'll need to create this file
-import personProduct from "../../assets/Personal-Products.gif";
+import personProduct from "../../assets/Personal-Products-01.gif";
+import footerProduct from "../../assets/Personal-Products-02.gif"
 import { useNavigate } from 'react-router-dom';
 
 // CartContext
@@ -184,12 +185,12 @@ const ProductItem = ({ product, index, addToCart }) => {
             )}
           </div>
           
-          {/* <button className="details-button">
+          <button className="details-button">
             <span>Details</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
-          </button> */}
+          </button>
         </div>
       </div>
       
@@ -554,7 +555,6 @@ const ProductPage = () => {
               </p> */}
             </div>
             <img src={personProduct} alt="Poster" className="ProductPoster" />
-            
             {/* Loading state */}
             {loading ? (
               <div className="loading-container">
@@ -597,6 +597,8 @@ const ProductPage = () => {
             removeFromCart={removeFromCart}
           />
         )}
+        <img src={footerProduct} alt="Poster" className="footerPoster" />
+
       </div>
     </CartContext.Provider>
   );

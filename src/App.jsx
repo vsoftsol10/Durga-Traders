@@ -31,6 +31,7 @@ import Blog from './components/Blog';
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
+import ScrollToTop from './components/ScrollToTop';
 
 
 function App() {
@@ -60,6 +61,7 @@ function MainLayout() {
     
      <Header/>
       <WaterBackground>
+      <ScrollToTop/>
         <Routes>
 
           <Route path="/" element={<Home />} />

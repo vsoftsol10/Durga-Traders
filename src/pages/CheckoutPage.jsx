@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './CheckoutPage.css'; // You'll need to create this CSS file
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+// We'll use EmailJS for sending emails
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
 // Payment gateway integration component
-
-
 const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
   return (
     <div className="payment-gateway">
@@ -40,7 +41,7 @@ const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
           <h3>Payment Summary</h3>
           <div className="summary-item">
             <span>Order Total:</span>
-            <span>₹{((orderDetails?.totalAmount || 0) * 1.08).toFixed(2)}</span>
+            <span>₹{((orderDetails?.totalAmount || 0) * 1.18).toFixed(2)}</span>
           </div>
         </div>
         
@@ -61,11 +62,92 @@ const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
   );
 };
 
+// Email service to send order details to admin
+const sendOrderToAdmin = async (orderData) => {
+  try {
+    // Initialize EmailJS with your user ID (you'll need to sign up at emailjs.com)
+    // Replace these with your actual EmailJS credentials
+    const SERVICE_ID = 'your_service_id';
+    const TEMPLATE_ID = 'your_template_id';
+    const USER_ID = 'your_user_id';
+    const ADMIN_EMAIL = 'admin@yourcompany.com'; // Replace with your admin email
+    
+    // Format order items for email
+    const itemsList = orderData.items.map(item => 
+      `${item.name} ${item.selectedOption ? `(${item.selectedOption})` : ''} - ₹${item.price}`
+    ).join('\n');
+    
+    // Prepare template parameters
+    const templateParams = {
+      to_email: ADMIN_EMAIL,
+      from_name: 'Online Store Order System',
+      subject: `New Order #${orderData.orderNumber}`,
+      customer_name: orderData.customerDetails.fullName,
+      customer_email: orderData.customerDetails.email,
+      customer_phone: orderData.customerDetails.mobileNumber,
+      customer_address: `${orderData.customerDetails.address}, ${orderData.customerDetails.city}, ${orderData.customerDetails.state} - ${orderData.customerDetails.zipCode}`,
+      order_number: orderData.orderNumber,
+      order_items: itemsList,
+      subtotal: orderData.totalAmount.toFixed(2),
+      tax: (orderData.totalAmount * 0.18).toFixed(2),
+      total_amount: (orderData.totalAmount * 1.18).toFixed(2),
+      order_date: new Date().toLocaleString()
+    };
+    
+    // Send the email
+    const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID);
+    console.log('Email sent successfully:', response);
+    return true;
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return false;
+  }
+};
+
+// Also send confirmation email to customer
+const sendConfirmationToCustomer = async (orderData) => {
+  try {
+    // Replace these with your actual EmailJS credentials
+    const SERVICE_ID = 'your_service_id';
+    const TEMPLATE_ID = 'your_customer_template_id';
+    const USER_ID = 'your_user_id';
+    
+    // Format order items for email
+    const itemsList = orderData.items.map(item => 
+      `${item.name} ${item.selectedOption ? `(${item.selectedOption})` : ''} - ₹${item.price}`
+    ).join('\n');
+    
+    // Prepare template parameters
+    const templateParams = {
+      to_email: orderData.customerDetails.email,
+      from_name: 'Pure Water Solutions',
+      subject: `Your Order #${orderData.orderNumber} has been confirmed`,
+      customer_name: orderData.customerDetails.fullName,
+      order_number: orderData.orderNumber,
+      order_items: itemsList,
+      subtotal: orderData.totalAmount.toFixed(2),
+      tax: (orderData.totalAmount * 0.18).toFixed(2),
+      total_amount: (orderData.totalAmount * 1.18).toFixed(2),
+      order_date: new Date().toLocaleString()
+    };
+    
+    // Send the email
+    const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID);
+    console.log('Customer confirmation email sent successfully:', response);
+    return true;
+  } catch (error) {
+    console.error('Error sending customer email:', error);
+    return false;
+  }
+};
 
 // Main CheckoutPage Component
-const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
+const CheckoutPage = () => {
   const [showPaymentGateway, setShowPaymentGateway] = useState(false);
-  const navigate=useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [emailStatus, setEmailStatus] = useState(null);
+  const navigate = useNavigate();
+  
   // Get cart data from sessionStorage
   const [cartItems, setCartItems] = useState(() => {
     const savedItems = sessionStorage.getItem('cartItems');
@@ -76,6 +158,7 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
     const savedPrice = sessionStorage.getItem('totalPrice');
     return savedPrice ? parseFloat(savedPrice) : 0;
   });
+  
   const [formData, setFormData] = useState({
     fullName: '',
     mobileNumber: '',
@@ -85,13 +168,15 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
     state: '',
     zipCode: '',
   });
+  
   const [formErrors, setFormErrors] = useState({});
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
 
-  const goBackToProducts=()=>{
-    navigate("/personal-products")
-};
+  const goBackToProducts = () => {
+    navigate("/personal-products");
+  };
+  
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -108,7 +193,6 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
       });
     }
   };
-
 
   // Validate form before proceeding
   const validateForm = () => {
@@ -160,23 +244,47 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
   };
 
   // Handle payment completion
-  const handlePaymentComplete = () => {
-    // Here you would normally redirect to the CCAvenue payment gateway
-    // For demo purposes, we'll just simulate a successful payment
+  
+
+  // In your handlePaymentComplete function:
+  const handlePaymentComplete = async () => {
+    setIsProcessing(true);
     
     // Generate a random order number
     const newOrderNumber = 'ORD-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-    setOrderNumber(newOrderNumber);
-    setOrderPlaced(true);
-    setShowPaymentGateway(false);
     
-    // In a real implementation, you'd send order details to your backend
-    console.log('Order placed:', {
+    // Prepare order data
+    const orderData = {
       orderNumber: newOrderNumber,
       customerDetails: formData,
       items: cartItems || [],
-      totalAmount: (totalPrice || 0) * 1.08
-    });
+      totalAmount: totalPrice || 0
+    };
+    
+    try {
+      // Call Firebase function
+      const functions = getFunctions();
+      const processOrder = httpsCallable(functions, 'processOrder');
+      const result = await processOrder(orderData);
+      
+      if (result.data.success) {
+        // Update order status
+        setOrderNumber(newOrderNumber);
+        setOrderPlaced(true);
+        setShowPaymentGateway(false);
+        
+        // Clear cart after successful order
+        sessionStorage.removeItem('cartItems');
+        sessionStorage.removeItem('totalPrice');
+      } else {
+        throw new Error(result.data.message || 'Order processing failed');
+      }
+    } catch (error) {
+      console.error('Failed to process order:', error);
+      setEmailStatus('error');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   // Handle payment cancellation
@@ -200,7 +308,14 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
         </div>
         <h2>Order Placed Successfully!</h2>
         <p>Thank you for your purchase. Your order number is <strong>{orderNumber}</strong>.</p>
-        <p>We've sent the order details to your email address.</p>
+        <p>We've sent the order details to your email address {formData.email}.</p>
+        
+        {emailStatus === 'error' && (
+          <div className="email-error-message">
+            <p>There was an issue sending your order confirmation email. Please contact our support team if you don't receive it soon.</p>
+          </div>
+        )}
+        
         <button className="continue-shopping" onClick={goBackToProducts}>
           Continue Shopping
         </button>
@@ -331,9 +446,9 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
                   </div>
                   <div className="product-details">
                     <h3 className="product-name">{item.name}</h3>
-                    <p className="product-model">{item.feature || 'Standard Model'}</p>
+                    <p className="product-model">{item.selectedOption || 'Standard Model'}</p>
                   </div>
-                  {/* <div className="product-price">₹{item.price}</div> */}
+                  <div className="product-price">₹{item.price}</div>
                 </div>
               ))
             ) : (
@@ -395,6 +510,14 @@ const CheckoutPage = (/*{ cartItems = [], totalPrice = 0,  }*/) => {
               onCancel={handlePaymentCancel}
             />
           </div>
+        </div>
+      )}
+      
+      {/* Processing Overlay */}
+      {isProcessing && (
+        <div className="processing-overlay">
+          <div className="processing-spinner"></div>
+          <p>Processing your order...</p>
         </div>
       )}
     </div>

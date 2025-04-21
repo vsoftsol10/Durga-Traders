@@ -83,14 +83,14 @@
   
   /* Header Container Styling */
   header {
-	position: sticky;
+	position:sticky;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 1000;
 	transition: var(--headerTransition);
 	height: var(--headerHeight);
-	background: linear-gradient(135deg, #022279, #00c7e8);
+	background: linear-gradient(135deg, #2a3a63, #374f89);
 	background-size: 200% 200%;
 	animation: gradientBg 15s ease infinite;
 	color: var(--textColor);
@@ -111,7 +111,6 @@
 	box-shadow: var(--boxShadow);
 	background: rgba(42, 58, 99, 0.95);
 	backdrop-filter: var(--backdropFilter);
-	height: var(--headerHeightMinimized);
   }
   
   header.minimized {
@@ -127,9 +126,7 @@
 	max-width: 1440px;
 	margin: 0 auto;
 	position: relative;
-	width: 90%;
   }
-  
   /* Logo Styling */
   .logoBackground {
 	/* Container for the entire logo area */
