@@ -14,6 +14,7 @@ const ProductItem = ({ product, index, addToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const navigate = useNavigate();
   
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -67,6 +68,13 @@ const ProductItem = ({ product, index, addToCart }) => {
   const handleAddToCartClick = (e) => {
     e.stopPropagation(); // Prevent event from bubbling up
     setShowOptions(!showOptions);
+  };
+
+  // Add function to navigate to product details page
+  const navigateToProductDetails = () => {
+    navigate(`/products/${product.id}`, { 
+      state: { product } // This passes the entire product object as state
+    });
   };
 
   const selectOption = (optionName, optionPrice, e) => {
@@ -185,7 +193,8 @@ const ProductItem = ({ product, index, addToCart }) => {
             )}
           </div>
           
-          <button className="details-button">
+          {/* Add onClick handler to the Details button */}
+          <button className="details-button" onClick={navigateToProductDetails}>
             <span>Details</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
@@ -213,6 +222,8 @@ const ProductItem = ({ product, index, addToCart }) => {
     </div>
   );
 };
+
+// Rest of your components remain the same...
 
 // Cart Component
 const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
@@ -294,11 +305,6 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
           Submit
         </button>
         
-        {/* <div className="pincode-info-box">
-          <h3 className="pincode-info-title">Why we collect Pin code?</h3>
-          <p>Suppliers available in Tamil Nadu Regions only</p>
-        </div>
-         */}
         {resultMessage && (
           <div className={`pincode-result ${resultType}`}>
             {resultMessage}
@@ -372,7 +378,6 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
                     {item.selectedOption ? <span className="selected-option">{item.selectedOption} - </span> : ''}
                     {item.description}
                   </p>
-                  {/* <div className="cart-item-feature">{item.feature}</div> */}
                 </div>
                 <div className="cart-item-price">₹{item.price}</div>
                 <button 
@@ -549,10 +554,6 @@ const ProductPage = () => {
                 <span className="drop drop-5"></span> 
                 <span className="drop drop-6"></span> 
               </div>
-              {/* <p className="page-subtitle">
-                Experience crystal clear water with our cutting-edge purification technology.
-                Our products combine innovation with elegance for your healthier lifestyle.
-              </p> */}
             </div>
             <img src={personProduct} alt="Poster" className="ProductPoster" />
             {/* Loading state */}

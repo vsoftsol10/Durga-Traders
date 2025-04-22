@@ -32,6 +32,7 @@ import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
 import ScrollToTop from './components/ScrollToTop';
+import ProductDetailsPage from './pages/ProductDetails/ProductDetailsPage';
 
 
 function App() {
@@ -88,6 +89,8 @@ function MainLayout() {
         <Route path='/product/6' element={<CommercialProductSix />}/>
         <Route path='/product/7' element={<CommercialProductSeven />}/>
         <Route path='/blog' element={<Blog/>}/>
+        <Route path='/products/:productId' element={<ProductDetailsPage/>} />
+
         </Routes>
       </WaterBackground>
       <Footer/>
