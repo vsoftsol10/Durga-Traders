@@ -3,21 +3,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import './home.css';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import CounterBox from '../Animation/CounterBox';
 import AnimatedTestimonials from './AnimatedTestimonials';
-import HomeOne from '../assets/Commercial & Residential.gif';
-import HomeTwo from '../assets/residential purifier.gif';
-import HomeThree from '../assets/COMMERCIAL purifier.gif';
-import HomeFour from '../assets/Water Importance.gif';
-import HomeFive from '../assets/Weather Water.gif';
-import BigSale from '../assets/Offersales.gif';
-import BestSellOne from '../assets/Durga Product 01.png';
-import BestSellTwo from '../assets/Durga Product 03.png';
-import BestSellThree from '../assets/Durga Product 04.png';
-import BestSellFour from '../assets/Durga Product 02.png';
-import Bookdemo from '../assets/Book demo icon.png';
+import WaterComposition from '../Animation/WaterComposition';
 import Warranty from '../assets/Warranty icon.png';
 import FreeConsult from '../assets/Free consultation icon.png';
 import PurchaseSupport from '../assets/Purchase support icon.png';
@@ -28,42 +16,20 @@ import AFT from '../assets/Advance Filtration.png';
 import CHS from '../assets/Commitment 001.png';
 import Sustain from '../assets/Sustainability.png';
 import CustSats from '../assets/Customer.png';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Grid, Card, CardContent, CardMedia, CardActions, Typography, Button } from '@mui/material';
 import { Container } from '@mui/material';
 import { Box } from '@mui/material';
+import Carousel from '../Animation/Carousel';
+import BookDemo from '../assets/Book demo icon.png';
+import BestSellingProducts from './BestSellingProducts';
 
 
 const Home = () => {
-  const sliderRef = useRef(null);
   const imageRef = useRef(null);
-  const questionMarkRef = useRef(null);
-  const exclamationMarkRef = useRef(null);
   const navigate = useNavigate();
 
-
-  // Define the colors to match the CommercialProducts page
   const primaryColor = '#022279';
   const secondaryColor = '#00c7e8';
-
-  const carouselImages = [HomeOne, HomeTwo, HomeThree, HomeFour, HomeFive];
-
-  const settings = {
-    dots: true,
-    infinite: carouselImages.length > 1,
-    speed: 200,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: carouselImages.length > 1,
-    autoplaySpeed: 4000,
-    pauseOnHover: true,
-    arrows: carouselImages.length > 1,
-    className: "center"
-  };
 
   useEffect(() => {
     gsap.fromTo(
@@ -77,40 +43,16 @@ const Home = () => {
       }
     );
 
-    if (sliderRef.current && carouselImages.length > 1) {
-      sliderRef.current.slickPlay();
-    }
-
-    // Animation for the question mark
-    if (questionMarkRef.current) {
-      // Create a hanging/swinging animation
-      gsap.to(questionMarkRef.current, {
-        rotation: 15,
-        duration: 1.5,
-        ease: "elastic.out(1, 0.3)",
-        transformOrigin: "top center",
-        repeat: -1,
-        yoyo: true,
-        repeatDelay: 2
-      });
-    }
-
-    // Animation for the exclamation mark
-    if (exclamationMarkRef.current) {
-      // Create a slightly different hanging animation
-      gsap.to(exclamationMarkRef.current, {
-        rotation: -15,
-        duration: 1.8,
-        ease: "elastic.out(1, 0.4)",
-        transformOrigin: "top center",
-        repeat: -1,
-        yoyo: true,
-        repeatDelay: 1.5,
-        delay: 0.5 // Slightly offset from question mark for visual interest
-      });
-    }
   }, []);
 
+  const minerals = [
+    { id: 'calcium', symbol: 'Ca', name: 'Calcium', value: '19.1 Mg / L', description: 'Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit.' },
+    { id: 'magnesium', symbol: 'Mg', name: 'Magnesium', value: '2.5 Mg / L', description: 'Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit.' },
+    { id: 'sodium', symbol: 'Na', name: 'Sodium', value: '9.5 Mg / L', description: 'Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit.' },
+    { id: 'potassium', symbol: 'K', name: 'Potassium', value: '0.5 Mg / L', description: 'Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit.' },
+    { id: 'bicarbonate', symbol: 'HCO', name: 'Bicarbonate', value: '35 Mg / L', description: 'Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit.' },
+    { id: 'chloride', symbol: 'Cl', name: 'Chloride', value: '12.1 Mg / L', description: 'Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit.' },
+  ];
 
   const services = [
     {
@@ -134,40 +76,9 @@ const Home = () => {
       description: 'Your satisfaction is our top priority. We offer personalized customer support and services to ensure you are always happy with your water filter system.',
     },
   ];
-
-  const products = [
-    {
-      title: 'DT-CLEANWATER',
-      modelName: '1101AMOT',
-      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column...',
-      image: BestSellOne,
-      alt: 'product1',
-    },
-    {
-      title: 'DT-WATERLILY',
-      modelName: '1301AMOT',
-      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column..',
-      image: BestSellTwo,
-      alt: 'product2',
-    },
-    {
-      title: 'DT-ROMA',
-      modelName: '1401AMOT',
-      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Co....',
-      image: BestSellThree,
-      alt: 'product3',
-    },
-    {
-      title: 'DT-AQUATOUCH',
-      modelName: '1201AMOT',
-      descriptionOne: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column...',
-      image: BestSellFour,
-      alt: 'product4',
-    },
-  ];
-
+  
   const service = [{
-    image: Bookdemo,
+    image: BookDemo,
     title: 'Book Demo'
   },
   {
@@ -187,200 +98,12 @@ const Home = () => {
     title: 'Services Support'
   }
   ]
-  const testimonials = [
-    {
-      name: 'Nirmal',
-      location: 'Chennai',
-      feedback: 'It removed all the bad taste and odor from our tap water. Its refreshing to drink now!',
-    },
-    {
-      name: 'Vijay Kumar',
-      location: 'Coimbatore',
-      feedback: 'We use this RO system in our factory where we need large quantities of purified water for our production lines. Its been running smoothly for over a year without any major issues.',
-    },
-    {
-      name: 'Ajmal',
-      location: 'Madurai',
-      feedback: 'We installed this RO system in our restaurant, and the difference in water quality is incredible. We no longer have issues with the taste of our drinks and coffee. Its pure, crisp water.',
-    },
-    {
-      name: 'Gobi Dass',
-      location: 'Madurai',
-      feedback: 'We bought RO for our house, from Enquiry,Site visit,product explanation to execution, their approach was very Proffessional and also suggested us a correct and essential products.I strongly recommend Durga Traders for water related solutions.',
-    },
-    {
-      name: 'Chandru Kanagasabapathy',
-      location: 'Madurai',
-      feedback: 'Durga Traders playing a vital role in sales and service of the plant....Their expertise in this area making one of the pioneer in this field ....wish them best in luck....',
-    },
-    {
-      name: 'R. K. Samy',
-      location: 'Madurai',
-      feedback: 'Durga traders service very good, They are keep timing and quality also, I suggest to all, They are providing good sales and services at reasonable price, Thank you.'
-    },
-    {
-      name: 'Kandasamy Prakash',
-      location: 'Karaikudi',
-      feedback: 'Excellent service. On time service. Good work.'
-    },
-    {
-      name: 'Bharati Senthil',
-      location: 'Thiruvanamalai',
-      feedback: 'Friendly Customer service, low cost & immediate response'
-    }
-  ];
 
   return (
     <div>
-      <div style={{ marginBottom: '20px' }}>
-        <Slider ref={sliderRef} {...settings}>
-          {carouselImages.map((img, index) => (
-            <div key={index}>
-              <img
-                src={img}
-                alt={`Slide ${index + 1}`}
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  maxHeight: '750px',
-                  // objectFit: 'cover',
-                }}
-              />
-            </div>
-          ))}
-        </Slider>
-      </div>
-
-      <Container maxWidth={false} sx={{ px: { xs: 2, sm: 5, md: 10 }, pt: '40px' }}>
-        <Box textAlign="center" mb={5}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: primaryColor,
-              position: 'relative',
-              display: 'inline-block',
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                width: '60%',
-                height: '3px',
-                backgroundColor: secondaryColor,
-                bottom: '-10px',
-                left: '20%',
-                borderRadius: '2px',
-              }
-            }}
-          >
-            Best Selling Products
-          </Typography>
-        </Box>
-
-        <Box display="flex" flexWrap="wrap" justifyContent="center">
-          {products.map((product, index) => (
-            <Box
-              key={index}
-              sx={{
-                width: { xs: '100%', sm: '48%', md: '23%' },
-                padding: '10px',
-                textAlign: 'center',
-                marginBottom: '20px',
-                display: 'flex',
-              }}
-            >
-
-              <Card
-                sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  flexGrow: 1,
-                  borderRadius: '15px',
-                  transition: 'transform 0.3s ease, background-color 0.3s ease',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                    backgroundColor: '#f5f5f5',
-                  },
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
-              >
-                {/* Image Section */}
-                <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <img
-                    src={product.image}
-                    alt={product.alt}
-                    style={{
-                      width: '100%',
-                      height: '300px',
-                      borderRadius: '8px',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </CardContent>
-
-                {/* Text Content */}
-                <Box
-                  sx={{
-                    position: 'relative',
-                    width: '100%',
-                    backgroundColor: 'rgba(255, 255, 255, 1)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '5px',
-                  }}
-                >
-                  <Typography variant="h6" sx={{ marginBottom: '5px', fontWeight: 'bold', color: primaryColor }}>
-                    {product.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px', fontWeight: 'bold' }}>
-                    {product.modelName}
-                  </Typography>
-                  <Typography sx={{ marginBottom: '20px' }} paragraph>
-                    {product.descriptionOne}
-                  </Typography>
-                  <Typography sx={{ marginBottom: '20px' }} paragraph>
-                    {product.descriptionTwo}
-                  </Typography>
-
-                  {/* Book Demo + Read More */}
-                  <Box display="flex" alignItems="center" gap={5}>
-                    <Link to="/contact">
-                      <img
-                        src={Bookdemo}
-                        alt="Book Demo"
-                        style={{ width: '50px', height: '50px', cursor: 'pointer' }}
-                      />
-                    </Link>
-
-                    <Typography
-                      component={Link}
-                      to="/personal-products"
-                      sx={{
-                        textDecoration: 'none',
-                        fontWeight: 'bold',
-                        color: secondaryColor,
-                        '&:hover': {
-                          textDecoration: 'underline',
-                          color: primaryColor
-                        }
-                      }}
-                    >
-                      Read More
-                    </Typography>
-                  </Box>
-                </Box>
-              </Card>
-
-            </Box>
-          ))}
-        </Box>
-      </Container>
+      <Carousel />
+      <BestSellingProducts />
+      <CounterBox />
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
         <Box
@@ -417,16 +140,7 @@ const Home = () => {
             textAlign="center"
           >
             <Typography variant="h3" align="center" sx={{ color: primaryColor, position: 'relative', display: 'inline-block' }}>
-              Your Trusted Partner for<br /> Clean & Safe Water
-              <span ref={exclamationMarkRef} style={{
-                display: 'inline-block',
-                fontSize: '1.1em',
-                fontWeight: 'bold',
-                marginLeft: '5px',
-                color: secondaryColor,
-                transform: 'translateY(-3px)',
-                transformOrigin: 'top center'
-              }}>!</span>
+              Your Trusted Partner for<br /> Clean & Safe Water !
             </Typography>
             <Typography variant="body1" align="center" sx={{ marginTop: '20px', color: 'black' }}>
               Water is vital for the survival of every living creature, not just humans. Regular intake of clean, pure water is crucial for maintaining good health. When choosing water, it's important to ensure it meets natural pH balance standards and tastes refreshing. Without these qualities, your health could be at risk in the near future.
@@ -463,28 +177,9 @@ const Home = () => {
               color: primaryColor,
               position: 'relative',
               display: 'inline-block',
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                width: '60%',
-                height: '3px',
-                bottom: '-10px',
-                left: '20%',
-                backgroundColor: secondaryColor,
-                borderRadius: '2px',
-              }
             }}
           >
-            Why Durga Traders
-            <span ref={questionMarkRef} style={{
-              display: 'inline-block',
-              fontSize: '1.1em',
-              fontWeight: 'bold',
-              marginLeft: '5px',
-              color: secondaryColor,
-              transform: 'translateY(-3px)',
-              transformOrigin: 'top center'
-            }}>?</span>
+            Why Durga Traders ?
           </Typography>
         </Box>
 
@@ -539,9 +234,7 @@ const Home = () => {
         </Box>
       </Container>
 
-      <div>
-        <img src={BigSale} alt='off' style={{ width: '100%' }} />
-      </div>
+      <WaterComposition />
 
       <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', py: 6 }}>
         <Container maxWidth="xl">
@@ -658,7 +351,7 @@ const Home = () => {
         </Container>
       </Box>
 
-      <AnimatedTestimonials testimonials={testimonials} />
+      <AnimatedTestimonials />
 
       <Container maxWidth="xl" style={{ paddingTop: '40px' }}>
         <Box textAlign="center" mb={5}>
@@ -671,16 +364,6 @@ const Home = () => {
               color: primaryColor,
               position: 'relative',
               display: 'inline-block',
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                width: '60%',
-                height: '3px',
-                bottom: '-10px',
-                left: '20%',
-                backgroundColor: secondaryColor,
-                borderRadius: '2px',
-              }
             }}
           >
             Services

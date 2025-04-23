@@ -261,49 +261,61 @@ const Blog = () => {
             </Container>
 
             <Container maxWidth="xl" sx={{ mt: 6, mb: 8 }}>
-                <Card sx={{
-                    backgroundColor: 'rgba(2, 34, 121, 0.05)',
-                    borderRadius: 3,
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                    overflow: 'hidden'
-                }}>
+                <Card
+                    id="commitment"
+                    sx={{
+                        backgroundColor: 'rgba(2, 34, 121, 0.05)',
+                        borderRadius: 3,
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                        overflow: 'hidden'
+                    }}
+                >
                     <CardContent sx={{ padding: 4 }}>
-                        <Typography
-                            variant="h4"
-                            gutterBottom
-                            sx={{
-                                color: primaryColor,
-                                fontWeight: 'bold',
-                                mb: 3
-                            }}
-                        >
-                            Our Commitment to Your Health
-                        </Typography>
-                        <Typography
-                            variant="body1"
-                            sx={{
-                                fontSize: '1.1rem',
-                                lineHeight: 1.8,
-                                mb: 3
-                            }}
-                        >
-                            Our water purification systems ensure you have access to clean, safe, and great-tasting water, supporting your hydration needs every day. We're dedicated to providing innovative solutions that make staying hydrated easier and more enjoyable.
-                        </Typography>
+                        <Box sx={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+                            <Typography
+                                variant="h4"
+                                gutterBottom
+                                sx={{
+                                    color: primaryColor,
+                                    fontWeight: 'bold',
+                                    mb: 3
+                                }}
+                            >
+                                Our Commitment to Your Health
+                            </Typography>
+                            <Typography
+                                variant="body1"
+                                sx={{
+                                    fontSize: '1.1rem',
+                                    lineHeight: 1.8,
+                                    mb: 3
+                                }}
+                            >
+                                Our water purification systems ensure you have access to clean, safe, and great-tasting water, supporting your hydration needs every day. We're dedicated to providing innovative solutions that make staying hydrated easier and more enjoyable.
+                            </Typography>
+                        </Box>
 
-                        <Grid container spacing={4} sx={{ mt: 2 }}>
+                        <Grid
+                            container
+                            spacing={4}
+                            justifyContent="center"  // Horizontally center the grid items
+                            alignItems="stretch"     // Ensure equal height if needed
+                            sx={{ mt: 2 }}
+                        >
                             <Grid item xs={12} md={4}>
                                 <Box sx={{
                                     border: `1px solid ${secondaryColor}`,
                                     borderRadius: 2,
                                     padding: 3,
                                     height: '100%',
-                                    backgroundColor: 'white'
+                                    backgroundColor: 'white',
+                                    textAlign: 'center' // Center text inside the box
                                 }}>
                                     <Typography variant="h5" sx={{ color: primaryColor, mb: 2, fontWeight: 'bold' }}>
                                         Signs of Dehydration
                                     </Typography>
                                     <Typography component="div">
-                                        <ul style={{ paddingLeft: '20px' }}>
+                                        <ul style={{ paddingLeft: '20px', textAlign: 'left', display: 'inline-block' }}>
                                             <li>Thirst and dry mouth</li>
                                             <li>Dark yellow urine</li>
                                             <li>Fatigue and dizziness</li>
@@ -319,13 +331,14 @@ const Blog = () => {
                                     borderRadius: 2,
                                     padding: 3,
                                     height: '100%',
-                                    backgroundColor: 'white'
+                                    backgroundColor: 'white',
+                                    textAlign: 'center'
                                 }}>
                                     <Typography variant="h5" sx={{ color: primaryColor, mb: 2, fontWeight: 'bold' }}>
                                         Hydration Tips
                                     </Typography>
                                     <Typography component="div">
-                                        <ul style={{ paddingLeft: '20px' }}>
+                                        <ul style={{ paddingLeft: '20px', textAlign: 'left', display: 'inline-block' }}>
                                             <li>Carry a reusable water bottle</li>
                                             <li>Set reminders throughout the day</li>
                                             <li>Flavor water with fresh fruits</li>
@@ -341,13 +354,14 @@ const Blog = () => {
                                     borderRadius: 2,
                                     padding: 3,
                                     height: '100%',
-                                    backgroundColor: 'white'
+                                    backgroundColor: 'white',
+                                    textAlign: 'center'
                                 }}>
                                     <Typography variant="h5" sx={{ color: primaryColor, mb: 2, fontWeight: 'bold' }}>
                                         Our Solutions
                                     </Typography>
                                     <Typography component="div">
-                                        <ul style={{ paddingLeft: '20px' }}>
+                                        <ul style={{ paddingLeft: '20px', textAlign: 'left', display: 'inline-block' }}>
                                             <li>Home filtration systems</li>
                                             <li>Portable water filters</li>
                                             <li>Hydration tracking apps</li>
@@ -375,7 +389,6 @@ const Blog = () => {
                             >
                                 Explore Our Products
                             </Button>
-
                         </Box>
                     </CardContent>
                 </Card>

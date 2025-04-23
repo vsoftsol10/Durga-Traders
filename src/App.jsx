@@ -62,7 +62,6 @@ function MainLayout() {
     
      <Header/>
       <WaterBackground>
-      <ScrollToTop/>
         <Routes>
 
           <Route path="/" element={<Home />} />
@@ -89,8 +88,11 @@ function MainLayout() {
         <Route path='/product/6' element={<CommercialProductSix />}/>
         <Route path='/product/7' element={<CommercialProductSeven />}/>
         <Route path='/blog' element={<Blog/>}/>
+<<<<<<< HEAD
         <Route path='/products/:productId' element={<ProductDetailsPage/>} />
 
+=======
+>>>>>>> origin/master
         </Routes>
       </WaterBackground>
       <Footer/>
