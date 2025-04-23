@@ -32,25 +32,48 @@
     backdrop-filter: blur(10px);
   }
   
+ /* Base Styles */
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #0062cc;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 8px 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  margin-left: 8px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999; /* Ensure it's above other elements */
+}
+
+/* Hover effect */
+.back-button:hover {
+  color: #0099ff;
+  transform: translateX(-5px);
+}
+
+/* ✅ Mobile Responsive Styles */
+@media (max-width: 600px) {
   .back-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: none;
-    color: #0062cc;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 8px 0;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
+    font-size: 13px;
+    padding: 6px 12px;
+    top: 50px;
+    left: 10px;
   }
-  
-  .back-button:hover {
-    color: #0099ff;
-    transform: translateX(-5px);
+
+  .back-button svg {
+    width: 18px;
+    height: 18px;
   }
+}
+
   
   .product-details-content {
     display: grid;
@@ -63,6 +86,69 @@
       grid-template-columns: 1fr;
     }
   }
+  /* Floating checkout container */
+.floating-checkout-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 320px;
+  z-index: 1000;
+}
+
+/* Floating checkout button styling */
+.floating-checkout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4a00e0;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.floating-checkout-button:hover {
+  background-color: #3700b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.floating-checkout-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Checkout icon styling */
+.checkout-icon {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Text styling */
+.floating-checkout-text {
+  white-space: nowrap;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 480px) {
+  .floating-checkout-container {
+    max-width: 280px;
+  }
+  
+  .floating-checkout-button {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
   /* In your ProductDetailsPage.css file */
 .product-identifiers {
     margin: 10px 0;
@@ -113,6 +199,7 @@
   .product-image-section {
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
   }
   
   .product-image-container {

@@ -4,9 +4,9 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase'; // You'll need to create this file
 import personProduct from "../../assets/Personal-Products-01.gif";
 import footerProduct from "../../assets/Personal-Products-02.gif"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-// CartContext
+// CartContext - Create a shared context for cart state
 const CartContext = React.createContext();
 
 // Modern Product Item Component
@@ -223,8 +223,6 @@ const ProductItem = ({ product, index, addToCart }) => {
   );
 };
 
-// Rest of your components remain the same...
-
 // Cart Component
 const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
   return (
@@ -274,7 +272,7 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
     <div className="pincode-modal-overlay">
       <div className="pincode-modal">
         <div className="pincode-modal-header">
-          <h2 className="pincode-modal-title">Share Your Location PIN!</h2>
+          <h2 className="pincode-modal-title">Enter Your Location PIN!</h2>
           <button 
             className="pincode-close-button"
             onClick={onClose}
@@ -322,11 +320,12 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
       </div>
     </div>
   );
-};
+}
 
 // Checkout Page Component
 const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart }) => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  
   const goToCheckout = () => {
     // Store cart data in sessionStorage
     sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -334,6 +333,11 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
     
     // Navigate to checkout page
     navigate("/checkout");
+  }
+
+  // New function to navigate to product details page
+  const goToProductDetails = (productId) => {
+    navigate(`/products/${productId}`);
   }
 
   return (
@@ -369,20 +373,29 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
           <div className="cart-items">
             {cartItems.map((item, index) => (
               <div key={`${item.id}-${index}`} className="cart-item">
-                <div className="cart-item-image">
-                  <img src={item.image} alt={item.name} />
+                <div 
+                  className="cart-item-content"
+                  onClick={() => goToProductDetails(item.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="cart-item-image">
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  <div className="cart-item-details">
+                    <h3 className="cart-item-name">{item.name}</h3>
+                    <p className="cart-item-description">
+                      {item.selectedOption ? <span className="selected-option">{item.selectedOption} - </span> : ''}
+                      {item.description}
+                    </p>
+                  </div>
+                  <div className="cart-item-price">₹{item.price}</div>
                 </div>
-                <div className="cart-item-details">
-                  <h3 className="cart-item-name">{item.name}</h3>
-                  <p className="cart-item-description">
-                    {item.selectedOption ? <span className="selected-option">{item.selectedOption} - </span> : ''}
-                    {item.description}
-                  </p>
-                </div>
-                <div className="cart-item-price">₹{item.price}</div>
                 <button 
                   className="remove-item-button" 
-                  onClick={() => removeFromCart(index)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent navigation when clicking remove button
+                    removeFromCart(index);
+                  }}
                   aria-label={`Remove ${item.name} from cart`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -430,12 +443,52 @@ const ProductPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
-  const [openPincodeModal, setOpenPincodeModal] = useState(true); // Open by default
+  const [openPincodeModal, setOpenPincodeModal] = useState(false); // Changed to false by default
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Check if it's the user's first visit
+  useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem('hasVisitedProductPage');
+    
+    if (!hasVisitedBefore) {
+      // First visit - show the modal
+      setOpenPincodeModal(true);
+      // Set flag in localStorage to remember this user has visited
+      localStorage.setItem('hasVisitedProductPage', 'true');
+    }
+  }, []);
+
+  // Check for state parameter on mount to show checkout if needed
+  useEffect(() => {
+    if (location.state && location.state.showCheckout) {
+      setOpenPincodeModal(false);
+      setShowCheckout(true);
+    
+      // Clear the state to avoid showing checkout again on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
   
   // Colors for styling
   const primaryColor = '#0062cc';
   const secondaryColor = '#0099ff';
+  
+  // Enhanced function to update cart (shared between components)
+  const updateCart = (newCart) => {
+    setCartItems(newCart);
+    localStorage.setItem('cartItems', JSON.stringify(newCart));
+    
+    // Calculate new total
+    const newTotal = newCart.reduce((sum, item) => sum + (item.price || 0), 0);
+    setTotalPrice(newTotal);
+    
+    // Dispatch cart updated event
+    const event = new CustomEvent('cartUpdated', { 
+      detail: { count: newCart.length, total: newTotal } 
+    });
+    window.dispatchEvent(event);
+  };
   
   // Load initial cart data from localStorage on component mount
   useEffect(() => {
@@ -444,29 +497,38 @@ const ProductPage = () => {
       if (storedCart) {
         const parsedCart = JSON.parse(storedCart);
         setCartItems(parsedCart);
+        
+        // Calculate initial total price
+        const initialTotal = parsedCart.reduce((sum, item) => sum + (item.price || 0), 0);
+        setTotalPrice(initialTotal);
       }
     } catch (error) {
       console.error("Error loading cart from localStorage:", error);
     }
-  }, []);
-  
-  // Calculate total price whenever cart items change
-  useEffect(() => {
-    const newTotal = cartItems.reduce((sum, item) => sum + (item.price || 0), 0);
-    setTotalPrice(newTotal);
     
-    // Save cart items to localStorage and dispatch custom event
-    try {
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      // Create and dispatch a custom event to notify other components
-      const event = new CustomEvent('cartUpdated', { 
-        detail: { count: cartItems.length } 
-      });
-      window.dispatchEvent(event);
-    } catch (error) {
-      console.error("Error saving cart to localStorage:", error);
-    }
-  }, [cartItems]);
+    // Listen for cart update events from other components
+    const handleCartUpdated = (event) => {
+      try {
+        const storedCart = localStorage.getItem('cartItems');
+        if (storedCart) {
+          const parsedCart = JSON.parse(storedCart);
+          setCartItems(parsedCart);
+          const newTotal = parsedCart.reduce((sum, item) => sum + (item.price || 0), 0);
+          setTotalPrice(newTotal);
+        }
+      } catch (error) {
+        console.error("Error handling cart update:", error);
+      }
+    };
+    
+    window.addEventListener('storage', handleCartUpdated);
+    window.addEventListener('cartUpdated', handleCartUpdated);
+    
+    return () => {
+      window.removeEventListener('storage', handleCartUpdated);
+      window.removeEventListener('cartUpdated', handleCartUpdated);
+    };
+  }, []);
   
   // Fetch products from Firebase with price options directly from database
   useEffect(() => {
@@ -495,20 +557,14 @@ const ProductPage = () => {
   }, []);
   
   const addToCart = (product) => {
-    setCartItems(prevItems => {
-      const newItems = [...prevItems, product];
-      return newItems;
-    });
-    // Total price will be updated by the useEffect
+    const newCart = [...cartItems, product];
+    updateCart(newCart);
   };
   
   const removeFromCart = (index) => {
-    setCartItems(prevItems => {
-      const updatedCart = [...prevItems];
-      updatedCart.splice(index, 1);
-      return updatedCart;
-    });
-    // Total price will be updated by the useEffect
+    const updatedCart = [...cartItems];
+    updatedCart.splice(index, 1);
+    updateCart(updatedCart);
   };
   
   const navigateToCheckout = () => {
@@ -523,9 +579,15 @@ const ProductPage = () => {
     // Scroll to top
     window.scrollTo(0, 0);
   };
+
+  // Function to reset the "visited before" flag - for testing purposes
+  const resetPincodeModal = () => {
+    localStorage.removeItem('hasVisitedProductPage');
+    setOpenPincodeModal(true);
+  };
   
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, totalPrice }}>
+    <CartContext.Provider value={{ cartItems, addToCart, totalPrice, removeFromCart }}>
       <div className="product-page">
         {/* Background elements */}
         <div className="water-background"></div>
@@ -582,6 +644,7 @@ const ProductPage = () => {
                 ))}
               </div>
             )}
+            <img src={footerProduct} alt="Poster" className="footerPoster" />
             
             {/* Cart/Checkout Button */}
             <Cart 
@@ -598,11 +661,9 @@ const ProductPage = () => {
             removeFromCart={removeFromCart}
           />
         )}
-        <img src={footerProduct} alt="Poster" className="footerPoster" />
-
       </div>
     </CartContext.Provider>
   );
 };
 
-export default ProductPage;
+export default ProductPage

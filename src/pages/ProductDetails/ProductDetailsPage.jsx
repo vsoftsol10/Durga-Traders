@@ -14,44 +14,94 @@ const ProductDetailsPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('specifications');
+  const [cartCount, setCartCount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  
+  // Load initial cart data and set up event listener
+  useEffect(() => {
+    // Get initial cart state from localStorage
+    const updateCartState = () => {
+      try {
+        const storedCart = localStorage.getItem('cartItems');
+        if (storedCart) {
+          const parsedCart = JSON.parse(storedCart);
+          setCartCount(parsedCart.length);
+          
+          // Calculate total price
+          const newTotal = parsedCart.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+          setTotalPrice(newTotal);
+        } else {
+          // If no cart exists, reset state
+          setCartCount(0);
+          setTotalPrice(0);
+        }
+      } catch (error) {
+        console.error("Error loading cart from localStorage:", error);
+      }
+    };
+    
+    // Initial load
+    updateCartState();
+    
+    // Listen for cart update events from ProductPage component
+    const handleCartUpdate = (event) => {
+      if (event.detail) {
+        setCartCount(event.detail.count || 0);
+        setTotalPrice(event.detail.total || 0);
+      } else {
+        // If event doesn't have detail, refresh from localStorage
+        updateCartState();
+      }
+    };
+    
+    // Listen for storage changes (from other tabs/components)
+    const handleStorageChange = (event) => {
+      if (event.key === 'cartItems') {
+        updateCartState();
+      }
+    };
+    
+    // Set up event listeners
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Clean up event listeners
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
   
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
+        console.log("Attempting to fetch product with ID:", productId);
         
-        // Always fetch from Firestore for complete data
-        const productDoc = await getDoc(doc(db, 'products', productId));
+        // Try with the original ID format
+        let docId = productId;
+        let productDoc = await getDoc(doc(db, 'products', docId));
+        
+        // If not found and the ID is numeric, try with "product" prefix
+        if (!productDoc.exists() && !isNaN(productId) && !productId.startsWith('product')) {
+          docId = `product${productId}`;
+          console.log("Not found, trying with prefix:", docId);
+          productDoc = await getDoc(doc(db, 'products', docId));
+        }
         
         if (productDoc.exists()) {
+          console.log("Found product document:", productDoc.id);
           const productData = productDoc.data();
-          
-          // Debug data
-          console.log("Raw product data from Firestore:", productData);
-          console.log("Specifications type:", typeof productData.specifications);
-          console.log("Benefits type:", typeof productData.benefits);
-          
-          // Format data to ensure specifications is an object and benefits is an array
-          const formattedProduct = { 
-            id: productDoc.id, 
-            ...productData,
-            specifications: productData.specifications ? 
-              (typeof productData.specifications === 'object' ? productData.specifications : {}) : {},
-            benefits: productData.benefits ? 
-              (Array.isArray(productData.benefits) ? productData.benefits : 
-              typeof productData.benefits === 'object' ? Object.values(productData.benefits) : []) : []
-          };
-          
-          console.log("Formatted product from Firestore:", formattedProduct);
-          setProduct(formattedProduct);
+          setProduct({ id: productDoc.id, ...productData });
         } else {
+          console.error(`Product not found with ID ${productId} or ${docId}`);
           setError('Product not found');
         }
         
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching product details:', err);
-        setError('Failed to load product details. Please try again.');
+        console.error('Error fetching product:', err);
+        setError('Failed to load product details');
         setLoading(false);
       }
     };
@@ -81,12 +131,17 @@ const ProductDetailsPage = () => {
       };
       
       // Add to cart
-      const updatedCart = [...existingCart, cartProduct];
+      const updatedCart = [...existingCart, ...Array(quantity).fill(cartProduct)];
       localStorage.setItem('cartItems', JSON.stringify(updatedCart));
       
-      // Dispatch cart updated event
+      // Update local state
+      setCartCount(updatedCart.length);
+      const newTotal = updatedCart.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+      setTotalPrice(newTotal);
+      
+      // Dispatch cart updated event to notify other components
       const event = new CustomEvent('cartUpdated', { 
-        detail: { count: updatedCart.length } 
+        detail: { count: updatedCart.length, total: newTotal } 
       });
       window.dispatchEvent(event);
       
@@ -96,6 +151,15 @@ const ProductDetailsPage = () => {
       console.error('Error adding to cart:', error);
     }
   };
+  
+  // Navigate to cart/checkout page
+  const navigateToCheckout = () => {
+    navigate('/personal-products', { state: { showCheckout: true } });
+  };
+
+  const handleEnquiry = () => {
+    window.open("https://api.whatsapp.com/send/?phone=917094499037&text&type=phone_number&app_absent=0", "_blank");
+  }
   
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -162,13 +226,38 @@ const ProductDetailsPage = () => {
   return (
     <div className="product-details-page">
       <div className="product-details-container">
-        <button className="back-button" onClick={handleGoBack}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          Back to Products
-        </button>
+        <div className="header-actions">
+          <button className="back-button" onClick={handleGoBack}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Products
+          </button>
+          
+          {/* Checkout button in header
+          {cartCount > 0 && (
+            <button 
+              className="checkout-button has-items"
+              onClick={navigateToCheckout}
+            >
+              <span className="checkout-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+              </span>
+              <span className="checkout-text">
+                Checkout
+              </span>
+              <span className="checkout-price">
+                ₹{totalPrice.toFixed(2)}
+              </span>
+              <span className="cart-badge">{cartCount}</span>
+            </button>
+          )} */}
+        </div>
         
         <div className="product-details-content">
           <div className="product-image-section">
@@ -259,8 +348,8 @@ const ProductDetailsPage = () => {
                   </svg>
                   Add to Cart
                 </button>
-                <button className="buy-now-button">
-                  Buy Now
+                <button className="buy-now-button" onClick={handleEnquiry}>
+                  Enquiry
                 </button>
               </div>
             </div>
@@ -333,6 +422,27 @@ const ProductDetailsPage = () => {
           )}
         </div>
       </div>
+      
+      {/* Floating checkout button for mobile/responsive design */}
+      {cartCount > 0 && (
+        <div className="floating-checkout-container">
+          <button 
+            className="floating-checkout-button"
+            onClick={navigateToCheckout}
+          >
+            <span className="checkout-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </span>
+            <span className="floating-checkout-text">
+              View Cart ({cartCount}) - ₹{totalPrice.toFixed(2)}
+            </span>
+          </button>
+        </div>
+      )}
       
       {/* Bubbles animation for water theme */}
       <div className="bubbles-container">
