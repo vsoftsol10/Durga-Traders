@@ -68,7 +68,7 @@ function MainLayout() {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs/>} />
           <Route path="/service" element={<Services/>}/>
-          <Route path="/services/reverse-osmosis"element={<ReverseOsmosis/>}/>
+          <Route path="/servic es/reverse-osmosis"element={<ReverseOsmosis/>}/>
           <Route path='/services/seawater-desalination' element={<SeaWater/>} />
           <Route path='/services/surface-water-treatment' element={<SurfaceWaterTreatement/>} />
           <Route path='/services/water-softening' element={<WaterSoftening/>} />
@@ -88,11 +88,8 @@ function MainLayout() {
         <Route path='/product/6' element={<CommercialProductSix />}/>
         <Route path='/product/7' element={<CommercialProductSeven />}/>
         <Route path='/blog' element={<Blog/>}/>
-<<<<<<< HEAD
         <Route path='/products/:productId' element={<ProductDetailsPage/>} />
 
-=======
->>>>>>> origin/master
         </Routes>
       </WaterBackground>
       <Footer/>
