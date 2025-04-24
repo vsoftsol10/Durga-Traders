@@ -362,6 +362,11 @@
 	position: relative;
   }
   
+  @media(max-width:1440px){
+	.header-container{
+		width: 90%;
+	}
+  }
 
 
   /* Updated responsive styling for proper alignment */
