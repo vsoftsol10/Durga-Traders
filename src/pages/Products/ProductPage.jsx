@@ -10,7 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const CartContext = React.createContext();
 
 // Modern Product Item Component
-const ProductItem = ({ product, index, addToCart }) => {
+const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -87,7 +87,8 @@ const ProductItem = ({ product, index, addToCart }) => {
       price: optionPrice
     };
     
-    addToCart(productWithOption);
+    // Show pincode modal before adding to cart
+    showPincodeModal(productWithOption);
     setShowOptions(false);
   };
   
@@ -253,8 +254,8 @@ const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
   );
 };
 
-// Pincode Modal Component
-const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
+// Pincode Modal Component - Modified to handle product addition
+const PincodeModal = ({ open, onClose, primaryColor, secondaryColor, productToAdd, addToCart }) => {
   const [pincode, setPincode] = useState('');
   const [resultType, setResultType] = useState('');
   const [resultMessage, setResultMessage] = useState('');
@@ -264,6 +265,30 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
     // Tamil Nadu pincodes typically start with 6
     // This is a simplified check - in a real app, you might want a more comprehensive validation
     return code.length === 6 && code.startsWith('6');
+  };
+  
+  // Handle validation result
+  const handleValidationResult = (isValid) => {
+    if (isValid) {
+      setResultType('success');
+      setResultMessage('🎉 Yay! We deliver to your area in Tamil Nadu!');
+      
+      // Store the validated pincode for future reference
+      localStorage.setItem('validatedPincode', pincode);
+    } else {
+      setResultType('error');
+      setResultMessage('🚫 Sorry, service not available in your region.');
+    }
+  };
+  
+  // Handle continue button click
+  const handleContinue = () => {
+    if (resultType === 'success' && productToAdd) {
+      // Add the product to cart if pincode was valid
+      addToCart(productToAdd);
+    }
+    // Close the modal regardless of result
+    onClose();
   };
   
   if (!open) return null;
@@ -291,13 +316,8 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
         <button
           className="pincode-submit-button"
           onClick={() => {
-            if (isTamilNaduPincode(pincode)) {
-              setResultType('success');
-              setResultMessage('🎉 Yay! We deliver to your area in Tamil Nadu!');
-            } else {
-              setResultType('error');
-              setResultMessage('🚫 Sorry, service not available in your region.');
-            }
+            const isValid = isTamilNaduPincode(pincode);
+            handleValidationResult(isValid);
           }}
         >
           Submit
@@ -312,7 +332,7 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor }) => {
         {resultMessage && (
           <button
             className="pincode-continue-button"
-            onClick={onClose}
+            onClick={handleContinue}
           >
             Continue
           </button>
@@ -443,21 +463,10 @@ const ProductPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
-  const [openPincodeModal, setOpenPincodeModal] = useState(false); // Changed to false by default
+  const [openPincodeModal, setOpenPincodeModal] = useState(false);
+  const [productToAdd, setProductToAdd] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Check if it's the user's first visit
-  useEffect(() => {
-    const hasVisitedBefore = localStorage.getItem('hasVisitedProductPage');
-    
-    if (!hasVisitedBefore) {
-      // First visit - show the modal
-      setOpenPincodeModal(true);
-      // Set flag in localStorage to remember this user has visited
-      localStorage.setItem('hasVisitedProductPage', 'true');
-    }
-  }, []);
 
   // Check for state parameter on mount to show checkout if needed
   useEffect(() => {
@@ -556,6 +565,21 @@ const ProductPage = () => {
     fetchProducts();
   }, []);
   
+  // Show pincode modal when trying to add to cart
+  const showPincodeModalForProduct = (product) => {
+    // Check if user already has a validated pincode
+    const validatedPincode = localStorage.getItem('validatedPincode');
+    
+    if (validatedPincode) {
+      // If pincode already validated, add product directly to cart
+      addToCart(product);
+    } else {
+      // Otherwise, show pincode modal and store product for later
+      setProductToAdd(product);
+      setOpenPincodeModal(true);
+    }
+  };
+  
   const addToCart = (product) => {
     const newCart = [...cartItems, product];
     updateCart(newCart);
@@ -580,10 +604,9 @@ const ProductPage = () => {
     window.scrollTo(0, 0);
   };
 
-  // Function to reset the "visited before" flag - for testing purposes
-  const resetPincodeModal = () => {
-    localStorage.removeItem('hasVisitedProductPage');
-    setOpenPincodeModal(true);
+  // Function to reset the pincode for testing
+  const resetPincode = () => {
+    localStorage.removeItem('validatedPincode');
   };
   
   return (
@@ -593,12 +616,17 @@ const ProductPage = () => {
         <div className="water-background"></div>
         <div className="light-rays"></div>
         
-        {/* Pincode Modal */}
+        {/* Pincode Modal - Now with product passing */}
         <PincodeModal 
           open={openPincodeModal} 
-          onClose={() => setOpenPincodeModal(false)}
+          onClose={() => {
+            setOpenPincodeModal(false);
+            setProductToAdd(null); // Clear the product if modal is closed without adding
+          }}
           primaryColor={primaryColor}
           secondaryColor={secondaryColor}
+          productToAdd={productToAdd}
+          addToCart={addToCart}
         />
         
         {!showCheckout ? (
@@ -640,6 +668,7 @@ const ProductPage = () => {
                     product={product} 
                     index={index} 
                     addToCart={addToCart}
+                    showPincodeModal={showPincodeModalForProduct}
                   />
                 ))}
               </div>
@@ -666,4 +695,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage
+export default ProductPage;

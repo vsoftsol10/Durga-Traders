@@ -146,7 +146,7 @@ const ProductDetailsPage = () => {
       window.dispatchEvent(event);
       
       // Show success message or feedback
-      alert('Product added to cart!');
+      alert('  🚚  Note: We currently deliver only within Tamil Nadu.');
     } catch (error) {
       console.error('Error adding to cart:', error);
     }

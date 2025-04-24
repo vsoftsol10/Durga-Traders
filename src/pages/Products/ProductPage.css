@@ -1006,8 +1006,9 @@ body {
   padding: 8px 15px;
   border-radius: 20px;
   transition: all 0.3s ease;
-  position: absolute;
+  position: fixed;
   left: 0;
+  margin-top: 100px;
 }
 
 .back-button:hover {
@@ -1081,10 +1082,12 @@ body {
 .cart-item {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   border-bottom: 1px solid rgba(0, 98, 204, 0.1);
   transition: all 0.3s ease;
   position: relative;
+  /* justify-content: center; */
+
 }
 
 .cart-item:hover {
@@ -1099,7 +1102,7 @@ body {
   overflow: hidden;
   margin-right: 20px;
   background: var(--water-color);
-  position: absolute;
+  position: relative;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
 
@@ -1113,7 +1116,7 @@ body {
 
 .cart-item-details {
   flex: 1;
-  margin-left: 100px;
+  margin-left: 0px;
 }
 
 .cart-item-name {
@@ -1144,9 +1147,8 @@ body {
   font-size: 1.3rem;
   color: var(--primary-dark);
   margin-right: 20px;
+  margin-left: auto; /* Use auto margin to push to the right */
   flex-shrink: 0;
-  justify-content: right;
-  margin-left: 140%;
 }
 
 .checkout-summary {
@@ -1258,11 +1260,12 @@ body {
   border-radius: 50%;
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: center; /* Center icon */
   transition: all 0.3s ease;
-  margin-left: 30%;
+  margin-left: 90%; /* Consistent margin */
   flex-shrink: 0;
-  margin-top: -10;
+  margin-bottom: 15%;
+  position: absolute;
 }
 
 .remove-item-button:hover {
@@ -1346,11 +1349,19 @@ body {
   }
 }
 
+@media(max-width: 1440px){
+  .back-button{
+    margin-top: 100px;
+  }
+}
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .back-button{
+    margin-top: 80px;
   }
 }
 
@@ -1363,7 +1374,7 @@ body {
     font-size: 2.5rem;
   }
   .back-button{
-    margin-bottom: 50px;
+    margin-top: 110px;
   }
   
   .title-accent::after {
@@ -1525,7 +1536,8 @@ body {
     }
     
     .remove-item-button {
-      margin-left: 15px;
+      position: absolute;
+      /* margin-left: 10%; */
     }
     .title-accent::after{
       left:90px
@@ -1626,7 +1638,13 @@ body {
     }
     
     .remove-item-button {
-      margin-left: 5px;
+      position: absolute;
+      /* margin-left: 10%px; */
+      
+    }
+    .back-button{
+      margin-top: 55px;
+      position: fixed;
     }
   }
   

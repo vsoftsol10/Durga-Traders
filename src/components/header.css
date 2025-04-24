@@ -394,7 +394,7 @@
   
   @media (max-width: 768px) {
 	.header-actions{
-		margin-left: 60%;
+		margin-left: 56%;
 	}
 	
 	.quote-btn {
@@ -420,7 +420,7 @@
 	.header-actions {
 	  gap: 0.25rem;
 	  padding: 0.5rem;
-	  margin-right: 100px;
+	  margin-left: 100px;
 	}
 	
 	.quote-btn {
@@ -434,7 +434,7 @@
 	}
 	
 	/* For extremely small screens, hide text and just show icon */
-	@media (max-width: 430px) {
+	@media (max-width: 480px) {
 	  .quote-btn span {
 		display: none;
 	  }
@@ -445,7 +445,7 @@
 		height: 32px;
 	  }
 	  .header-actions{
-		margin-right: 5%;
+		margin-left: 5%;
 	  }
 	}
   }
@@ -1283,7 +1283,7 @@ border: 2px solid #022279;
 	  height: 20px;
 	}
 	.header-actions{
-		margin-left: 140px;
+		margin-left: 120px;
 	}
 	
 	.dropdown-item {
