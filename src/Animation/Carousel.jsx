@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -22,15 +23,13 @@ const CarouselContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-
-
-
-const SlideContainer = styled(Box)(({ isActive }) => ({
+// Fix #1: Change isActive to use shouldShow pattern which is more common in React
+const SlideContainer = styled(Box)(({ shouldShow }) => ({
   position: 'absolute',
   inset: 0,
   transition: 'opacity 1000ms',
-  opacity: isActive ? 1 : 0,
-  pointerEvents: isActive ? 'auto' : 'none',
+  opacity: shouldShow ? 1 : 0,
+  pointerEvents: shouldShow ? 'auto' : 'none',
 }));
 
 const BackgroundImage = styled(Box)(({ theme }) => ({
@@ -98,17 +97,19 @@ const IndicatorContainer = styled(Box)({
   gap: 8,
 });
 
-const Indicator = styled(Box)(({ active, theme }) => ({
+// Fix #2: Change active to isActive and handle it properly in the component
+const Indicator = styled(Box)(({ isActive, theme }) => ({
   width: 12,
   height: 12,
   borderRadius: '50%',
-  backgroundColor: active ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.5)',
+  backgroundColor: isActive ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.5)',
   cursor: 'pointer',
 }));
 
 export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const navigate = useNavigate();
   // Sample carousel data - replace these with your actual images and content
   const slides = [
     {
@@ -152,7 +153,8 @@ export default function Carousel() {
     <CarouselContainer>
       {/* Carousel slides */}
       {slides.map((slide, index) => (
-        <SlideContainer key={index} isActive={index === currentSlide}>
+        // Fix: Changed isActive to shouldShow
+        <SlideContainer key={index} shouldShow={index === currentSlide}>
           {/* Background image */}
           <BackgroundImage style={{ backgroundImage: `url(${slide.image})` }}>
             <DarkOverlay />
@@ -197,6 +199,7 @@ export default function Carousel() {
             </Typography>
 
             <Button
+              onClick={() => navigate('/personal-products')}
               variant="contained"
               size="large"
               sx={{
@@ -236,9 +239,10 @@ export default function Carousel() {
       {/* Slide indicators */}
       <IndicatorContainer>
         {slides.map((_, index) => (
+          // Fix: Changed active to isActive
           <Indicator
             key={index}
-            active={index === currentSlide}
+            isActive={index === currentSlide}
             onClick={() => setCurrentSlide(index)}
           />
         ))}

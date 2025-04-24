@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react'
 import './App.css'
 import Home from './components/Home'
@@ -9,10 +10,10 @@ import ContactUs from './pages/ContactUs'
 import Footer from './components/Footer'
 import Services from './pages/Services'
 import ReverseOsmosis from './pages/Services/ReverseOsmosis'
-import SeaWater from './pages/Services/SeaWater'
 import SurfaceWaterTreatement from './pages/Services/SurfaceWaterTreatement'
 import WaterSoftening from './pages/Services/WaterSoftening'
 import IronRemoval from './pages/Services/IronRemoval'
+import SeaWater from './pages/Services/SeaWater'
 import DMPlant from './pages/Services/DMPlant'
 import STPServices from './pages/Services/STPServices'
 import ETPServices from './pages/Services/ETPServices'
@@ -61,14 +62,13 @@ function MainLayout() {
     <>
     
      <Header/>
-      <WaterBackground>
         <Routes>
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs/>} />
           <Route path="/service" element={<Services/>}/>
-          <Route path="/servic es/reverse-osmosis"element={<ReverseOsmosis/>}/>
+          <Route path="/services/reverse-osmosis"element={<ReverseOsmosis/>}/>
           <Route path='/services/seawater-desalination' element={<SeaWater/>} />
           <Route path='/services/surface-water-treatment' element={<SurfaceWaterTreatement/>} />
           <Route path='/services/water-softening' element={<WaterSoftening/>} />
@@ -91,7 +91,6 @@ function MainLayout() {
         <Route path='/products/:productId' element={<ProductDetailsPage/>} />
 
         </Routes>
-      </WaterBackground>
       <Footer/>
     </>
   )

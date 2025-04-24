@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef, useState, useEffect } from "react";
 import "./header.css";
 import logo from "../assets/durga-logo.png";

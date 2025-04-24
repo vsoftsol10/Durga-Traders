@@ -1,8 +1,7 @@
-// src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"; // If using Firestore
 import { getStorage } from "firebase/storage";     // If using Storage
-import { getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth"; // Add this for Auth
 
 
 const firebaseConfig = {
