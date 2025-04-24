@@ -150,7 +150,7 @@ export default function WaterComposition() {
           sx={{ position: 'relative' }}
         >
           {/* Left side */}
-          <Grid item xs={12} sm={5} md={5} sx={{ zIndex: 3 }}>
+          <Grid item xs={6} sm={5} md={5} sx={{ zIndex: 3 }}>
             {leftMinerals.map((mineral, index) => (
               <MineralItem
                 key={index}
@@ -160,14 +160,8 @@ export default function WaterComposition() {
             ))}
           </Grid>
 
-          {/* Center space - smaller on mobile */}
-          <Grid item xs={12} sm={2} md={2} sx={{ 
-            display: { xs: 'none', sm: 'block' },
-            height: '100%'
-          }} />
-
-          {/* Right side */}
-          <Grid item xs={12} sm={5} md={5} sx={{ zIndex: 3 }}>
+          {/* Right side - modified for mobile to take up remaining space */}
+          <Grid item xs={6} sm={5} md={5} sx={{ zIndex: 3 }}>
             {rightMinerals.map((mineral, index) => (
               <MineralItem
                 key={index}
@@ -178,7 +172,7 @@ export default function WaterComposition() {
           </Grid>
         </Grid>
         
-        {/* Water Drop Image - UPDATED: larger on mobile */}
+        {/* Water Drop Image - hidden on mobile */}
         <Box
           sx={{
             position: 'absolute',
@@ -186,10 +180,9 @@ export default function WaterComposition() {
             left: '50%',
             transform: 'translate(-50%, -40%)',
             zIndex: 2,
-            width: { xs: 150, sm: 120, md: 180 },  // Increased from 80 to 120 for xs (mobile)
+            width: { sm: 120, md: 180 },
             height: 'auto',
-            display: { xs: 'block', sm: 'block' },
-            opacity: { xs: 0.9, md: 1 }  // Increased opacity slightly on mobile
+            display: { xs: 'none', sm: 'block' }, // Hidden on mobile (xs)
           }}
         >
           <img
