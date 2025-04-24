@@ -1346,43 +1346,6 @@ body {
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --card-bg: #1a2334;
-    --light-bg: #111827;
-    --text-dark: #e2e8f0;
-    --text-light: #a1a1aa;
-    --white: #1e293b;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-  }
-  
-  .water-background {
-    background: linear-gradient(180deg, rgba(17, 24, 39, 0.9) 0%, rgba(26, 35, 52, 0.95) 100%);
-  }
-  
-  .filter-button {
-    background: #1e293b;
-    color: #a1a1aa;
-  }
-  
-  .product-price {
-    background: #1e293b;
-    color: #e2e8f0;
-  }
-  
-  .rating-container {
-    background: rgba(30, 41, 59, 0.9);
-  }
-  
-  .rating-text {
-    color: #e2e8f0;
-  }
-  
-  .bubble {
-    background: radial-gradient(circle at 30% 30%, rgba(30, 41, 59, 0.9), rgba(0, 123, 255, 0.2));
-  }
-}
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
@@ -1624,6 +1587,18 @@ body {
       flex-wrap: nowrap;
       padding: 10px;
     }
+    .ProductPoster{
+      margin-left:-10px ;
+      width:110%;
+
+    }
+    .footerPoster{
+     margin-bottom: 1px;
+     margin-left: -10px;
+     width: 110%;
+     height: 100%;
+    }
+
     
     .cart-item-image {
       width: 60px;

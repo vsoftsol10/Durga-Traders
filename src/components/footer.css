@@ -412,12 +412,24 @@
 @media (max-width: 480px) {
   .footer-logo {
     max-width: 150px;
+    height: fit-content;
   }
   
   .footer__contact-card {
     padding: 20px;
   }
 }
+@media (min-width:320px){
+  .footer__contact-card{
+    width:80%
+  }
+}
+@media (max-width:380px){
+  .footer__contact-card{
+    width:100%
+  }
+}
+
 
 /* Fancy animation for the footer entrance */
 @keyframes fadeInUp {
