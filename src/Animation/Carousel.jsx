@@ -79,14 +79,24 @@ const NavButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   top: '70%',
   transform: 'translateY(-50%)',
-  backgroundColor: ' #00C7E8',
+  backgroundColor: '#00C7E8',
   color: 'white',
   padding: '12px',
   zIndex: 10,
   '&:hover': {
     backgroundColor: '#022279',
   },
+  [theme.breakpoints.down('md')]: {
+    padding: '8px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '6px',
+    svg: {
+      fontSize: '1.2rem',
+    },
+  },
 }));
+
 
 const IndicatorContainer = styled(Box)({
   position: 'absolute',
@@ -239,7 +249,7 @@ export default function Carousel() {
       {/* Slide indicators */}
       <IndicatorContainer>
         {slides.map((_, index) => (
-          // Fix: Changed active to isActive
+          
           <Indicator
             key={index}
             isActive={index === currentSlide}
