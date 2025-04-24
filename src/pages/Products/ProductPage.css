@@ -1498,6 +1498,16 @@ body {
       flex-wrap: nowrap;
       padding: 10px;
     }
+    .ProductPoster{
+      width: 110%;
+      margin-left: -14px;
+    }
+    .footerPoster{
+      width: 110%;
+      margin-left: -14px;
+      margin-bottom: -50px;
+      margin-top: 20px;
+    }
     
     .cart-item-image {
       width: 60px;

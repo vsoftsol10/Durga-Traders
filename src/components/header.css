@@ -437,7 +437,7 @@
 		height: 32px;
 	  }
 	  .header-actions{
-		margin-right: -1%;
+		margin-left: 10%;
 	  }
 	}
   }
@@ -1165,7 +1165,7 @@ border: 2px solid #022279;
 	
 	
 	.header-actions {
-	  margin-left: auto;
+	  margin-left: 53%;
 	}
 	
 	.logo {
@@ -1271,7 +1271,7 @@ border: 2px solid #022279;
 	  height: 20px;
 	}
 	.header-actions{
-		margin-left: 130px;
+		margin-left: 140px;
 	}
 	
 	.dropdown-item {
@@ -1299,6 +1299,9 @@ border: 2px solid #022279;
 		animation: float 6s ease-in-out infinite;
 		font-size: 1.2rem;
 	  }
+  }
+  @media (max-width: 320px) {
+	
   }
 
   
