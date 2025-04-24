@@ -16,7 +16,7 @@ import AFT from '../assets/Advance Filtration.png';
 import CHS from '../assets/Commitment 001.png';
 import Sustain from '../assets/Sustainability.png';
 import CustSats from '../assets/Customer.png';
-import { Grid, Card, CardContent, CardMedia, CardActions, Typography, Button } from '@mui/material';
+import { Card, CardContent, Typography, Button } from '@mui/material';
 import { Container } from '@mui/material';
 import { Box } from '@mui/material';
 import Carousel from '../Animation/Carousel';

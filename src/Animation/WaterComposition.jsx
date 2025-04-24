@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Grid } from '@mui/material';
-import { useState, useEffect } from 'react';
 import FallsImg from '../assets/falls.jpg';
+import WaterDrop from '../assets/water 2.png';
 
 const MineralItem = ({ element, symbol, value, side }) => {
   const isLeft = side === 'left';
@@ -62,21 +62,37 @@ export default function WaterComposition() {
     <Box
       sx={{
         position: 'relative',
-        backgroundImage: `url(${FallsImg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
         py: { xs: 8, md: 12 },
         px: 2,
         color: 'white',
         overflow: 'hidden',
+        // Remove background image from here
       }}
     >
+      {/* Fixed Background Image - positioned to stay fixed */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: `url(${FallsImg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed', // This is the key property for the fixed effect
+          zIndex: 0,
+        }}
+      />
+
       {/* Blue overlay */}
       <Box
         sx={{
           position: 'absolute',
           inset: 0,
-          bgcolor: 'rgba(2, 34, 121, 0.73)',
+          bgcolor:'rgba(2, 34, 121, 0.69)',
           zIndex: 1,
         }}
       />
@@ -115,31 +131,27 @@ export default function WaterComposition() {
             ))}
           </Grid>
         </Grid>
-
-        {/* Water droplet in center */}
         <Box
           sx={{
             position: 'absolute',
             top: '45%',
             left: '50%',
             transform: 'translate(-50%, -15%)',
-            opacity: 0.6,
+            
             zIndex: 0,
+            width: { xs: 100, sm: 150, md: 200 },  // Responsive widths
+            height: 'auto',
           }}
         >
-          <svg viewBox="0 0 200 280" width="250">
-            <path
-              d="M100 0 C100 0, 0 150, 0 200 C0 245, 45 280, 100 280 C155 280, 200 245, 200 200 C200 150, 100 0, 100 0 Z"
-              fill="#3B82F6"
-              opacity="0.4"
-            />
-            <path
-              d="M100 0 C100 0, 0 150, 0 200 C0 245, 45 280, 100 280 C155 280, 200 245, 200 200 C200 150, 100 0, 100 0 Z"
-              fill="none"
-              stroke="#38BDF8"
-              strokeWidth="2"
-            />
-          </svg>
+          <img
+            src={WaterDrop}
+            alt="Water droplet"
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'contain',
+            }}
+          />
         </Box>
       </Container>
     </Box>
