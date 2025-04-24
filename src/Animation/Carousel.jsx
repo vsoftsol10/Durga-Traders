@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -109,6 +110,7 @@ const Indicator = styled(Box)(({ active, theme }) => ({
 export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const navigate = useNavigate();
   // Sample carousel data - replace these with your actual images and content
   const slides = [
     {
@@ -197,6 +199,7 @@ export default function Carousel() {
             </Typography>
 
             <Button
+              onClick={() => navigate('/personal-products')}
               variant="contained"
               size="large"
               sx={{

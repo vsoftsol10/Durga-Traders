@@ -3,6 +3,7 @@ import './App.css'
 import Home from './components/Home'
 import Header from './components/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './Animation/ScrollToTop';
 
 import AboutUs from './pages/AboutUS'
 import ContactUs from './pages/ContactUs'
@@ -32,30 +33,29 @@ import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
 
-
 function App() {
-  
   return (
     <>
-    <WaterBackground>
-    <Routes>   
-      <Route path='/admin' element={<SignIn/>} />  
-      <Route path='/admin/dashboard' element={<Dashboard/>}/>
-      <Route path='/*' element={<MainLayout/>} />
-    </Routes>
-    </WaterBackground>
+      
+        <ScrollToTop /> {/* Add the ScrollToTop component here */}
+        <WaterBackground>
+          <Routes>   
+            <Route path='/admin' element={<SignIn/>} />  
+            <Route path='/admin/dashboard' element={<Dashboard/>}/>
+            <Route path='/*' element={<MainLayout/>} />
+          </Routes>
+        </WaterBackground>
+      
     </>
   );
 }
+
 function MainLayout() {
   return(
     <>
-    
-     <Header/>
+      <Header/>
       <WaterBackground>
-
         <Routes>
-
           <Route path="/" element={<Home />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs/>} />
@@ -72,20 +72,19 @@ function MainLayout() {
           <Route path='/personal-products' element={<ProductPage/>} />
           <Route path='/checkout' element={<CheckoutPage/>} />
           <Route path="/commercial-products" element={<CommercialProducts />} />
-        <Route path="/product/1" element={<CommercialProductOne />} />
-        <Route path="/product/2" element={<CommercialProductTwo/>} />
-        <Route path="/product/3" element= {<CommercialProductThree/>}/>
-        <Route path='/product/4' element={<CommercialProductFour />}/>
-        <Route path='/product/5' element={<CommercialProductFive />}/>
-        <Route path='/product/6' element={<CommercialProductSix />}/>
-        <Route path='/product/7' element={<CommercialProductSeven />}/>
-        <Route path='/blog' element={<Blog/>}/>
+          <Route path="/product/1" element={<CommercialProductOne />} />
+          <Route path="/product/2" element={<CommercialProductTwo/>} />
+          <Route path="/product/3" element= {<CommercialProductThree/>}/>
+          <Route path='/product/4' element={<CommercialProductFour />}/>
+          <Route path='/product/5' element={<CommercialProductFive />}/>
+          <Route path='/product/6' element={<CommercialProductSix />}/>
+          <Route path='/product/7' element={<CommercialProductSeven />}/>
+          <Route path='/blog' element={<Blog/>}/>
         </Routes>
       </WaterBackground>
       <Footer/>
     </>
   )
-
 }
 
 export default App
