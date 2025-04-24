@@ -23,15 +23,13 @@ const CarouselContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-
-
-
-const SlideContainer = styled(Box)(({ isActive }) => ({
+// Fix #1: Change isActive to use shouldShow pattern which is more common in React
+const SlideContainer = styled(Box)(({ shouldShow }) => ({
   position: 'absolute',
   inset: 0,
   transition: 'opacity 1000ms',
-  opacity: isActive ? 1 : 0,
-  pointerEvents: isActive ? 'auto' : 'none',
+  opacity: shouldShow ? 1 : 0,
+  pointerEvents: shouldShow ? 'auto' : 'none',
 }));
 
 const BackgroundImage = styled(Box)(({ theme }) => ({
@@ -81,14 +79,24 @@ const NavButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   top: '70%',
   transform: 'translateY(-50%)',
-  backgroundColor: ' #00C7E8',
+  backgroundColor: '#00C7E8',
   color: 'white',
   padding: '12px',
   zIndex: 10,
   '&:hover': {
     backgroundColor: '#022279',
   },
+  [theme.breakpoints.down('md')]: {
+    padding: '8px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '6px',
+    svg: {
+      fontSize: '1.2rem',
+    },
+  },
 }));
+
 
 const IndicatorContainer = styled(Box)({
   position: 'absolute',
@@ -99,11 +107,12 @@ const IndicatorContainer = styled(Box)({
   gap: 8,
 });
 
-const Indicator = styled(Box)(({ active, theme }) => ({
+// Fix #2: Change active to isActive and handle it properly in the component
+const Indicator = styled(Box)(({ isActive, theme }) => ({
   width: 12,
   height: 12,
   borderRadius: '50%',
-  backgroundColor: active ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.5)',
+  backgroundColor: isActive ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.5)',
   cursor: 'pointer',
 }));
 
@@ -154,7 +163,8 @@ export default function Carousel() {
     <CarouselContainer>
       {/* Carousel slides */}
       {slides.map((slide, index) => (
-        <SlideContainer key={index} isActive={index === currentSlide}>
+        // Fix: Changed isActive to shouldShow
+        <SlideContainer key={index} shouldShow={index === currentSlide}>
           {/* Background image */}
           <BackgroundImage style={{ backgroundImage: `url(${slide.image})` }}>
             <DarkOverlay />
@@ -239,9 +249,10 @@ export default function Carousel() {
       {/* Slide indicators */}
       <IndicatorContainer>
         {slides.map((_, index) => (
+          
           <Indicator
             key={index}
-            active={index === currentSlide}
+            isActive={index === currentSlide}
             onClick={() => setCurrentSlide(index)}
           />
         ))}
