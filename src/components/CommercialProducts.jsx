@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
+=======
+import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+>>>>>>> origin/master
 import { useNavigate } from 'react-router-dom';
 import './CommercialProduct.css';
 import RoImg from '../assets/RObck.jpg';
@@ -45,48 +50,77 @@ const CommercialProducts = () => {
     return pin >= 600001 && pin <= 643253;
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
   const products = [
     {
       id: 1,
       image: CommercialOne,
       title: 'DT-250 AUTO',
       model: '2251AMO',
+<<<<<<< HEAD
+=======
+      description: 'Advanced commercial water purification system designed for small to medium businesses. Features state-of-the-art reverse osmosis technology with automated operation for consistent water quality.',
+>>>>>>> origin/master
     },
     {
       id: 2,
       image: CommercialTwo,
       title: 'DT-500 AUTO',
       model: '2501AMO',
+<<<<<<< HEAD
+=======
+      description: 'High-capacity commercial purifier with enhanced filtration technology. Perfect for restaurants, cafes, and small industrial applications with moderate water consumption needs.',
+>>>>>>> origin/master
     },
     {
       id: 3,
       image: CommercialFour,
       title: 'DT-2000 AUTO',
       model: '22K1AMO',
+<<<<<<< HEAD
+=======
+      description: 'Premium heavy-duty water purification system for large commercial facilities. Features multi-stage filtration and intelligent monitoring for optimal performance.',
+>>>>>>> origin/master
     },
     {
       id: 4,
       image: CommercialFive,
       title: 'DT-1000 AUTO',
       model: '21K1AMO',
+<<<<<<< HEAD
+=======
+      description: 'Versatile commercial water system with advanced contaminant removal capabilities. Ideal for healthcare facilities, laboratories, and medium-sized manufacturing plants.',
+>>>>>>> origin/master
     },
     {
       id: 5,
       image: CommercialSix,
       title: 'DT-5000 AUTO',
       model: '25K1AMO',
+<<<<<<< HEAD
+=======
+      description: 'Our most powerful commercial water purification solution. Engineered for industrial applications with extreme water quality demands and high volume requirements.',
+>>>>>>> origin/master
     },
     {
       id: 6,
       image: CommercialSeven,
       title: 'DT-100 CLOSED',
       model: '21C1AMO',
+<<<<<<< HEAD
+=======
+      description: 'Compact closed-system design offering reliable purification in a space-saving format. Perfect for offices, retail spaces, and areas with limited installation space.',
+>>>>>>> origin/master
     },
     {
       id: 7,
       image: CommercialEight,
       title: 'DT-100 OPEN',
       model: '21C2AMO',
+<<<<<<< HEAD
     }
   ];
 
@@ -99,6 +133,12 @@ const CommercialProducts = () => {
     transition: 'transform 1.5s ease-out, opacity 1.5s ease-in',
   };
 
+=======
+      description: 'Open architecture water purification system allowing easy maintenance and filter replacement. Designed for environments where regular servicing is a priority.',
+    }
+  ];
+
+>>>>>>> origin/master
   // Theme colors
   const primaryColor = '#022279';
   const secondaryColor = '#00c7e8';
@@ -126,7 +166,11 @@ const CommercialProducts = () => {
           </Typography>
 
           <Typography sx={{
+<<<<<<< HEAD
             fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem', lg: '1.5rem' }, // Responsive font size
+=======
+            fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem', lg: '1.5rem' },
+>>>>>>> origin/master
             pb: 1,
             display: 'inline-block',
             color: primaryColor,
@@ -153,7 +197,11 @@ const CommercialProducts = () => {
                   mb: 3,
                   fontWeight: 'bold',
                   color: primaryColor,
+<<<<<<< HEAD
                   fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem', lg: '2.5rem' } // Responsive heading
+=======
+                  fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem', lg: '2.5rem' }
+>>>>>>> origin/master
                 }}>
                   Clean, Safe, and Pure Water for Your Family
                 </Typography>
@@ -190,7 +238,11 @@ const CommercialProducts = () => {
             variant="h4"
             gutterBottom
             sx={{
+<<<<<<< HEAD
               fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, // Responsive font size
+=======
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+>>>>>>> origin/master
               fontWeight: 'bold',
               color: primaryColor,
               position: 'relative',
@@ -200,6 +252,7 @@ const CommercialProducts = () => {
             Our Commercial Products
           </Typography>
         </Box>
+<<<<<<< HEAD
         <Box sx={{ mb: 8, display: 'flex', justifyContent: 'center' }}>
           <Grid
             container
@@ -277,6 +330,124 @@ const CommercialProducts = () => {
               </Grid>
             ))}
           </Grid>
+=======
+
+        {/* Alternating Product Layout */}
+        <Box sx={{ mb: 8 }}>
+          {products.map((product, index) => (
+            <Box 
+              key={product.id}
+              sx={{
+                display: 'flex',
+                flexDirection: { 
+                  xs: 'column', 
+                  md: index % 2 === 0 ? 'row' : 'row-reverse' 
+                },
+                mb: 8,
+                backgroundColor: '#f8f9fa',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                '&:hover': {
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.15)'
+                },
+                transition: 'box-shadow 0.3s ease'
+              }}
+            >
+              {/* Product Image */}
+              <Box 
+                sx={{ 
+                  flex: 1,
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&:hover img': {
+                    transform: 'scale(1.05)',
+                  }
+                }}
+              >
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 0.5s ease',
+                    minHeight: '350px',
+                  }}
+                />
+              </Box>
+              
+              {/* Product Details */}
+              <Box 
+                sx={{ 
+                  flex: 1,
+                  padding: { xs: 3, md: 5 },
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center'
+                }}
+              >
+                <Typography 
+                  variant="h4" 
+                  component="h2" 
+                  sx={{
+                    fontWeight: 'bold',
+                    color: primaryColor,
+                    mb: 1,
+                    fontSize: { xs: '1.75rem', md: '2rem' }
+                  }}
+                >
+                  {product.title}
+                </Typography>
+                
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    color: 'text.primary',
+                    mb: 3,
+                    fontWeight: '500' 
+                  }}
+                >
+                  Model: {product.model}
+                </Typography>
+                
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 4,
+                    fontSize: '1.1rem',
+                    lineHeight: 1.7,
+                    color: 'text.secondary' 
+                  }}
+                >
+                  {product.description}
+                </Typography>
+                
+                <Button
+                  variant="contained"
+                  onClick={() => navigate(`/product/${product.id}`)}
+                  sx={{
+                    alignSelf: 'flex-start',
+                    py: 1.5,
+                    px: 4,
+                    background: 'linear-gradient(90deg, #022279 0%, #00C7E8 100%)',
+                    '&:hover': {
+                      background: 'linear-gradient(90deg, #021a5c 0%, #00a5c7 100%)'
+                    },
+                    borderRadius: '8px',
+                    fontWeight: 'bold',
+                    color: '#fff',
+                    textTransform: 'none',
+                    fontSize: '1rem'
+                  }}
+                >
+                  More Details
+                </Button>
+              </Box>
+            </Box>
+          ))}
+>>>>>>> origin/master
         </Box>
 
         <Container maxWidth="xl" sx={{ py: 6 }}>
@@ -285,7 +456,11 @@ const CommercialProducts = () => {
               variant="h4"
               gutterBottom
               sx={{
+<<<<<<< HEAD
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, // Responsive font size
+=======
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+>>>>>>> origin/master
                 fontWeight: 'bold',
                 color: primaryColor,
                 position: 'relative',
@@ -296,7 +471,11 @@ const CommercialProducts = () => {
             </Typography>
           </Box>
 
+<<<<<<< HEAD
           <Grid container spacing={3} justifyContent="center">
+=======
+          <Grid container spacing={18} justifyContent="center">
+>>>>>>> origin/master
             {/* Commercial RO Plants */}
             <Grid item xs={12} sm={6} md={4} lg={2.4} sx={{ width: { lg: '20%' } }}>
               <Card
@@ -331,7 +510,11 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
+<<<<<<< HEAD
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
+=======
+                    fontSize: { xs: '1rem', md: '1.25rem' }
+>>>>>>> origin/master
                   }}>
                     Commercial RO Plants
                   </Typography>
@@ -379,7 +562,11 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
+<<<<<<< HEAD
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
+=======
+                    fontSize: { xs: '1rem', md: '1.25rem' }
+>>>>>>> origin/master
                   }}>
                     Industrial Water Purifiers
                   </Typography>
@@ -427,7 +614,11 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
+<<<<<<< HEAD
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
+=======
+                    fontSize: { xs: '1rem', md: '1.25rem' }
+>>>>>>> origin/master
                   }}>
                     Hot & Cold Water Dispensers
                   </Typography>
@@ -474,7 +665,11 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
+<<<<<<< HEAD
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
+=======
+                    fontSize: { xs: '1rem', md: '1.25rem' }
+>>>>>>> origin/master
                   }}>
                     Water Softeners
                   </Typography>
@@ -518,7 +713,11 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
+<<<<<<< HEAD
                     fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
+=======
+                    fontSize: { xs: '1rem', md: '1.25rem' }
+>>>>>>> origin/master
                   }}>
                     UV & UF Systems
                   </Typography>
@@ -532,6 +731,7 @@ const CommercialProducts = () => {
         </Container>
       </Container>
 
+<<<<<<< HEAD
       {openPincodeModal && (
         <Box
           sx={{
@@ -681,8 +881,14 @@ const CommercialProducts = () => {
           </Box>
         </Box>
       )}
+=======
+>>>>>>> origin/master
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default CommercialProducts;
+=======
+export default CommercialProducts;
+>>>>>>> origin/master

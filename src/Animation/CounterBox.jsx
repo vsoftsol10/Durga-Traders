@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Container } from '@mui/material';
 
+<<<<<<< HEAD
 // Icons
+=======
+// MUI Icons
+>>>>>>> origin/master
 import WaterIcon from '@mui/icons-material/Water';
 import PeopleIcon from '@mui/icons-material/People';
 import HandymanIcon from '@mui/icons-material/Handyman';
@@ -62,8 +66,13 @@ export default function CounterBox() {
 
   return (
     <Box sx={{ backgroundColor: '#022279', py: 8 }}>
+<<<<<<< HEAD
       <Container maxWidth="xlg">
         <Grid container spacing={22} justifyContent="center">
+=======
+      <Container maxWidth="lg">
+        <Grid container spacing={4} justifyContent="center">
+>>>>>>> origin/master
           {counters.map((counter, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
               <CounterItem

@@ -1,6 +1,10 @@
 import { Box, Container, Typography, Grid, useTheme, useMediaQuery } from '@mui/material';
 import FallsImg from '../assets/falls.jpg';
+<<<<<<< HEAD
 import WaterDrop from '../assets/Water 2.png';
+=======
+import WaterDrop from '../assets/water 2.png';
+>>>>>>> origin/master
 
 const MineralItem = ({ element, symbol, value, side }) => {
   const theme = useTheme();
@@ -12,7 +16,17 @@ const MineralItem = ({ element, symbol, value, side }) => {
   const marginSymbol = isLeft ? { mr: 1 } : { ml: 1 };
   
   return (
+<<<<<<< HEAD
     <Box display="flex" flexDirection="column" alignItems={alignItems} mb={3}>
+=======
+    <Box 
+      display="flex" 
+      flexDirection="column" 
+      alignItems={alignItems} 
+      // Increased bottom margin for better spacing between items
+      mb={{ xs: 4, sm: 5, md: 6 }}
+    >
+>>>>>>> origin/master
       <Box display="flex" alignItems="center">
         {(isLeft && !isMobile) && (
           <Typography 
@@ -56,7 +70,12 @@ const MineralItem = ({ element, symbol, value, side }) => {
         sx={{ 
           color: '#90cdf4', 
           textAlign,
+<<<<<<< HEAD
           fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' }
+=======
+          fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.875rem' },
+          mt: 1 // Added margin top for better spacing within each item
+>>>>>>> origin/master
         }}
       >
         {value} Mg / L
@@ -68,6 +87,10 @@ const MineralItem = ({ element, symbol, value, side }) => {
 export default function WaterComposition() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+<<<<<<< HEAD
+=======
+  const isLargeScreen = useMediaQuery('(min-width:1440px)');
+>>>>>>> origin/master
   
   const leftMinerals = [
     { element: "Calcium", symbol: "Ca", value: "19.1" },
@@ -120,23 +143,44 @@ export default function WaterComposition() {
       />
 
       {/* Content */}
+<<<<<<< HEAD
       <Container sx={{ position: 'relative', zIndex: 2 }}>
         <Box textAlign="center" mb={{ xs: 4, md: 8 }}>
+=======
+      <Container 
+        maxWidth="xl" 
+        sx={{ 
+          position: 'relative', 
+          zIndex: 2
+        }}
+      >
+        <Box textAlign="center" mb={{ xs: 5, md: 10 }}>
+>>>>>>> origin/master
           <Typography 
             variant="h6" 
             fontWeight="bold" 
             sx={{ 
               color: '#00C7E8',
+<<<<<<< HEAD
               fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem' } 
+=======
+              fontSize: { xs: '0.9rem', sm: '1rem', md: '1.40rem' } 
+>>>>>>> origin/master
             }} 
             gutterBottom
           >
             Mineral Water
           </Typography>
           <Typography 
+<<<<<<< HEAD
             variant="h3" 
             fontWeight="bold"
             sx={{ fontSize: { xs: '1.75rem', sm: '2.25rem', md: '3rem' } }}
+=======
+            variant="h4" 
+            fontWeight="bold"
+            sx={{ fontSize: { xs: '1.75rem', sm: '2.25rem', md: '5rem' } }}
+>>>>>>> origin/master
           >
             Water Composition
           </Typography>
@@ -144,6 +188,7 @@ export default function WaterComposition() {
 
         <Grid 
           container 
+<<<<<<< HEAD
           spacing={{ xs: 2, sm: 4, md: 8 }} 
           alignItems="center" 
           justifyContent="center"
@@ -151,6 +196,30 @@ export default function WaterComposition() {
         >
           {/* Left side */}
           <Grid item xs={6} sm={5} md={5} sx={{ zIndex: 3 }}>
+=======
+          spacing={{ xs: 2, sm: 4, md: 8, lg: 12 }} 
+          alignItems="center" 
+          justifyContent="space-evenly"
+          sx={{ position: 'relative' }}
+        >
+          {/* Left side - with improved vertical spacing */}
+          <Grid 
+            item 
+            xs={6} 
+            sm={5} 
+            md={4}
+            lg={4}
+            sx={{ 
+              zIndex: 3,
+              pr: isLargeScreen ? 5 : 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: isMobile ? 'flex-start' : 'flex-end',
+              // Added padding to create more vertical height for the column
+              py: { xs: 2, sm: 3, md: 4 }
+            }}
+          >
+>>>>>>> origin/master
             {leftMinerals.map((mineral, index) => (
               <MineralItem
                 key={index}
@@ -160,8 +229,34 @@ export default function WaterComposition() {
             ))}
           </Grid>
 
+<<<<<<< HEAD
           {/* Right side - modified for mobile to take up remaining space */}
           <Grid item xs={6} sm={5} md={5} sx={{ zIndex: 3 }}>
+=======
+          {/* Empty space in center to create separation */}
+          <Grid item xs={0} sm={2} md={4} lg={4} sx={{ 
+            zIndex: 1,
+            display: { xs: 'none', sm: 'block' } 
+          }} />
+
+          {/* Right side - with improved vertical spacing */}
+          <Grid 
+            item 
+            xs={6} 
+            sm={5} 
+            md={4}
+            lg={4}
+            sx={{ 
+              zIndex: 3,
+              pl: isLargeScreen ? 5 : 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              // Added padding to create more vertical height for the column
+              py: { xs: 2, sm: 3, md: 4 }
+            }}
+          >
+>>>>>>> origin/master
             {rightMinerals.map((mineral, index) => (
               <MineralItem
                 key={index}
@@ -172,17 +267,29 @@ export default function WaterComposition() {
           </Grid>
         </Grid>
         
+<<<<<<< HEAD
         {/* Water Drop Image - hidden on mobile */}
+=======
+        {/* Water Drop Image - adjusted position to account for new spacing */}
+>>>>>>> origin/master
         <Box
           sx={{
             position: 'absolute',
             top: '50%',
             left: '50%',
+<<<<<<< HEAD
             transform: 'translate(-50%, -40%)',
             zIndex: 2,
             width: { sm: 120, md: 180 },
             height: 'auto',
             display: { xs: 'none', sm: 'block' }, // Hidden on mobile (xs)
+=======
+            transform: 'translate(-50%, -30%)',
+            zIndex: 2,
+            width: { sm: 160, md: 160, lg: isLargeScreen ? 230 : 180 },
+            height: 'auto',
+            display: { xs: 'none', sm: 'block' }, 
+>>>>>>> origin/master
           }}
         >
           <img

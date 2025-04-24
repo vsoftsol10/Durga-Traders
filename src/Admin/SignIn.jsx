@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+=======
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+>>>>>>> origin/master
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import "./SignIn.css";
