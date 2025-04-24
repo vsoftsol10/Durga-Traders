@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Grid } from '@mui/material';
 import FallsImg from '../assets/falls.jpg';
-import WaterDrop from '../assets/water 2.png';
+import WaterDrop from '../assets/Water 2.png';
 
 const MineralItem = ({ element, symbol, value, side }) => {
   const isLeft = side === 'left';
