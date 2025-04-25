@@ -1,33 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; 
 import { Box, Typography, Grid, Container } from '@mui/material';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-// Icons
-=======
 // MUI Icons
->>>>>>> origin/master
-=======
-// MUI Icons
->>>>>>> origin/master
-import WaterIcon from '@mui/icons-material/Water';
-import PeopleIcon from '@mui/icons-material/People';
-import HandymanIcon from '@mui/icons-material/Handyman';
+import WaterIcon from '@mui/icons-material/Water'; 
+import PeopleIcon from '@mui/icons-material/People'; 
+import HandymanIcon from '@mui/icons-material/Handyman'; 
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 const CounterItem = ({ icon: IconComponent, count, label }) => {
   const [currentCount, setCurrentCount] = useState(0);
-
+  
   useEffect(() => {
     setCurrentCount(0);
     const duration = 2000;
     const steps = 50;
     const increment = Math.ceil(count / steps);
     const stepTime = duration / steps;
-
+    
     let timer;
     let current = 0;
-
+    
     const updateCounter = () => {
       current += increment;
       if (current >= count) {
@@ -37,11 +29,11 @@ const CounterItem = ({ icon: IconComponent, count, label }) => {
         setCurrentCount(current);
       }
     };
-
+    
     timer = setInterval(updateCounter, stepTime);
     return () => clearInterval(timer);
   }, [count]);
-
+  
   return (
     <Box
       textAlign="center"
@@ -67,21 +59,11 @@ export default function CounterBox() {
     { icon: HandymanIcon, count: 30, label: 'Expert workers' },
     { icon: Inventory2Icon, count: 1000, label: 'Orders fulfilled' },
   ];
-
+  
   return (
     <Box sx={{ backgroundColor: '#022279', py: 8 }}>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <Container maxWidth="xlg">
-        <Grid container spacing={22} justifyContent="center">
-=======
       <Container maxWidth="lg">
         <Grid container spacing={4} justifyContent="center">
->>>>>>> origin/master
-=======
-      <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="center">
->>>>>>> origin/master
           {counters.map((counter, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
               <CounterItem

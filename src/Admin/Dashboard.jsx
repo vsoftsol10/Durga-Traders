@@ -7,19 +7,13 @@ import {
   deleteDoc,
   doc,
   updateDoc,
-<<<<<<< HEAD
   query,
   orderBy,
-=======
->>>>>>> origin/master
 } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const Dashboard = () => {
-<<<<<<< HEAD
   // Product state (from your existing code)
-=======
->>>>>>> origin/master
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,7 +27,6 @@ const Dashboard = () => {
     priceOptions: []
   });
 
-<<<<<<< HEAD
   // Orders state (new)
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
@@ -43,16 +36,10 @@ const Dashboard = () => {
   const [orderStatusFilter, setOrderStatusFilter] = useState('all');
 
   // From your existing code
-=======
->>>>>>> origin/master
   const [currentOption, setCurrentOption] = useState({
     name: '',
     price: ''
   });
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
   const [editingProduct, setEditingProduct] = useState(null);
   const [editingOption, setEditingOption] = useState({
     name: '',
@@ -60,7 +47,6 @@ const Dashboard = () => {
   });
 
   const productsRef = collection(db, 'products');
-<<<<<<< HEAD
   const ordersRef = collection(db, 'orders');
 
   // Use your existing fetch products logic
@@ -82,24 +68,6 @@ const Dashboard = () => {
     try {
       console.log("Fetching products...");
       setLoading(true);
-=======
-
-  // Debugging state changes
-  useEffect(() => {
-    console.log('Current products state:', products);
-    console.log('Loading state:', loading);
-    console.log('Error state:', error);
-  }, [products, loading, error]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    try {
-      console.log("Fetching products...");
-      setLoading(true); // Ensure loading is true when fetching
->>>>>>> origin/master
       
       const data = await getDocs(productsRef);
       
@@ -110,18 +78,8 @@ const Dashboard = () => {
         return;
       }
       
-<<<<<<< HEAD
       const productsArray = data.docs.map(doc => {
         const rawData = doc.data();
-=======
-      // Log raw data for debugging
-      console.log("Raw data docs:", data.docs.length);
-      
-      // Map and clean up data
-      const productsArray = data.docs.map(doc => {
-        const rawData = doc.data();
-        console.log("Raw doc data:", rawData); // Log raw data
->>>>>>> origin/master
         
         // Clean data by trimming keys
         const cleanData = {};
@@ -133,10 +91,6 @@ const Dashboard = () => {
         return { ...cleanData, id: doc.id };
       });
       
-<<<<<<< HEAD
-=======
-      console.log("Processed products:", productsArray);
->>>>>>> origin/master
       setProducts(productsArray);
       setLoading(false);
     } catch (error) {
@@ -146,7 +100,6 @@ const Dashboard = () => {
     }
   };
 
-<<<<<<< HEAD
   // New function to fetch orders
   const fetchOrders = async () => {
     try {
@@ -230,8 +183,6 @@ const Dashboard = () => {
 
   // Your existing product functions (addPriceOption, removePriceOption, handleAdd, etc.)
   // Keep all your existing product-related functions here
-=======
->>>>>>> origin/master
   const addPriceOption = () => {
     if (!currentOption.name || !currentOption.price) {
       alert('Please provide both name and price for the option');
@@ -367,7 +318,6 @@ const Dashboard = () => {
     e.target.src = 'https://via.placeholder.com/100x100?text=No+Image';
   };
 
-<<<<<<< HEAD
   // Function to format date
   const formatDate = (timestamp) => {
     if (!timestamp) return 'N/A';
@@ -910,225 +860,6 @@ const Dashboard = () => {
           )}
         </div>
       )}
-=======
-  return (
-    <div className="dashboard-container">
-      <h2>Admin Dashboard</h2>
-
-      <div className="add-product-form">
-        <h3>Add Product</h3>
-        <input
-          type="text"
-          placeholder="Name (required)"
-          value={newProduct.name}
-          onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          value={newProduct.description}
-          onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Feature"
-          value={newProduct.feature}
-          onChange={(e) => setNewProduct({ ...newProduct, feature: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Image URL (required)"
-          value={newProduct.image}
-          onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Base Price (required)"
-          value={newProduct.price}
-          onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-        />
-        <input
-          type="number"
-          step="0.1"
-          placeholder="Rating (0-5)"
-          value={newProduct.rating}
-          onChange={(e) => setNewProduct({ ...newProduct, rating: e.target.value })}
-        />
-
-        {/* Price Options Section */}
-        <div className="price-options-section">
-          <h4>Price Options</h4>
-          
-          <div className="price-options-list">
-            {newProduct.priceOptions.map((option, index) => (
-              <div key={index} className="price-option-item">
-                <span>{index}: {option.name} - ₹{option.price}</span>
-                <button 
-                  type="button" 
-                  onClick={() => removePriceOption(index)}
-                  className="remove-option-btn"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-          </div>
-          
-          <div className="add-option-form">
-            <input
-              type="text"
-              placeholder="Option Name"
-              value={currentOption.name}
-              onChange={(e) => setCurrentOption({ ...currentOption, name: e.target.value })}
-            />
-            <input
-              type="number"
-              placeholder="Option Price"
-              value={currentOption.price}
-              onChange={(e) => setCurrentOption({ ...currentOption, price: e.target.value })}
-            />
-            <button 
-              type="button" 
-              onClick={addPriceOption}
-              className="add-option-btn"
-            >
-              Add Option
-            </button>
-          </div>
-        </div>
-        
-        <button onClick={handleAdd}>Add Product</button>
-      </div>
-
-      <div className="product-list">
-        <h3>Products ({products.length})</h3>
-        
-        {loading ? (
-          <p>Loading products...</p>
-        ) : error ? (
-          <p style={{ color: 'red' }}>{error}</p>
-        ) : products.length === 0 ? (
-          <p>No products found. Add some products to get started.</p>
-        ) : (
-          // Force array rendering with Array.from
-          Array.from(products).map((product, index) => (
-            <div key={product.id || index} className="product-card">
-              <p className="debug-message">Product {index + 1}: {product.name || 'Unnamed'}</p>
-              
-              {editingProduct?.id === product.id ? (
-                <>
-                  <input
-                    type="text"
-                    value={editingProduct.name || ''}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-                  />
-                  <input
-                    type="text"
-                    value={editingProduct.description || ''}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
-                  />
-                  <input
-                    type="text"
-                    value={editingProduct.feature || ''}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, feature: e.target.value })}
-                  />
-                  <input
-                    type="text"
-                    value={editingProduct.image || ''}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, image: e.target.value })}
-                  />
-                  <input
-                    type="number"
-                    value={editingProduct.price || ''}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value })}
-                  />
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={editingProduct.rating || ''}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, rating: e.target.value })}
-                  />
-                  
-                  {/* Edit Price Options Section */}
-                  <div className="edit-price-options-section">
-                    <h4>Price Options</h4>
-                    
-                    <div className="price-options-list">
-                      {(editingProduct.priceOptions || []).map((option, index) => (
-                        <div key={index} className="price-option-item">
-                          <span>{index}: {option.name} - ₹{option.price}</span>
-                          <button 
-                            type="button" 
-                            onClick={() => removeEditingPriceOption(index)}
-                            className="remove-option-btn"
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <div className="add-option-form">
-                      <input
-                        type="text"
-                        placeholder="Option Name"
-                        value={editingOption.name}
-                        onChange={(e) => setEditingOption({ ...editingOption, name: e.target.value })}
-                      />
-                      <input
-                        type="number"
-                        placeholder="Option Price"
-                        value={editingOption.price}
-                        onChange={(e) => setEditingOption({ ...editingOption, price: e.target.value })}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={addEditingPriceOption}
-                        className="add-option-btn"
-                      >
-                        Add Option
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <button onClick={handleUpdate}>Update</button>
-                  <button onClick={() => setEditingProduct(null)}>Cancel</button>
-                </>
-              ) : (
-                <>
-                  <img 
-                    src={product.image} 
-                    alt={product.name || 'Product'} 
-                    width="100" 
-                    onError={handleImageError}
-                  />
-                  <h4>{product.name || 'Unnamed Product'}</h4>
-                  <p>{product.description || 'No description available'}</p>
-                  <p><b>Feature:</b> {product.feature || 'None'}</p>
-                  <p><b>Price:</b> ₹{product.price || '0'}</p>
-                  <p><b>Rating:</b> {'⭐'.repeat(Math.round(product.rating || 0))} ({product.rating || '0'})</p>
-                  
-                  {/* Display Price Options */}
-                  {product.priceOptions && product.priceOptions.length > 0 && (
-                    <div className="product-price-options">
-                      <p><b>Price Options:</b></p>
-                      <ul>
-                        {product.priceOptions.map((option, idx) => (
-                          <li key={idx}>{option.name}: ₹{option.price}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  
-                  <button onClick={() => handleEdit(product)} className='editButton'>Edit</button>
-                  <button onClick={() => handleDelete(product.id)} className='deleteButton'>Delete</button>
-                </>
-              )}
-            </div>
-          ))
-        )}
-      </div>
->>>>>>> origin/master
     </div>
   );
 };
