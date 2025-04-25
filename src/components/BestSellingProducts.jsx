@@ -190,12 +190,14 @@ const BestSellingProducts = () => {
                                 >
                                     Add to cart
                                 </AddToCartButton> */}
-
+ <Link to="/personal-products" style={{ textDecoration: 'none' }}>
+ 
                                 <MoreDetailsButton
                                     variant="contained"
                                 >
                                     More Details
                                 </MoreDetailsButton>
+ </Link>
                             </ButtonsContainer>
                         </ProductCard>
                     </Box>

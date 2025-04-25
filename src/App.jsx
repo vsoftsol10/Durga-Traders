@@ -34,6 +34,7 @@ import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
 import ScrollToTop from './components/ScrollToTop';
 import ProductDetailsPage from './pages/ProductDetails/ProductDetailsPage';
+// import ScrollToTopButton from './components/ScrollToTopButton';
 
 function App() {
   return (
@@ -57,8 +58,9 @@ function MainLayout() {
     <>
     
      <Header/>
+     {/* <ScrollToTopButton/> */}
         <Routes>
-
+          
           <Route path="/" element={<Home/>} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs/>} />
