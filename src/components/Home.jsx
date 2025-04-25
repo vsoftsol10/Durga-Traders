@@ -76,11 +76,7 @@ const Home = () => {
       description: 'Your satisfaction is our top priority. We offer personalized customer support and services to ensure you are always happy with your water filter system.',
     },
   ];
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> origin/master
   const service = [{
     image: BookDemo,
     title: 'Book Demo'
@@ -146,11 +142,7 @@ const Home = () => {
             <Typography variant="h3" align="center" sx={{ color: primaryColor, position: 'relative', display: 'inline-block' }}>
               Your Trusted Partner for<br /> Clean & Safe Water !
             </Typography>
-<<<<<<< HEAD
-            <Typography variant="body1" align="center" sx={{ marginTop: '20px', color: 'black' }}>
-=======
             <Typography variant="body1" align="center" sx={{ marginTop: '20px', color: 'black', fontSize: '20px' }}>
->>>>>>> origin/master
               Water is vital for the survival of every living creature, not just humans. Regular intake of clean, pure water is crucial for maintaining good health. When choosing water, it's important to ensure it meets natural pH balance standards and tastes refreshing. Without these qualities, your health could be at risk in the near future.
             </Typography>
             <Box display="flex" justifyContent="center" sx={{ marginTop: '20px' }}>
@@ -400,29 +392,16 @@ const Home = () => {
                   boxShadow: 'none',
                 }}
               >
-<<<<<<< HEAD
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <img
-                    src={services.image}
-                    alt={services.title}
-                    style={{
-=======
                 <Link to="/contact" style={{ textDecoration: 'none' }}>
                   <Box
                     component="img"
                     src={services.image}
                     alt={services.title}
                     sx={{
->>>>>>> origin/master
                       width: '60%',
                       height: 'auto',
                       borderRadius: '8px',
                       objectFit: 'cover',
-<<<<<<< HEAD
-                    }}
-                  />
-                </CardContent>
-=======
                       transition: 'transform 0.3s ease',
                       '&:hover': {
                         transform: 'scale(0.9)',
@@ -431,7 +410,6 @@ const Home = () => {
                     }}
                   />
                 </Link>
->>>>>>> origin/master
                 <CardContent>
                   <Typography
                     variant="h6"

@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Container } from '@mui/material';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Icons
+=======
+// MUI Icons
+>>>>>>> origin/master
 =======
 // MUI Icons
 >>>>>>> origin/master
@@ -67,8 +71,13 @@ export default function CounterBox() {
   return (
     <Box sx={{ backgroundColor: '#022279', py: 8 }}>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Container maxWidth="xlg">
         <Grid container spacing={22} justifyContent="center">
+=======
+      <Container maxWidth="lg">
+        <Grid container spacing={4} justifyContent="center">
+>>>>>>> origin/master
 =======
       <Container maxWidth="lg">
         <Grid container spacing={4} justifyContent="center">

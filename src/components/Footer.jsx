@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './footer.css'; // Import the separate CSS file
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from "../assets/water.jpg"
 import logo from "../assets/durga-logo.png"
-=======
-import { useState, useEffect } from 'react';
-import './footer.css'; // Import the separate CSS file
-import { useNavigate } from 'react-router-dom';
->>>>>>> origin/master
 
 export default function Footer() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -49,7 +43,6 @@ export default function Footer() {
   };
 
   return (
-<<<<<<< HEAD
     <footer 
       style={{
         backgroundImage:`url(${backgroundImage})`,
@@ -57,9 +50,6 @@ export default function Footer() {
         backgroundPosition:'center'
             }}
     className={`footer ${isVisible ? 'footer--visible' : ''}`}>
-=======
-    <footer className={`footer ${isVisible ? 'footer--visible' : ''}`}>
->>>>>>> origin/master
       {/* Animated background particles */}
       <div className="footer__background">
         <div className="footer__particles">
@@ -85,7 +75,6 @@ export default function Footer() {
         <div className="footer__content">
           {/* Company section */}
           <div className="footer__section footer__company">
-<<<<<<< HEAD
             <div className="footer__header">
               <span className="footer__title-text">
 
@@ -93,14 +82,6 @@ export default function Footer() {
                 {/* <span className="footer__title-underline"></span> */}
               </span>
             </div>
-=======
-            <h3 className="footer__title">
-              <span className="footer__title-text">
-                Durga Traders
-                <span className="footer__title-underline"></span>
-              </span>
-            </h3>
->>>>>>> origin/master
             <div className="footer__social">
               <button className="footer__social-button" onClick={() => window.open('https://facebook.com/durgatradersro', '_blank')}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="footer__social-icon" fill="currentColor" viewBox="0 0 24 24">
@@ -193,11 +174,7 @@ export default function Footer() {
       {/* Copyright section */}
       <div className="footer__bottom">
         <div className="footer__copyright">
-<<<<<<< HEAD
           © {currentYear} Durga Traders. All rights reserved. Website by Vsoft Solutions.
-=======
-          © {currentYear} Durga Traders. All rights reserved.
->>>>>>> origin/master
         </div>
       </div>
     </footer>

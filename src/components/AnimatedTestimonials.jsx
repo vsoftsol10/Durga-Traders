@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
->>>>>>> origin/master
 import { useState, useEffect, useRef } from 'react';
 import { Box, Typography, Button, Stack } from '@mui/material';
 

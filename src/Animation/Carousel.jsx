@@ -1,7 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, IconButton } from '@mui/material';
+=======
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Typography, Button, IconButton, CircularProgress } from '@mui/material';
+>>>>>>> origin/master
 =======
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +20,10 @@ import HomeOne from '../assets/Home slider 003.png';
 import HomeTwo from '../assets/Home slider 002.png';
 import HomeThree from '../assets/Home slider 005.png';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+// import HomeFour from '../assets/Home slider 004.gif';
+>>>>>>> origin/master
 =======
 // import HomeFour from '../assets/Home slider 004.gif';
 >>>>>>> origin/master
@@ -23,7 +33,11 @@ const CarouselContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   width: '100%',
 <<<<<<< HEAD
+<<<<<<< HEAD
   height: '100vh',
+=======
+  height: '80vh',
+>>>>>>> origin/master
 =======
   height: '80vh',
 >>>>>>> origin/master
@@ -38,7 +52,10 @@ const CarouselContainer = styled(Box)(({ theme }) => ({
 }));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Fix #1: Change isActive to use shouldShow pattern which is more common in React
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 const SlideContainer = styled(Box)(({ shouldShow }) => ({
@@ -55,8 +72,12 @@ const BackgroundImage = styled(Box)(({ theme }) => ({
   backgroundSize: 'cover',
   backgroundPosition: 'center',
 <<<<<<< HEAD
+<<<<<<< HEAD
   filter: 'blur(2px)',
   transform: 'scale(1.1)',
+=======
+  transform: 'scale(1)',
+>>>>>>> origin/master
 =======
   transform: 'scale(1)',
 >>>>>>> origin/master
@@ -69,6 +90,7 @@ const BackgroundImage = styled(Box)(({ theme }) => ({
   },
 }));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 // const LightOverlay = styled(Box)({
 //   position: 'absolute',
@@ -84,6 +106,8 @@ const DarkOverlay = styled(Box)({
   backgroundColor: 'rgba(0, 0, 0, 0.29)', // Black with 50% opacity
   zIndex: 1,
 =======
+=======
+>>>>>>> origin/master
 const LoaderContainer = styled(Box)({
   position: 'absolute',
   inset: 0,
@@ -92,6 +116,9 @@ const LoaderContainer = styled(Box)({
   alignItems: 'center',
   backgroundColor: 'rgba(0,0,0,0.5)',
   zIndex: 5,
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 });
 
@@ -110,7 +137,11 @@ const ContentContainer = styled(Box)({
 const NavButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
 <<<<<<< HEAD
+<<<<<<< HEAD
   top: '70%',
+=======
+  top: '60%',
+>>>>>>> origin/master
 =======
   top: '60%',
 >>>>>>> origin/master
@@ -134,7 +165,10 @@ const NavButton = styled(IconButton)(({ theme }) => ({
 }));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 const IndicatorContainer = styled(Box)({
@@ -147,7 +181,10 @@ const IndicatorContainer = styled(Box)({
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Fix #2: Change active to isActive and handle it properly in the component
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 const Indicator = styled(Box)(({ isActive, theme }) => ({
@@ -161,11 +198,14 @@ const Indicator = styled(Box)(({ isActive, theme }) => ({
 export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   const navigate = useNavigate();
   // Sample carousel data - replace these with your actual images and content
   const slides = [
 =======
+=======
+>>>>>>> origin/master
   const [isLoading, setIsLoading] = useState(true);
   const [imagesLoaded, setImagesLoaded] = useState({});
   const autoPlayIntervalRef = useRef(null);
@@ -177,13 +217,21 @@ export default function Carousel() {
     //   image: HomeFour,
     //   displayTime: 10000 // 10 seconds for the GIF slide
     // },
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
     {
       image: HomeOne,
       title: "Welcome to Durga Traders",
       subtitle: "Pure Water, Direct Delivery",
 <<<<<<< HEAD
+<<<<<<< HEAD
       buttonText: "Get Products"
+=======
+      buttonText: "Get Products",
+      displayTime: 5000 // 5 seconds for other slides
+>>>>>>> origin/master
 =======
       buttonText: "Get Products",
       displayTime: 5000 // 5 seconds for other slides
@@ -194,7 +242,12 @@ export default function Carousel() {
       title: "Welcome to Durga Traders",
       subtitle: "Delivered To Your Door",
 <<<<<<< HEAD
+<<<<<<< HEAD
       buttonText: "Get Products"
+=======
+      buttonText: "Get Products",
+      displayTime: 5000
+>>>>>>> origin/master
 =======
       buttonText: "Get Products",
       displayTime: 5000
@@ -205,6 +258,7 @@ export default function Carousel() {
       title: "Welcome to Durga Traders",
       subtitle: "Reliable & Convenient",
 <<<<<<< HEAD
+<<<<<<< HEAD
       buttonText: "Get Products"
     }
   ];
@@ -212,6 +266,8 @@ export default function Carousel() {
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
 =======
+=======
+>>>>>>> origin/master
       buttonText: "Get Products",
       displayTime: 5000
     }
@@ -246,11 +302,15 @@ export default function Carousel() {
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     restartAutoplay();
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+<<<<<<< HEAD
 <<<<<<< HEAD
   };
 
@@ -330,6 +390,8 @@ export default function Carousel() {
             </Button>
 
 =======
+=======
+>>>>>>> origin/master
     restartAutoplay();
   };
 
@@ -440,12 +502,16 @@ export default function Carousel() {
                 {slide.buttonText}
               </Button>
             )}
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
           </ContentContainer>
         </SlideContainer>
       ))}
 
       {/* Navigation buttons */}
+<<<<<<< HEAD
 <<<<<<< HEAD
       <NavButton
         aria-label="Previous slide"
@@ -475,6 +541,8 @@ export default function Carousel() {
         ))}
       </IndicatorContainer>
 =======
+=======
+>>>>>>> origin/master
       {!isLoading && (
         <>
           <NavButton
@@ -508,6 +576,9 @@ export default function Carousel() {
           </IndicatorContainer>
         </>
       )}
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
     </CarouselContainer>
   );

@@ -4,17 +4,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InfoIcon from '@mui/icons-material/Info';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import BestSellOne from '../assets/Durga Product 01.png';
-import BestSellTwo from '../assets/Durga Product 03.png';
-import BestSellThree from '../assets/Durga Product 04.png';
-import BestSellFour from '../assets/Durga Product 02.png';
-=======
 import BestSellOne from '../assets/bestseller1.png';
 import BestSellTwo from '../assets/bestseller3.png';
 import BestSellThree from '../assets/bestseller4.png';
 import BestSellFour from '../assets/bestseller2.png';
->>>>>>> origin/master
 // import BookDemo from '../assets/Book demo icon.png';
 
 // Styled components
@@ -55,11 +48,7 @@ const BookDemoBadge = styled(Box)(({ theme }) => ({
 
 const ProductImage = styled('img')(({ theme }) => ({
     width: '100%',
-<<<<<<< HEAD
-    height: '200px',
-=======
     height: '250px',
->>>>>>> origin/master
     objectFit: 'contain',
     marginBottom: '20px',
 }));
@@ -112,29 +101,6 @@ const ButtonsContainer = styled(Box)(({ theme }) => ({
 const products = [
     {
         id: 1,
-<<<<<<< HEAD
-        name: 'Dt-Cleanwater',
-        image: BestSellOne,
-        description: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column...',
-    },
-    {
-        id: 2,
-        name: 'DT-WATERLILY',
-        image: BestSellTwo,
-        description: 'Purification Technologies: RO+MF+UV Water purifier',
-    },
-    {
-        id: 3,
-        name: 'DT-ROMA',
-        image: BestSellThree,
-        description: 'Purification Technologies: RO+MF+UV Water Purifier',
-    },
-    {
-        id: 4,
-        name: 'DT-AQUATOUCH',
-        image: BestSellFour,
-        description: 'Purification Cartridges: Sediment Filter, Pre-Activated Carbon Absorber, UF Membrane, UV Disinfection Column...',
-=======
         name: 'DT-Cleanwater',
         image: BestSellOne,
         description: 'RO+UV+UF 8 Stage Purification...',
@@ -156,7 +122,6 @@ const products = [
         name: 'DT-AquaTouch',
         image: BestSellFour,
         description: 'RO+UV+UF 8 Stage Purification...',
->>>>>>> origin/master
     },
 ];
 
@@ -225,20 +190,12 @@ const BestSellingProducts = () => {
                                 >
                                     Add to cart
                                 </AddToCartButton> */}
-<<<<<<< HEAD
-                            <Link to="/personal-products" style={{ textDecoration: 'none' }}>
-=======
->>>>>>> origin/master
 
                                 <MoreDetailsButton
                                     variant="contained"
                                 >
                                     More Details
                                 </MoreDetailsButton>
-<<<<<<< HEAD
-                            </Link>
-=======
->>>>>>> origin/master
                             </ButtonsContainer>
                         </ProductCard>
                     </Box>

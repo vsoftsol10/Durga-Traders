@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useEffect } from 'react';
-=======
 import React from 'react';
->>>>>>> origin/master
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
 import BlogImag from '../assets/BlogImg.png';
@@ -11,12 +7,6 @@ const Blog = () => {
     const primaryColor = '#022279';
     const secondaryColor = '#00c7e8';
 
-<<<<<<< HEAD
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-=======
->>>>>>> origin/master
 
     const breadcrumbs = [
         <Link href="/" underline="hover" color="inherit" key="home">
@@ -332,10 +322,7 @@ const Blog = () => {
                                     </Typography>
                                 </Box>
                             </Grid>
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
                             <Grid item xs={12} md={4}>
                                 <Box sx={{
                                     border: `1px solid ${secondaryColor}`,
@@ -359,10 +346,7 @@ const Blog = () => {
                                     </Typography>
                                 </Box>
                             </Grid>
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
                             <Grid item xs={12} md={4}>
                                 <Box sx={{
                                     border: `1px solid ${secondaryColor}`,

@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
-=======
 import { Box, Container, Typography, Breadcrumbs, Link, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
->>>>>>> origin/master
 import { useNavigate } from 'react-router-dom';
 import './CommercialProduct.css';
 import RoImg from '../assets/RObck.jpg';
@@ -50,95 +45,59 @@ const CommercialProducts = () => {
     return pin >= 600001 && pin <= 643253;
   };
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
   const products = [
     {
       id: 1,
       image: CommercialOne,
       title: 'DT-250 AUTO',
       model: '2251AMO',
-<<<<<<< HEAD
-=======
       description: 'Advanced commercial water purification system designed for small to medium businesses. Features state-of-the-art reverse osmosis technology with automated operation for consistent water quality.',
->>>>>>> origin/master
     },
     {
       id: 2,
       image: CommercialTwo,
       title: 'DT-500 AUTO',
       model: '2501AMO',
-<<<<<<< HEAD
-=======
       description: 'High-capacity commercial purifier with enhanced filtration technology. Perfect for restaurants, cafes, and small industrial applications with moderate water consumption needs.',
->>>>>>> origin/master
     },
     {
       id: 3,
       image: CommercialFour,
       title: 'DT-2000 AUTO',
       model: '22K1AMO',
-<<<<<<< HEAD
-=======
       description: 'Premium heavy-duty water purification system for large commercial facilities. Features multi-stage filtration and intelligent monitoring for optimal performance.',
->>>>>>> origin/master
     },
     {
       id: 4,
       image: CommercialFive,
       title: 'DT-1000 AUTO',
       model: '21K1AMO',
-<<<<<<< HEAD
-=======
       description: 'Versatile commercial water system with advanced contaminant removal capabilities. Ideal for healthcare facilities, laboratories, and medium-sized manufacturing plants.',
->>>>>>> origin/master
     },
     {
       id: 5,
       image: CommercialSix,
       title: 'DT-5000 AUTO',
       model: '25K1AMO',
-<<<<<<< HEAD
-=======
       description: 'Our most powerful commercial water purification solution. Engineered for industrial applications with extreme water quality demands and high volume requirements.',
->>>>>>> origin/master
     },
     {
       id: 6,
       image: CommercialSeven,
       title: 'DT-100 CLOSED',
       model: '21C1AMO',
-<<<<<<< HEAD
-=======
       description: 'Compact closed-system design offering reliable purification in a space-saving format. Perfect for offices, retail spaces, and areas with limited installation space.',
->>>>>>> origin/master
     },
     {
       id: 7,
       image: CommercialEight,
       title: 'DT-100 OPEN',
       model: '21C2AMO',
-<<<<<<< HEAD
-    }
-  ];
-
-  // Custom styles for the zoom-out animation
-  const headingStyle = {
-    fontWeight: 'bold',
-    fontSize: 34,
-    transform: animated ? 'scale(2)' : 'scale(0.5)',
-    opacity: animated ? 1 : 0,
-    transition: 'transform 1.5s ease-out, opacity 1.5s ease-in',
-  };
-
-=======
       description: 'Open architecture water purification system allowing easy maintenance and filter replacement. Designed for environments where regular servicing is a priority.',
     }
   ];
 
->>>>>>> origin/master
   // Theme colors
   const primaryColor = '#022279';
   const secondaryColor = '#00c7e8';
@@ -166,11 +125,7 @@ const CommercialProducts = () => {
           </Typography>
 
           <Typography sx={{
-<<<<<<< HEAD
-            fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem', lg: '1.5rem' }, // Responsive font size
-=======
             fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem', lg: '1.5rem' },
->>>>>>> origin/master
             pb: 1,
             display: 'inline-block',
             color: primaryColor,
@@ -197,11 +152,7 @@ const CommercialProducts = () => {
                   mb: 3,
                   fontWeight: 'bold',
                   color: primaryColor,
-<<<<<<< HEAD
-                  fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem', lg: '2.5rem' } // Responsive heading
-=======
                   fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem', lg: '2.5rem' }
->>>>>>> origin/master
                 }}>
                   Clean, Safe, and Pure Water for Your Family
                 </Typography>
@@ -238,11 +189,7 @@ const CommercialProducts = () => {
             variant="h4"
             gutterBottom
             sx={{
-<<<<<<< HEAD
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, // Responsive font size
-=======
               fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
->>>>>>> origin/master
               fontWeight: 'bold',
               color: primaryColor,
               position: 'relative',
@@ -252,85 +199,6 @@ const CommercialProducts = () => {
             Our Commercial Products
           </Typography>
         </Box>
-<<<<<<< HEAD
-        <Box sx={{ mb: 8, display: 'flex', justifyContent: 'center' }}>
-          <Grid
-            container
-            spacing={4}
-            justifyContent="center"
-            sx={{ maxWidth: '1500px' }}
-          >
-            {products.map((product) => (
-              <Grid
-                item xs={6} sm={6} md={4} lg={3}
-                key={product.id}
-                sx={{ display: 'flex', justifyContent: 'center' }}
-              >
-                <Card
-                  sx={{
-                    width: { xs: '100%', sm: '350px' },
-                    maxWidth: '350px',
-                    height: '450px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'transform 0.3s, box-shadow 0.3s',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 12px 24px rgba(0,0,0,0.1)'
-                    },
-                    borderRadius: '12px',
-                    overflow: 'hidden'
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="280"
-                    image={product.image}
-                    alt={product.title}
-                    sx={{ objectFit: 'cover' }}
-                  />
-                  <CardContent sx={{
-                    flexGrow: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    p: 3,
-                    backgroundColor: '#f8f9fa'
-                  }}>
-                    <Typography gutterBottom variant="h5" component="div" sx={{
-                      fontWeight: 'bold',
-                      color: primaryColor,
-                      fontSize: { xs: '1.25rem', md: '1.5rem' } // Responsive product title
-                    }}>
-                      {product.title}
-                    </Typography>
-                    <Typography gutterBottom variant="h6" color="text.primary" sx={{ mb: 2 }}>
-                      {product.model}
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      onClick={() => navigate(`/product/${product.id}`)}
-                      sx={{
-                        mt: 'auto',
-                        py: 1.5,
-                        background: 'linear-gradient(90deg, #022279 0%, #00C7E8 100%)',
-                        '&:hover': {
-                          background: 'linear-gradient(90deg, #021a5c 0%, #00a5c7 100%)' // slightly darker gradient on hover
-                        },
-                        borderRadius: '8px',
-                        fontWeight: 'bold',
-                        color: '#fff',
-                        textTransform: 'none'
-                      }}
-                    >
-                      More Details
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-=======
 
         {/* Alternating Product Layout */}
         <Box sx={{ mb: 8 }}>
@@ -447,7 +315,6 @@ const CommercialProducts = () => {
               </Box>
             </Box>
           ))}
->>>>>>> origin/master
         </Box>
 
         <Container maxWidth="xl" sx={{ py: 6 }}>
@@ -456,11 +323,7 @@ const CommercialProducts = () => {
               variant="h4"
               gutterBottom
               sx={{
-<<<<<<< HEAD
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, // Responsive font size
-=======
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
->>>>>>> origin/master
                 fontWeight: 'bold',
                 color: primaryColor,
                 position: 'relative',
@@ -471,11 +334,7 @@ const CommercialProducts = () => {
             </Typography>
           </Box>
 
-<<<<<<< HEAD
-          <Grid container spacing={3} justifyContent="center">
-=======
           <Grid container spacing={18} justifyContent="center">
->>>>>>> origin/master
             {/* Commercial RO Plants */}
             <Grid item xs={12} sm={6} md={4} lg={2.4} sx={{ width: { lg: '20%' } }}>
               <Card
@@ -510,11 +369,7 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
-<<<<<<< HEAD
-                    fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
-=======
                     fontSize: { xs: '1rem', md: '1.25rem' }
->>>>>>> origin/master
                   }}>
                     Commercial RO Plants
                   </Typography>
@@ -562,11 +417,7 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
-<<<<<<< HEAD
-                    fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
-=======
                     fontSize: { xs: '1rem', md: '1.25rem' }
->>>>>>> origin/master
                   }}>
                     Industrial Water Purifiers
                   </Typography>
@@ -614,11 +465,7 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
-<<<<<<< HEAD
-                    fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
-=======
                     fontSize: { xs: '1rem', md: '1.25rem' }
->>>>>>> origin/master
                   }}>
                     Hot & Cold Water Dispensers
                   </Typography>
@@ -665,11 +512,7 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
-<<<<<<< HEAD
-                    fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
-=======
                     fontSize: { xs: '1rem', md: '1.25rem' }
->>>>>>> origin/master
                   }}>
                     Water Softeners
                   </Typography>
@@ -713,11 +556,7 @@ const CommercialProducts = () => {
                     fontWeight: 'bold',
                     color: primaryColor,
                     mb: 2,
-<<<<<<< HEAD
-                    fontSize: { xs: '1rem', md: '1.25rem' } // Responsive card title
-=======
                     fontSize: { xs: '1rem', md: '1.25rem' }
->>>>>>> origin/master
                   }}>
                     UV & UF Systems
                   </Typography>
@@ -731,164 +570,8 @@ const CommercialProducts = () => {
         </Container>
       </Container>
 
-<<<<<<< HEAD
-      {openPincodeModal && (
-        <Box
-          sx={{
-            position: 'fixed',
-            top: 0, left: 0, right: 0, bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 9999,
-            overflow: 'auto', // Allow scrolling if modal is larger than screen
-            padding: '20px' // Consistent padding around modal
-          }}
-        >
-          <Box sx={{
-            backgroundColor: '#fff',
-            padding: '30px',
-            borderRadius: '16px',
-            textAlign: 'center',
-            width: '380px', // Fixed width
-            minWidth: '380px', // Minimum width to prevent shrinking
-            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-            border: `2px solid ${secondaryColor}`,
-            margin: 'auto', // Center the modal
-            position: 'relative' // For positioning of elements inside
-          }}>
-            {/* Add close button here */}
-            <Button
-              onClick={() => setOpenPincodeModal(false)}
-              sx={{
-                position: 'absolute',
-                top: '10px',
-                right: '10px',
-                minWidth: '36px',
-                width: '36px',
-                height: '36px',
-                borderRadius: '50%',
-                p: 0,
-                color: 'grey.500',
-                '&:hover': {
-                  backgroundColor: 'rgba(0,0,0,0.04)',
-                  color: 'grey.700'
-                }
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </Button>
-
-            <Typography variant="h5" sx={{
-              fontWeight: 'bold',
-              mb: 3,
-              color: primaryColor,
-              fontSize: '1.5rem'  // Fixed font size
-            }}>
-              Share location Pin code
-            </Typography>
-            <input
-              type="text"
-              value={pincode}
-              onChange={(e) => setPincode(e.target.value)}
-              placeholder="e.g. 600001"
-              style={{
-                padding: '12px',
-                width: '280px', // Fixed width
-                marginBottom: '24px',
-                fontSize: '16px',
-                borderRadius: '8px',
-                border: `1px solid ${secondaryColor}`,
-                outline: 'none'
-              }}
-            />
-            <br />
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (isTamilNaduPincode(pincode)) {
-                  setResultType('success');
-                  setResultMessage('🎉 Great news! We deliver to your location.');
-                } else {
-                  setResultType('error');
-                  setResultMessage('🚫 Sorry, our service is not yet available in your area.');
-                }
-              }}
-              sx={{
-                backgroundColor: secondaryColor,
-                '&:hover': { backgroundColor: primaryColor },
-                borderRadius: '8px',
-                py: 1.2,
-                px: 3,
-                fontWeight: 'bold'
-              }}
-            >
-              Submit
-            </Button>
-
-            <Box sx={{
-              mt: 3,
-              backgroundColor: '#f0f6ff',
-              p: 2.5,
-              borderRadius: '8px'
-            }}>
-              <Typography variant="h6" sx={{
-                fontWeight: 'bold',
-                color: primaryColor,
-                fontSize: '1rem' // Fixed font size
-              }}>
-                Why we collect Pin code?
-              </Typography>
-              <Typography variant="body1" sx={{ fontSize: '0.95rem', color: 'black' }}>
-                We collect your PIN code to connect you with the nearest available suppliers and ensure faster service in your region.
-              </Typography>
-            </Box>
-
-            {resultMessage && (
-              <Typography sx={{
-                mt: 3,
-                color: resultType === 'success' ? 'green' : 'red',
-                fontWeight: 'bold',
-                p: 2,
-                backgroundColor: resultType === 'success' ? '#e8f5e9' : '#ffebee',
-                borderRadius: '8px',
-                fontSize: '1rem' // Fixed font size
-              }}>
-                {resultMessage}
-              </Typography>
-            )}
-
-            {(resultMessage && (
-              <Button
-                onClick={() => setOpenPincodeModal(false)}
-                sx={{
-                  mt: 2,
-                  backgroundColor: primaryColor,
-                  color: 'white',
-                  '&:hover': { backgroundColor: secondaryColor },
-                  borderRadius: '8px',
-                  py: 1,
-                  px: 3
-                }}
-              >
-                Continue
-              </Button>
-            ))}
-          </Box>
-        </Box>
-      )}
-=======
->>>>>>> origin/master
     </div>
   );
 };
 
-<<<<<<< HEAD
 export default CommercialProducts;
-=======
-export default CommercialProducts;
->>>>>>> origin/master

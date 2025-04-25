@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import React from 'react';
-=======
->>>>>>> origin/master
 import { useState } from 'react'
 import './App.css'
 import Home from './components/Home'
@@ -13,17 +10,10 @@ import ContactUs from './pages/ContactUs'
 import Footer from './components/Footer'
 import Services from './pages/Services'
 import ReverseOsmosis from './pages/Services/ReverseOsmosis'
-<<<<<<< HEAD
 import SurfaceWaterTreatement from './pages/Services/SurfaceWaterTreatement'
 import WaterSoftening from './pages/Services/WaterSoftening'
 import IronRemoval from './pages/Services/IronRemoval'
 import SeaWater from './pages/Services/SeaWater'
-=======
-import SeaWater from './pages/Services/SeaWater'
-import SurfaceWaterTreatement from './pages/Services/SurfaceWaterTreatement'
-import WaterSoftening from './pages/Services/WaterSoftening'
-import IronRemoval from './pages/Services/IronRemoval'
->>>>>>> origin/master
 import DMPlant from './pages/Services/DMPlant'
 import STPServices from './pages/Services/STPServices'
 import ETPServices from './pages/Services/ETPServices'
@@ -42,21 +32,14 @@ import Blog from './components/Blog';
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
-<<<<<<< HEAD
 import ScrollToTop from './components/ScrollToTop';
 import ProductDetailsPage from './pages/ProductDetails/ProductDetailsPage';
-=======
->>>>>>> origin/master
 
 function App() {
   return (
     <>
       
-<<<<<<< HEAD
         <ScrollToTop /> {/* Add the ScrollToTop component here */}
-=======
-        
->>>>>>> origin/master
         <WaterBackground>
           <Routes>   
             <Route path='/admin' element={<SignIn/>} />  
@@ -72,20 +55,11 @@ function App() {
 function MainLayout() {
   return(
     <>
-<<<<<<< HEAD
     
      <Header/>
         <Routes>
 
           <Route path="/" element={<Home/>} />
-=======
-      <Header/>
-      
-      <WaterBackground>
-      
-        <Routes>
-          <Route path="/" element={<Home />} />
->>>>>>> origin/master
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs/>} />
           <Route path="/service" element={<Services/>}/>
@@ -101,7 +75,6 @@ function MainLayout() {
           <Route path='/personal-products' element={<ProductPage/>} />
           <Route path='/checkout' element={<CheckoutPage/>} />
           <Route path="/commercial-products" element={<CommercialProducts />} />
-<<<<<<< HEAD
         <Route path="/product/1" element={<CommercialProductOne />} />
         <Route path="/product/2" element={<CommercialProductTwo/>} />
         <Route path="/product/3" element= {<CommercialProductThree/>}/>
@@ -113,18 +86,6 @@ function MainLayout() {
         <Route path='/products/:productId' element={<ProductDetailsPage/>} />
 
         </Routes>
-=======
-          <Route path="/product/1" element={<CommercialProductOne />} />
-          <Route path="/product/2" element={<CommercialProductTwo/>} />
-          <Route path="/product/3" element= {<CommercialProductThree/>}/>
-          <Route path='/product/4' element={<CommercialProductFour />}/>
-          <Route path='/product/5' element={<CommercialProductFive />}/>
-          <Route path='/product/6' element={<CommercialProductSix />}/>
-          <Route path='/product/7' element={<CommercialProductSeven />}/>
-          <Route path='/blog' element={<Blog/>}/>
-        </Routes>
-      </WaterBackground>
->>>>>>> origin/master
       <Footer/>
     </>
   )
