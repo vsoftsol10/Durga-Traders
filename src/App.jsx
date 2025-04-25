@@ -34,7 +34,7 @@ import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
 import ScrollToTop from './components/ScrollToTop';
 import ProductDetailsPage from './pages/ProductDetails/ProductDetailsPage';
-// import ScrollToTopButton from './components/ScrollToTopButton';
+// import UpArrow from './components/UpArrow ';
 
 function App() {
   return (
@@ -58,7 +58,7 @@ function MainLayout() {
     <>
     
      <Header/>
-     {/* <ScrollToTopButton/> */}
+     {/* <UpArrow/> */}
         <Routes>
           
           <Route path="/" element={<Home/>} />
