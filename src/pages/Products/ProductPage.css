@@ -1561,8 +1561,8 @@ body {
     }
     
     .product-footer {
-      flex-direction: column;
-      gap: 15px;
+      flex-direction: row;
+      gap: 0px;
       align-items: flex-start;
     }
     
@@ -1573,7 +1573,7 @@ body {
     
     .details-button {
       align-self: center;
-      margin-top: 5px;
+      margin-top: -5px;
     }
     
     .empty-cart-icon {
