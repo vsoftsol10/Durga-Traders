@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Droplet, Settings, Wrench, Activity, ArrowUpCircle, Navigation ,CirclePercent } from 'lucide-react';
+import { Droplet, Settings, Wrench, Activity, ArrowUpCircle, Navigation ,CirclePercent,ArrowLeft } from 'lucide-react';
 import './SeaWater.css'; // Import the CSS file
 import seawater from "../../assets/Seawater-Desalination.jpg"
 
@@ -9,9 +9,22 @@ const SeaWater = () => {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-  
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div className="ro-container">
+       {/* Back button at the top left corner */}
+       <div className="back-button-container">
+        <button
+          className="back-button"
+          onClick={handleBack}
+          // aria-label="Back to Services"
+        >
+          <ArrowLeft size={20} />
+          <span>Back to Services</span>
+        </button>
+      </div>
       {/* Hero Section with Animation */}
       <div className={`ro-hero ${isVisible ? 'visible' : ''}`}>
         <div className="ro-hero-content">
