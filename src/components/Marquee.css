@@ -1,0 +1,101 @@
+/* Base marquee container */
+.marquee-container {
+  background-color: #022279; /* bg-gray-800 */
+  color: white;
+  padding: 0.5rem 0; /* py-2 */
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  margin-bottom: -8px;
+}
+
+/* Contact item styles */
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem; /* mx-4 */
+}
+
+/* Icon styling */
+.mail-icon {
+  color: #60a5fa; /* text-blue-400 */
+  margin-right: 0rem;
+  margin-top: 4px;
+
+}
+
+.whatsapp-icon {
+  color: #4ade80; /* text-green-400 */
+  margin-right: 0rem;
+  margin-top: 4px;
+
+}
+
+.phone-icon {
+  color: #f87171; /* text-red-400 */
+  margin-right: 0rem;
+  margin-top: 4px;
+}
+
+/* Desktop layout */
+.contact-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Marquee animation for mobile */
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Media query for mobile responsiveness */
+@media(max-width:768px){
+  .contact-group {
+    white-space: nowrap;
+    display: flex;
+    animation: marquee 15s linear infinite;
+  }
+  
+  .contact-item span {
+    font-size: 0.875rem; /* text-sm */
+  }
+  
+  .contact-item svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .contact-group {
+    white-space: nowrap;
+    display: flex;
+    animation: marquee 15s linear infinite;
+  }
+  
+  .contact-item span {
+    font-size: 0.875rem; /* text-sm */
+  }
+  
+  .contact-item svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Media query for larger screens */
+@media (min-width: 641px) {
+  .contact-group {
+    gap: 2rem; /* space-x-8 */
+  }
+  
+  .contact-item span {
+    font-size: 1rem; /* text-base */
+  }
+  
+  .contact-item svg {
+    width: 20px;
+    height: 20px;
+  }
+}

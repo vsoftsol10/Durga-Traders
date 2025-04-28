@@ -1,16 +1,40 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect, useRef } from 'react';
 import { Box, Typography, Grid, Container } from '@mui/material';
 
 // MUI Icons
-import WaterIcon from '@mui/icons-material/Water'; 
-import PeopleIcon from '@mui/icons-material/People'; 
-import HandymanIcon from '@mui/icons-material/Handyman'; 
+import WaterIcon from '@mui/icons-material/Water';
+import PeopleIcon from '@mui/icons-material/People';
+import HandymanIcon from '@mui/icons-material/Handyman';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 const CounterItem = ({ icon: IconComponent, count, label }) => {
   const [currentCount, setCurrentCount] = useState(0);
-  
+  const [isVisible, setIsVisible] = useState(false);
+  const counterRef = useRef(null);
+
+  // Set up the Intersection Observer
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Only start animation when visible
+  useEffect(() => {
+    if (!isVisible) return;
+    
     setCurrentCount(0);
     const duration = 2000;
     const steps = 50;
@@ -32,10 +56,11 @@ const CounterItem = ({ icon: IconComponent, count, label }) => {
     
     timer = setInterval(updateCounter, stepTime);
     return () => clearInterval(timer);
-  }, [count]);
-  
+  }, [count, isVisible]);
+
   return (
     <Box
+      ref={counterRef}
       textAlign="center"
       p={5}
       color="white"
@@ -59,7 +84,7 @@ export default function CounterBox() {
     { icon: HandymanIcon, count: 30, label: 'Expert workers' },
     { icon: Inventory2Icon, count: 1000, label: 'Orders fulfilled' },
   ];
-  
+
   return (
     <Box sx={{ backgroundColor: '#022279', py: 8 }}>
       <Container maxWidth="lg">

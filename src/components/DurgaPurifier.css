@@ -1,0 +1,112 @@
+.purifier-section {
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .purifier-title {
+    font-family: "Playfair Display", serif;
+    font-size: 32px;
+    color: #0d2c5c;
+    margin-bottom: 40px;
+  }
+  
+  .purifier-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  .purifier-card {
+    background: #fff;
+    border: 1px solid #dfe6ed;
+    border-radius: 10px;
+    width: 280px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .purifier-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .purifier-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    background: #a31f1f2d;
+    padding: 10px;
+  }
+  
+  .purifier-card-title {
+    font-size: 20px;
+    color: #0d2c5c;
+    margin-bottom: 10px;
+  }
+  
+  .purifier-card-description {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+  
+  .purifier-explore {
+    font-size: 16px;
+    color: #0d2c5c;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .arrow {
+    margin-left: 5px;
+    font-size: 18px;
+  }
+  
+  /* ----------- Mobile Responsive Styling ----------- */
+  
+  @media (max-width: 768px) {
+    .purifier-card-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .purifier-card {
+      width: 90%;
+      max-width: 350px;
+    }
+  
+    .purifier-title {
+      font-size: 28px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .purifier-title {
+      font-size: 24px;
+    }
+  
+    .purifier-card {
+      padding: 20px 15px;
+    }
+  
+    .purifier-card-title {
+      font-size: 18px;
+    }
+  
+    .purifier-card-description {
+      font-size: 13px;
+    }
+  
+    .purifier-explore {
+      font-size: 14px;
+    }
+  
+    .arrow {
+      font-size: 16px;
+    }
+  }
+  

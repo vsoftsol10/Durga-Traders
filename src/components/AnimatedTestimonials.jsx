@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Button, Stack } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
+import image from "../assets/person.png";
+import backgroundImage from "../assets/drops.jpg"; 
 
 const AnimatedTestimonials = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -35,19 +37,22 @@ const AnimatedTestimonials = () => {
       sx={{
         position: 'relative',
         py: 10,
-        backgroundColor: '#0D47A1',
         color: '#fff',
         overflow: 'hidden',
+        // Add background image that remains fixed while scrolling
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundAttachment: 'fixed', // This is the key property that keeps the background fixed
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
-      {/* Gradient Overlay (optional effect) */}
+      {/* Blue overlay */}
       <Box
         sx={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, #1565C0, #0D47A1)',
-          opacity: 0.8,
-          zIndex: 0,
+          bgcolor:'rgba(2, 34, 121, 0.69)',
+          zIndex: 1,
         }}
       />
 
@@ -59,29 +64,66 @@ const AnimatedTestimonials = () => {
           Our Testimonials
         </Typography>
 
+        {/* Avatar Circle */}
+        <Box sx={{ mt: 6, mb: 4, position: 'relative', width: 100, height: 100, mx: 'auto' }}>
+          <Box
+            sx={{
+              width: 100,
+              height: 100,
+              borderRadius: '50%',
+              bgcolor: '#e0e0e0',
+              overflow: 'hidden',
+              border: '4px solid rgba(255, 255, 255, 0.2)',
+            }}
+          >
+            <img 
+              src={image} 
+              alt="testimonial avatar"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              onError={(e) => { e.target.style.display = 'none' }}
+            />
+          </Box>
+        </Box>
+
         <Box
-          sx={{ mt: 6 }}
+          sx={{ mt: 2 }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <Typography variant="body1" sx={{ maxWidth: 800, mx: 'auto', mb: 3 }}>
+          <Typography variant="body1" sx={{ maxWidth: 800, mx: 'auto', mb: 3, px: 2 }}>
             {testimonials[currentSlide].feedback}
           </Typography>
           <Typography variant="h5" fontWeight="bold">
             {testimonials[currentSlide].name}
           </Typography>
-          <Typography variant="subtitle2" sx={{ color: 'White', mb: 4 }}>
+          <Typography variant="subtitle2" sx={{ color: 'white', mb: 4 }}>
             {testimonials[currentSlide].city}
           </Typography>
         </Box>
 
-        {/* Decorative Quote Mark */}
+        {/* Decorative Quote Marks */}
         <Box
           sx={{
             position: 'absolute',
             right: { xs: 10, md: 50 },
             top: 10,
-            fontSize: '5rem',
+            fontSize: '8rem',
+            fontFamily: 'serif',
+            opacity: 0.2,
+            zIndex: 0,
+          }}
+        >
+          ❞
+        </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            left: { xs: 10, md: 50 },
+            bottom: 10,
+            fontSize: '8rem',
+            fontFamily: 'serif',
+            opacity: 0.2,
+            transform: 'rotate(180deg)',
             zIndex: 0,
           }}
         >

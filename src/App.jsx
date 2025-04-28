@@ -34,13 +34,13 @@ import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
 import ScrollToTop from './components/ScrollToTop';
 import ProductDetailsPage from './pages/ProductDetails/ProductDetailsPage';
+import Marquee from './components/Marquee';
 // import UpArrow from './components/UpArrow ';
 
 function App() {
   return (
     <>
       
-        <ScrollToTop /> {/* Add the ScrollToTop component here */}
         <WaterBackground>
           <Routes>   
             <Route path='/admin' element={<SignIn/>} />  
@@ -56,9 +56,11 @@ function App() {
 function MainLayout() {
   return(
     <>
-    
+    <Marquee/>
      <Header/>
      {/* <UpArrow/> */}
+     <ScrollToTop/>
+
         <Routes>
           
           <Route path="/" element={<Home/>} />

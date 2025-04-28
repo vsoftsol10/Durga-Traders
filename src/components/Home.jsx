@@ -22,7 +22,8 @@ import { Box } from '@mui/material';
 import Carousel from '../Animation/Carousel';
 import BookDemo from '../assets/Book demo icon.png';
 import BestSellingProducts from './BestSellingProducts';
-import UpArrow from './UpArrow ';
+import CuttingEdge from './CuttingEdge';
+import DurgaPurifier from './DurgaPurifier';
 
 
 const Home = () => {
@@ -105,7 +106,7 @@ const Home = () => {
       <Carousel />
       <BestSellingProducts />
       <CounterBox />
-      <UpArrow/>
+      
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
         <Box
@@ -352,6 +353,8 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
+      <CuttingEdge/>
+      <DurgaPurifier/>
 
       <AnimatedTestimonials />
 
