@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./AboutUS.css";
 import aboutGif from "../assets/About.gif";
 import since from "../assets/since.gif";
-import details from "../assets/Durga Traders Details.png";
 import CounterBox from "../Animation/CounterBox";
 // Import Font Awesome components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

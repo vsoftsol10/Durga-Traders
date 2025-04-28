@@ -107,19 +107,19 @@ const products = [
     },
     {
         id: 2,
-        name: 'DT-WaterLily',
+        name: 'DT-Roma',
         image: BestSellTwo,
         description: 'RO+UV+UF 8 Stage Purification...',
     },
     {
         id: 3,
-        name: 'DT-Roma',
+        name: 'DT-AquaTouch',
         image: BestSellThree,
         description: 'RO+UV+UF 8 Stage Purification...',
     },
     {
         id: 4,
-        name: 'DT-AquaTouch',
+        name: 'DT-WaterLily',
         image: BestSellFour,
         description: 'RO+UV+UF 8 Stage Purification...',
     },
