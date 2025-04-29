@@ -52,19 +52,19 @@ const Services = () => {
       path: '/services/dm-plant'
     },
     { 
-      title: 'STP SERVICES', 
+      title: 'SEWAGE TREATMENT PLANT', 
       description: 'Comprehensive sewage treatment solutions meeting environmental standards for discharge or reuse. Our STP services ensure proper treatment of wastewater for safe disposal or recycling.',
       image: stp,
       path: '/services/stp-services'
     },
     { 
-      title: 'ETP SERVICES', 
+      title: 'EFFLUENT TREATMENT PLANTS', 
       description: 'Advanced effluent treatment removing industrial contaminants for environmentally safe discharge. Our ETP services help industries comply with environmental regulations while minimizing their ecological footprint.',
       image: etp,
       path: '/services/etp-services'
     },
     { 
-      title: 'DISPENSER SERVICES', 
+      title: 'WATER DISPENSER ', 
       description: 'Premium water dispensers for instant access to purified water in residential and commercial settings. Our dispensers provide convenient, on-demand access to clean drinking water.',
       image: dispenser,
       path: '/services/dispenser-services'

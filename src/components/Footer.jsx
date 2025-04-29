@@ -27,9 +27,9 @@ export default function Footer() {
     "Water Softening System": "/services/water-softening",
     "Iron Removal": "/services/iron-removal",
     "DM Plant": "/services/dm-plant",
-    "STP Services": "/services/stp-services",
-    "ETP Services": "/services/etp-services",
-    "Dispenser Services": "/services/dispenser-services"
+    "Sewage Treatment Plant": "/services/stp-services",
+    "Effluent Treatment Plants": "/services/etp-services",
+    "Water Dispenser": "/services/dispenser-services"
   };
 
   // Define navigation paths for quick links

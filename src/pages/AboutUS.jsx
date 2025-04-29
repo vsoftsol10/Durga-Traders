@@ -39,7 +39,7 @@ const AboutUs = () => {
         affordable water purifiers. DTRO is mainly dealing in Reverse Osmosis
         base water treatment components, Domestic, Commercial and Industrial
         R.O. systems. We have good engineering and technical professionals having
-        more than 14 years experience in water treatment field.
+        more than <span style={{fontSize:"28px"  ,fontWeight:"bolder", fontFamily:"tagesschrift-regular"}}>18 years experience  </span>in water treatment field.
       </p>
       
       <img src={since} alt="AboutGif" className="aboutImage"/>
