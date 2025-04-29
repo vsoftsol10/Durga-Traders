@@ -32,16 +32,17 @@ import Blog from './components/Blog';
 import SignIn from './Admin/SignIn';
 import Dashboard from './Admin/Dashboard';
 import CheckoutPage from './pages/CheckoutPage';
-import ScrollToTop from './components/ScrollToTop';
 import ProductDetailsPage from './pages/ProductDetails/ProductDetailsPage';
 import Marquee from './components/Marquee';
-// import UpArrow from './components/UpArrow ';
+import ScrollToTop from './Animation/ScrollToTop';
+import UpArrow from './components/UpArrow';
 
 function App() {
   return (
     <>
       
         <WaterBackground>
+          <ScrollToTop/>
           <Routes>   
             <Route path='/admin' element={<SignIn/>} />  
             <Route path='/admin/dashboard' element={<Dashboard/>}/>
@@ -58,8 +59,7 @@ function MainLayout() {
     <>
     <Marquee/>
      <Header/>
-     {/* <UpArrow/> */}
-     <ScrollToTop/>
+     <UpArrow/>
 
         <Routes>
           
