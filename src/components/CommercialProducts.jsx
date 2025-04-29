@@ -184,6 +184,50 @@ const CommercialProducts = () => {
           </Container>
         </Box>
 
+        {/* 100+ Happy Customers Section */}
+        <Box sx={{ width: '100%', backgroundColor: '#022279', color: 'white', py: 5, mb: 6, borderRadius: '16px' }}>
+          <Container maxWidth="xl">
+            <Box sx={{ 
+              display: 'flex', 
+              flexDirection: { xs: 'column', md: 'row' }, 
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              gap: { xs: 4, md: 8 }
+            }}>
+              <Box>
+                <Typography variant="h2" sx={{ 
+                  fontWeight: 'bold', 
+                  fontSize: { xs: '3rem', sm: '4rem', md: '5rem' },
+                  color: '#00c7e8'
+                }}>
+                  100+
+                </Typography>
+                <Typography variant="h5" sx={{ 
+                  fontWeight: 'bold',
+                  fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' } 
+                }}>
+                  Happy Customers
+                </Typography>
+              </Box>
+              
+              <Box sx={{ 
+                maxWidth: '600px',
+                borderLeft: { xs: 'none', md: '4px solid #00c7e8' },
+                pl: { xs: 0, md: 4 }
+              }}>
+                <Typography variant="body1" sx={{ 
+                  fontSize: { xs: '1rem', md: '1.25rem' },
+                  fontStyle: 'italic'
+                }}>
+                  "Durga Traders has consistently delivered exceptional commercial water purification solutions for our hotel chain. Their systems are reliable, efficient, and have significantly improved water quality across all our properties."
+                </Typography>
+               
+              </Box>
+            </Box>
+          </Container>
+        </Box>
+
         <Box textAlign="center" mb={5}>
           <Typography
             variant="h4"
