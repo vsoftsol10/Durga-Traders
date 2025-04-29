@@ -263,7 +263,8 @@
   background: rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   padding: 25px;
-  margin-top: 5px;width: 130%;
+  margin-top: 5px;
+  width: 130%;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.4s ease;
@@ -408,6 +409,9 @@
     left: 50%;
     transform: translateX(-50%);
   }
+  .footer__contact-card{
+    width:100%
+  }
 }
 
 @media (max-width: 480px) {
@@ -428,7 +432,9 @@
 } */
 @media (max-width:380px){
   .footer__contact-card{
-    width:100%
+    width:105%;
+    margin-left: -12px;
+    padding: 10px;
   }
 }
 
