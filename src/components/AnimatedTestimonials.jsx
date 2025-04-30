@@ -109,8 +109,9 @@ const AnimatedTestimonials = () => {
             top: 10,
             fontSize: '8rem',
             fontFamily: 'serif',
-            opacity: 0.2,
+            opacity: 0.8,
             zIndex: 0,
+            color:'yellow'
           }}
         >
           ❞
@@ -122,9 +123,10 @@ const AnimatedTestimonials = () => {
             bottom: 10,
             fontSize: '8rem',
             fontFamily: 'serif',
-            opacity: 0.2,
+            opacity: 0.8,
             transform: 'rotate(180deg)',
             zIndex: 0,
+            color:'yellow'
           }}
         >
           ❞

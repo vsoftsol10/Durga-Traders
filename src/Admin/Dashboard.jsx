@@ -24,10 +24,12 @@ const Dashboard = () => {
     image: '',
     price: '',
     rating: '',
-    priceOptions: []
+    priceOptions: [],
+    benefits: [],        // New field for benefits
+    specifications: {}   // New field for specifications
   });
 
-  // Orders state (new)
+  // Orders state
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
   const [orderError, setOrderError] = useState(null);
@@ -45,6 +47,29 @@ const Dashboard = () => {
     name: '',
     price: ''
   });
+  
+  // New state for benefits and specifications
+  const [currentBenefit, setCurrentBenefit] = useState('');
+  const [currentSpecKey, setCurrentSpecKey] = useState('');
+  const [currentSpecValue, setCurrentSpecValue] = useState('');
+  
+  // Common specification fields that might be used for products like water purifiers
+  const [commonSpecFields] = useState([
+    "Dimension",
+    "Filter Replacement Cycle",
+    "Input Voltage",
+    "Installation",
+    "Material Of Construction",
+    "Maximum Inlet Pressure",
+    "Minimum Inlet Pressure",
+    "Operating Voltage",
+    "Purification Capacity",
+    "Purification Cartridges",
+    "Stages Of Purification",
+    "Total Dissolved Solids (TDS) Levels",
+    "UF Cartridge",
+    "UV Disinfection Column"
+  ]);
 
   const productsRef = collection(db, 'products');
   const ordersRef = collection(db, 'orders');
@@ -56,7 +81,7 @@ const Dashboard = () => {
     }
   }, [activeTab]);
 
-  // New effect to fetch orders
+  // Effect to fetch orders
   useEffect(() => {
     if (activeTab === 'orders') {
       fetchOrders();
@@ -100,7 +125,7 @@ const Dashboard = () => {
     }
   };
 
-  // New function to fetch orders
+  // Function to fetch orders
   const fetchOrders = async () => {
     try {
       setLoadingOrders(true);
@@ -182,7 +207,6 @@ const Dashboard = () => {
   };
 
   // Your existing product functions (addPriceOption, removePriceOption, handleAdd, etc.)
-  // Keep all your existing product-related functions here
   const addPriceOption = () => {
     if (!currentOption.name || !currentOption.price) {
       alert('Please provide both name and price for the option');
@@ -213,6 +237,118 @@ const Dashboard = () => {
     });
   };
 
+  // NEW: Add benefit to the new product
+  const addBenefit = () => {
+    if (!currentBenefit) {
+      alert('Please enter a benefit');
+      return;
+    }
+    
+    setNewProduct({
+      ...newProduct,
+      benefits: [...newProduct.benefits, currentBenefit]
+    });
+    
+    // Reset the current benefit field
+    setCurrentBenefit('');
+  };
+
+  // NEW: Remove benefit from the new product
+  const removeBenefit = (index) => {
+    const updatedBenefits = [...newProduct.benefits];
+    updatedBenefits.splice(index, 1);
+    setNewProduct({
+      ...newProduct,
+      benefits: updatedBenefits
+    });
+  };
+
+  // NEW: Add specification to the new product
+  const addSpecification = () => {
+    if (!currentSpecKey || !currentSpecValue) {
+      alert('Please provide both specification key and value');
+      return;
+    }
+    
+    setNewProduct({
+      ...newProduct,
+      specifications: {
+        ...newProduct.specifications,
+        [currentSpecKey]: currentSpecValue
+      }
+    });
+    
+    // Reset the current specification fields
+    setCurrentSpecKey('');
+    setCurrentSpecValue('');
+  };
+
+  // NEW: Remove specification from the new product
+  const removeSpecification = (key) => {
+    const updatedSpecs = { ...newProduct.specifications };
+    delete updatedSpecs[key];
+    setNewProduct({
+      ...newProduct,
+      specifications: updatedSpecs
+    });
+  };
+
+  // NEW: Add benefit when editing a product
+  const addEditingBenefit = () => {
+    if (!currentBenefit) {
+      alert('Please enter a benefit');
+      return;
+    }
+    
+    setEditingProduct({
+      ...editingProduct,
+      benefits: [...(editingProduct.benefits || []), currentBenefit]
+    });
+    
+    // Reset the current benefit field
+    setCurrentBenefit('');
+  };
+
+  // NEW: Remove benefit when editing a product
+  const removeEditingBenefit = (index) => {
+    const updatedBenefits = [...(editingProduct.benefits || [])];
+    updatedBenefits.splice(index, 1);
+    setEditingProduct({
+      ...editingProduct,
+      benefits: updatedBenefits
+    });
+  };
+
+  // NEW: Add specification when editing a product
+  const addEditingSpecification = () => {
+    if (!currentSpecKey || !currentSpecValue) {
+      alert('Please provide both specification key and value');
+      return;
+    }
+    
+    setEditingProduct({
+      ...editingProduct,
+      specifications: {
+        ...(editingProduct.specifications || {}),
+        [currentSpecKey]: currentSpecValue
+      }
+    });
+    
+    // Reset the current specification fields
+    setCurrentSpecKey('');
+    setCurrentSpecValue('');
+  };
+
+  // NEW: Remove specification when editing a product
+  const removeEditingSpecification = (key) => {
+    const updatedSpecs = { ...(editingProduct.specifications || {}) };
+    delete updatedSpecs[key];
+    setEditingProduct({
+      ...editingProduct,
+      specifications: updatedSpecs
+    });
+  };
+
   const handleAdd = async () => {
     if (!newProduct.name || !newProduct.price || !newProduct.image) {
       alert('Please fill in required fields (Name, Price, and Image URL)');
@@ -227,8 +363,12 @@ const Dashboard = () => {
         priceOptions: newProduct.priceOptions.map(option => ({
           name: option.name,
           price: Number(option.price)
-        }))
+        })),
+        // Include the new fields
+        benefits: newProduct.benefits || [],
+        specifications: newProduct.specifications || {}
       });
+      
       setNewProduct({ 
         name: '', 
         description: '', 
@@ -236,8 +376,11 @@ const Dashboard = () => {
         image: '', 
         price: '', 
         rating: '',
-        priceOptions: [] 
+        priceOptions: [],
+        benefits: [],
+        specifications: {} 
       });
+      
       fetchProducts();
     } catch (error) {
       console.error("Error adding product:", error);
@@ -256,12 +399,14 @@ const Dashboard = () => {
   };
 
   const handleEdit = (product) => {
-    // Ensure priceOptions is defined when editing
-    const productWithOptions = {
+    // Ensure optional fields are defined when editing
+    const productWithDefaults = {
       ...product,
-      priceOptions: product.priceOptions || []
+      priceOptions: product.priceOptions || [],
+      benefits: product.benefits || [],
+      specifications: product.specifications || {}
     };
-    setEditingProduct(productWithOptions);
+    setEditingProduct(productWithDefaults);
   };
 
   const addEditingPriceOption = () => {
@@ -304,7 +449,10 @@ const Dashboard = () => {
         priceOptions: (editingProduct.priceOptions || []).map(option => ({
           name: option.name,
           price: Number(option.price)
-        }))
+        })),
+        // Include the new fields
+        benefits: editingProduct.benefits || [],
+        specifications: editingProduct.specifications || {}
       });
       setEditingProduct(null);
       fetchProducts();
@@ -376,7 +524,10 @@ const Dashboard = () => {
   // Function to manually send/resend order confirmation email
   const resendOrderEmail = async (order) => {
     try {
-      // You need to have the sendOrderEmail cloud function set up as described previously
+      // You need to have the sendOrderEmail cloud function set up
+      alert("This function requires the sendOrderEmail cloud function to be set up");
+      // Uncomment when you have the function set up
+      /*
       const sendOrderEmail = httpsCallable(functions, 'sendOrderEmail');
       await sendOrderEmail({
         orderId: order.id,
@@ -385,6 +536,7 @@ const Dashboard = () => {
       });
       
       alert("Order confirmation email resent successfully");
+      */
     } catch (error) {
       console.error("Error sending email:", error);
       alert("Failed to resend email: " + error.message);
@@ -414,7 +566,7 @@ const Dashboard = () => {
       {/* Products Tab */}
       {activeTab === 'products' && (
         <>
-          {/* Your existing product management code */}
+          {/* Product addition form with new fields */}
           <div className="add-product-form">
             <h3>Add Product</h3>
             <input
@@ -493,6 +645,99 @@ const Dashboard = () => {
                   className="add-option-btn"
                 >
                   Add Option
+                </button>
+              </div>
+            </div>
+            
+            {/* NEW: Benefits Section */}
+            <div className="benefits-section">
+              <h4>Product Benefits</h4>
+              
+              <div className="benefits-list">
+                {newProduct.benefits.map((benefit, index) => (
+                  <div key={index} className="benefit-item">
+                    <span>{index}: {benefit}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => removeBenefit(index)}
+                      className="remove-benefit-btn"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="add-benefit-form">
+                <input
+                  type="text"
+                  placeholder="Product Benefit"
+                  value={currentBenefit}
+                  onChange={(e) => setCurrentBenefit(e.target.value)}
+                />
+                <button 
+                  type="button" 
+                  onClick={addBenefit}
+                  className="add-benefit-btn"
+                >
+                  Add Benefit
+                </button>
+              </div>
+            </div>
+            
+            {/* NEW: Specifications Section */}
+            <div className="specifications-section">
+              <h4>Product Specifications</h4>
+              
+              <div className="specifications-list">
+                {Object.entries(newProduct.specifications).map(([key, value], index) => (
+                  <div key={index} className="specification-item">
+                    <span><strong>{key}:</strong> {value}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => removeSpecification(key)}
+                      className="remove-spec-btn"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="add-specification-form">
+                <select
+                  value={currentSpecKey}
+                  onChange={(e) => setCurrentSpecKey(e.target.value)}
+                >
+                  <option value="">Select or type specification</option>
+                  {commonSpecFields.map((field, index) => (
+                    <option key={index} value={field}>{field}</option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  placeholder="Custom Specification"
+                  value={currentSpecKey}
+                  onChange={(e) => setCurrentSpecKey(e.target.value)}
+                  list="specificationsList"
+                />
+                <datalist id="specificationsList">
+                  {commonSpecFields.map((field, index) => (
+                    <option key={index} value={field}>{field}</option>
+                  ))}
+                </datalist>
+                <input
+                  type="text"
+                  placeholder="Specification Value"
+                  value={currentSpecValue}
+                  onChange={(e) => setCurrentSpecValue(e.target.value)}
+                />
+                <button 
+                  type="button" 
+                  onClick={addSpecification}
+                  className="add-spec-btn"
+                >
+                  Add Specification
                 </button>
               </div>
             </div>
@@ -585,6 +830,99 @@ const Dashboard = () => {
                             className="add-option-btn"
                           >
                             Add Option
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* NEW: Edit Benefits Section */}
+                      <div className="edit-benefits-section">
+                        <h4>Product Benefits</h4>
+                        
+                        <div className="benefits-list">
+                          {(editingProduct.benefits || []).map((benefit, index) => (
+                            <div key={index} className="benefit-item">
+                              <span>{index}: {benefit}</span>
+                              <button 
+                                type="button" 
+                                onClick={() => removeEditingBenefit(index)}
+                                className="remove-benefit-btn"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <div className="add-benefit-form">
+                          <input
+                            type="text"
+                            placeholder="Product Benefit"
+                            value={currentBenefit}
+                            onChange={(e) => setCurrentBenefit(e.target.value)}
+                          />
+                          <button 
+                            type="button" 
+                            onClick={addEditingBenefit}
+                            className="add-benefit-btn"
+                          >
+                            Add Benefit
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* NEW: Edit Specifications Section */}
+                      <div className="edit-specifications-section">
+                        <h4>Product Specifications</h4>
+                        
+                        <div className="specifications-list">
+                          {Object.entries(editingProduct.specifications || {}).map(([key, value], index) => (
+                            <div key={index} className="specification-item">
+                              <span><strong>{key}:</strong> {value}</span>
+                              <button 
+                                type="button" 
+                                onClick={() => removeEditingSpecification(key)}
+                                className="remove-spec-btn"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <div className="add-specification-form">
+                          <select
+                            value={currentSpecKey}
+                            onChange={(e) => setCurrentSpecKey(e.target.value)}
+                          >
+                            <option value="">Select or type specification</option>
+                            {commonSpecFields.map((field, index) => (
+                              <option key={index} value={field}>{field}</option>
+                            ))}
+                          </select>
+                          <input
+                            type="text"
+                            placeholder="Custom Specification"
+                            value={currentSpecKey}
+                            onChange={(e) => setCurrentSpecKey(e.target.value)}
+                            list="editSpecificationsList"
+                          />
+                          <datalist id="editSpecificationsList">
+                            {commonSpecFields.map((field, index) => (
+                              <option key={index} value={field}>{field}</option>
+                            ))}
+                          </datalist>
+                          <input
+                            type="text"
+                            placeholder="Specification Value"
+                            value={currentSpecValue}
+                            onChange={(e) => setCurrentSpecValue(e.target.value)}
+                          />
+                          <button 
+                            type="button" 
+                            onClick={addEditingSpecification}
+                            className="add-spec-btn"
+                          >
+                            Add Specification
                           </button>
                         </div>
                       </div>

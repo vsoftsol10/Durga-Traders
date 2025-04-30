@@ -14,19 +14,6 @@
 
 }
 
-<<<<<<< HEAD
-=======
-/* .dashboard-container {
-  padding: 30px;
-  max-width: 100%;
-  margin: 0;
-  font-family: 'Montserrat', 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  color: #2b3a4a;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-} */
->>>>>>> origin/master
 
 .dashboard-container h2 {
   font-size: 32px;
@@ -41,7 +28,6 @@
   text-align: center;
 }
 
-<<<<<<< HEAD
 
 .dashboard-tabs {
   display: flex;
@@ -69,8 +55,6 @@
 #0062cc;
 }
 
-=======
->>>>>>> origin/master
 /* Debug Info Panel - Hidden in production */
 .debug-info, 
 .debug-message {
@@ -463,7 +447,6 @@
   transform: translateY(-2px);
   box-shadow: 0 5px 10px rgba(231, 76, 60, 0.3);
 }
-<<<<<<< HEAD
 /* Orders Section */
 .orders-section {
   width: 100%;
@@ -915,8 +898,6 @@
     display: none;
   }
 }
-=======
->>>>>>> origin/master
 
 /* Edit mode styling */
 .product-card .edit-mode {
@@ -1123,4 +1104,485 @@
 .product-list:after,
 .product-card:after {
   display: none;
+}
+
+/* ========== BENEFITS SECTION STYLING ========== */
+.benefits-section {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9fbfd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.benefits-section h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: #2c6e49;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 2px solid #4c956c;
+  padding-bottom: 10px;
+}
+
+.benefits-list {
+  margin-bottom: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: #4c956c #f0f0f0;
+}
+
+.benefits-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.benefits-list::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.benefits-list::-webkit-scrollbar-thumb {
+  background-color: #4c956c;
+  border-radius: 10px;
+}
+
+.benefit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-left: 3px solid #4c956c;
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+  background-color: #f0f8f3;
+  transform: translateX(3px);
+  box-shadow: 0 3px 8px rgba(76, 149, 108, 0.2);
+}
+
+.benefit-item span {
+  flex: 1;
+  font-size: 14px;
+  color: #2c3e50;
+  font-weight: 500;
+  padding-right: 10px;
+}
+
+.add-benefit-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.add-benefit-form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 15px;
+  border: 1px solid #e1e5eb;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f8f9fa;
+  color: #495057;
+  transition: all 0.3s ease;
+}
+
+.add-benefit-form input:focus {
+  border-color: #4c956c;
+  box-shadow: 0 0 0 3px rgba(76, 149, 108, 0.2);
+  outline: none;
+  background-color: #fff;
+}
+
+.add-benefit-btn {
+  padding: 12px 18px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: none;
+  background: linear-gradient(135deg, #4c956c 0%, #2c6e49 100%);
+  color: white;
+  box-shadow: 0 4px 8px rgba(76, 149, 108, 0.3);
+  white-space: nowrap;
+}
+
+.add-benefit-btn:hover {
+  background: linear-gradient(135deg, #2c6e49 0%, #4c956c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(76, 149, 108, 0.4);
+}
+
+.remove-benefit-btn {
+  background-color: #f8f9fa;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 6px 12px;
+  font-size: 12px;
+  min-width: 80px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.remove-benefit-btn:hover {
+  background-color: #e74c3c;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+}
+
+/* Empty state for benefits */
+.benefits-list:empty::after {
+  content: "No benefits added yet";
+  display: block;
+  text-align: center;
+  padding: 20px;
+  color: #95a5a6;
+  font-style: italic;
+}
+
+/* Benefits in product cards */
+.product-card .benefits {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #f0f8f3;
+  border-radius: 6px;
+}
+
+.product-card .benefits h5 {
+  font-size: 16px;
+  color: #2c6e49;
+  margin-bottom: 10px;
+  font-weight: 600;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.product-card .benefits ul {
+  padding-left: 0;
+  list-style-type: none;
+  margin: 0;
+}
+
+.product-card .benefits li {
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #2c3e50;
+  padding-left: 20px;
+  position: relative;
+}
+
+.product-card .benefits li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4c956c;
+  font-weight: bold;
+}
+
+/* ========== SPECIFICATIONS SECTION STYLING ========== */
+.specifications-section {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f5f7fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.specifications-section h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: #1a3d66;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.specifications-list {
+  margin-bottom: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: #3498db #f0f0f0;
+}
+
+.specifications-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.specifications-list::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.specifications-list::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 10px;
+}
+
+.specification-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.specification-item:hover {
+  border-color: #3498db;
+  background-color: #f8fcff;
+  box-shadow: 0 3px 8px rgba(52, 152, 219, 0.25);
+}
+
+.specification-item span {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.specification-item span strong {
+  color: #1a3d66;
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+.specification-item span.spec-value {
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: right;
+}
+
+.add-specification-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  margin-top: 15px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.add-specification-form input,
+.add-specification-form select {
+  padding: 12px 15px;
+  border: 1px solid #e1e5eb;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f8f9fa;
+  color: #495057;
+  transition: all 0.3s ease;
+}
+
+.add-specification-form select {
+  background-image: linear-gradient(45deg, transparent 50%, #3498db 50%), 
+                    linear-gradient(135deg, #3498db 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px), 
+                       calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px, 
+                   5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 35px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.add-specification-form input:focus, 
+.add-specification-form select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  outline: none;
+  background-color: #fff;
+}
+
+.add-spec-btn {
+  padding: 12px 18px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: none;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+  white-space: nowrap;
+}
+
+.add-spec-btn:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+}
+
+.remove-spec-btn {
+  background-color: #f8f9fa;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  padding: 6px 12px;
+  font-size: 12px;
+  min-width: 80px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.remove-spec-btn:hover {
+  background-color: #e74c3c;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+}
+
+/* Empty state */
+.specifications-list:empty::after {
+  content: "No specifications added yet";
+  display: block;
+  text-align: center;
+  padding: 20px;
+  color: #95a5a6;
+  font-style: italic;
+}
+
+/* Specifications in product cards */
+.product-card .specifications {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #f5f7fa;
+  border-radius: 6px;
+}
+
+.product-card .specifications h5 {
+  font-size: 16px;
+  color: #1a3d66;
+  margin-bottom: 10px;
+  font-weight: 600;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.product-card .specifications .spec-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed #e0e0e0;
+  font-size: 13px;
+}
+
+.product-card .specifications .spec-item:last-child {
+  border-bottom: none;
+}
+
+.product-card .specifications .spec-name {
+  font-weight: 600;
+  color: #1a3d66;
+  flex: 1;
+}
+
+.product-card .specifications .spec-value {
+  color: #2c3e50;
+  font-weight: 500;
+  text-align: right;
+  margin-left: 10px;
+}
+
+/* ========== SHARED RESPONSIVE STYLES ========== */
+@media (max-width: 992px) {
+  .add-specification-form {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .add-spec-btn {
+    grid-column: span 2;
+  }
+  
+  .specification-item span {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .specification-item span strong {
+    margin-bottom: 4px;
+    display: block;
+  }
+  
+  .specification-item span.spec-value {
+    text-align: left;
+  }
+  
+  .add-benefit-form {
+    flex-direction: column;
+  }
+  
+  .add-benefit-form input,
+  .add-benefit-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .add-specification-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .add-spec-btn {
+    grid-column: 1;
+  }
+  
+  .specifications-section,
+  .benefits-section {
+    padding: 15px;
+  }
+  
+  .specifications-list,
+  .benefits-list {
+    max-height: 200px;
+  }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.benefit-item, .specification-item {
+  animation: fadeIn 0.3s ease-out forwards;
 }
