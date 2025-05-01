@@ -721,11 +721,11 @@ const Dashboard = () => {
                   onChange={(e) => setCurrentSpecKey(e.target.value)}
                   list="specificationsList"
                 />
-                <datalist id="specificationsList">
+                {/* <datalist id="specificationsList">
                   {commonSpecFields.map((field, index) => (
                     <option key={index} value={field}>{field}</option>
                   ))}
-                </datalist>
+                </datalist> */}
                 <input
                   type="text"
                   placeholder="Specification Value"
