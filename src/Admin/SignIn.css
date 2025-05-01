@@ -17,7 +17,7 @@
   
   /* Logo styling */
   .logo {
-    position: absolute;
+    position: relative;
     top: 1.25rem;
     left: 1.25rem;
     color: white;
@@ -84,12 +84,14 @@
   /* Input label */
   .input-label {
     display: block;
-    color: #9CA3AF; /* gray-400 */
+    color: aqua;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.25rem;
   }
+
+
   
   /* Input field */
   .input-field {
@@ -143,6 +145,7 @@
   .form-link:hover {
     color: #06B6D4; /* cyan-500 */
   }
+
 
   @media (max-width: 768px){
     .content-container{
