@@ -1,54 +1,72 @@
-import { useState, useEffect } from 'react';
-import './UpArrow.css';
+import React, { useState, useEffect } from 'react';
+import './UpArrow.css';  // Import the CSS file
 
 const UpArrow = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  // Add scroll event listener
+  const [isVisible, setIsVisible] = useState(false);
+  
   useEffect(() => {
-    const checkScroll = () => {
-      if (window.pageYOffset > 100) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+    // Function to handle scroll
+    const handleScroll = () => {
+      // Different ways to detect scroll position for maximum compatibility
+      const scrollY = window.scrollY || window.pageYOffset;
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      
+      // Use whichever value is available
+      const currentScroll = scrollY || scrollTop;
+      
+      console.log("Current scroll position:", currentScroll);
+      
+      // Show button when page is scrolled down 100px
+      setIsVisible(currentScroll > 100);
     };
-
-    // Initial check
-    checkScroll();
-
-    window.addEventListener('scroll', checkScroll);
-    return () => window.removeEventListener('scroll', checkScroll);
+    
+    // Add event listener for both window and document
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Check immediately on component mount
+    handleScroll();
+    
+    // Set up a periodic check as a fallback
+    const intervalCheck = setInterval(handleScroll, 1000);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+      clearInterval(intervalCheck);
+    };
   }, []);
-
-  // Function to scroll to top
+  
   const scrollToTop = () => {
-    try {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    } catch (error) {
-      window.scrollTo(0, 0);
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    
+    // Also try these alternatives if the above doesn't work
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
-
+  
   return (
-    <div className={`up-arrow-container ${isVisible ? 'up-arrow-visible' : 'up-arrow-hidden'}`}>
-      <button
-        className="up-arrow-button animate-pulse"
-        onClick={scrollToTop}
-        aria-label="Scroll to top"
+    <button
+      className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`}
+      onClick={scrollToTop}
+      aria-label="Scroll to top"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          className="up-arrow-icon"
-        >
-          <path d="M12 19V6M5 13l7-7 7 7" />
-        </svg>
-      </button>
-    </div>
+        <path d="M12 19V6M5 13l7-7 7 7" />
+      </svg>
+    </button>
   );
 };
 

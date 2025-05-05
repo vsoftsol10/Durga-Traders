@@ -414,39 +414,40 @@
 	width: 100%;
   }
   
-  /* Logo Styling */
+  
   .logoBackground {
-	/* Container for the entire logo area */
-	background-color: white;
-	width:30%;
-	height: 90%;
-	margin-left: -6%;
-border: 2px solid #022279;
-	border-radius: 0px 120px 0px 120px;
+    background-color: white;
+    width: 30%;
+    height: 90%;
+    margin-left: 0; 
+    border: 2px solid #022279;
+    border-radius: 0px 120px 0px 120px;
+    overflow: hidden; 
 }
-  
-  .logo-container {
-	display: flex;
-	align-items: center;
-	height: 100%;
-	z-index: 2;
-	background-color: #ffffff; /* Already white */
-	max-height: 100%;
-	overflow: hidden;
-	padding: 8px; /* Optional: adds some space around the logo */
-	border-radius: 0px 120px 0px 120px;
-  }
-	
-  .logo {
-	position: relative;
-	display: flex;
-	/* animation: float-new 6s ease-in-out infinite; */
-	height: 200%;
-	object-fit: contain;
-	margin-top: -70px;
-	margin-left: 30px;
-  }
-  
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 100%;
+    z-index: 2;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 0px 120px 0px 120px;
+}
+
+.logo {
+    position: relative;
+    display: flex;
+    /* animation: float-new 6s ease-in-out infinite; */
+    height: 50%; 
+    max-width: 65%; 
+    object-fit: contain;
+    margin-left: 35px;
+	margin-bottom: 25px;
+}
+
   /* If you want to ensure the logo link doesn't interfere with background */
   .logolink {
 	display: flex;
