@@ -101,13 +101,13 @@ const AnimatedTestimonials = () => {
           </Typography>
         </Box>
 
-        {/* Decorative Quote Marks */}
+        {/* Decorative Quote Marks
         <Box
           sx={{
             position: 'absolute',
             right: { xs: 10, md: 50 },
-            top: 10,
-            fontSize: '8rem',
+            top: 120,
+            fontSize: '5rem',
             fontFamily: 'serif',
             opacity: 0.8,
             zIndex: 0,
@@ -120,8 +120,8 @@ const AnimatedTestimonials = () => {
           sx={{
             position: 'absolute',
             left: { xs: 10, md: 50 },
-            bottom: 10,
-            fontSize: '8rem',
+            bottom: 5,
+            fontSize: '5rem',
             fontFamily: 'serif',
             opacity: 0.8,
             transform: 'rotate(180deg)',
@@ -130,7 +130,7 @@ const AnimatedTestimonials = () => {
           }}
         >
           ❞
-        </Box>
+        </Box> */}
 
         {/* Navigation Dots */}
         <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
