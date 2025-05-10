@@ -122,7 +122,7 @@ export default function Carousel() {
     //   displayTime: 10000 // 10 seconds for the GIF slide
     // },
     {
-      image: HomeOne,
+      image: HomeThree,
       title: "Welcome to Durga Traders",
       subtitle: "Pure Water, Direct Delivery",
       buttonText: "Get Products",
@@ -136,7 +136,7 @@ export default function Carousel() {
       displayTime: 5000
     },
     {
-      image: HomeThree,
+      image: HomeOne,
       title: "Welcome to Durga Traders",
       subtitle: "Reliable & Convenient",
       buttonText: "Get Products",
