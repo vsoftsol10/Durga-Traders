@@ -133,7 +133,7 @@ function Navbar() {
       className={`${isHeaderMinimized ? 'minimized' : ''} ${scrollPosition > 50 ? 'scrolled' : ''}`}
     >
       <div className="header-container">
-        {/* Logo Section with animated elements */}
+        {/* Logo Section - Modified to always be visible */}
         <div className="logoBackground">
           <div className="logo-container">
             <a href="/" className="logolink">
@@ -144,12 +144,10 @@ function Navbar() {
 
         {/* Navigation with modern interactions */}
         <nav ref={navRef}>
-          <div className="nav-backdrop"></div>
+          <div className="nav-backdrop" onClick={showNavbar}></div>
           <div className="nav-content">
             <div className="mobile-nav-header">
-              <div className="mobile-logo">
-                <img src={logo} alt="Durga Traders" className="mbl-logo"/>
-              </div>
+              {/* Remove duplicate logo from mobile menu */}
               <button className="nav-close-btn" onClick={showNavbar}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -267,7 +265,6 @@ function Navbar() {
                   </svg>
                 </a>
               </div>
-              
             </div>
           </div>
         </nav>
@@ -276,7 +273,7 @@ function Navbar() {
         <div className="header-actions">
           {/* Search button and form */}
           <div className="search-container">
-            <button className="action-btn search-btn" onClick={toggleSearch}>
+            <button className="search-btn" onClick={toggleSearch}>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -313,15 +310,16 @@ function Navbar() {
             Get a Quote
           </a>
           
-       {/* Cart button updated with proper class name */}
-<a href="/personal-products" className="cart-btn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="9" cy="21" r="1"></circle>
-    <circle cx="20" cy="21" r="1"></circle>
-    <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
-  </svg>
-  <span className="cart-count">{cartCount}</span>
-</a>
+          {/* Cart button */}
+          <a href="/personal-products" className="cart-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+            </svg>
+            <span className="cart-count">{cartCount}</span>
+          </a>
+          
           {/* Mobile menu button */}
           <button className="mobile-menu-btn" onClick={showNavbar}>
             <span className="hamburger-line"></span>
