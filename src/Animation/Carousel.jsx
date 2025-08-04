@@ -152,9 +152,11 @@ export default function Carousel() {
           const img = new Image();
           img.src = slide.image;
           img.onload = () => {
-            setImagesLoaded(prev => ({...prev, [index]: true}));
+            setImagesLoaded((prev) => ({ ...prev, [index]: true }));
+            if (index === 0) setIsLoading(false); // ✅ Show loader only for first image
             resolve();
           };
+
           img.onerror = () => {
             setImagesLoaded(prev => ({...prev, [index]: true})); // Mark as loaded even on error
             resolve();
