@@ -14,7 +14,7 @@ const DispenserService = () => {
   
   // Function to handle navigation back to the service page
   const handleBackClick = () => {
-    navigate(-1); // Adjust this path to match your route to the services page
+    navigate("/service"); // Adjust this path to match your route to the services page
   };
   
   return (

@@ -7,13 +7,14 @@
   }
 /* Back button styles */
 .back-button-container {
-  position: relative;
-  top: 20px;
+  position: absolute;
+  top: 25px;
   left: 20px;
   z-index: 10000;
 }
 
 .back-button {
+  position: absolute;
   display: flex;
   align-items: center;
   gap: 8px;

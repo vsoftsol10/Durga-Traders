@@ -10,7 +10,7 @@ const SeaWater = () => {
     setIsVisible(true);
   }, []);
   const handleBack = () => {
-    navigate(-1);
+    navigate("/service");
   };
   return (
     <div className="ro-container">

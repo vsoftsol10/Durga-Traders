@@ -79,10 +79,9 @@ const CounterItem = ({ icon: IconComponent, count, label }) => {
 
 export default function CounterBox() {
   const counters = [
-    { icon: WaterIcon, count: 400, label: 'Water purifiers delivered' },
-    { icon: PeopleIcon, count: 800, label: 'Happy customers' },
-    { icon: HandymanIcon, count: 30, label: 'Expert workers' },
-    { icon: Inventory2Icon, count: 1000, label: 'Orders fulfilled' },
+    { icon: WaterIcon, count: 2000, label: 'Water purifiers delivered' },
+    { icon: PeopleIcon, count: 2000, label: 'Happy customers' },
+    { icon: HandymanIcon, count: 10, label: 'Expert workers' },
   ];
 
   return (

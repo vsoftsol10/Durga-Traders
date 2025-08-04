@@ -11,7 +11,7 @@ const SurfaceWaterTreatement=() =>{
    }, []);
 
    const handleBack=()=>{
-    navigate("/service", { replace: true });
+    navigate("/service");
    }
  
  

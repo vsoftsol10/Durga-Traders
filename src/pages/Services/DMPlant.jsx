@@ -12,7 +12,7 @@ const DMPlant=()=> {
         }, []);
       
       const handleBack=()=>{
-        navigate(-1);
+        navigate("/service");
       }
       
         return (

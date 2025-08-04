@@ -17,6 +17,13 @@ export default function Footer() {
 
   const handleNavigation = (path) => {
     navigate(path);
+
+    // Delay the scroll slightly so it happens after navigation/render
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 100);
   };
 
   // Define navigation paths for main works
@@ -94,25 +101,25 @@ export default function Footer() {
 
           {/* Main Works section */}
           <div className="footer__section footer__main-works">
-            <h4 className="footer__section-title">Main Works</h4>
-            <ul className="footer__list">
-              {Object.entries(mainWorksPaths).map(([item, path], i) => (
-                <li key={i} className="footer__list-item">
-                  <a 
-                    href={path} 
-                    className="footer__link"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavigation(path);
-                    }}
-                  >
-                    <span className="footer__link-arrow">›</span>
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <h4 className="footer__section-title">Main Works</h4>
+      <ul className="footer__list">
+        {Object.entries(mainWorksPaths).map(([item, path], i) => (
+          <li key={i} className="footer__list-item">
+            <a
+              className="footer__link"
+              onClick={(e) => {
+                e.preventDefault(); // prevent full page reload
+                handleNavigation(path);
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              <span className="footer__link-arrow">›</span>
+              {item}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
 
           {/* Quick Links section */}
           <div className="footer__section footer__quick-links">

@@ -1,22 +1,40 @@
 import React from "react";
 import { Mail, MessageCircle, Phone } from "lucide-react";
-import "./Marquee.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
+import "./Marquee.css";
 
 const Marquee = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="marquee-container">
       <div className="contact-group">
-        <div className="contact-item">
+        {/* Email - opens mail app */}
+        <div
+          className="contact-item"
+          onClick={() => window.location.href = "mailto:durgatradersmdu@gmail.com"}
+          style={{ cursor: "pointer" }}
+        >
           <Mail className="mail-icon" />
           <span>durgatradersmdu@gmail.com</span>
         </div>
-        
-        <div className="contact-item">
+
+        {/* WhatsApp - opens WhatsApp chat */}
+        <div
+          className="contact-item"
+          onClick={() => window.open("https://wa.me/917094310049", "_blank")}
+          style={{ cursor: "pointer" }}
+        >
           <MessageCircle className="whatsapp-icon" />
           <span>+91 7094310049</span>
         </div>
-        
-        <div className="contact-item">
+
+        {/* Phone - opens dialer or navigates to contact page */}
+        <div
+          className="contact-item"
+          onClick={() => window.location.href = "tel:0452371049"}
+          style={{ cursor: "pointer" }}
+        >
           <Phone className="phone-icon" />
           <span>Customer Support: 0452371049</span>
         </div>

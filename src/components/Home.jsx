@@ -59,7 +59,7 @@ const Home = () => {
   const services = [
     {
       image: AFT,
-      title: 'Advanced Filtration Technology',
+      title: 'Updated Filtration Technology',
       description: 'Our systems use the latest filtration technologies to ensure your water is purified to the highest standards',
     },
     {
@@ -237,7 +237,7 @@ const Home = () => {
         </Box>
       </Container>
 
-      <WaterComposition />
+      {/* <WaterComposition /> */}
 
       <Box sx={{ width: '100%', backgroundColor: '#e3f2fd', py: 6 }}>
         <Container maxWidth="xl">
