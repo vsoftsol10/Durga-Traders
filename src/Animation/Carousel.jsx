@@ -244,7 +244,8 @@ export default function Carousel() {
                     md: '2.5rem', // tablets
                     lg: '2.8rem',
                     xl: '3rem' // desktops
-                  }
+                  },
+                  textShadow: '3px 3px 6px rgba(0, 0, 0, 0.3)'
                 }}
               >
                 {slide.title}

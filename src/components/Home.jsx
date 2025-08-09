@@ -33,6 +33,17 @@ const Home = () => {
   const primaryColor = '#022279';
   const secondaryColor = '#00c7e8';
 
+  const handleNavigation =() => {
+    navigate("/aboutUs");
+
+    // Delay the scroll slightly so it happens after navigation/render
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 100);
+  };
+
   useEffect(() => {
     gsap.fromTo(
       imageRef.current,
@@ -151,6 +162,10 @@ const Home = () => {
             <Box display="flex" justifyContent="center" sx={{ marginTop: '20px' }}>
               <Button
                 variant="contained"
+                onClick={(e) => {
+                e.preventDefault(); // prevent full page reload
+                handleNavigation();
+              }}
                 sx={{
                   backgroundColor: primaryColor,
                   color: 'white',
