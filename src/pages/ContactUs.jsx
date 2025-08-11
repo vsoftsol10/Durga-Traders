@@ -10,6 +10,7 @@ const ContactUs = () => {
     email: '',
     message: ''
   });
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -21,6 +22,61 @@ const ContactUs = () => {
       ...formData,
       [name]: value
     });
+  };
+
+  const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    // Check file size (limit to 50KB)
+    if (file.size > 50 * 1024) { // 50KB in bytes
+      setFormErrors({
+        ...formErrors,
+        file: "File size must be less than 50KB"
+      });
+      setUploadedFile(null);
+      return;
+    }
+
+    // Check file type (allow common document and image formats)
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'image/jpeg',
+      'image/png',
+      'image/gif',
+      'text/plain'
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      setFormErrors({
+        ...formErrors,
+        file: "Please upload a valid file (PDF, DOC, DOCX, JPG, PNG, TXT)"
+      });
+      setUploadedFile(null);
+      return;
+    }
+
+    setUploadedFile(file);
+    // Clear any previous file errors
+    const newErrors = { ...formErrors };
+    delete newErrors.file;
+    setFormErrors(newErrors);
+  }
+};
+
+
+  const removeFile = () => {
+    setUploadedFile(null);
+    // Clear the file input
+    const fileInput = document.getElementById('file-upload');
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    // Clear any file errors
+    const newErrors = { ...formErrors };
+    delete newErrors.file;
+    setFormErrors(newErrors);
   };
 
   const validateForm = () => {
@@ -63,12 +119,20 @@ const ContactUs = () => {
     if (validateForm()) {
       setIsSubmitting(true);
       
-      // EmailJS send email
+      // Create FormData object to include file
+      const formDataToSend = new FormData(form.current);
+      
+      // Add the uploaded file if exists
+      if (uploadedFile) {
+        formDataToSend.append('attachment', uploadedFile);
+      }
+
+      // EmailJS send email with attachment
       emailjs.sendForm(
-        'service_fnbx113', // Replace with your EmailJS service ID
-        'template_60ljv7r', // Replace with your EmailJS template ID
+        'service_lizw20o', // Replace with your EmailJS service ID
+        'template_pd4j95m', // Replace with your EmailJS template ID
         form.current,
-        '-phEEgE8W6dtkQh0L' // Replace with your EmailJS public key
+        'THnyI--cZAS7ih5XL' // Replace with your EmailJS public key
       )
         .then((result) => {
           console.log('Email sent successfully:', result.text);
@@ -84,6 +148,13 @@ const ContactUs = () => {
             email: '',
             message: ''
           });
+          setUploadedFile(null);
+          
+          // Clear file input
+          const fileInput = document.getElementById('file-upload');
+          if (fileInput) {
+            fileInput.value = '';
+          }
           
           // Hide success message after 5 seconds
           setTimeout(() => {
@@ -101,6 +172,15 @@ const ContactUs = () => {
         });
     }
   };
+
+  const formatFileSize = (bytes) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024; // Changed from 5024 to 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+};
+
 
   return (
     <div className="contact-container">
@@ -148,6 +228,64 @@ const ContactUs = () => {
               className={formErrors.email ? "error" : ""}
             />
             {formErrors.email && <span className="error-message">{formErrors.email}</span>}
+          </div>
+
+          {/* File Upload Section */}
+          <div className="form-group">
+            <label htmlFor="file-upload">Upload File (Optional)</label>
+            <div className="file-upload-container">
+              <input 
+                type="file" 
+                id="file-upload"
+                name="attachment"
+                onChange={handleFileChange}
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.txt"
+                className={`file-input ${formErrors.file ? "error" : ""}`}
+              />
+              <label htmlFor="file-upload" className="file-upload-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14,2 14,8 20,8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10,9 9,9 8,9"></polyline>
+                </svg>
+                Choose File
+              </label>
+              <span className="file-info">
+                Max size: 50KB | Formats: PDF, DOC, DOCX, JPG, PNG, GIF, TXT
+              </span>
+            </div>
+            
+            {uploadedFile && (
+              <div className="file-preview">
+                <div className="file-item">
+                  <div className="file-details">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14,2 14,8 20,8"></polyline>
+                    </svg>
+                    <div className="file-info-text">
+                      <span className="file-name">{uploadedFile.name}</span>
+                      <span className="file-size">{formatFileSize(uploadedFile.size)}</span>
+                    </div>
+                  </div>
+                  <button 
+                    type="button" 
+                    onClick={removeFile}
+                    className="remove-file-btn"
+                    aria-label="Remove file"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            {formErrors.file && <span className="error-message">{formErrors.file}</span>}
           </div>
           
           <div className="form-group">
