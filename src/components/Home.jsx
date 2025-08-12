@@ -33,7 +33,7 @@ const Home = () => {
   const primaryColor = '#022279';
   const secondaryColor = '#00c7e8';
 
-  const handleNavigation =() => {
+  const handleNavigation = () => {
     navigate("/aboutUs");
 
     // Delay the scroll slightly so it happens after navigation/render
@@ -117,7 +117,7 @@ const Home = () => {
       <Carousel />
       <BestSellingProducts />
       <CounterBox />
-      
+
 
       <Container maxWidth="xlg" style={{ paddingTop: '40px' }}>
         <Box
@@ -148,39 +148,93 @@ const Home = () => {
 
           <Box
             sx={{
-              width: { xs: '100%', sm: '60%' },
-              paddingLeft: { sm: '20px' },
+              width: { xs: '100%', sm: '70%' },
+              mx: 'auto',
+              p: { xs: 2, sm: 4 },
+              textAlign: 'center',
             }}
-            textAlign="center"
           >
-            <Typography variant="h3" align="center" sx={{ color: primaryColor, position: 'relative', display: 'inline-block' }}>
-              Your Trusted Partner for<br /> Clean & Safe Water !
+            {/* Decorative Heading */}
+            <Typography
+              variant="h3"
+              sx={{
+                color: primaryColor,
+                fontWeight: 'bold',
+                position: 'relative',
+                display: 'inline-block',
+                paddingBottom: '8px',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  left: '50%',
+                  bottom: 0,
+                  transform: 'translateX(-50%)',
+                  width: '60%',
+                  height: '4px',
+                  backgroundColor: secondaryColor,
+                  borderRadius: '2px',
+                },
+              }}
+            >
+              18+ Years of Experience
             </Typography>
-            <Typography variant="body1" align="center" sx={{ marginTop: '20px', color: 'black', fontSize: '20px' }}>
-              Water is vital for the survival of every living creature, not just humans. Regular intake of clean, pure water is crucial for maintaining good health. When choosing water, it's important to ensure it meets natural pH balance standards and tastes refreshing. Without these qualities, your health could be at risk in the near future.
+
+            {/* Subheading */}
+            <Typography
+              variant="h5"
+              sx={{
+                color: primaryColor,
+                mt: 2,
+                fontWeight: 700,
+              }}
+            >
+              Your Trusted Partner for Clean & Safe Water!
             </Typography>
-            <Box display="flex" justifyContent="center" sx={{ marginTop: '20px' }}>
-              <Button
-                variant="contained"
-                onClick={(e) => {
-                e.preventDefault(); // prevent full page reload
+
+            {/* Description */}
+            <Typography
+              variant="body1"
+              sx={{
+                mt: 3,
+                color: 'black',
+                fontSize: '18px',
+                lineHeight: 1.7,
+                px: { xs: 1, sm: 4 },
+              }}
+            >
+              Water is vital for the survival of every living creature, not just humans.
+              Regular intake of clean, pure water is crucial for maintaining good health.
+              When choosing water, ensure it meets natural pH balance standards and tastes
+              refreshing — because without these qualities, your health could be at risk.
+            </Typography>
+
+            {/* Button */}
+            <Button
+              variant="contained"
+              onClick={(e) => {
+                e.preventDefault();
                 handleNavigation();
               }}
-                sx={{
-                  backgroundColor: primaryColor,
-                  color: 'white',
-                  padding: '10px 20px',
-                  '&:hover': {
-                    backgroundColor: secondaryColor,
-                    color: 'black',
-                    boxShadow: '0 4px 8px rgba(50, 175, 197, 0.49)'
-                  },
-                }}
-              >
-                Know More
-              </Button>
-            </Box>
+              sx={{
+                mt: 4,
+                backgroundColor: primaryColor,
+                color: 'white',
+                padding: '12px 28px',
+                fontSize: '16px',
+                borderRadius: '50px',
+                textTransform: 'none',
+                boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+                '&:hover': {
+                  backgroundColor: secondaryColor,
+                  color: 'black',
+                  boxShadow: '0 6px 14px rgba(50, 175, 197, 0.4)',
+                },
+              }}
+            >   
+              Know More
+            </Button>
           </Box>
+
         </Box>
       </Container>
 
@@ -368,8 +422,8 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
-      <CuttingEdge/>
-      <DurgaPurifier/>
+      <CuttingEdge />
+      <DurgaPurifier />
 
       <AnimatedTestimonials />
 
