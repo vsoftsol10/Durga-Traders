@@ -25,46 +25,45 @@ const ContactUs = () => {
   };
 
   const handleFileChange = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    // Check file size (limit to 50KB)
-    if (file.size > 50 * 1024) { // 50KB in bytes
-      setFormErrors({
-        ...formErrors,
-        file: "File size must be less than 50KB"
-      });
-      setUploadedFile(null);
-      return;
+    const file = e.target.files[0];
+    if (file) {
+      // Check file size (limit to 500KB)
+      if (file.size > 500 * 1024) { // 500KB in bytes
+        setFormErrors({
+          ...formErrors,
+          file: "File size must be less than 500KB"
+        });
+        setUploadedFile(null);
+        return;
+      }
+
+      // Check file type (allow common document and image formats)
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+        'text/plain'
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        setFormErrors({
+          ...formErrors,
+          file: "Please upload a valid file (PDF, DOC, DOCX, JPG, PNG, TXT)"
+        });
+        setUploadedFile(null);
+        return;
+      }
+
+      setUploadedFile(file);
+      // Clear any previous file errors
+      const newErrors = { ...formErrors };
+      delete newErrors.file;
+      setFormErrors(newErrors);
     }
-
-    // Check file type (allow common document and image formats)
-    const allowedTypes = [
-      'application/pdf',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'image/jpeg',
-      'image/png',
-      'image/gif',
-      'text/plain'
-    ];
-
-    if (!allowedTypes.includes(file.type)) {
-      setFormErrors({
-        ...formErrors,
-        file: "Please upload a valid file (PDF, DOC, DOCX, JPG, PNG, TXT)"
-      });
-      setUploadedFile(null);
-      return;
-    }
-
-    setUploadedFile(file);
-    // Clear any previous file errors
-    const newErrors = { ...formErrors };
-    delete newErrors.file;
-    setFormErrors(newErrors);
-  }
-};
-
+  };
 
   const removeFile = () => {
     setUploadedFile(null);
@@ -174,13 +173,12 @@ const ContactUs = () => {
   };
 
   const formatFileSize = (bytes) => {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024; // Changed from 5024 to 1024
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-};
-
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024; // Fixed from 5024 to 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
 
   return (
     <div className="contact-container">
@@ -253,7 +251,7 @@ const ContactUs = () => {
                 Choose File
               </label>
               <span className="file-info">
-                Max size: 50KB | Formats: PDF, DOC, DOCX, JPG, PNG, GIF, TXT
+                Max size: 500KB | Formats: PDF, DOC, DOCX, JPG, PNG, GIF, TXT
               </span>
             </div>
             
