@@ -1,9 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-    optimizeDeps: {
-      include: ['firebase/app', 'firebase/auth', 'firebase/firestore'],
-    },
-})
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000', // Change this to your backend URL/port
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  }
+});

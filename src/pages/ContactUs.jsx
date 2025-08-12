@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
 import './ContactUs.css';
 
 const ContactUs = () => {
@@ -10,6 +9,7 @@ const ContactUs = () => {
     email: '',
     message: ''
   });
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -21,25 +21,93 @@ const ContactUs = () => {
       ...formData,
       [name]: value
     });
+    
+    // Clear specific field error when user starts typing
+    if (formErrors[name]) {
+      const newErrors = { ...formErrors };
+      delete newErrors[name];
+      setFormErrors(newErrors);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Increased file size limit to 5MB
+      if (file.size > 5 * 1024 * 1024) { // 5MB in bytes
+        setFormErrors({
+          ...formErrors,
+          file: "File size must be less than 5MB"
+        });
+        setUploadedFile(null);
+        return;
+      }
+
+      // Check file type
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+        'text/plain'
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        setFormErrors({
+          ...formErrors,
+          file: "Please upload a valid file (PDF, DOC, DOCX, JPG, PNG, GIF, TXT)"
+        });
+        setUploadedFile(null);
+        return;
+      }
+
+      setUploadedFile(file);
+      // Clear any previous file errors
+      const newErrors = { ...formErrors };
+      delete newErrors.file;
+      setFormErrors(newErrors);
+    }
+  };
+
+  const removeFile = () => {
+    setUploadedFile(null);
+    const fileInput = document.getElementById('file-upload');
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    const newErrors = { ...formErrors };
+    delete newErrors.file;
+    setFormErrors(newErrors);
   };
 
   const validateForm = () => {
     let errors = {};
     let isValid = true;
 
+    // Name validation (2-100 characters)
     if (!formData.name.trim()) {
       errors.name = "Name is required";
       isValid = false;
+    } else if (formData.name.trim().length < 2) {
+      errors.name = "Name must be at least 2 characters";
+      isValid = false;
+    } else if (formData.name.trim().length > 100) {
+      errors.name = "Name must not exceed 100 characters";
+      isValid = false;
     }
 
+    // Phone validation (10-15 digits)
     if (!formData.phone.trim()) {
       errors.phone = "Phone number is required";
       isValid = false;
-    } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-      errors.phone = "Please enter a valid phone number";
+    } else if (!/^\d{10,15}$/.test(formData.phone.replace(/\D/g, ''))) {
+      errors.phone = "Phone number must be 10-15 digits";
       isValid = false;
     }
 
+    // Email validation
     if (!formData.email.trim()) {
       errors.email = "Email is required";
       isValid = false;
@@ -48,8 +116,15 @@ const ContactUs = () => {
       isValid = false;
     }
 
+    // Message validation (10-1000 characters)
     if (!formData.message.trim()) {
       errors.message = "Message is required";
+      isValid = false;
+    } else if (formData.message.trim().length < 10) {
+      errors.message = "Message must be at least 10 characters";
+      isValid = false;
+    } else if (formData.message.trim().length > 1000) {
+      errors.message = "Message must not exceed 1000 characters";
       isValid = false;
     }
 
@@ -57,49 +132,104 @@ const ContactUs = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (validateForm()) {
       setIsSubmitting(true);
       
-      // EmailJS send email
-      emailjs.sendForm(
-        'service_fnbx113', // Replace with your EmailJS service ID
-        'template_60ljv7r', // Replace with your EmailJS template ID
-        form.current,
-        '-phEEgE8W6dtkQh0L' // Replace with your EmailJS public key
-      )
-        .then((result) => {
-          console.log('Email sent successfully:', result.text);
-          
+      try {
+        // Create FormData object
+        const formDataToSend = new FormData();
+        formDataToSend.append("name", formData.name.trim());
+        formDataToSend.append("phone", formData.phone.replace(/\D/g, ""));
+        formDataToSend.append("email", formData.email.trim());
+        formDataToSend.append("message", formData.message.trim());
+
+        // Add file if uploaded
+        if (uploadedFile) {
+          formDataToSend.append("attachment", uploadedFile);
+        }
+        // Send to backend using environment variable
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/contact`,
+          {
+            method: "POST",
+            body: formDataToSend,
+          }
+        );
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
           // Show success message
           setShowSuccess(true);
           setShowError(false);
-          
+          setFormErrors({});
+
           // Reset form
           setFormData({
-            name: '',
-            phone: '',
-            email: '',
-            message: ''
+            name: "",
+            phone: "",
+            email: "",
+            message: "",
           });
-          
+          setUploadedFile(null);
+
+          // Clear file input
+          const fileInput = document.getElementById("file-upload");
+          if (fileInput) {
+            fileInput.value = "";
+          }
+
           // Hide success message after 5 seconds
           setTimeout(() => {
             setShowSuccess(false);
           }, 5000);
-        }, (error) => {
-          console.error('Failed to send email:', error.text);
-          setShowError(true);
-          setTimeout(() => {
-            setShowError(false);
-          }, 5000);
-        })
-        .finally(() => {
-          setIsSubmitting(false);
-        });
+        } else {
+          // Handle different types of errors
+          if (result.details && Array.isArray(result.details)) {
+            // Handle validation errors from backend
+            const backendErrors = {};
+            result.details.forEach((detail) => {
+              backendErrors[detail.field] = detail.message;
+            });
+            setFormErrors(backendErrors);
+          } else {
+            // Handle general errors
+            throw new Error(result.error || "Failed to send message");
+          }
+        }
+      } catch (error) {
+        console.error('Error sending message:', error);
+        setShowError(true);
+        setTimeout(() => {
+          setShowError(false);
+        }, 5000);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
+  };
+
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  // Character count helpers
+  const getCharacterCount = (field) => {
+    return formData[field].length;
+  };
+
+  const getCharacterCountClass = (field, max) => {
+    const count = getCharacterCount(field);
+    if (count > max * 0.9) return 'char-count warning';
+    if (count > max) return 'char-count error';
+    return 'char-count';
   };
 
   return (
@@ -118,8 +248,14 @@ const ContactUs = () => {
               onChange={handleChange}
               placeholder="Enter your name" 
               className={formErrors.name ? "error" : ""}
+              maxLength={100}
             />
-            {formErrors.name && <span className="error-message">{formErrors.name}</span>}
+            <div className="validation-info">
+              {formErrors.name && <span className="error-message">{formErrors.name}</span>}
+              <span className={getCharacterCountClass('name', 100)}>
+                {getCharacterCount('name')}/100
+              </span>
+            </div>
           </div>
           
           <div className="form-group">
@@ -149,6 +285,64 @@ const ContactUs = () => {
             />
             {formErrors.email && <span className="error-message">{formErrors.email}</span>}
           </div>
+
+          {/* File Upload Section */}
+          <div className="form-group">
+            <label htmlFor="file-upload">Upload File (Optional)</label>
+            <div className="file-upload-container">
+              <input 
+                type="file" 
+                id="file-upload"
+                name="attachment"
+                onChange={handleFileChange}
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.txt"
+                className={`file-input ${formErrors.file ? "error" : ""}`}
+              />
+              <label htmlFor="file-upload" className="file-upload-label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14,2 14,8 20,8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10,9 9,9 8,9"></polyline>
+                </svg>
+                Choose File
+              </label>
+              <span className="file-info">
+                Max size: 5MB | Formats: PDF, DOC, DOCX, JPG, PNG, GIF, TXT
+              </span>
+            </div>
+            
+            {uploadedFile && (
+              <div className="file-preview">
+                <div className="file-item">
+                  <div className="file-details">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14,2 14,8 20,8"></polyline>
+                    </svg>
+                    <div className="file-info-text">
+                      <span className="file-name">{uploadedFile.name}</span>
+                      <span className="file-size">{formatFileSize(uploadedFile.size)}</span>
+                    </div>
+                  </div>
+                  <button 
+                    type="button" 
+                    onClick={removeFile}
+                    className="remove-file-btn"
+                    aria-label="Remove file"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            {formErrors.file && <span className="error-message">{formErrors.file}</span>}
+          </div>
           
           <div className="form-group">
             <label htmlFor="message">Your Message</label>
@@ -158,10 +352,16 @@ const ContactUs = () => {
               value={formData.message}
               onChange={handleChange}
               rows="5" 
-              placeholder="How can we help you with your water purification needs?" 
+              placeholder="How can we help you with your water purification needs? (minimum 10 characters)" 
               className={formErrors.message ? "error" : ""}
+              maxLength={1000}
             ></textarea>
-            {formErrors.message && <span className="error-message">{formErrors.message}</span>}
+            <div className="validation-info">
+              {formErrors.message && <span className="error-message">{formErrors.message}</span>}
+              <span className={getCharacterCountClass('message', 1000)}>
+                {getCharacterCount('message')}/1000 (min: 10)
+              </span>
+            </div>
           </div>
           
           <button 
@@ -175,7 +375,7 @@ const ContactUs = () => {
         </form>
       </div>
       
-      {/* Right: Address + Contact Details */}
+      {/* Right: Contact Info */}
       <div className="contact-info">
         <h2>Our Location</h2>
         <div className="info-content">
