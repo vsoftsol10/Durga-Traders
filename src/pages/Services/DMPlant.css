@@ -10,7 +10,7 @@
   position: relative;
   top: 20px;
   left: 20px;
-  z-index: 10000;
+  z-index: 1;
 }
 
 .back-button {

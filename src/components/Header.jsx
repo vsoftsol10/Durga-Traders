@@ -13,7 +13,7 @@ function Navbar() {
   const [isHeaderMinimized, setIsHeaderMinimized] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  
+
   // Refs
   const navRef = useRef();
   const headerRef = useRef();
@@ -36,17 +36,17 @@ function Navbar() {
         setCartCount(0);
       }
     };
-    
+
     // Initial cart count
     updateCartCount();
-    
+
     // Listen for cart updates
     const handleCartUpdate = (event) => {
       setCartCount(event.detail.count);
     };
-    
+
     window.addEventListener('cartUpdated', handleCartUpdate);
-    
+
     // Clean up event listener
     return () => {
       window.removeEventListener('cartUpdated', handleCartUpdate);
@@ -58,11 +58,11 @@ function Navbar() {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth <= 1024);
     };
-    
+
     const handleScroll = () => {
       const position = window.pageYOffset;
       setScrollPosition(position);
-      
+
       // Header behavior on scroll
       if (position > 200) {
         setIsHeaderMinimized(true);
@@ -70,11 +70,11 @@ function Navbar() {
         setIsHeaderMinimized(false);
       }
     };
-    
+
     checkIfMobile();
     window.addEventListener('resize', checkIfMobile);
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('resize', checkIfMobile);
       window.removeEventListener('scroll', handleScroll);
@@ -91,7 +91,7 @@ function Navbar() {
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
     setIsNavOpen((prev) => !prev);
-    
+
     // Prevent body scrolling when nav is open
     if (!isNavOpen) {
       document.body.style.overflow = 'hidden';
@@ -128,8 +128,8 @@ function Navbar() {
   };
 
   return (
-    <header 
-      ref={headerRef} 
+    <header
+      ref={headerRef}
       className={`${isHeaderMinimized ? 'minimized' : ''} ${scrollPosition > 50 ? 'scrolled' : ''}`}
     >
       <div className="header-container">
@@ -137,7 +137,7 @@ function Navbar() {
         <div className="logoBackground">
           <div className="logo-container">
             <a href="/" className="logolink">
-              <img src={logo} alt="Durga Traders" className="logo"/>
+              <img src={logo} alt="Durga Traders" className="logo" />
             </a>
           </div>
         </div>
@@ -155,9 +155,9 @@ function Navbar() {
                 </svg>
               </button>
             </div>
-            
-            <a 
-              href="/" 
+
+            <a
+              href="/"
               className={`nav-link ${activeLink === "home" ? "active" : ""}`}
               onMouseEnter={() => handleMouseEnter("home")}
               onMouseLeave={handleMouseLeave}
@@ -166,9 +166,9 @@ function Navbar() {
               <span className="link-text">Home</span>
               <span className="link-hover-effect"></span>
             </a>
-            
-            <a 
-              href="/aboutUs" 
+
+            <a
+              href="/aboutUs"
               className={`nav-link ${activeLink === "about" ? "active" : ""}`}
               onMouseEnter={() => handleMouseEnter("about")}
               onMouseLeave={handleMouseLeave}
@@ -178,14 +178,14 @@ function Navbar() {
               <span className="link-hover-effect"></span>
             </a>
 
-            <div 
+            <div
               className={`dropdown-container ${isDropdownOpen ? "open" : ""}`}
               onMouseEnter={() => handleMouseEnter("products")}
               onMouseLeave={handleMouseLeave}
             >
-              <a 
-                href="/#" 
-                onClick={toggleDropdown} 
+              <a
+                href="/#"
+                onClick={toggleDropdown}
                 className={`nav-link dropdown-trigger ${activeLink === "products" ? "active" : ""}`}
               >
                 <span className="link-text">Products</span>
@@ -197,8 +197,8 @@ function Navbar() {
                   <span>Our Product Categories</span>
                 </div>
                 <div className="dropdown-grid">
-                  <a 
-                    href="/personal-products" 
+                  <a
+                    href="/personal-products"
                     className="dropdown-item"
                     onClick={handleLinkClick}
                   >
@@ -214,8 +214,8 @@ function Navbar() {
                     </div>
                     <span className="dropdown-item-bg"></span>
                   </a>
-                  <a 
-                    href="/commercial-products" 
+                  <a
+                    href="/commercial-products"
                     className="dropdown-item"
                     onClick={handleLinkClick}
                   >
@@ -231,12 +231,55 @@ function Navbar() {
                     </div>
                     <span className="dropdown-item-bg"></span>
                   </a>
+                  <a
+                    href="/services/water-softening"
+                    className="dropdown-item"
+                    onClick={handleLinkClick}
+                  >
+                    <div className="dropdown-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" role="img" aria-labelledby="wsTitleInline">
+                        <title id="wsTitleInline">Water Softener</title>
+                        <path d="M12 2s5 6 5 10a5 5 0 1 1-10 0c0-4 5-10 5-10z" />
+                        <g transform="translate(16,5)">
+                          <path d="M0 0 L0 2" />
+                          <path d="M-1 1 L1 1" />
+                          <path d="M-0.7 -0.7 L0.7 0.7" />
+                        </g>
+                      </svg>
+                    </div>
+                    <div className="dropdown-item-content">
+                      <span className="dropdown-item-title">Water Softener</span>
+                      <span className="dropdown-item-desc">Scalable water softening systems for businesses</span>
+                    </div>
+                    <span className="dropdown-item-bg"></span>
+                  </a>
+                  <a
+                    href="/services/iron-removal"
+                    className="dropdown-item"
+                    onClick={handleLinkClick}
+                  >
+                    <div className="dropdown-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="ironTitleInline">
+                        <title id="ironTitleInline">Iron Removal</title>
+                        <rect x="6" y="3" width="12" height="18" rx="2" ry="2"></rect>
+                        <path d="M2 7h4"></path>
+                        <path d="M4 5l2 2-2 2"></path>
+                        <path d="M18 17h4"></path>
+                        <path d="M20 15l2 2-2 2"></path>
+                      </svg>
+                    </div>
+                    <div className="dropdown-item-content">
+                      <span className="dropdown-item-title">Iron Removal</span>
+                      <span className="dropdown-item-desc">Industrial & commercial water treatment</span>
+                    </div>
+                    <span className="dropdown-item-bg"></span>
+                  </a>
                 </div>
               </div>
             </div>
 
-            <a 
-              href="/service" 
+            <a
+              href="/service"
               className={`nav-link ${activeLink === "service" ? "active" : ""}`}
               onMouseEnter={() => handleMouseEnter("service")}
               onMouseLeave={handleMouseLeave}
@@ -245,9 +288,9 @@ function Navbar() {
               <span className="link-text">Service</span>
               <span className="link-hover-effect"></span>
             </a>
-            
-            <a 
-              href="/contact" 
+
+            <a
+              href="/contact"
               className={`nav-link ${activeLink === "contact" ? "active" : ""}`}
               onMouseEnter={() => handleMouseEnter("contact")}
               onMouseLeave={handleMouseLeave}
@@ -256,7 +299,7 @@ function Navbar() {
               <span className="link-text">Contact Us</span>
               <span className="link-hover-effect"></span>
             </a>
-            
+
             <div className="mobile-nav-footer">
               <div className="social-links">
                 <a href="https://www.facebook.com/durgatradersro" className="social-link">
@@ -282,10 +325,10 @@ function Navbar() {
             {searchOpen && (
               <div className="search-form-container">
                 <form className="search-form">
-                  <input 
+                  <input
                     ref={searchInputRef}
-                    type="text" 
-                    placeholder="Search products..." 
+                    type="text"
+                    placeholder="Search products..."
                     className="search-input"
                   />
                   <button type="submit" className="search-submit">
@@ -304,12 +347,12 @@ function Navbar() {
               </div>
             )}
           </div>
-          
+
           {/* Get a Quote button */}
           <a href="/contact" className="quote-btn">
             Get a Quote
           </a>
-          
+
           {/* Cart button */}
           <a href="/personal-products" className="cart-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -319,7 +362,7 @@ function Navbar() {
             </svg>
             <span className="cart-count">{cartCount}</span>
           </a>
-          
+
           {/* Mobile menu button */}
           <button className="mobile-menu-btn" onClick={showNavbar}>
             <span className="hamburger-line"></span>
@@ -328,11 +371,11 @@ function Navbar() {
           </button>
         </div>
       </div>
-      
+
       {/* Animated progress bar */}
       <div className="scroll-progress-container">
-        <div 
-          className="scroll-progress-bar" 
+        <div
+          className="scroll-progress-bar"
           style={{ width: `${(scrollPosition / (document.body.scrollHeight - window.innerHeight)) * 100}%` }}
         ></div>
       </div>
