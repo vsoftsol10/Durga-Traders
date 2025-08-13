@@ -252,9 +252,9 @@ const ContactUs = () => {
             />
             <div className="validation-info">
               {formErrors.name && <span className="error-message">{formErrors.name}</span>}
-              <span className={getCharacterCountClass('name', 100)}>
+              {/* <span className={getCharacterCountClass('name', 100)}>
                 {getCharacterCount('name')}/100
-              </span>
+              </span> */}
             </div>
           </div>
           
@@ -358,9 +358,9 @@ const ContactUs = () => {
             ></textarea>
             <div className="validation-info">
               {formErrors.message && <span className="error-message">{formErrors.message}</span>}
-              <span className={getCharacterCountClass('message', 1000)}>
+              {/* <span className={getCharacterCountClass('message', 1000)}>
                 {getCharacterCount('message')}/1000 (min: 10)
-              </span>
+              </span> */}
             </div>
           </div>
           
