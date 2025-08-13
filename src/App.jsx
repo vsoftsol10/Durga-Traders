@@ -4,7 +4,6 @@ import './App.css'
 import Home from './components/Home'
 import Header from './components/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import AboutUs from './pages/AboutUS'
 import ContactUs from './pages/ContactUs'
 import Footer from './components/Footer'
