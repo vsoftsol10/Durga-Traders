@@ -285,7 +285,7 @@ function Navbar() {
               onMouseLeave={handleMouseLeave}
               onClick={handleLinkClick}
             >
-              <span className="link-text">Service</span>
+              <span className="link-text">Services</span>
               <span className="link-hover-effect"></span>
             </a>
 

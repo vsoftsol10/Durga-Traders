@@ -288,7 +288,7 @@ const ContactUs = () => {
 
           {/* File Upload Section */}
           <div className="form-group">
-            <label htmlFor="file-upload">Upload File (Optional)</label>
+            <label htmlFor="file-upload">(Optional) Upload Your Water Test Report</label>
             <div className="file-upload-container">
               <input 
                 type="file" 
