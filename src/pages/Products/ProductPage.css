@@ -1003,12 +1003,12 @@ body {
   color: var(--primary);
   font-weight: 600;
   cursor: pointer;
-  padding: 8px 15px;
+  padding: 8px 10px;
   border-radius: 20px;
   transition: all 0.3s ease;
   position: fixed;
   left: 0;
-  margin-top: 100px;
+  margin-top: 50px;  top: -10px!important;
 }
 
 .back-button:hover {
@@ -1022,11 +1022,12 @@ body {
 .checkout-title {
   font-size: 2.2rem;
   font-weight: 800;
-  margin: 0 auto;
+  margin: 0 auto !important;
   background: var(--gradient-blue);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  text-align: center;
 }
 
 .empty-cart {
