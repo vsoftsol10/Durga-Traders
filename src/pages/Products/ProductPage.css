@@ -1028,6 +1028,7 @@ body {
   background-clip: text;
   color: transparent;
   text-align: center;
+  margin-left: -18% !important;
 }
 
 .empty-cart {

@@ -984,10 +984,6 @@ nav {
     margin-right: 0px;
   }
   
-  .quote-btn {
-    display: none;
-  }
-  
   .mobile-logo {
     display: none;
   }
@@ -1059,6 +1055,10 @@ nav {
   nav .nav-content {
     width: 90%;
   }
+    .quote-btn {
+width: 100px;
+font-size: small;
+margin-right: 5px;  }
 }
 
 @media (max-width: 380px) {
@@ -1073,9 +1073,9 @@ nav {
   }
   
   .logo {
-    max-height: 105px;
+    max-height: 95px;
   }
-  
+ 
   .mobile-logo {
     width: 65%;
   }
@@ -1124,4 +1124,8 @@ nav {
     transform: translateY(-50%);
     z-index: 1001;
   }
+      .quote-btn {
+display: none;  }
+
+  
 }
