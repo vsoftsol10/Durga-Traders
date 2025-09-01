@@ -289,6 +289,11 @@ function Navbar() {
               <span className="link-hover-effect"></span>
             </a>
 
+            {/* Mobile Quote Button */}
+            <a href="/contact" className="mobile-quote-btn" onClick={handleLinkClick}>
+              Get a Quote
+            </a>
+
             <div className="mobile-nav-footer">
               <div className="social-links">
                 <a href="https://www.facebook.com/durgatradersro" className="social-link">
