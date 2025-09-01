@@ -526,7 +526,7 @@ const Dashboard = () => {
       setLoadingOrders(false);
       showNotification("Failed to fetch orders", 'error');
     }
-  }, [lastVisible, showNotification]);
+  }, []);
 
   // Filtered orders based on search and filters
   const filteredOrders = useMemo(() => {

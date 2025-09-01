@@ -79,6 +79,8 @@ const SignIn = () => {
         setError('No account found with this email address.');
       } else if (error.code === 'auth/wrong-password') {
         setError('Incorrect password. Please try again.');
+      } else if (error.code === 'auth/invalid-credential') {
+        setError('Invalid email or password. Please check your credentials.');
       } else if (error.message === 'Access denied: You are not an admin.') {
         setError('You are not authorized to access the admin panel.');
       } else if (error.message === 'No user profile found in Firestore.') {
@@ -100,7 +102,7 @@ const SignIn = () => {
           backgroundImage: `url(${water})`
         }}
       >
-        <div className="logo">Dugra Traders</div>
+        <div className="logo">Durga Traders</div>
       </div>
       
       <div className="content-container">
@@ -109,10 +111,10 @@ const SignIn = () => {
         </div>
         
         <div className="signin-form-container">
-          <h2 className="signin-header">Sign in</h2>
+          <h2 className="signin-header">Admin Sign In</h2>
           
           {error && (
-            <div className="error-message" style={{ color: '#ff5555', marginBottom: '1rem', fontSize: '0.875rem' }}>
+            <div className="error-message">
               {error}
             </div>
           )}
@@ -129,6 +131,7 @@ const SignIn = () => {
                 value={credentials.email}
                 onChange={handleChange}
                 className="input-field"
+                placeholder="Enter your email"
                 required
                 disabled={loading}
               />
@@ -145,6 +148,7 @@ const SignIn = () => {
                 value={credentials.password}
                 onChange={handleChange}
                 className="input-field"
+                placeholder="Enter your password"
                 required
                 disabled={loading}
               />
