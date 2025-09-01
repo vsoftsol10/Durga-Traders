@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import './Dashboard.css';
+import React, { useEffect, useState, useMemo, useCallback } from "react";
+import "./Dashboard.css";
 import {
   collection,
   getDocs,
@@ -13,37 +13,37 @@ import {
   startAfter,
   where,
   writeBatch,
-} from 'firebase/firestore';
-import { db } from '../firebase';
+} from "firebase/firestore";
+import { db } from "../firebase";
 
 // Constants
 const ORDER_STATUSES = {
-  PENDING: 'pending',
-  PROCESSING: 'processing',
-  SHIPPED: 'shipped',
-  DELIVERED: 'delivered',
-  CANCELLED: 'cancelled'
+  PENDING: "pending",
+  PROCESSING: "processing",
+  SHIPPED: "shipped",
+  DELIVERED: "delivered",
+  CANCELLED: "cancelled",
 };
 
 const ORDERS_PER_PAGE = 20;
 
 // Validation utilities
 const validateOrderData = (order) => {
-  const requiredFields = ['customerName', 'customerEmail', 'items'];
+  const requiredFields = ["customerName", "customerEmail", "items"];
   for (const field of requiredFields) {
     if (!order[field]) {
       throw new Error(`Missing required field: ${field}`);
     }
   }
-  
+
   if (!Array.isArray(order.items) || order.items.length === 0) {
-    throw new Error('Order must contain at least one item');
+    throw new Error("Order must contain at least one item");
   }
-  
+
   // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(order.customerEmail)) {
-    throw new Error('Invalid email format');
+    throw new Error("Invalid email format");
   }
 };
 
@@ -59,8 +59,8 @@ const sanitizeOrderData = (order) => {
 
 // Date formatting utility
 const formatDate = (timestamp) => {
-  if (!timestamp) return 'N/A';
-  
+  if (!timestamp) return "N/A";
+
   try {
     let date;
     if (timestamp?.toDate) {
@@ -70,17 +70,17 @@ const formatDate = (timestamp) => {
     } else {
       date = new Date(timestamp);
     }
-    
-    return date.toLocaleString('en-IN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+
+    return date.toLocaleString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   } catch (error) {
     console.error("Error formatting date:", error);
-    return 'Invalid Date';
+    return "Invalid Date";
   }
 };
 
@@ -100,15 +100,15 @@ const Notification = ({ message, type, onClose }) => {
 };
 
 // Orders List Component
-const OrdersList = ({ 
-  orders, 
-  selectedOrder, 
-  onSelectOrder, 
-  updatingOrder, 
+const OrdersList = ({
+  orders,
+  selectedOrder,
+  onSelectOrder,
+  updatingOrder,
   deletingOrder,
   selectedOrders,
   onToggleOrderSelection,
-  onToggleAllOrders
+  onToggleAllOrders,
 }) => {
   if (orders.length === 0) {
     return <p>No orders found for the selected filter.</p>;
@@ -131,11 +131,13 @@ const OrdersList = ({
         <span className="status-col">Status</span>
         <span className="actions-col">Actions</span>
       </div>
-      
-      {orders.map(order => (
-        <div 
-          key={order.id} 
-          className={`order-item ${selectedOrder?.id === order.id ? 'selected' : ''}`}
+
+      {orders.map((order) => (
+        <div
+          key={order.id}
+          className={`order-item ${
+            selectedOrder?.id === order.id ? "selected" : ""
+          }`}
           onClick={() => onSelectOrder(order)}
         >
           <span className="checkbox-col">
@@ -151,12 +153,16 @@ const OrdersList = ({
           <span className="order-id-col">{order.id.slice(0, 8)}...</span>
           <span className="customer-col">{order.customerName}</span>
           <span className="date-col">{formatDate(order.createdAt)}</span>
-          <span className="amount-col">₹{order.total?.toFixed(2) || '0.00'}</span>
-          <span className={`status-col status-${order.status || 'pending'}`}>
-            {updatingOrder === order.id ? 'Updating...' : (order.status || 'pending')}
+          <span className="amount-col">
+            ₹{order.total?.toFixed(2) || "0.00"}
+          </span>
+          <span className={`status-col status-${order.status || "pending"}`}>
+            {updatingOrder === order.id
+              ? "Updating..."
+              : order.status || "pending"}
           </span>
           <span className="actions-col">
-            <button 
+            <button
               className="view-order-btn"
               onClick={(e) => {
                 e.stopPropagation();
@@ -164,7 +170,7 @@ const OrdersList = ({
               }}
               disabled={deletingOrder === order.id}
             >
-              {deletingOrder === order.id ? 'Deleting...' : 'View'}
+              {deletingOrder === order.id ? "Deleting..." : "View"}
             </button>
           </span>
         </div>
@@ -174,67 +180,80 @@ const OrdersList = ({
 };
 
 // Order Details Component
-const OrderDetails = ({ 
-  order, 
-  onUpdateStatus, 
-  onDelete, 
+const OrderDetails = ({
+  order,
+  onUpdateStatus,
+  onDelete,
   onClose,
   updatingOrder,
-  deletingOrder
+  deletingOrder,
 }) => {
   const handleImageError = (e) => {
-    e.target.src = 'https://via.placeholder.com/100x100?text=No+Image';
+    e.target.src = "https://via.placeholder.com/100x100?text=No+Image";
   };
 
   return (
     <div className="order-details-panel">
       <div className="order-details-header">
         <h3>Order #{order.id}</h3>
-        <button 
-          className="close-details-btn"
-          onClick={onClose}
-        >
+        <button className="close-details-btn" onClick={onClose}>
           ×
         </button>
       </div>
-      
+
       <div className="order-status-section">
-        <span className={`order-status status-${order.status || 'pending'}`}>
-          {order.status || 'pending'}
+        <span className={`order-status status-${order.status || "pending"}`}>
+          {order.status || "pending"}
         </span>
-        
+
         <div className="status-actions">
           {Object.entries(ORDER_STATUSES).map(([key, status]) => (
-            <button 
+            <button
               key={status}
-              className={`status-btn ${order.status === status ? 'active' : ''}`}
+              className={`status-btn ${
+                order.status === status ? "active" : ""
+              }`}
               onClick={() => onUpdateStatus(order.id, status)}
               disabled={updatingOrder === order.id}
             >
-              {updatingOrder === order.id ? 'Updating...' : key.charAt(0) + key.slice(1).toLowerCase()}
+              {updatingOrder === order.id
+                ? "Updating..."
+                : key.charAt(0) + key.slice(1).toLowerCase()}
             </button>
           ))}
         </div>
       </div>
-      
+
       <div className="order-info-grid">
         <div className="order-meta">
           <h4>Order Information</h4>
-          <p><strong>Date:</strong> {formatDate(order.createdAt)}</p>
+          <p>
+            <strong>Date:</strong> {formatDate(order.createdAt)}
+          </p>
           {order.lastUpdated && (
-            <p><strong>Last Updated:</strong> {formatDate(order.lastUpdated)}</p>
+            <p>
+              <strong>Last Updated:</strong> {formatDate(order.lastUpdated)}
+            </p>
           )}
         </div>
-        
+
         <div className="customer-info">
           <h4>Customer Details</h4>
-          <p><strong>Name:</strong> {order.customerName}</p>
-          <p><strong>Email:</strong> {order.customerEmail}</p>
-          <p><strong>Phone:</strong> {order.customerPhone}</p>
-          <p><strong>Address:</strong> {order.customerAddress}</p>
+          <p>
+            <strong>Name:</strong> {order.customerName}
+          </p>
+          <p>
+            <strong>Email:</strong> {order.customerEmail}
+          </p>
+          <p>
+            <strong>Phone:</strong> {order.customerPhone}
+          </p>
+          <p>
+            <strong>Address:</strong> {order.customerAddress}
+          </p>
         </div>
       </div>
-      
+
       <div className="order-items">
         <h4>Ordered Items</h4>
         <table className="items-table">
@@ -251,9 +270,9 @@ const OrderDetails = ({
                 <td>
                   <div className="order-product">
                     {item.image && (
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
+                      <img
+                        src={item.image}
+                        alt={item.name}
                         className="order-product-image"
                         onError={handleImageError}
                       />
@@ -261,22 +280,22 @@ const OrderDetails = ({
                     <span>{item.name}</span>
                   </div>
                 </td>
-                <td>{item.selectedOption || 'Standard'}</td>
+                <td>{item.selectedOption || "Standard"}</td>
                 <td>₹{item.price}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      
+
       <div className="order-summary">
         <div className="summary-row">
           <span>Subtotal</span>
-          <span>₹{order.subtotal?.toFixed(2) || '0.00'}</span>
+          <span>₹{order.subtotal?.toFixed(2) || "0.00"}</span>
         </div>
         <div className="summary-row">
           <span>Tax (18%)</span>
-          <span>₹{order.tax?.toFixed(2) || '0.00'}</span>
+          <span>₹{order.tax?.toFixed(2) || "0.00"}</span>
         </div>
         <div className="summary-row">
           <span>Shipping</span>
@@ -284,23 +303,20 @@ const OrderDetails = ({
         </div>
         <div className="summary-row total">
           <span>Total</span>
-          <span>₹{order.total?.toFixed(2) || '0.00'}</span>
+          <span>₹{order.total?.toFixed(2) || "0.00"}</span>
         </div>
       </div>
-      
+
       <div className="order-actions">
-        <button 
-          className="print-order-btn"
-          onClick={() => window.print()}
-        >
+        <button className="print-order-btn" onClick={() => window.print()}>
           Print Order
         </button>
-        <button 
+        <button
           className="delete-order-btn"
           onClick={() => onDelete(order.id)}
           disabled={deletingOrder === order.id}
         >
-          {deletingOrder === order.id ? 'Deleting...' : 'Delete Order'}
+          {deletingOrder === order.id ? "Deleting..." : "Delete Order"}
         </button>
       </div>
     </div>
@@ -318,12 +334,12 @@ const SearchAndFilters = ({
   selectedOrders,
   onBulkStatusUpdate,
   onExportCSV,
-  ordersCount
+  ordersCount,
 }) => {
   return (
     <div className="orders-header">
       <h3>Orders Management ({ordersCount})</h3>
-      
+
       <div className="search-filters">
         <div className="search-box">
           <input
@@ -333,26 +349,30 @@ const SearchAndFilters = ({
             onChange={(e) => onSearchChange(e.target.value)}
           />
         </div>
-        
+
         <div className="date-filters">
           <input
             type="date"
-            value={dateRange.start || ''}
-            onChange={(e) => onDateRangeChange({ ...dateRange, start: e.target.value })}
+            value={dateRange.start || ""}
+            onChange={(e) =>
+              onDateRangeChange({ ...dateRange, start: e.target.value })
+            }
             placeholder="From date"
           />
           <input
             type="date"
-            value={dateRange.end || ''}
-            onChange={(e) => onDateRangeChange({ ...dateRange, end: e.target.value })}
+            value={dateRange.end || ""}
+            onChange={(e) =>
+              onDateRangeChange({ ...dateRange, end: e.target.value })
+            }
             placeholder="To date"
           />
         </div>
-        
+
         <div className="status-filter">
           <label>Status:</label>
-          <select 
-            value={statusFilter} 
+          <select
+            value={statusFilter}
             onChange={(e) => onStatusFilterChange(e.target.value)}
           >
             <option value="all">All Orders</option>
@@ -364,7 +384,7 @@ const SearchAndFilters = ({
           </select>
         </div>
       </div>
-      
+
       <div className="bulk-actions">
         {selectedOrders.length > 0 && (
           <div className="bulk-status-update">
@@ -380,8 +400,8 @@ const SearchAndFilters = ({
             ))}
           </div>
         )}
-        
-        <button 
+
+        <button
           className="export-button"
           onClick={onExportCSV}
           disabled={ordersCount === 0}
@@ -399,15 +419,15 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [newProduct, setNewProduct] = useState({
-    name: '',
-    description: '',
-    feature: '',
-    image: '',
-    price: '',
-    rating: '',
+    name: "",
+    description: "",
+    feature: "",
+    image: "",
+    price: "",
+    rating: "",
     priceOptions: [],
     benefits: [],
-    specifications: {}
+    specifications: {},
   });
 
   // Enhanced Orders state
@@ -415,25 +435,25 @@ const Dashboard = () => {
   const [allOrders, setAllOrders] = useState([]); // For filtering
   const [loadingOrders, setLoadingOrders] = useState(true);
   const [orderError, setOrderError] = useState(null);
-  const [activeTab, setActiveTab] = useState('products');
+  const [activeTab, setActiveTab] = useState("products");
   const [selectedOrder, setSelectedOrder] = useState(null);
-  
+
   // Enhanced filtering and search
-  const [orderStatusFilter, setOrderStatusFilter] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [dateRange, setDateRange] = useState({ start: '', end: '' });
-  
+  const [orderStatusFilter, setOrderStatusFilter] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dateRange, setDateRange] = useState({ start: "", end: "" });
+
   // Bulk operations
   const [selectedOrders, setSelectedOrders] = useState([]);
-  
+
   // Loading states
   const [updatingOrder, setUpdatingOrder] = useState(null);
   const [deletingOrder, setDeletingOrder] = useState(null);
   const [bulkUpdating, setBulkUpdating] = useState(false);
-  
+
   // Notifications
   const [notification, setNotification] = useState(null);
-  
+
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreOrders, setHasMoreOrders] = useState(true);
@@ -441,17 +461,17 @@ const Dashboard = () => {
 
   // Your existing product state variables
   const [currentOption, setCurrentOption] = useState({
-    name: '',
-    price: ''
+    name: "",
+    price: "",
   });
   const [editingProduct, setEditingProduct] = useState(null);
   const [editingOption, setEditingOption] = useState({
-    name: '',
-    price: ''
+    name: "",
+    price: "",
   });
-  const [currentBenefit, setCurrentBenefit] = useState('');
-  const [currentSpecKey, setCurrentSpecKey] = useState('');
-  const [currentSpecValue, setCurrentSpecValue] = useState('');
+  const [currentBenefit, setCurrentBenefit] = useState("");
+  const [currentSpecKey, setCurrentSpecKey] = useState("");
+  const [currentSpecValue, setCurrentSpecValue] = useState("");
   const [commonSpecFields] = useState([
     "Dimension",
     "Filter Replacement Cycle",
@@ -466,14 +486,14 @@ const Dashboard = () => {
     "Stages Of Purification",
     "Total Dissolved Solids (TDS) Levels",
     "UF Cartridge",
-    "UV Disinfection Column"
+    "UV Disinfection Column",
   ]);
 
-  const productsRef = collection(db, 'products');
-  const ordersRef = collection(db, 'orders');
+  const productsRef = collection(db, "products");
+  const ordersRef = collection(db, "orders");
 
   // Notification helper
-  const showNotification = useCallback((message, type = 'success') => {
+  const showNotification = useCallback((message, type = "success") => {
     setNotification({ message, type });
   }, []);
 
@@ -485,18 +505,22 @@ const Dashboard = () => {
   const fetchOrders = useCallback(async (page = 1, append = false) => {
     try {
       if (!append) setLoadingOrders(true);
-      
-      let ordersQuery = query(ordersRef, orderBy('createdAt', 'desc'));
-      
+
+      let ordersQuery = query(ordersRef, orderBy("createdAt", "desc"));
+
       // Add pagination
       if (page > 1 && lastVisible) {
-        ordersQuery = query(ordersQuery, startAfter(lastVisible), limit(ORDERS_PER_PAGE));
+        ordersQuery = query(
+          ordersQuery,
+          startAfter(lastVisible),
+          limit(ORDERS_PER_PAGE)
+        );
       } else {
         ordersQuery = query(ordersQuery, limit(ORDERS_PER_PAGE));
       }
-      
+
       const data = await getDocs(ordersQuery);
-      
+
       if (data.empty) {
         if (!append) {
           setAllOrders([]);
@@ -506,51 +530,60 @@ const Dashboard = () => {
         setLoadingOrders(false);
         return;
       }
-      
-      const ordersArray = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-      
+
+      const ordersArray = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
       // Set pagination state
       setLastVisible(data.docs[data.docs.length - 1]);
       setHasMoreOrders(data.docs.length === ORDERS_PER_PAGE);
-      
+
       if (append) {
-        setAllOrders(prev => [...prev, ...ordersArray]);
+        setAllOrders((prev) => [...prev, ...ordersArray]);
       } else {
         setAllOrders(ordersArray);
       }
-      
+
       setLoadingOrders(false);
     } catch (error) {
       console.error("Error fetching orders:", error);
       setOrderError("Failed to fetch orders: " + error.message);
       setLoadingOrders(false);
-      showNotification("Failed to fetch orders", 'error');
+      showNotification("Failed to fetch orders", "error");
     }
   }, []);
 
   // Filtered orders based on search and filters
   const filteredOrders = useMemo(() => {
-    return allOrders.filter(order => {
+    return allOrders.filter((order) => {
       // Search filter
-      const matchesSearch = !searchTerm || 
+      const matchesSearch =
+        !searchTerm ||
         order.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         order.customerEmail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         order.id.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       // Status filter
-      const matchesStatus = orderStatusFilter === 'all' || order.status === orderStatusFilter;
-      
+      const matchesStatus =
+        orderStatusFilter === "all" || order.status === orderStatusFilter;
+
       // Date range filter
       let matchesDateRange = true;
       if (dateRange.start || dateRange.end) {
-        const orderDate = order.createdAt?.toDate ? order.createdAt.toDate() : new Date(order.createdAt);
+        const orderDate = order.createdAt?.toDate
+          ? order.createdAt.toDate()
+          : new Date(order.createdAt);
         const startDate = dateRange.start ? new Date(dateRange.start) : null;
-        const endDate = dateRange.end ? new Date(dateRange.end + 'T23:59:59') : null;
-        
+        const endDate = dateRange.end
+          ? new Date(dateRange.end + "T23:59:59")
+          : null;
+
         if (startDate && orderDate < startDate) matchesDateRange = false;
         if (endDate && orderDate > endDate) matchesDateRange = false;
       }
-      
+
       return matchesSearch && matchesStatus && matchesDateRange;
     });
   }, [allOrders, searchTerm, orderStatusFilter, dateRange]);
@@ -563,190 +596,213 @@ const Dashboard = () => {
   }, [filteredOrders]);
 
   // Enhanced order status update with optimistic updates
-  const updateOrderStatus = useCallback(async (orderId, newStatus) => {
-    try {
-      setUpdatingOrder(orderId);
-      
-      // Optimistic update
-      const updateOrderInState = (ordersList) => 
-        ordersList.map(order => 
-          order.id === orderId 
-            ? { ...order, status: newStatus, lastUpdated: new Date() }
-            : order
-        );
-      
-      setAllOrders(updateOrderInState);
-      setOrders(updateOrderInState);
-      
-      // Update selected order if it's the one being updated
-      if (selectedOrder?.id === orderId) {
-        setSelectedOrder(prev => ({ 
-          ...prev, 
-          status: newStatus, 
-          lastUpdated: new Date() 
-        }));
+  const updateOrderStatus = useCallback(
+    async (orderId, newStatus) => {
+      try {
+        setUpdatingOrder(orderId);
+
+        // Optimistic update
+        const updateOrderInState = (ordersList) =>
+          ordersList.map((order) =>
+            order.id === orderId
+              ? { ...order, status: newStatus, lastUpdated: new Date() }
+              : order
+          );
+
+        setAllOrders(updateOrderInState);
+        setOrders(updateOrderInState);
+
+        // Update selected order if it's the one being updated
+        if (selectedOrder?.id === orderId) {
+          setSelectedOrder((prev) => ({
+            ...prev,
+            status: newStatus,
+            lastUpdated: new Date(),
+          }));
+        }
+
+        // Update in database
+        const orderRef = doc(db, "orders", orderId);
+        await updateDoc(orderRef, {
+          status: newStatus,
+          lastUpdated: new Date(),
+        });
+
+        showNotification(`Order status updated to ${newStatus}`);
+      } catch (error) {
+        console.error("Error updating order status:", error);
+        showNotification("Failed to update order status", "error");
+        // Revert optimistic update
+        fetchOrders(1, false);
+      } finally {
+        setUpdatingOrder(null);
       }
-      
-      // Update in database
-      const orderRef = doc(db, 'orders', orderId);
-      await updateDoc(orderRef, {
-        status: newStatus,
-        lastUpdated: new Date()
-      });
-      
-      showNotification(`Order status updated to ${newStatus}`);
-    } catch (error) {
-      console.error("Error updating order status:", error);
-      showNotification("Failed to update order status", 'error');
-      // Revert optimistic update
-      fetchOrders(1, false);
-    } finally {
-      setUpdatingOrder(null);
-    }
-  }, [selectedOrder, showNotification, fetchOrders]);
+    },
+    [selectedOrder, showNotification, fetchOrders]
+  );
 
   // Bulk status update
-  const bulkUpdateOrderStatus = useCallback(async (newStatus) => {
-    if (selectedOrders.length === 0) return;
-    
-    if (!window.confirm(`Are you sure you want to update ${selectedOrders.length} orders to ${newStatus}?`)) {
-      return;
-    }
-    
-    try {
-      setBulkUpdating(true);
-      
-      // Optimistic update
-      const updateOrdersInState = (ordersList) => 
-        ordersList.map(order => 
-          selectedOrders.includes(order.id)
-            ? { ...order, status: newStatus, lastUpdated: new Date() }
-            : order
-        );
-      
-      setAllOrders(updateOrdersInState);
-      setOrders(updateOrdersInState);
-      
-      // Batch update in database
-      const batch = writeBatch(db);
-      selectedOrders.forEach(orderId => {
-        const orderRef = doc(db, 'orders', orderId);
-        batch.update(orderRef, { 
-          status: newStatus, 
-          lastUpdated: new Date() 
+  const bulkUpdateOrderStatus = useCallback(
+    async (newStatus) => {
+      if (selectedOrders.length === 0) return;
+
+      if (
+        !window.confirm(
+          `Are you sure you want to update ${selectedOrders.length} orders to ${newStatus}?`
+        )
+      ) {
+        return;
+      }
+
+      try {
+        setBulkUpdating(true);
+
+        // Optimistic update
+        const updateOrdersInState = (ordersList) =>
+          ordersList.map((order) =>
+            selectedOrders.includes(order.id)
+              ? { ...order, status: newStatus, lastUpdated: new Date() }
+              : order
+          );
+
+        setAllOrders(updateOrdersInState);
+        setOrders(updateOrdersInState);
+
+        // Batch update in database
+        const batch = writeBatch(db);
+        selectedOrders.forEach((orderId) => {
+          const orderRef = doc(db, "orders", orderId);
+          batch.update(orderRef, {
+            status: newStatus,
+            lastUpdated: new Date(),
+          });
         });
-      });
-      
-      await batch.commit();
-      
-      setSelectedOrders([]);
-      showNotification(`${selectedOrders.length} orders updated to ${newStatus}`);
-    } catch (error) {
-      console.error("Error bulk updating orders:", error);
-      showNotification("Failed to bulk update orders", 'error');
-      // Revert optimistic update
-      fetchOrders(1, false);
-    } finally {
-      setBulkUpdating(false);
-    }
-  }, [selectedOrders, showNotification, fetchOrders]);
+
+        await batch.commit();
+
+        setSelectedOrders([]);
+        showNotification(
+          `${selectedOrders.length} orders updated to ${newStatus}`
+        );
+      } catch (error) {
+        console.error("Error bulk updating orders:", error);
+        showNotification("Failed to bulk update orders", "error");
+        // Revert optimistic update
+        fetchOrders(1, false);
+      } finally {
+        setBulkUpdating(false);
+      }
+    },
+    [selectedOrders, showNotification, fetchOrders]
+  );
 
   // Enhanced delete order
-  const deleteOrder = useCallback(async (orderId) => {
-    if (!window.confirm("Are you sure you want to delete this order? This action cannot be undone.")) {
-      return;
-    }
-    
-    try {
-      setDeletingOrder(orderId);
-      
-      await deleteDoc(doc(db, 'orders', orderId));
-      
-      // Remove from state
-      setAllOrders(prev => prev.filter(order => order.id !== orderId));
-      setOrders(prev => prev.filter(order => order.id !== orderId));
-      setSelectedOrders(prev => prev.filter(id => id !== orderId));
-      
-      // Clear selection if deleted order was selected
-      if (selectedOrder?.id === orderId) {
-        setSelectedOrder(null);
+  const deleteOrder = useCallback(
+    async (orderId) => {
+      if (
+        !window.confirm(
+          "Are you sure you want to delete this order? This action cannot be undone."
+        )
+      ) {
+        return;
       }
-      
-      showNotification("Order deleted successfully");
-    } catch (error) {
-      console.error("Error deleting order:", error);
-      showNotification("Failed to delete order", 'error');
-    } finally {
-      setDeletingOrder(null);
-    }
-  }, [selectedOrder, showNotification]);
+
+      try {
+        setDeletingOrder(orderId);
+
+        await deleteDoc(doc(db, "orders", orderId));
+
+        // Remove from state
+        setAllOrders((prev) => prev.filter((order) => order.id !== orderId));
+        setOrders((prev) => prev.filter((order) => order.id !== orderId));
+        setSelectedOrders((prev) => prev.filter((id) => id !== orderId));
+
+        // Clear selection if deleted order was selected
+        if (selectedOrder?.id === orderId) {
+          setSelectedOrder(null);
+        }
+
+        showNotification("Order deleted successfully");
+      } catch (error) {
+        console.error("Error deleting order:", error);
+        showNotification("Failed to delete order", "error");
+      } finally {
+        setDeletingOrder(null);
+      }
+    },
+    [selectedOrder, showNotification]
+  );
 
   // Order selection handlers
   const toggleOrderSelection = useCallback((orderId) => {
-    setSelectedOrders(prev => 
-      prev.includes(orderId) 
-        ? prev.filter(id => id !== orderId)
+    setSelectedOrders((prev) =>
+      prev.includes(orderId)
+        ? prev.filter((id) => id !== orderId)
         : [...prev, orderId]
     );
   }, []);
 
   const toggleAllOrdersSelection = useCallback(() => {
-    setSelectedOrders(prev => 
-      prev.length === orders.length ? [] : orders.map(order => order.id)
+    setSelectedOrders((prev) =>
+      prev.length === orders.length ? [] : orders.map((order) => order.id)
     );
   }, [orders]);
 
   // Export orders to CSV
   const exportOrdersToCSV = useCallback(() => {
     if (filteredOrders.length === 0) {
-      showNotification("No orders to export", 'error');
+      showNotification("No orders to export", "error");
       return;
     }
-    
+
     try {
-      let csvContent = "Order ID,Customer Name,Email,Phone,Address,Total Amount,Status,Date\n";
-      
-      filteredOrders.forEach(order => {
+      let csvContent =
+        "Order ID,Customer Name,Email,Phone,Address,Total Amount,Status,Date\n";
+
+      filteredOrders.forEach((order) => {
         const orderDate = formatDate(order.createdAt);
         const row = [
           order.id,
           order.customerName,
           order.customerEmail,
           order.customerPhone,
-          `"${order.customerAddress?.replace(/"/g, '""') || ''}"`,
-          order.total ? order.total.toFixed(2) : '0.00',
-          order.status || 'pending',
-          orderDate
+          `"${order.customerAddress?.replace(/"/g, '""') || ""}"`,
+          order.total ? order.total.toFixed(2) : "0.00",
+          order.status || "pending",
+          orderDate,
         ];
-        
-        csvContent += row.join(',') + "\n";
+
+        csvContent += row.join(",") + "\n";
       });
-      
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', `orders_export_${new Date().toISOString().split('T')[0]}.csv`);
+      link.setAttribute(
+        "download",
+        `orders_export_${new Date().toISOString().split("T")[0]}.csv`
+      );
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       showNotification(`Exported ${filteredOrders.length} orders to CSV`);
     } catch (error) {
       console.error("Error exporting orders:", error);
-      showNotification("Failed to export orders", 'error');
+      showNotification("Failed to export orders", "error");
     }
   }, [filteredOrders, showNotification]);
 
   // Effects
   useEffect(() => {
-    if (activeTab === 'products') {
+    if (activeTab === "products") {
       fetchProducts();
     }
   }, [activeTab]);
 
   useEffect(() => {
-    if (activeTab === 'orders') {
+    if (activeTab === "orders") {
       fetchOrders(1, false);
     }
   }, [activeTab, fetchOrders]);
@@ -756,26 +812,26 @@ const Dashboard = () => {
     try {
       console.log("Fetching products...");
       setLoading(true);
-      
+
       const data = await getDocs(productsRef);
-      
+
       if (data.empty) {
         console.log("No products found in the collection");
         setProducts([]);
         setLoading(false);
         return;
       }
-      
-      const productsArray = data.docs.map(doc => {
+
+      const productsArray = data.docs.map((doc) => {
         const rawData = doc.data();
         const cleanData = {};
-        Object.keys(rawData).forEach(key => {
+        Object.keys(rawData).forEach((key) => {
           const trimmedKey = key.trim();
           cleanData[trimmedKey] = rawData[key];
         });
         return { ...cleanData, id: doc.id };
       });
-      
+
       setProducts(productsArray);
       setLoading(false);
     } catch (error) {
@@ -788,19 +844,19 @@ const Dashboard = () => {
   // Keep all your existing product management functions
   const addPriceOption = () => {
     if (!currentOption.name || !currentOption.price) {
-      alert('Please provide both name and price for the option');
+      alert("Please provide both name and price for the option");
       return;
     }
-    
+
     setNewProduct({
       ...newProduct,
       priceOptions: [
         ...newProduct.priceOptions,
-        { ...currentOption, price: Number(currentOption.price) }
-      ]
+        { ...currentOption, price: Number(currentOption.price) },
+      ],
     });
-    
-    setCurrentOption({ name: '', price: '' });
+
+    setCurrentOption({ name: "", price: "" });
   };
 
   const removePriceOption = (index) => {
@@ -811,15 +867,15 @@ const Dashboard = () => {
 
   const addBenefit = () => {
     if (!currentBenefit) {
-      alert('Please enter a benefit');
+      alert("Please enter a benefit");
       return;
     }
-    
+
     setNewProduct({
       ...newProduct,
-      benefits: [...newProduct.benefits, currentBenefit]
+      benefits: [...newProduct.benefits, currentBenefit],
     });
-    setCurrentBenefit('');
+    setCurrentBenefit("");
   };
 
   const removeBenefit = (index) => {
@@ -830,20 +886,20 @@ const Dashboard = () => {
 
   const addSpecification = () => {
     if (!currentSpecKey || !currentSpecValue) {
-      alert('Please provide both specification key and value');
+      alert("Please provide both specification key and value");
       return;
     }
-    
+
     setNewProduct({
       ...newProduct,
       specifications: {
         ...newProduct.specifications,
-        [currentSpecKey]: currentSpecValue
-      }
+        [currentSpecKey]: currentSpecValue,
+      },
     });
-    
-    setCurrentSpecKey('');
-    setCurrentSpecValue('');
+
+    setCurrentSpecKey("");
+    setCurrentSpecValue("");
   };
 
   const removeSpecification = (key) => {
@@ -854,15 +910,15 @@ const Dashboard = () => {
 
   const addEditingBenefit = () => {
     if (!currentBenefit) {
-      alert('Please enter a benefit');
+      alert("Please enter a benefit");
       return;
     }
-    
+
     setEditingProduct({
       ...editingProduct,
-      benefits: [...(editingProduct.benefits || []), currentBenefit]
+      benefits: [...(editingProduct.benefits || []), currentBenefit],
     });
-    setCurrentBenefit('');
+    setCurrentBenefit("");
   };
 
   const removeEditingBenefit = (index) => {
@@ -873,20 +929,20 @@ const Dashboard = () => {
 
   const addEditingSpecification = () => {
     if (!currentSpecKey || !currentSpecValue) {
-      alert('Please provide both specification key and value');
+      alert("Please provide both specification key and value");
       return;
     }
-    
+
     setEditingProduct({
       ...editingProduct,
       specifications: {
         ...(editingProduct.specifications || {}),
-        [currentSpecKey]: currentSpecValue
-      }
+        [currentSpecKey]: currentSpecValue,
+      },
     });
-    
-    setCurrentSpecKey('');
-    setCurrentSpecValue('');
+
+    setCurrentSpecKey("");
+    setCurrentSpecValue("");
   };
 
   const removeEditingSpecification = (key) => {
@@ -897,7 +953,7 @@ const Dashboard = () => {
 
   const handleAdd = async () => {
     if (!newProduct.name || !newProduct.price || !newProduct.image) {
-      alert('Please fill in required fields (Name, Price, and Image URL)');
+      alert("Please fill in required fields (Name, Price, and Image URL)");
       return;
     }
 
@@ -906,26 +962,26 @@ const Dashboard = () => {
         ...newProduct,
         price: Number(newProduct.price),
         rating: parseFloat(newProduct.rating) || 0,
-        priceOptions: newProduct.priceOptions.map(option => ({
+        priceOptions: newProduct.priceOptions.map((option) => ({
           name: option.name,
-          price: Number(option.price)
+          price: Number(option.price),
         })),
         benefits: newProduct.benefits || [],
-        specifications: newProduct.specifications || {}
+        specifications: newProduct.specifications || {},
       });
-      
-      setNewProduct({ 
-        name: '', 
-        description: '', 
-        feature: '', 
-        image: '', 
-        price: '', 
-        rating: '',
+
+      setNewProduct({
+        name: "",
+        description: "",
+        feature: "",
+        image: "",
+        price: "",
+        rating: "",
         priceOptions: [],
         benefits: [],
-        specifications: {} 
+        specifications: {},
       });
-      
+
       fetchProducts();
     } catch (error) {
       console.error("Error adding product:", error);
@@ -935,7 +991,7 @@ const Dashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, 'products', id));
+      await deleteDoc(doc(db, "products", id));
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -948,26 +1004,26 @@ const Dashboard = () => {
       ...product,
       priceOptions: product.priceOptions || [],
       benefits: product.benefits || [],
-      specifications: product.specifications || {}
+      specifications: product.specifications || {},
     };
     setEditingProduct(productWithDefaults);
   };
 
   const addEditingPriceOption = () => {
     if (!editingOption.name || !editingOption.price) {
-      alert('Please provide both name and price for the option');
+      alert("Please provide both name and price for the option");
       return;
     }
-    
+
     setEditingProduct({
       ...editingProduct,
       priceOptions: [
         ...(editingProduct.priceOptions || []),
-        { ...editingOption, price: Number(editingOption.price) }
-      ]
+        { ...editingOption, price: Number(editingOption.price) },
+      ],
     });
-    
-    setEditingOption({ name: '', price: '' });
+
+    setEditingOption({ name: "", price: "" });
   };
 
   const removeEditingPriceOption = (index) => {
@@ -978,17 +1034,17 @@ const Dashboard = () => {
 
   const handleUpdate = async () => {
     try {
-      const docRef = doc(db, 'products', editingProduct.id);
+      const docRef = doc(db, "products", editingProduct.id);
       await updateDoc(docRef, {
         ...editingProduct,
         price: Number(editingProduct.price),
         rating: parseFloat(editingProduct.rating) || 0,
-        priceOptions: (editingProduct.priceOptions || []).map(option => ({
+        priceOptions: (editingProduct.priceOptions || []).map((option) => ({
           name: option.name,
-          price: Number(option.price)
+          price: Number(option.price),
         })),
         benefits: editingProduct.benefits || [],
-        specifications: editingProduct.specifications || {}
+        specifications: editingProduct.specifications || {},
       });
       setEditingProduct(null);
       fetchProducts();
@@ -999,40 +1055,40 @@ const Dashboard = () => {
   };
 
   const handleImageError = (e) => {
-    e.target.src = 'https://via.placeholder.com/100x100?text=No+Image';
+    e.target.src = "https://via.placeholder.com/100x100?text=No+Image";
   };
 
   return (
     <div className="dashboard-container">
       <h2>Admin Dashboard</h2>
-      
+
       {/* Notifications */}
       {notification && (
-        <Notification 
+        <Notification
           message={notification.message}
           type={notification.type}
           onClose={hideNotification}
         />
       )}
-      
+
       {/* Dashboard Navigation */}
       <div className="dashboard-tabs">
-        <button 
-          className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
-          onClick={() => setActiveTab('products')}
+        <button
+          className={`tab-button ${activeTab === "products" ? "active" : ""}`}
+          onClick={() => setActiveTab("products")}
         >
           Products Management
         </button>
-        <button 
-          className={`tab-button ${activeTab === 'orders' ? 'active' : ''}`}
-          onClick={() => setActiveTab('orders')}
+        <button
+          className={`tab-button ${activeTab === "orders" ? "active" : ""}`}
+          onClick={() => setActiveTab("orders")}
         >
           Orders Management
         </button>
       </div>
-      
+
       {/* Products Tab */}
-      {activeTab === 'products' && (
+      {activeTab === "products" && (
         <>
           {/* Product addition form (keeping your existing form) */}
           <div className="add-product-form">
@@ -1041,50 +1097,64 @@ const Dashboard = () => {
               type="text"
               placeholder="Name (required)"
               value={newProduct.name}
-              onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, name: e.target.value })
+              }
             />
             <input
               type="text"
               placeholder="Description"
               value={newProduct.description}
-              onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, description: e.target.value })
+              }
             />
             <input
               type="text"
               placeholder="Feature"
               value={newProduct.feature}
-              onChange={(e) => setNewProduct({ ...newProduct, feature: e.target.value })}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, feature: e.target.value })
+              }
             />
             <input
               type="text"
               placeholder="Image URL (required)"
               value={newProduct.image}
-              onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, image: e.target.value })
+              }
             />
             <input
               type="number"
               placeholder="Base Price (required)"
               value={newProduct.price}
-              onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, price: e.target.value })
+              }
             />
             <input
               type="number"
               step="0.1"
               placeholder="Rating (0-5)"
               value={newProduct.rating}
-              onChange={(e) => setNewProduct({ ...newProduct, rating: e.target.value })}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, rating: e.target.value })
+              }
             />
 
             {/* Price Options Section */}
             <div className="price-options-section">
               <h4>Price Options</h4>
-              
+
               <div className="price-options-list">
                 {newProduct.priceOptions.map((option, index) => (
                   <div key={index} className="price-option-item">
-                    <span>{index}: {option.name} - ₹{option.price}</span>
-                    <button 
-                      type="button" 
+                    <span>
+                      {index}: {option.name} - ₹{option.price}
+                    </span>
+                    <button
+                      type="button"
                       onClick={() => removePriceOption(index)}
                       className="remove-option-btn"
                     >
@@ -1093,22 +1163,29 @@ const Dashboard = () => {
                   </div>
                 ))}
               </div>
-              
+
               <div className="add-option-form">
                 <input
                   type="text"
                   placeholder="Option Name"
                   value={currentOption.name}
-                  onChange={(e) => setCurrentOption({ ...currentOption, name: e.target.value })}
+                  onChange={(e) =>
+                    setCurrentOption({ ...currentOption, name: e.target.value })
+                  }
                 />
                 <input
                   type="number"
                   placeholder="Option Price"
                   value={currentOption.price}
-                  onChange={(e) => setCurrentOption({ ...currentOption, price: e.target.value })}
+                  onChange={(e) =>
+                    setCurrentOption({
+                      ...currentOption,
+                      price: e.target.value,
+                    })
+                  }
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={addPriceOption}
                   className="add-option-btn"
                 >
@@ -1116,17 +1193,19 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Benefits Section */}
             <div className="benefits-section">
               <h4>Product Benefits</h4>
-              
+
               <div className="benefits-list">
                 {newProduct.benefits.map((benefit, index) => (
                   <div key={index} className="benefit-item">
-                    <span>{index}: {benefit}</span>
-                    <button 
-                      type="button" 
+                    <span>
+                      {index}: {benefit}
+                    </span>
+                    <button
+                      type="button"
                       onClick={() => removeBenefit(index)}
                       className="remove-benefit-btn"
                     >
@@ -1135,7 +1214,7 @@ const Dashboard = () => {
                   </div>
                 ))}
               </div>
-              
+
               <div className="add-benefit-form">
                 <input
                   type="text"
@@ -1143,8 +1222,8 @@ const Dashboard = () => {
                   value={currentBenefit}
                   onChange={(e) => setCurrentBenefit(e.target.value)}
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={addBenefit}
                   className="add-benefit-btn"
                 >
@@ -1152,26 +1231,30 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Specifications Section */}
             <div className="specifications-section">
               <h4>Product Specifications</h4>
-              
+
               <div className="specifications-list">
-                {Object.entries(newProduct.specifications).map(([key, value], index) => (
-                  <div key={index} className="specification-item">
-                    <span><strong>{key}:</strong> {value}</span>
-                    <button 
-                      type="button" 
-                      onClick={() => removeSpecification(key)}
-                      className="remove-spec-btn"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
+                {Object.entries(newProduct.specifications).map(
+                  ([key, value], index) => (
+                    <div key={index} className="specification-item">
+                      <span>
+                        <strong>{key}:</strong> {value}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => removeSpecification(key)}
+                        className="remove-spec-btn"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  )
+                )}
               </div>
-              
+
               <div className="add-specification-form">
                 <select
                   value={currentSpecKey}
@@ -1179,7 +1262,9 @@ const Dashboard = () => {
                 >
                   <option value="">Select or type specification</option>
                   {commonSpecFields.map((field, index) => (
-                    <option key={index} value={field}>{field}</option>
+                    <option key={index} value={field}>
+                      {field}
+                    </option>
                   ))}
                 </select>
                 <input
@@ -1194,8 +1279,8 @@ const Dashboard = () => {
                   value={currentSpecValue}
                   onChange={(e) => setCurrentSpecValue(e.target.value)}
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={addSpecification}
                   className="add-spec-btn"
                 >
@@ -1203,91 +1288,143 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-            
+
             <button onClick={handleAdd}>Add Product</button>
           </div>
 
           {/* Products List */}
           <div className="product-list">
             <h3>Products ({products.length})</h3>
-            
+
             {loading ? (
               <p>Loading products...</p>
             ) : error ? (
-              <p style={{ color: 'red' }}>{error}</p>
+              <p style={{ color: "red" }}>{error}</p>
             ) : products.length === 0 ? (
               <p>No products found. Add some products to get started.</p>
             ) : (
               Array.from(products).map((product, index) => (
                 <div key={product.id || index} className="product-card">
                   {editingProduct?.id === product.id ? (
-                    <>
+                    <div className="edit-mode">
                       <input
                         type="text"
-                        value={editingProduct.name || ''}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
+                        value={editingProduct.name || ""}
+                        onChange={(e) =>
+                          setEditingProduct({
+                            ...editingProduct,
+                            name: e.target.value,
+                          })
+                        }
+                        placeholder="Product Name"
                       />
                       <input
                         type="text"
-                        value={editingProduct.description || ''}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
+                        value={editingProduct.description || ""}
+                        onChange={(e) =>
+                          setEditingProduct({
+                            ...editingProduct,
+                            description: e.target.value,
+                          })
+                        }
+                        placeholder="Description"
                       />
                       <input
                         type="text"
-                        value={editingProduct.feature || ''}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, feature: e.target.value })}
+                        value={editingProduct.feature || ""}
+                        onChange={(e) =>
+                          setEditingProduct({
+                            ...editingProduct,
+                            feature: e.target.value,
+                          })
+                        }
+                        placeholder="Feature"
                       />
                       <input
                         type="text"
-                        value={editingProduct.image || ''}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, image: e.target.value })}
+                        value={editingProduct.image || ""}
+                        onChange={(e) =>
+                          setEditingProduct({
+                            ...editingProduct,
+                            image: e.target.value,
+                          })
+                        }
+                        placeholder="Image URL"
                       />
                       <input
                         type="number"
-                        value={editingProduct.price || ''}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value })}
+                        value={editingProduct.price || ""}
+                        onChange={(e) =>
+                          setEditingProduct({
+                            ...editingProduct,
+                            price: e.target.value,
+                          })
+                        }
+                        placeholder="Base Price"
                       />
                       <input
                         type="number"
                         step="0.1"
-                        value={editingProduct.rating || ''}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, rating: e.target.value })}
+                        value={editingProduct.rating || ""}
+                        onChange={(e) =>
+                          setEditingProduct({
+                            ...editingProduct,
+                            rating: e.target.value,
+                          })
+                        }
+                        placeholder="Rating (0-5)"
                       />
-                      
+
                       {/* Edit Price Options Section */}
                       <div className="edit-price-options-section">
                         <h4>Price Options</h4>
-                        
+
                         <div className="price-options-list">
-                          {(editingProduct.priceOptions || []).map((option, index) => (
-                            <div key={index} className="price-option-item">
-                              <span>{index}: {option.name} - ₹{option.price}</span>
-                              <button 
-                                type="button" 
-                                onClick={() => removeEditingPriceOption(index)}
-                                className="remove-option-btn"
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          ))}
+                          {(editingProduct.priceOptions || []).map(
+                            (option, index) => (
+                              <div key={index} className="price-option-item">
+                                <span>
+                                  {option.name} - ₹{option.price}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    removeEditingPriceOption(index)
+                                  }
+                                  className="remove-option-btn"
+                                >
+                                  Remove
+                                </button>
+                              </div>
+                            )
+                          )}
                         </div>
-                        
+
                         <div className="add-option-form">
                           <input
                             type="text"
                             placeholder="Option Name"
                             value={editingOption.name}
-                            onChange={(e) => setEditingOption({ ...editingOption, name: e.target.value })}
+                            onChange={(e) =>
+                              setEditingOption({
+                                ...editingOption,
+                                name: e.target.value,
+                              })
+                            }
                           />
                           <input
                             type="number"
                             placeholder="Option Price"
                             value={editingOption.price}
-                            onChange={(e) => setEditingOption({ ...editingOption, price: e.target.value })}
+                            onChange={(e) =>
+                              setEditingOption({
+                                ...editingOption,
+                                price: e.target.value,
+                              })
+                            }
                           />
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             onClick={addEditingPriceOption}
                             className="add-option-btn"
                           >
@@ -1295,26 +1432,28 @@ const Dashboard = () => {
                           </button>
                         </div>
                       </div>
-                      
+
                       {/* Edit Benefits Section */}
                       <div className="edit-benefits-section">
                         <h4>Product Benefits</h4>
-                        
+
                         <div className="benefits-list">
-                          {(editingProduct.benefits || []).map((benefit, index) => (
-                            <div key={index} className="benefit-item">
-                              <span>{index}: {benefit}</span>
-                              <button 
-                                type="button" 
-                                onClick={() => removeEditingBenefit(index)}
-                                className="remove-benefit-btn"
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          ))}
+                          {(editingProduct.benefits || []).map(
+                            (benefit, index) => (
+                              <div key={index} className="benefit-item">
+                                <span>{benefit}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => removeEditingBenefit(index)}
+                                  className="remove-benefit-btn"
+                                >
+                                  Remove
+                                </button>
+                              </div>
+                            )
+                          )}
                         </div>
-                        
+
                         <div className="add-benefit-form">
                           <input
                             type="text"
@@ -1322,8 +1461,8 @@ const Dashboard = () => {
                             value={currentBenefit}
                             onChange={(e) => setCurrentBenefit(e.target.value)}
                           />
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             onClick={addEditingBenefit}
                             className="add-benefit-btn"
                           >
@@ -1331,17 +1470,21 @@ const Dashboard = () => {
                           </button>
                         </div>
                       </div>
-                      
+
                       {/* Edit Specifications Section */}
                       <div className="edit-specifications-section">
                         <h4>Product Specifications</h4>
-                        
+
                         <div className="specifications-list">
-                          {Object.entries(editingProduct.specifications || {}).map(([key, value], index) => (
+                          {Object.entries(
+                            editingProduct.specifications || {}
+                          ).map(([key, value], index) => (
                             <div key={index} className="specification-item">
-                              <span><strong>{key}:</strong> {value}</span>
-                              <button 
-                                type="button" 
+                              <span>
+                                <strong>{key}:</strong> {value}
+                              </span>
+                              <button
+                                type="button"
                                 onClick={() => removeEditingSpecification(key)}
                                 className="remove-spec-btn"
                               >
@@ -1350,15 +1493,19 @@ const Dashboard = () => {
                             </div>
                           ))}
                         </div>
-                        
+
                         <div className="add-specification-form">
                           <select
                             value={currentSpecKey}
                             onChange={(e) => setCurrentSpecKey(e.target.value)}
                           >
-                            <option value="">Select or type specification</option>
+                            <option value="">
+                              Select or type specification
+                            </option>
                             {commonSpecFields.map((field, index) => (
-                              <option key={index} value={field}>{field}</option>
+                              <option key={index} value={field}>
+                                {field}
+                              </option>
                             ))}
                           </select>
                           <input
@@ -1371,10 +1518,12 @@ const Dashboard = () => {
                             type="text"
                             placeholder="Specification Value"
                             value={currentSpecValue}
-                            onChange={(e) => setCurrentSpecValue(e.target.value)}
+                            onChange={(e) =>
+                              setCurrentSpecValue(e.target.value)
+                            }
                           />
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             onClick={addEditingSpecification}
                             className="add-spec-btn"
                           >
@@ -1382,63 +1531,167 @@ const Dashboard = () => {
                           </button>
                         </div>
                       </div>
-                      
-                      <button onClick={handleUpdate}>Update</button>
-                      <button onClick={() => setEditingProduct(null)}>Cancel</button>
-                    </>
+
+                      <div className="edit-buttons">
+                        <button onClick={handleUpdate} className="update-btn">
+                          Update
+                        </button>
+                        <button
+                          onClick={() => setEditingProduct(null)}
+                          className="cancel-btn"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
                   ) : (
-                    <>
-                      <img 
-                        src={product.image} 
-                        alt={product.name || 'Product'} 
-                        width="100" 
-                        onError={handleImageError}
-                      />
-                      <h4>{product.name || 'Unnamed Product'}</h4>
-                      <p>{product.description || 'No description available'}</p>
-                      <p><b>Feature:</b> {product.feature || 'None'}</p>
-                      <p><b>Price:</b> ₹{product.price || '0'}</p>
-                      <p><b>Rating:</b> {'⭐'.repeat(Math.round(product.rating || 0))} ({product.rating || '0'})</p>
-                      
-                      {/* Display Price Options */}
-                      {product.priceOptions && product.priceOptions.length > 0 && (
-                        <div className="product-price-options">
-                          <p><b>Price Options:</b></p>
-                          <ul>
-                            {product.priceOptions.map((option, idx) => (
-                              <li key={idx}>{option.name}: ₹{option.price}</li>
-                            ))}
-                          </ul>
+                    <div className="product-content">
+                      {/* Product Image */}
+                      <div className="product-image-container">
+                        <img
+                          src={product.image}
+                          alt={product.name || "Product"}
+                          className="product-image"
+                          onError={handleImageError}
+                        />
+                        <div className="product-badge">Premium</div>
+                      </div>
+
+                      {/* Product Header */}
+                      <div className="product-header">
+                        <h4 className="product-title">
+                          {product.name || "Unnamed Product"}
+                        </h4>
+                        <div className="product-rating">
+                          <span className="rating-stars">
+                            {"★".repeat(Math.round(product.rating || 0))}
+                            {"☆".repeat(5 - Math.round(product.rating || 0))}
+                          </span>
+                          <span className="rating-value">
+                            ({product.rating || "0"})
+                          </span>
                         </div>
-                      )}
-                      
-                      {/* Display Benefits */}
-                      {product.benefits && product.benefits.length > 0 && (
-                        <div className="product-benefits">
-                          <p><b>Benefits:</b></p>
-                          <ul>
-                            {product.benefits.map((benefit, idx) => (
-                              <li key={idx}>{benefit}</li>
-                            ))}
-                          </ul>
+                      </div>
+
+                      {/* Product Info */}
+                      <div className="product-info">
+                        <p className="product-description">
+                          {product.description || "No description available"}
+                        </p>
+
+                        {product.feature && (
+                          <div className="product-feature">
+                            <span className="feature-label">Key Feature:</span>
+                            <span className="feature-text">
+                              {product.feature}
+                            </span>
+                          </div>
+                        )}
+
+                        <div className="product-price">
+                          <span className="price-label">Starting from</span>
+                          <span className="price-value">
+                            ₹{product.price || "0"}
+                          </span>
                         </div>
-                      )}
-                      
-                      {/* Display Specifications */}
-                      {product.specifications && Object.keys(product.specifications).length > 0 && (
-                        <div className="product-specifications">
-                          <p><b>Specifications:</b></p>
-                          <ul>
-                            {Object.entries(product.specifications).map(([key, value], idx) => (
-                              <li key={idx}><strong>{key}:</strong> {value}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                      
-                      <button onClick={() => handleEdit(product)} className='editButton'>Edit</button>
-                      <button onClick={() => handleDelete(product.id)} className='deleteButton'>Delete</button>
-                    </>
+                      </div>
+
+                      {/* Additional Details */}
+                      <div className="product-details">
+                        {/* Price Options */}
+                        {product.priceOptions &&
+                          product.priceOptions.length > 0 && (
+                            <div className="product-section">
+                              <h5 className="section-title">
+                                Available Options
+                              </h5>
+                              <div className="price-options-grid">
+                                {product.priceOptions.map((option, idx) => (
+                                  <div key={idx} className="price-option-tag">
+                                    <span className="option-name">
+                                      {option.name}
+                                    </span>
+                                    <span className="option-price">
+                                      ₹{option.price}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                        {/* Benefits */}
+                        {product.benefits && product.benefits.length > 0 && (
+                          <div className="product-section">
+                            <h5 className="section-title">Key Benefits</h5>
+                            <div className="benefits-grid">
+                              {product.benefits
+                                .slice(0, 3)
+                                .map((benefit, idx) => (
+                                  <div key={idx} className="benefit-tag">
+                                    <span className="benefit-icon">✓</span>
+                                    <span className="benefit-text">
+                                      {benefit}
+                                    </span>
+                                  </div>
+                                ))}
+                              {product.benefits.length > 3 && (
+                                <div className="more-benefits">
+                                  +{product.benefits.length - 3} more
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Specifications Preview */}
+                        {product.specifications &&
+                          Object.keys(product.specifications).length > 0 && (
+                            <div className="product-section">
+                              <h5 className="section-title">Specifications</h5>
+                              <div className="specs-preview">
+                                {Object.entries(product.specifications)
+                                  .slice(0, 2)
+                                  .map(([key, value], idx) => (
+                                    <div key={idx} className="spec-item">
+                                      <span className="spec-key">{key}:</span>
+                                      <span className="spec-value">
+                                        {value}
+                                      </span>
+                                    </div>
+                                  ))}
+                                {Object.keys(product.specifications).length >
+                                  2 && (
+                                  <div className="more-specs">
+                                    +
+                                    {Object.keys(product.specifications)
+                                      .length - 2}{" "}
+                                    more specs
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="product-actions">
+                        <button
+                          onClick={() => handleEdit(product)}
+                          className="edit-btn"
+                        >
+                          <span className="btn-icon"></span>
+                          Edit Product
+                        </button>
+                        <button
+                          onClick={() => handleDelete(product.id)}
+                          className="delete-btn"
+                        >
+                          <span className="btn-icon"></span>
+                          Delete
+                        </button>
+                      </div>
+                    </div>
                   )}
                 </div>
               ))
@@ -1446,9 +1699,9 @@ const Dashboard = () => {
           </div>
         </>
       )}
-      
+
       {/* Enhanced Orders Tab */}
-      {activeTab === 'orders' && (
+      {activeTab === "orders" && (
         <div className="orders-section">
           <SearchAndFilters
             searchTerm={searchTerm}
@@ -1462,14 +1715,14 @@ const Dashboard = () => {
             onExportCSV={exportOrdersToCSV}
             ordersCount={filteredOrders.length}
           />
-          
+
           {loadingOrders ? (
             <div className="loading-container">
               <p>Loading orders...</p>
             </div>
           ) : orderError ? (
             <div className="error-container">
-              <p style={{ color: 'red' }}>{orderError}</p>
+              <p style={{ color: "red" }}>{orderError}</p>
               <button onClick={() => fetchOrders(1, false)}>Retry</button>
             </div>
           ) : (
@@ -1485,21 +1738,21 @@ const Dashboard = () => {
                   onToggleOrderSelection={toggleOrderSelection}
                   onToggleAllOrders={toggleAllOrdersSelection}
                 />
-                
+
                 {/* Load More Button */}
                 {hasMoreOrders && (
                   <div className="load-more-container">
-                    <button 
+                    <button
                       className="load-more-btn"
                       onClick={() => fetchOrders(currentPage + 1, true)}
                       disabled={loadingOrders}
                     >
-                      {loadingOrders ? 'Loading...' : 'Load More Orders'}
+                      {loadingOrders ? "Loading..." : "Load More Orders"}
                     </button>
                   </div>
                 )}
               </div>
-              
+
               {/* Enhanced Order Details Panel */}
               {selectedOrder && (
                 <OrderDetails
@@ -1513,7 +1766,7 @@ const Dashboard = () => {
               )}
             </div>
           )}
-          
+
           {/* Bulk Update Loading Overlay */}
           {bulkUpdating && (
             <div className="bulk-updating-overlay">
