@@ -187,6 +187,34 @@
   animation: ripple 0.6s linear;
 }
 
+.validation-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  font-size: 0.85em;
+}
+
+.char-count {
+  color: #666;
+  font-size: 0.8em;
+}
+
+.char-count.warning {
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.char-count.error {
+  color: #f44336;
+  font-weight: 600;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 0.85em;
+}
+
 /* Water droplet animation for button */
 .contact-form button::before {
   content: "";

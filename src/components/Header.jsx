@@ -285,19 +285,13 @@ function Navbar() {
               onMouseLeave={handleMouseLeave}
               onClick={handleLinkClick}
             >
-              <span className="link-text">Service</span>
+              <span className="link-text">Services</span>
               <span className="link-hover-effect"></span>
             </a>
 
-            <a
-              href="/contact"
-              className={`nav-link ${activeLink === "contact" ? "active" : ""}`}
-              onMouseEnter={() => handleMouseEnter("contact")}
-              onMouseLeave={handleMouseLeave}
-              onClick={handleLinkClick}
-            >
-              <span className="link-text">Contact Us</span>
-              <span className="link-hover-effect"></span>
+            {/* Mobile Quote Button */}
+            <a href="/contact" className="mobile-quote-btn" onClick={handleLinkClick}>
+              Get a Quote
             </a>
 
             <div className="mobile-nav-footer">
@@ -315,7 +309,7 @@ function Navbar() {
         {/* Header action buttons */}
         <div className="header-actions">
           {/* Search button and form */}
-          <div className="search-container">
+          {/* <div className="search-container">
             <button className="search-btn" onClick={toggleSearch}>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
@@ -346,7 +340,7 @@ function Navbar() {
                 </form>
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Get a Quote button */}
           <a href="/contact" className="quote-btn">

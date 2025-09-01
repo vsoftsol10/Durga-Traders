@@ -4,9 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 // We'll use EmailJS for sending emails
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase'; // Add this import
+
+import CCAvenueLogo from "../assets/ccavenue-logo.png"
 
 // Payment gateway integration component
-const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
+const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel, selectedPaymentMethod }) => {
+  const handleProceedClick = () => {
+    if (selectedPaymentMethod === 'COD') {
+      // For COD, directly process the order
+      onPaymentComplete('COD');
+    } else {
+      // For CCAvenue, redirect to payment gateway
+      onPaymentComplete('CCAvenue');
+    }
+  };
+
   return (
     <div className="payment-gateway">
       <div className="payment-header">
@@ -20,25 +34,12 @@ const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
       </div>
       
       <div className="payment-options">
-        <div className="payment-method-selector">
-          <label className="payment-option">
-            <input type="radio" name="paymentMethod" value="ccavenue" defaultChecked />
-            <span className="checkmark"></span>
-            <span className="method-name">CCAvenue</span>
-            <div className="method-logo">
-              <img src="/ccavenue-logo.png" alt="CCAvenue" />
-              <div className="card-types">
-                <img src="/visa.png" alt="Visa" />
-                <img src="/mastercard.png" alt="Mastercard" />
-                <img src="/amex.png" alt="American Express" />
-                <img src="/netbanking.png" alt="Net Banking" />
-              </div>
-            </div>
-          </label>
-        </div>
-        
         <div className="payment-summary">
           <h3>Payment Summary</h3>
+          <div className="summary-item">
+            <span>Payment Method:</span>
+            <span>{selectedPaymentMethod === 'COD' ? 'Cash on Delivery' : 'CCAvenue'}</span>
+          </div>
           <div className="summary-item">
             <span>Order Total:</span>
             <span>₹{((orderDetails?.totalAmount || 0) * 1.18).toFixed(2)}</span>
@@ -46,15 +47,15 @@ const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
         </div>
         
         <div className="payment-actions">
-          <button className="pay-now-button" onClick={onPaymentComplete}>
-            Proceed to Payment Gateway
+          <button className="pay-now-button" onClick={handleProceedClick}>
+            {selectedPaymentMethod === 'COD' ? 'Confirm Order' : 'Proceed to Payment Gateway'}
           </button>
           <p className="security-note">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            Secure payment powered by CCAvenue
+            {selectedPaymentMethod === 'COD' ? 'Secure order processing' : 'Secure payment powered by CCAvenue'}
           </p>
         </div>
       </div>
@@ -62,24 +63,31 @@ const PaymentGateway = ({ orderDetails, onPaymentComplete, onCancel }) => {
   );
 };
 
-// Email service to send order details to admin
+// Alternative solution using direct send method
 const sendOrderToAdmin = async (orderData) => {
   try {
-    // Initialize EmailJS with your user ID (you'll need to sign up at emailjs.com)
-    // Replace these with your actual EmailJS credentials
-    const SERVICE_ID = 'your_service_id';
-    const TEMPLATE_ID = 'your_template_id';
-    const USER_ID = 'your_user_id';
-    const ADMIN_EMAIL = 'admin@yourcompany.com'; // Replace with your admin email
+    // Initialize EmailJS if not already done
+    emailjs.init('THnyI--cZAS7ih5XL');
+    
+    const SERVICE_ID = 'service_lizw20o';
+    const TEMPLATE_ID = 'template_di044me';
+    const USER_ID = 'THnyI--cZAS7ih5XL'; // Fixed: Define USER_ID
     
     // Format order items for email
     const itemsList = orderData.items.map(item => 
       `${item.name} ${item.selectedOption ? `(${item.selectedOption})` : ''} - ₹${item.price}`
     ).join('\n');
     
-    // Prepare template parameters
+    // FIXED: Use the exact parameter name from your template
     const templateParams = {
-      to_email: ADMIN_EMAIL,
+      // Your template uses {{to_email}} so keep this as primary
+      to_email: 'durgatradersro@gmail.com',
+      // Add backup parameters in case of issues
+      user_email: 'durgatradersro@gmail.com',
+      email: 'durgatradersro@gmail.com',
+      to_name: 'Durga Traders Admin',
+      
+      // Rest of your parameters remain the same
       from_name: 'Online Store Order System',
       subject: `New Order #${orderData.orderNumber}`,
       customer_name: orderData.customerDetails.fullName,
@@ -91,47 +99,53 @@ const sendOrderToAdmin = async (orderData) => {
       subtotal: orderData.totalAmount.toFixed(2),
       tax: (orderData.totalAmount * 0.18).toFixed(2),
       total_amount: (orderData.totalAmount * 1.18).toFixed(2),
-      order_date: new Date().toLocaleString()
+      payment_method: orderData.paymentMethod,
+      order_date: new Date().toLocaleString(),
+      
+      // Add message content
+      message: `New order received from ${orderData.customerDetails.fullName}. Order details are listed above.`
     };
     
-    // Send the email
+    console.log('Sending admin email with params:', templateParams);
+    
     const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID);
-    console.log('Email sent successfully:', response);
+    console.log('Admin email sent successfully:', response);
     return true;
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending admin email:', error);
     return false;
   }
 };
 
-// Also send confirmation email to customer
+// Fixed sendConfirmationToCustomer function
 const sendConfirmationToCustomer = async (orderData) => {
   try {
-    // Replace these with your actual EmailJS credentials
-    const SERVICE_ID = 'your_service_id';
-    const TEMPLATE_ID = 'your_customer_template_id';
-    const USER_ID = 'your_user_id';
+    const SERVICE_ID = 'service_lizw20o';
+    const TEMPLATE_ID = 'template_x54jdck';
+    const USER_ID = 'THnyI--cZAS7ih5XL';
     
     // Format order items for email
     const itemsList = orderData.items.map(item => 
       `${item.name} ${item.selectedOption ? `(${item.selectedOption})` : ''} - ₹${item.price}`
     ).join('\n');
     
-    // Prepare template parameters
+    // FIXED: Use the exact parameter name from your template  
     const templateParams = {
-      to_email: orderData.customerDetails.email,
-      from_name: 'Pure Water Solutions',
-      subject: `Your Order #${orderData.orderNumber} has been confirmed`,
-      customer_name: orderData.customerDetails.fullName,
-      order_number: orderData.orderNumber,
+      to_email: String(orderData.customerDetails.email),
+      order_number: String(orderData.orderNumber),
+      order_date: new Date().toLocaleString(),
       order_items: itemsList,
-      subtotal: orderData.totalAmount.toFixed(2),
-      tax: (orderData.totalAmount * 0.18).toFixed(2),
-      total_amount: (orderData.totalAmount * 1.18).toFixed(2),
-      order_date: new Date().toLocaleString()
+      subtotal: String(orderData.totalAmount.toFixed(2)),
+      tax: String((orderData.totalAmount * 0.18).toFixed(2)),
+      total_amount: String((orderData.totalAmount * 1.18).toFixed(2)),
+      payment_method: String(orderData.paymentMethod),
+      customer_phone: String(orderData.customerDetails.mobileNumber),
+      customer_address: `${orderData.customerDetails.address}, ${orderData.customerDetails.city}, ${orderData.customerDetails.state} - ${orderData.customerDetails.zipCode}`,
+      customer_name: String(orderData.customerDetails.fullName)
     };
     
-    // Send the email
+    console.log('Sending customer email to:', orderData.customerDetails.email);
+    
     const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID);
     console.log('Customer confirmation email sent successfully:', response);
     return true;
@@ -141,11 +155,64 @@ const sendConfirmationToCustomer = async (orderData) => {
   }
 };
 
+// Function to save order to Firestore
+const saveOrderToFirestore = async (orderData) => {
+  try {
+    const ordersRef = collection(db, 'orders');
+    
+    // Prepare order document for Firestore
+    const orderDoc = {
+      orderNumber: orderData.orderNumber,
+      customerName: orderData.customerDetails.fullName,
+      customerEmail: orderData.customerDetails.email,
+      customerPhone: orderData.customerDetails.mobileNumber,
+      customerAddress: `${orderData.customerDetails.address}, ${orderData.customerDetails.city}, ${orderData.customerDetails.state} - ${orderData.customerDetails.zipCode}`,
+      items: orderData.items,
+      subtotal: orderData.totalAmount,
+      tax: orderData.totalAmount * 0.18,
+      total: orderData.totalAmount * 1.18,
+      paymentMethod: orderData.paymentMethod,
+      status: 'pending',
+      createdAt: new Date(),
+      lastUpdated: new Date()
+    };
+    
+    // Add document to Firestore
+    const docRef = await addDoc(ordersRef, orderDoc);
+    console.log('Order saved to Firestore with ID:', docRef.id);
+    
+    return { success: true, orderId: docRef.id };
+  } catch (error) {
+    console.error('Error saving order to Firestore:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+// Utility function to clear cart completely
+const clearCart = () => {
+  try {
+    // Remove from sessionStorage
+    sessionStorage.removeItem('cartItems');
+    sessionStorage.removeItem('totalPrice');
+    
+    // Also clear any other cart-related items if they exist
+    sessionStorage.removeItem('cartCount');
+    sessionStorage.removeItem('cartTotal');
+    
+    console.log('Cart cleared successfully');
+    return true;
+  } catch (error) {
+    console.error('Error clearing cart:', error);
+    return false;
+  }
+};
+
 // Main CheckoutPage Component
 const CheckoutPage = () => {
   const [showPaymentGateway, setShowPaymentGateway] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [emailStatus, setEmailStatus] = useState(null);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('ccavenue');
   const navigate = useNavigate();
   
   // Get cart data from sessionStorage
@@ -192,6 +259,11 @@ const CheckoutPage = () => {
         [name]: ''
       });
     }
+  };
+
+  // Handle payment method selection
+  const handlePaymentMethodChange = (e) => {
+    setSelectedPaymentMethod(e.target.value);
   };
 
   // Validate form before proceeding
@@ -243,11 +315,8 @@ const CheckoutPage = () => {
     }
   };
 
-  // Handle payment completion
-  
-
-  // In your handlePaymentComplete function:
-  const handlePaymentComplete = async () => {
+  // Enhanced payment completion handler with better cart clearing
+  const handlePaymentComplete = async (paymentMethod) => {
     setIsProcessing(true);
     
     // Generate a random order number
@@ -258,30 +327,77 @@ const CheckoutPage = () => {
       orderNumber: newOrderNumber,
       customerDetails: formData,
       items: cartItems || [],
-      totalAmount: totalPrice || 0
+      totalAmount: totalPrice || 0,
+      paymentMethod: paymentMethod
     };
     
     try {
-      // Call Firebase function
-      const functions = getFunctions();
-      const processOrder = httpsCallable(functions, 'processOrder');
-      const result = await processOrder(orderData);
+      let orderProcessed = false;
       
-      if (result.data.success) {
+      if (paymentMethod === 'COD') {
+        // For Cash on Delivery, process order directly
+        
+        // 1. Save order to Firestore
+        const firestoreResult = await saveOrderToFirestore(orderData);
+        
+        if (!firestoreResult.success) {
+          throw new Error('Failed to save order: ' + firestoreResult.error);
+        }
+        
+        // 2. Send emails (admin and customer)
+        const adminEmailSent = await sendOrderToAdmin(orderData);
+        const customerEmailSent = await sendConfirmationToCustomer(orderData);
+        
+        if (!adminEmailSent || !customerEmailSent) {
+          setEmailStatus('partial'); // Order saved but email issues
+          console.warn('Order saved but email delivery had issues');
+        }
+        
+        orderProcessed = true;
+        
+      } else {
+        // For CCAvenue, use Firebase function (existing logic)
+        const functions = getFunctions();
+        const processOrder = httpsCallable(functions, 'processOrder');
+        const result = await processOrder(orderData);
+        
+        if (result.data.success) {
+          orderProcessed = true;
+        } else {
+          throw new Error(result.data.message || 'Payment processing failed');
+        }
+      }
+      
+      if (orderProcessed) {
+        // ENHANCED CART CLEARING - Clear cart immediately upon successful order
+        const cartCleared = clearCart();
+        
+        if (cartCleared) {
+          // Update component state to reflect empty cart
+          setCartItems([]);
+          setTotalPrice(0);
+          console.log('Cart successfully cleared after order confirmation');
+        } else {
+          console.warn('Cart clearing encountered issues, but order was processed');
+        }
+        
         // Update order status
         setOrderNumber(newOrderNumber);
         setOrderPlaced(true);
         setShowPaymentGateway(false);
         
-        // Clear cart after successful order
-        sessionStorage.removeItem('cartItems');
-        sessionStorage.removeItem('totalPrice');
-      } else {
-        throw new Error(result.data.message || 'Order processing failed');
+        // Double-check cart is cleared (redundant safety measure)
+        setTimeout(() => {
+          clearCart();
+          setCartItems([]);
+          setTotalPrice(0);
+        }, 1000);
       }
+      
     } catch (error) {
       console.error('Failed to process order:', error);
       setEmailStatus('error');
+      alert('Failed to process order: ' + error.message);
     } finally {
       setIsProcessing(false);
     }
@@ -290,6 +406,17 @@ const CheckoutPage = () => {
   // Handle payment cancellation
   const handlePaymentCancel = () => {
     setShowPaymentGateway(false);
+  };
+
+  // Enhanced continue shopping function that ensures cart is empty
+  const handleContinueShopping = () => {
+    // Final cart clear before navigating
+    clearCart();
+    setCartItems([]);
+    setTotalPrice(0);
+    
+    // Navigate back to products
+    navigate("/personal-products");
   };
 
   // Ensure cartItems is an array to prevent errors
@@ -316,7 +443,13 @@ const CheckoutPage = () => {
           </div>
         )}
         
-        <button className="continue-shopping" onClick={goBackToProducts}>
+        {emailStatus === 'partial' && (
+          <div className="email-warning-message">
+            <p>Your order has been placed successfully, but there may have been an issue with email delivery. Please contact support if you don't receive confirmation emails.</p>
+          </div>
+        )}
+        
+        <button className="continue-shopping" onClick={handleContinueShopping}>
           Continue Shopping
         </button>
       </div>
@@ -432,6 +565,43 @@ const CheckoutPage = () => {
             />
             {formErrors.zipCode && <p className="error-message">{formErrors.zipCode}</p>}
           </div>
+
+          {/* Payment Method Selection */}
+          <div className="payment-method-section">
+            <h3>Payment Method</h3>
+            <div className="payment-method-options">
+              <label className="payment-method-option">
+                <input 
+                  type="radio" 
+                  name="paymentMethod" 
+                  value="ccavenue"
+                  checked={selectedPaymentMethod === 'ccavenue'}
+                  onChange={handlePaymentMethodChange}
+                />
+                <span className="payment-method-content">
+                  <span className="method-name">Online Payment</span>
+                  <div className="method-logo">
+                    <img src={CCAvenueLogo} alt="CCAvenue" />
+                  </div>
+                  <span className="method-description">Pay securely with credit/debit card or net banking</span>
+                </span>
+              </label>
+              
+              <label className="payment-method-option">
+                <input 
+                  type="radio" 
+                  name="paymentMethod" 
+                  value="COD"
+                  checked={selectedPaymentMethod === 'COD'}
+                  onChange={handlePaymentMethodChange}
+                />
+                <span className="payment-method-content">
+                  <span className="method-name">Cash on Delivery</span>
+                  <span className="method-description">Pay when your order is delivered</span>
+                </span>
+              </label>
+            </div>
+          </div>
         </div>
         
         {/* Order Summary - Right Side */}
@@ -506,6 +676,7 @@ const CheckoutPage = () => {
                 items: safeCartItems,
                 totalAmount: safeTotalPrice
               }}
+              selectedPaymentMethod={selectedPaymentMethod}
               onPaymentComplete={handlePaymentComplete}
               onCancel={handlePaymentCancel}
             />

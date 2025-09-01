@@ -126,84 +126,95 @@ const products = [
 ];
 
 const BestSellingProducts = () => {
+    const handleNavigation = (path) => {
+    navigate(path);
+
+    // Delay the scroll slightly so it happens after navigation/render
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 100);
+  };
     return (
-        <Container maxWidth="xl" sx={{ py: 6 }}>
-            <Typography
-                variant="h3"
-                align="center"
-                gutterBottom
-                fontWeight="bold"
-                sx={{
-                    mb: 6,
-                    position: 'relative',
-                    color: '#022279',
-                    '&:after': {
-                        content: '""',
-                        position: 'absolute',
-                        bottom: -10,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: 60,
-                        height: 4,
-                        borderRadius: 4,
-                    },
-                }}
-            >
-                Best Selling Products
-            </Typography>
+      <Container maxWidth="xl" sx={{ py: 6 }}>
+        <Typography
+          variant="h3"
+          align="center"
+          gutterBottom
+          fontWeight="bold"
+          sx={{
+            mb: 6,
+            position: "relative",
+            color: "#022279",
+            "&:after": {
+              content: '""',
+              position: "absolute",
+              bottom: -10,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 60,
+              height: 4,
+              borderRadius: 4,
+            },
+          }}
+        >
+          Best Selling Products
+        </Typography>
 
-            <Box
-                display="flex"
-                flexWrap="wrap"
-                justifyContent="space-between"
-                gap={4}
-            >
-                {products.map((product) => (
-                    <Box key={product.id} width={{ xs: '100%', sm: '48%', md: '23%' }}>
-                        <ProductCard>
-                            <Link to="/contact" style={{ textDecoration: 'none' }}>
-                                <BookDemoBadge>
-                                    <Typography variant="caption" fontWeight="bold">BOOK</Typography>
-                                    <Typography variant="caption">DEMO</Typography>
-                                </BookDemoBadge>
-                            </Link>
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="space-between"
+          gap={4}
+        >
+          {products.map((product) => (
+            <Box key={product.id} width={{ xs: "100%", sm: "48%", md: "23%" }}>
+              <ProductCard>
+                <Link
+                  to="/contact"
+                  style={{ textDecoration: "none" }}
+                  onClick={() => handleNavigation(path)} // no need for preventDefault
+                >
+                  <BookDemoBadge>
+                    <Typography variant="caption" fontWeight="bold">
+                      BOOK
+                    </Typography>
+                    <Typography variant="caption">DEMO</Typography>
+                  </BookDemoBadge>
+                </Link>
 
-                            <ProductImage
-                                src={product.image}
-                                alt={product.name}
-                            />
+                <ProductImage src={product.image} alt={product.name} />
 
-                            <Box>
-                                <ModelName variant="h6">
-                                    {product.name}
-                                </ModelName>
+                <Box>
+                  <ModelName variant="h6">{product.name}</ModelName>
 
-                                <Description variant="body2">
-                                    {product.description}
-                                </Description>
-                            </Box>
+                  <Description variant="body2">
+                    {product.description}
+                  </Description>
+                </Box>
 
-                            <ButtonsContainer>
-                                {/* <AddToCartButton
+                <ButtonsContainer>
+                  {/* <AddToCartButton
                                     variant="contained"
                                     startIcon={<ShoppingCartIcon />}
                                 >
                                     Add to cart
                                 </AddToCartButton> */}
- <Link to="/personal-products" style={{ textDecoration: 'none' }}>
- 
-                                <MoreDetailsButton
-                                    variant="contained"
-                                >
-                                    More Details
-                                </MoreDetailsButton>
- </Link>
-                            </ButtonsContainer>
-                        </ProductCard>
-                    </Box>
-                ))}
+                  <Link
+                    to="/personal-products"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <MoreDetailsButton variant="contained">
+                      More Details
+                    </MoreDetailsButton>
+                  </Link>
+                </ButtonsContainer>
+              </ProductCard>
             </Box>
-        </Container>
+          ))}
+        </Box>
+      </Container>
     );
 };
 

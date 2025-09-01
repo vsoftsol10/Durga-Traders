@@ -14,7 +14,7 @@ const UpArrow = () => {
       // Use whichever value is available
       const currentScroll = scrollY || scrollTop;
       
-      console.log("Current scroll position:", currentScroll);
+      // console.log("Current scroll position:", currentScroll);
       
       // Show button when page is scrolled down 100px
       setIsVisible(currentScroll > 100);
