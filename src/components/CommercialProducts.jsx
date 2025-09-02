@@ -201,7 +201,7 @@ const CommercialProducts = () => {
                   fontSize: { xs: '3rem', sm: '4rem', md: '5rem' },
                   color: '#00c7e8'
                 }}>
-                  100+
+                  2000+
                 </Typography>
                 <Typography variant="h5" sx={{ 
                   fontWeight: 'bold',

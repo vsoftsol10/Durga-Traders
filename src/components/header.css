@@ -173,7 +173,7 @@ header {
 
 header.scrolled {
   box-shadow: var(--boxShadow);
-  background: rgba(42, 58, 99, 0.95);
+  /* background: rgba(42, 58, 99, 0.95); */
   backdrop-filter: var(--backdropFilter);
   height: var(--headerHeightMinimized);
 }
@@ -826,7 +826,7 @@ nav {
 }
 
 /* Scroll Progress Bar */
-.scroll-progress-container {
+/* .scroll-progress-container {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -840,7 +840,7 @@ nav {
   width: 0;
   background: linear-gradient(to right, var(--secondaryColor), var(--accentColor));
   transition: width 0.1s ease;
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 1440px) {
