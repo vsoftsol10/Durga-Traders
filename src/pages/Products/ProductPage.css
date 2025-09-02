@@ -964,13 +964,13 @@
 .water-checkout-title {
   font-size: 2.2rem;
   font-weight: 800;
-  margin: 0 auto !important;
+  /* margin: 0 auto !important; */
   background: var(--wp-gradient-blue);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-align: center;
-  margin-left: -18% !important;
+  margin-left: 38% !important;
 }
 
 .water-empty-cart {
@@ -1314,7 +1314,7 @@
   
   .water-checkout-title {
     font-size: 1.8rem;
-    margin-left: 0 !important;
+    margin-left: 10 !important;
   }
   
   .water-back-button {
