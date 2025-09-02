@@ -1,60 +1,47 @@
-/* Modern Water Purifier Product Page Styles */
+/* Modern Water Purifier Product Page Styles - Standalone */
 
-/* Base styles */
-:root {
-  --primary: #0062cc;
-  --primary-light: #2683ee;
-  --primary-dark: #004a9c;
-  --primary-transparent: rgba(0, 98, 204, 0.1);
-  --accent: #00d2ff;
-  --text-dark: #2c3e50;
-  --text-light: #546e7a;
-  --white: #ffffff;
-  --light-bg: #f8fbff;
-  --card-bg: #ffffff;
-  --shadow-color: rgba(0, 98, 204, 0.2);
-  --gradient-blue: linear-gradient(135deg, #0062cc, #00d2ff);
-  --water-color: rgba(0, 210, 255, 0.2);
+/* Base styles with unique prefix */
+.water-product-page {
+  --wp-primary: #0062cc;
+  --wp-primary-light: #2683ee;
+  --wp-primary-dark: #004a9c;
+  --wp-primary-transparent: rgba(0, 98, 204, 0.1);
+  --wp-accent: #00d2ff;
+  --wp-text-dark: #2c3e50;
+  --wp-text-light: #546e7a;
+  --wp-white: #ffffff;
+  --wp-light-bg: #f8fbff;
+  --wp-card-bg: #ffffff;
+  --wp-shadow-color: rgba(0, 98, 204, 0.2);
+  --wp-gradient-blue: linear-gradient(135deg, #0062cc, #00d2ff);
+  --wp-water-color: rgba(0, 210, 255, 0.2);
 }
 
-* {
+.water-product-page * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-html {
-  overflow-x: hidden;
-  width: 100%;
-  height: 100%;
-}
-
-body {
+.water-product-page {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--light-bg);
-  color: var(--text-dark);
+  background-color: var(--wp-light-bg);
+  color: var(--wp-text-dark);
   line-height: 1.6;
   overflow-x: hidden;
   width: 100%;
   min-height: 100vh;
   position: relative;
-  padding-bottom: 70px; /* Space for fixed checkout button */
-}
-
-/* Product page container */
-.product-page {
-  position: relative;
   padding: 60px 40px 200px;
   overflow: hidden;
 }
 
-.ProductPoster {
+.water-product-poster {
   width: 110%;
   max-width: 107%;
   margin-bottom: 40px;
   margin-left: -50px;
 }
-.footerPoster{
+
+.water-footer-poster {
   width: 110%;
   max-width: 107%;
   margin-bottom: 40px;
@@ -64,17 +51,17 @@ body {
 }
 
 /* Header styles */
-.page-header {
+.water-page-header {
   text-align: center;
   margin-bottom: 50px;
   position: relative;
   width: 100%;
 }
 
-.page-title {
+.water-page-title {
   font-size: 3.5rem;
   font-weight: 800;
-  background: var(--gradient-blue);
+  background: var(--wp-gradient-blue);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -83,83 +70,70 @@ body {
   display: inline-block;
 }
 
-.title-accent {
+.water-title-accent {
   position: relative;
   font-weight: 900;
 }
 
-/* .title-accent::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 250px;
-  width: 100%;
-  height: 10px;
-  background: var(--accent);
-  opacity: 0.5;
-  border-radius: 10px;
-  z-index: -1;
-} */
-
-.title-decoration {
+.water-title-decoration {
   height: 50px;
   position: relative;
   margin: 0 auto 20px;
   width: 120px;
 }
 
-.drop {
+.water-drop {
   position: absolute;
-  background: var(--primary);
+  background: var(--wp-primary);
   border-radius: 50%;
   opacity: 0.7;
   transform-origin: 50% 0%;
-  animation: drip 2s infinite;
+  animation: waterDrip 2s infinite;
 }
 
-.drop-1 {
+.water-drop-1 {
   width: 12px;
   height: 12px;
   left: 40%;
   animation-delay: 0s;
 }
 
-.drop-2 {
+.water-drop-2 {
   width: 16px;
   height: 16px;
   left: 60%;
   animation-delay: 0.5s;
 }
 
-.drop-3 {
+.water-drop-3 {
   width: 10px;
   height: 10px;
   left: 20%;
   animation-delay: 1s;
 }
 
-.drop-4 {
+.water-drop-4 {
   width: 10px;
   height: 10px;
   left: 80%;
   animation-delay: 1.5s;
 }
 
-.drop-5 {
+.water-drop-5 {
   width: 13px;
   height: 13px;
   left: 100%;
   animation-delay: 2s;
 }
 
-.drop-6 {
+.water-drop-6 {
   width: 16px;
   height: 16px;
   left: 120%;
   animation-delay: 2.5s;
 }
 
-@keyframes drip {
+@keyframes waterDrip {
   0% {
     top: 0;
     transform: scale(1);
@@ -184,16 +158,16 @@ body {
   }
 }
 
-.page-subtitle {
+.water-page-subtitle {
   font-size: 1.2rem;
-  color: var(--text-light);
+  color: var(--wp-text-light);
   max-width: 650px;
   margin: 0 auto;
   line-height: 1.7;
 }
 
 /* Filter tabs */
-.filter-tabs {
+.water-filter-tabs {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -201,47 +175,46 @@ body {
   flex-wrap: wrap;
 }
 
-.filter-button {
-  background: var(--white);
+.water-filter-button {
+  background: var(--wp-white);
   border: none;
   border-radius: 30px;
   padding: 10px 24px;
   font-size: 0.95rem;
-  color: var(--text-light);
+  color: var(--wp-text-light);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
-.filter-button:hover {
+.water-filter-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  color: var(--primary);
+  color: var(--wp-primary);
 }
 
-.filter-button.active {
-  background: var(--gradient-blue);
+.water-filter-button.active {
+  background: var(--wp-gradient-blue);
   color: white;
-  box-shadow: 0 5px 15px var(--shadow-color);
+  box-shadow: 0 5px 15px var(--wp-shadow-color);
 }
 
 /* Product grid */
-.product-grid {
+.water-product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 35px;
   max-width: 1400px;
   margin: 0 auto;
-
 }
 
 /* Product card styles */
-.product-card {
+.water-product-card {
   position: relative;
-  overflow: visible !important; /* Changed from hidden to prevent dropdown clipping */
+  overflow: visible !important;
   border-radius: 20px;
-  background-color: #022279;
+  background-color: #ffffff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateY(30px);
@@ -251,57 +224,57 @@ body {
   flex-direction: column;
 }
 
-.product-card.animate-in {
+.water-product-card.animate-in {
   transform: translateY(0);
   opacity: 1;
-  
 }
 
-.product-card.hovered {
+.water-product-card.hovered {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px var(--shadow-color);
+  box-shadow: 0 20px 40px var(--wp-shadow-color);
   z-index: 50;
 }
 
-.product-top {
+.water-product-top {
   position: relative;
   height: 220px;
   width: 100%;
 }
 
 /* Badge */
-.product-badge {
+.water-product-badge {
   position: absolute;
   top: 20px;
   left: 20px;
   z-index: 3;
-  background: var(--primary);
+  background: var(--wp-primary);
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  box-shadow: 0 5px 15px var(--shadow-color);
+  box-shadow: 0 5px 15px var(--wp-shadow-color);
   transform: translateY(-5px);
   opacity: 0.9;
   transition: all 0.3s ease;
 }
 
-.product-card.hovered .product-badge {
+.water-product-card.hovered .water-product-badge {
   transform: translateY(0);
   opacity: 1;
-  background: var(--primary-light);
+  background: var(--wp-primary-light);
 }
+
 /* Pincode Modal Styles */
-.pincode-modal-header {
+.water-pincode-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-left: 25px;
 }
 
-.pincode-close-button {
+.water-pincode-close-button {
   background: none;
   border: none;
   font-size: 24px;
@@ -309,15 +282,15 @@ body {
   padding: 0 8px;
   line-height: 1;
   color: #ff1414;
-  margin-top:-70px;
-  margin-right:-20px
+  margin-top: -70px;
+  margin-right: -20px;
 }
 
-.pincode-close-button:hover {
+.water-pincode-close-button:hover {
   opacity: 0.7;
 }
 
-.pincode-modal-overlay {
+.water-pincode-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -328,15 +301,15 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  animation: fadeIn 0.3s ease-out;
+  animation: waterFadeIn 0.3s ease-out;
 }
 
-@keyframes fadeIn {
+@keyframes waterFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-.pincode-modal {
+.water-pincode-modal {
   background-color: #fff;
   padding: 2rem;
   border-radius: 1rem;
@@ -345,17 +318,17 @@ body {
   width: 90%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border: 2px solid #0099ff;
-  animation: slideIn 0.3s ease-out;
+  animation: waterSlideIn 0.3s ease-out;
   position: relative;
   overflow: hidden;
 }
 
-@keyframes slideIn {
+@keyframes waterSlideIn {
   from { transform: translateY(-20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-.pincode-modal::before {
+.water-pincode-modal::before {
   content: '';
   position: absolute;
   top: 0;
@@ -365,14 +338,14 @@ body {
   background: linear-gradient(to right, #0062cc, #0099ff);
 }
 
-.pincode-modal-title {
+.water-pincode-modal-title {
   font-weight: bold;
   margin-bottom: 1.5rem;
   color: #0062cc;
   font-size: 1.5rem;
 }
 
-.pincode-input {
+.water-pincode-input {
   padding: 12px;
   width: 80%;
   margin-bottom: 20px;
@@ -383,12 +356,12 @@ body {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.pincode-input:focus {
+.water-pincode-input:focus {
   border-color: #0062cc;
   box-shadow: 0 0 0 2px rgba(0, 98, 204, 0.2);
 }
 
-.pincode-submit-button {
+.water-pincode-submit-button {
   background-color: #0099ff;
   color: white;
   border: none;
@@ -399,11 +372,11 @@ body {
   transition: background-color 0.3s;
 }
 
-.pincode-submit-button:hover {
+.water-pincode-submit-button:hover {
   background-color: #0062cc;
 }
 
-.pincode-info-box {
+.water-pincode-info-box {
   margin-top: 1.5rem;
   background-color: #f0f6ff;
   padding: 1rem;
@@ -411,37 +384,37 @@ body {
   text-align: left;
 }
 
-.pincode-info-title {
+.water-pincode-info-title {
   font-weight: bold;
   color: #0062cc;
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
 
-.pincode-result {
+.water-pincode-result {
   margin-top: 1.5rem;
   font-weight: bold;
   padding: 1rem;
   border-radius: 8px;
-  animation: fadeInUp 0.4s ease-out;
+  animation: waterFadeInUp 0.4s ease-out;
 }
 
-@keyframes fadeInUp {
+@keyframes waterFadeInUp {
   from { transform: translateY(10px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-.pincode-result.success {
+.water-pincode-result.success {
   background-color: #e8f5e9;
   color: #2e7d32;
 }
 
-.pincode-result.error {
+.water-pincode-result.error {
   background-color: #ffebee;
   color: #c62828;
 }
 
-.pincode-continue-button {
+.water-pincode-continue-button {
   margin-top: 1rem;
   background-color: #0062cc;
   color: white;
@@ -453,12 +426,11 @@ body {
   transition: background-color 0.3s;
 }
 
-.pincode-continue-button:hover {
+.water-pincode-continue-button:hover {
   background-color: #004999;
 }
 
-/* Add water-themed effects to match the site theme */
-.pincode-modal::after {
+.water-pincode-modal::after {
   content: '';
   position: absolute;
   bottom: -50px;
@@ -470,7 +442,7 @@ body {
   z-index: -1;
 }
 
-.pincode-modal .bubbles {
+.water-pincode-modal .water-bubbles {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -479,17 +451,17 @@ body {
   z-index: -1;
 }
 
-.pincode-modal .bubble {
+.water-pincode-modal .water-bubble {
   position: absolute;
   bottom: -20px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: rgba(0, 153, 255, 0.2);
-  animation: bubbleRise 4s infinite ease-in;
+  animation: waterBubbleRise 4s infinite ease-in;
 }
 
-@keyframes bubbleRise {
+@keyframes waterBubbleRise {
   0% {
     transform: translateY(0) scale(0.5);
     opacity: 0;
@@ -503,38 +475,16 @@ body {
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 576px) {
-  .pincode-modal {
-    width: 95%;
-    padding: 1.5rem;
-  }
-  
-  .pincode-input {
-    width: 90%;
-  }
-}
-
 /* Image container */
-.product-image-container {
+.water-product-image-container {
   position: relative;
   overflow: hidden;
-  height: 100%;
+  height: 110%;
   width: 100%;
   border-radius: 20px 20px 0 0;
 }
-/* .product-card img {
-  width: 100%;
-  height: 110%;
-  object-fit: cover;
-  margin: 0;
-  border: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.5s ease;
-  margin-bottom: 15px;
-} */
 
-.product-image {
+.water-product-image {
   width: 100%;
   height: 50%;
   object-fit: cover;
@@ -549,27 +499,27 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--water-color);
+  background: var(--wp-water-color);
   z-index: 1;
   opacity: 0.6;
   transition: all 0.5s ease;
 }
 
-.product-card.hovered .water-overlay {
+.water-product-card.hovered .water-overlay {
   opacity: 0.3;
 }
 
-.product-card.hovered .product-image {
+.water-product-card.hovered .water-product-image {
   transform: scale(1.12);
 }
 
 /* Price tag */
-.product-price {
+.water-product-price {
   position: absolute;
   bottom: 15px;
   right: 15px;
-  background: var(--white);
-  color: var(--primary-dark);
+  background: var(--wp-white);
+  color: var(--wp-primary-dark);
   padding: 5px 15px;
   border-radius: 20px;
   font-weight: 700;
@@ -579,14 +529,14 @@ body {
   transition: all 0.3s ease;
 }
 
-.product-card.hovered .product-price {
-  background: var(--primary);
+.water-product-card.hovered .water-product-price {
+  background: var(--wp-primary);
   color: white;
   transform: scale(1.05);
 }
 
 /* Rating */
-.rating-container {
+.water-rating-container {
   position: absolute;
   bottom: 15px;
   left: 15px;
@@ -599,25 +549,25 @@ body {
   transition: all 0.3s ease;
 }
 
-.star-icon {
+.water-star-icon {
   margin-right: 2px;
 }
 
-.rating-text {
+.water-rating-text {
   font-weight: 600;
-  color: var(--text-dark);
+  color: var(--wp-text-dark);
   font-size: 0.85rem;
   margin-left: 5px;
 }
 
 /* Wave divider */
-.product-divider {
+.water-product-divider {
   position: relative;
   height: 40px;
   overflow: hidden;
 }
 
-.wave {
+.water-wave {
   position: absolute;
   top: 0;
   left: 0;
@@ -626,27 +576,27 @@ body {
   transform: rotate(180deg);
 }
 
-.wave-fill {
-  fill: var(--primary);
+.water-wave-fill {
+  fill: var(--wp-primary);
 }
 
 /* Content */
-.product-content {
+.water-product-content {
   padding: 25px;
   display: flex;
   flex-direction: column;
   flex: 1;
   margin-top: -22px;
   position: relative;
-  overflow: visible !important; /* Force visible to ensure dropdown isn't clipped */
+  overflow: visible !important;
   z-index: 5;
 }
 
 /* Product name */
-.product-name {
+.water-product-name {
   font-weight: 700;
   font-size: 1.5rem;
-  color: var(--primary-dark);
+  color: var(--wp-primary-dark);
   margin-bottom: 10px;
   transition: all 0.3s ease;
   display: inline-block;
@@ -654,24 +604,24 @@ body {
   position: relative;
 }
 
-.product-name::after {
+.water-product-name::after {
   content: '';
   position: absolute;
   left: 0;
   bottom: -5px;
   width: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--wp-accent);
   transition: width 0.3s ease;
 }
 
-.product-card.hovered .product-name::after {
+.water-product-card.hovered .water-product-name::after {
   width: 60%;
 }
 
 /* Description */
-.product-description {
-  color: var(--text-light);
+.water-product-description {
+  color: var(--wp-text-light);
   font-size: 0.95rem;
   line-height: 1.6;
   transition: all 0.3s ease;
@@ -682,7 +632,7 @@ body {
 }
 
 /* Footer actions */
-.product-footer {
+.water-product-footer {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -690,13 +640,13 @@ body {
   margin-top: auto;
   padding-top: 15px;
   position: relative;
-  overflow: visible !important; /* Ensure dropdowns aren't clipped */
-  z-index: 20; 
+  overflow: visible !important;
+  z-index: 20;
 }
 
 /* CTA button */
-.cta-button {
-  background: var(--gradient-blue);
+.water-cta-button {
+  background: var(--wp-gradient-blue);
   color: white;
   border: none;
   border-radius: 30px;
@@ -707,33 +657,33 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 5px 15px var(--shadow-color);
+  box-shadow: 0 5px 15px var(--wp-shadow-color);
 }
 
-.cta-button:hover {
+.water-cta-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--shadow-color);
+  box-shadow: 0 8px 20px var(--wp-shadow-color);
 }
 
-.button-icon {
+.water-button-icon {
   opacity: 0;
   width: 0;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
-.product-card.hovered .button-icon {
+.water-product-card.hovered .water-button-icon {
   opacity: 1;
   width: 16px;
 }
 
 /* Details button */
-.details-button {
+.water-details-button {
   background: transparent;
   justify-content: right;
   border: none;
   font-weight: 600;
-  color: var(--primary);
+  color: var(--wp-primary);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -743,21 +693,21 @@ body {
   font-size: 0.9rem;
 }
 
-.details-button svg {
+.water-details-button svg {
   transition: transform 0.3s ease;
 }
 
-.details-button:hover svg {
+.water-details-button:hover svg {
   transform: translateX(3px);
 }
 
-/* Options Dropdown - Updated Styles */
-.cart-options-container {
+/* Options Dropdown */
+.water-cart-options-container {
   position: relative;
   z-index: 1000;
 }
 
-.options-dropdown {
+.water-options-dropdown {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
@@ -766,24 +716,16 @@ body {
   background: white;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  z-index: 1001; /* Even higher z-index */
+  z-index: 1001;
   overflow: hidden;
-  animation: fadeIn 0.3s ease-out;
+  animation: waterFadeIn 0.3s ease-out;
   border: 1px solid rgba(0, 98, 204, 0.2);
-  opacity: 1 !important; /* Force opacity */
-  visibility: visible !important; /* Force visibility */
-  transform: none !important; /* Prevent any transform that might hide it */
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
 }
 
-/* Handle smaller screen heights */
-@media screen and (max-height: 800px) {
-  .options-dropdown {
-    max-height: 300px;
-    overflow-y: auto;
-  }
-}
-
-.option-item {
+.water-option-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -793,22 +735,22 @@ body {
   border-bottom: 1px solid rgba(0, 98, 204, 0.1);
 }
 
-.option-item:last-child {
+.water-option-item:last-child {
   border-bottom: none;
 }
 
-.option-item:hover {
+.water-option-item:hover {
   background: rgba(0, 98, 204, 0.05);
 }
 
-.option-name {
+.water-option-name {
   font-weight: 500;
   flex: 1;
   text-align: left;
   font-size: 14px;
 }
 
-.option-price {
+.water-option-price {
   font-weight: 600;
   color: #0062cc;
   margin: 0 10px;
@@ -816,7 +758,7 @@ body {
   white-space: nowrap;
 }
 
-.option-buy-now {
+.water-option-buy-now {
   background-color: #0099ff;
   color: white;
   border: none;
@@ -829,44 +771,44 @@ body {
   white-space: nowrap;
 }
 
-.option-buy-now:hover {
+.water-option-buy-now:hover {
   background-color: #0062cc;
 }
 
 /* Ensure cart item shows selected option */
-.cart-item-description .selected-option {
+.water-cart-item-description .water-selected-option {
   font-weight: 500;
   color: #0062cc;
 }
 
-/* Bubbles Container - Updated to prevent dropdown interaction issues */
-.bubbles-container {
+/* Bubbles Container */
+.water-bubbles-container {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow: hidden;
-  pointer-events: none !important; /* Prevents bubbles from blocking clicks */
-  z-index: 2; /* Lower z-index than content and dropdown */
+  pointer-events: none !important;
+  z-index: 2;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
-.product-card.hovered .bubbles-container {
+.water-product-card.hovered .water-bubbles-container {
   opacity: 1;
 }
 
-.bubble {
+.water-bubble {
   position: absolute;
   bottom: -20%;
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(0, 123, 255, 0.2));
   border-radius: 50%;
-  animation: rise linear infinite;
+  animation: waterRise linear infinite;
   opacity: 0;
 }
 
-@keyframes rise {
+@keyframes waterRise {
   0% {
     bottom: -20%;
     opacity: 0;
@@ -884,7 +826,7 @@ body {
 }
 
 /* Bottom wave decoration */
-.bottom-wave {
+.water-bottom-wave {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -894,7 +836,7 @@ body {
   z-index: -1;
 }
 
-.bottom-wave svg {
+.water-bottom-wave svg {
   position: absolute;
   bottom: -15px;
   width: 100%;
@@ -902,7 +844,7 @@ body {
 }
 
 /* Cart/Checkout Button Styles */
-.cart-container {
+.water-cart-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -913,56 +855,55 @@ body {
   width: auto;
 }
 
-.checkout-button {
+.water-checkout-button {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--gradient-blue);
+  background: var(--wp-gradient-blue);
   color: white;
   border: none;
   border-radius: 30px;
   padding: 12px 24px;
   font-weight: 600;
-  box-shadow: 0 5px 15px var(--shadow-color);
+  box-shadow: 0 5px 15px var(--wp-shadow-color);
   transition: all 0.3s ease;
   cursor: pointer;
   min-width: 180px;
   pointer-events: auto;
   position: relative;
-  /* overflow: hidden; */
 }
 
-.checkout-button:not(.has-items) {
+.water-checkout-button:not(.has-items) {
   opacity: 0.7;
 }
 
-.checkout-button:hover {
+.water-checkout-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--shadow-color);
+  box-shadow: 0 8px 20px var(--wp-shadow-color);
 }
 
-.checkout-button.has-items {
-  animation: pulse 2s infinite;
+.water-checkout-button.has-items {
+  animation: waterPulse 2s infinite;
 }
 
-.checkout-icon {
+.water-checkout-icon {
   margin-right: 12px;
   display: flex;
   align-items: center;
 }
 
-.checkout-text {
+.water-checkout-text {
   flex-grow: 1;
   text-align: left;
 }
 
-.checkout-price {
+.water-checkout-price {
   margin-left: 12px;
   font-weight: bold;
 }
 
-.cart-badge {
+.water-cart-badge {
   position: absolute;
   top: -8px;
   right: -8px;
@@ -979,28 +920,28 @@ body {
 }
 
 /* Checkout Page Styles */
-.checkout-page {
+.water-checkout-page {
   max-width: 1000px;
   margin: 0 auto;
   padding: 30px;
-  background: var(--card-bg);
+  background: var(--wp-card-bg);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-.checkout-header {
+.water-checkout-header {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
   position: relative;
 }
 
-.back-button {
+.water-back-button {
   display: flex;
   align-items: center;
   background: transparent;
   border: none;
-  color: var(--primary);
+  color: var(--wp-primary);
   font-weight: 600;
   cursor: pointer;
   padding: 8px 10px;
@@ -1008,22 +949,23 @@ body {
   transition: all 0.3s ease;
   position: fixed;
   left: 0;
-  margin-top: 50px;  top: -10px!important;
+  margin-top: 50px;
+  top: -10px !important;
 }
 
-.back-button:hover {
-  background: var(--primary-transparent);
+.water-back-button:hover {
+  background: var(--wp-primary-transparent);
 }
 
-.back-button svg {
+.water-back-button svg {
   margin-right: 8px;
 }
 
-.checkout-title {
+.water-checkout-title {
   font-size: 2.2rem;
   font-weight: 800;
   margin: 0 auto !important;
-  background: var(--gradient-blue);
+  background: var(--wp-gradient-blue);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1031,13 +973,13 @@ body {
   margin-left: -18% !important;
 }
 
-.empty-cart {
+.water-empty-cart {
   text-align: center;
   padding: 50px 0;
 }
 
-.empty-cart-icon {
-  background: var(--primary-transparent);
+.water-empty-cart-icon {
+  background: var(--wp-primary-transparent);
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -1045,22 +987,22 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
-  color: var(--primary);
+  color: var(--wp-primary);
 }
 
-.empty-cart h2 {
+.water-empty-cart h2 {
   font-size: 1.8rem;
   margin-bottom: 10px;
-  color: var(--primary-dark);
+  color: var(--wp-primary-dark);
 }
 
-.empty-cart p {
-  color: var(--text-light);
+.water-empty-cart p {
+  color: var(--wp-text-light);
   margin-bottom: 25px;
 }
 
-.return-button {
-  background: var(--gradient-blue);
+.water-return-button {
+  background: var(--wp-gradient-blue);
   color: white;
   border: none;
   border-radius: 30px;
@@ -1069,756 +1011,462 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1rem;
-  box-shadow: 0 5px 15px var(--shadow-color);
+  box-shadow: 0 5px 15px var(--wp-shadow-color);
 }
 
-.return-button:hover {
+.water-return-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--shadow-color);
+  box-shadow: 0 8px 20px var(--wp-shadow-color);
 }
 
-.cart-items {
+.water-cart-items {
   margin-bottom: 30px;
 }
 
-.cart-item {
+.water-cart-item {
   display: flex;
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid rgba(0, 98, 204, 0.1);
   transition: all 0.3s ease;
   position: relative;
-  /* justify-content: center; */
-
 }
 
-.cart-item:hover {
-  background: var(--primary-transparent);
+.water-cart-item:hover {
+  background: var(--wp-primary-transparent);
   border-radius: 12px;
 }
 
-.cart-item-image {
+.water-cart-item-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.water-cart-item-image {
   width: 80px;
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
   margin-right: 20px;
-  background: var(--water-color);
-  position: relative;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.cart-item-image img {
+.water-cart-item-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-.cart-item-details {
+.water-cart-item:hover .water-cart-item-image img {
+  transform: scale(1.05);
+}
+
+.water-cart-item-details {
   flex: 1;
-  margin-left: 0px;
+  min-width: 0;
 }
 
-.cart-item-name {
+.water-cart-item-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--wp-text-dark);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.water-cart-item-description {
+  color: var(--wp-text-light);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.water-cart-item-price {
   font-weight: 700;
   font-size: 1.2rem;
-  color: var(--primary-dark);
-  margin-bottom: 5px;
-}
-
-.cart-item-description {
-  color: var(--text-light);
-  font-size: 0.9rem;
-  margin-bottom: 8px;
-}
-
-.cart-item-feature {
-  display: inline-block;
-  background: var(--primary-transparent);
-  color: var(--primary);
-  padding: 4px 12px;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.cart-item-price {
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: var(--primary-dark);
-  margin-right: 20px;
-  margin-left: auto; /* Use auto margin to push to the right */
+  color: var(--wp-primary);
+  margin-left: 20px;
   flex-shrink: 0;
 }
 
-.checkout-summary {
-  background: var(--primary-transparent);
-  padding: 25px;
-  border-radius: 15px;
+.water-remove-item-button {
+  background: #ff4757;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 15px;
+  flex-shrink: 0;
+  color: white;
 }
 
-.summary-row {
+.water-remove-item-button:hover {
+  background: #ff3742;
+  transform: scale(1.1);
+  box-shadow: 0 3px 10px rgba(255, 71, 87, 0.3);
+}
+
+/* Checkout Summary */
+.water-checkout-summary {
+  background: var(--wp-light-bg);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.water-summary-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 98, 204, 0.1);
   font-size: 1rem;
 }
 
-.summary-row.total {
-  font-weight: 700;
-  font-size: 1.3rem;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(0, 98, 204, 0.2);
-  color: var(--primary-dark);
+.water-summary-row:last-of-type {
+  border-bottom: none;
 }
 
-.place-order-button {
+.water-summary-row.total {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--wp-primary-dark);
+  border-top: 2px solid var(--wp-primary);
+  margin-top: 10px;
+  padding-top: 15px;
+}
+
+.water-place-order-button {
   width: 100%;
-  background: var(--gradient-blue);
+  background: var(--wp-gradient-blue);
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 12px;
   padding: 15px;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 20px;
-  font-size: 1.1rem;
-  box-shadow: 0 5px 15px var(--shadow-color);
+  box-shadow: 0 5px 15px var(--wp-shadow-color);
 }
 
-.place-order-button:hover {
+.water-place-order-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--shadow-color);
+  box-shadow: 0 8px 20px var(--wp-shadow-color);
 }
 
-/* Loading and error states */
-.loading-container {
+/* Loading and Error States */
+.water-loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem;
-  min-height: 300px;
+  padding: 80px 20px;
+  text-align: center;
 }
 
-.loading-spinner {
+.water-loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(0, 98, 204, 0.2);
-  border-top: 5px solid #0062cc;
+  border: 4px solid var(--wp-primary-transparent);
+  border-top: 4px solid var(--wp-primary);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+  animation: waterSpin 1s linear infinite;
+  margin-bottom: 20px;
 }
 
-@keyframes spin {
+@keyframes waterSpin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-.error-container {
+.water-loading-container p {
+  font-size: 1.1rem;
+  color: var(--wp-text-light);
+  font-weight: 500;
+}
+
+.water-error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
   text-align: center;
-  padding: 2rem;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.error-message {
-  color: #e53935;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+.water-error-message {
+  color: #ff4757;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  font-weight: 500;
 }
 
-.retry-button {
-  background-color: #0062cc;
+.water-retry-button {
+  background: var(--wp-primary);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  border-radius: 8px;
+  padding: 10px 20px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
-.retry-button:hover {
-  background-color: #004fa3;
+.water-retry-button:hover {
+  background: var(--wp-primary-dark);
 }
 
-/* Remove button style */
-.remove-item-button {
-  background-color: transparent;
-  border: none;
-  color: var(--text-light);
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center icon */
-  transition: all 0.3s ease;
-  margin-left: 90%; /* Consistent margin */
-  flex-shrink: 0;
-  margin-bottom: 15%;
-  position: absolute;
+/* Background Elements */
+.water-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--wp-light-bg) 0%, #e3f2fd 100%);
+  z-index: -2;
 }
 
-.remove-item-button:hover {
-  background: rgba(255, 0, 0, 0.1);
-  color: #e74c3c;
-  transform: scale(1.1);
+.water-light-rays {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(0, 98, 204, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 70%, rgba(0, 98, 204, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  animation: waterGlow 4s ease-in-out infinite alternate;
 }
 
-.remove-item-button:active {
-  transform: scale(0.95);
-}
-
-.remove-item-button svg {
-  stroke: currentColor;
-  transition: all 0.3s ease;
-}
-
-.remove-item-button:hover svg {
-  stroke-width: 2.5;
-}
-
-/* Animation for removing items */
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-}
-
-.cart-item.removing {
-  animation: fadeOut 0.3s forwards;
-}
-
-/* Animation for card hover state */
-@keyframes pulse {
+@keyframes waterGlow {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 98, 204, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(0, 98, 204, 0);
+    opacity: 0.5;
+    transform: scale(1);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 98, 204, 0);
-  }
-}
-
-/* Animation for loading cards */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1.02);
   }
 }
 
-/* Add prefers-reduced-motion media query for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .drop,
-  .bubble,
-  .product-card,
-  .product-card.animate-in {
-    animation: none;
-    transition: none;
+/* Pulse animation for checkout button */
+@keyframes waterPulse {
+  0% {
+    box-shadow: 0 5px 15px var(--wp-shadow-color);
   }
-  
-  .product-card {
-    opacity: 1;
-    transform: translateY(0);
+  50% {
+    box-shadow: 0 8px 25px rgba(0, 98, 204, 0.4);
   }
-  
-  .button-icon {
-    opacity: 1;
-    width: 16px;
+  100% {
+    box-shadow: 0 5px 15px var(--wp-shadow-color);
   }
 }
 
-@media(max-width: 1440px){
-  .back-button{
-    margin-top: 100px;
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .product-grid {
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+  .water-product-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-  .back-button{
-    margin-top: 80px;
-  }
-}
-
-@media (max-width: 768px) {
-  .product-page {
-    padding: 40px 20px 80px;
-  }
-  
-  .page-title {
-    font-size: 2.5rem;
-  }
-  .back-button{
-    margin-top: 110px;
-  }
-  
-  .title-accent::after {
-    bottom: -8px;
-    left:168px;
-    width:150%
-  }
-  
-  .page-subtitle {
-    font-size: 1rem;
-  }
-  
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 25px;
   }
   
-  .filter-tabs {
-    gap: 10px;
-    margin-bottom: 30px;
+  .water-page-title {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .water-product-page {
+    padding: 40px 20px 200px;
   }
   
-  .filter-button {
-    padding: 8px 16px;
-    font-size: 0.85rem;
+  .water-page-title {
+    font-size: 2.5rem;
   }
   
-  .product-card {
-    height: 420px;
+  .water-product-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
-  .product-top {
-    height: 200px;
+  .water-product-card {
+    max-width: 100%;
   }
   
-  .product-content {
+  .water-checkout-page {
     padding: 20px;
   }
   
-  .product-name {
-    font-size: 1.3rem;
-  }
-  
-  .product-description {
-    font-size: 0.9rem;
-  }
-  
-  /* Cart container for mobile */
-  .cart-container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    padding: 10px;
-    background-color: var(--light-bg);
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-  }
-
-  .checkout-button {
-    width: 95%;
-    max-width: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    margin: 0 auto;
-  }
-  
-  .checkout-page {
-    padding: 20px 15px;
-    border-radius: 12px;
-  }
-  
-  .checkout-header {
-    margin-bottom: 20px;
-  }
-  
-  .checkout-title {
+  .water-checkout-title {
     font-size: 1.8rem;
+    margin-left: 0 !important;
   }
   
-  .cart-item {
-    flex-wrap: wrap;
-    padding: 10px;
+  .water-back-button {
+    position: static;
+    margin-bottom: 20px;
+    margin-top: 0;
   }
   
-  .cart-item-image {
+  .water-checkout-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .water-cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+  
+  .water-cart-item-content {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .water-cart-item-image {
     width: 60px;
     height: 60px;
     margin-right: 15px;
   }
   
-  .cart-item-name {
-    font-size: 1.1rem;
-  }
-  
-  .cart-item-price {
+  .water-cart-item-price {
+    margin-left: 0;
     margin-top: 10px;
-    margin-right: 15px;
+    align-self: flex-end;
   }
   
-  .remove-item-button {
-    margin-left: 90%;
-    margin-top: -10%;
-  }
-  .options-dropdown {
+  .water-remove-item-button {
     position: absolute;
-    top: auto;
-    bottom: calc(100% + 8px); /* Position dropdown above the button on mobile */
-    left: 0;
-    max-height: 250px;
-    overflow-y: auto;
+    top: 15px;
+    right: 15px;
+    margin-left: 0;
   }
   
-  .product-footer {
-    position: relative;
-    z-index: 30; /* Even higher z-index on mobile */
+  .water-product-poster,
+  .water-footer-poster {
+    width: 100%;
+    margin-left: 0;
+    max-width: 100%;
   }
   
-  body {
-    padding-bottom: 80px; /* Increased space for fixed mobile checkout button */
-  }
+  .water-options-dropdown {
+    width: 220px;
+    min-width: 220px;
   }
   
-  @media (max-width: 480px) {
-    .page-title {
-      font-size: 1.5rem;
-      left:-10px
-    }
-    .cart-item {
-      flex-wrap: nowrap;
-      padding: 10px;
-    }
-    .ProductPoster{
-      width: 110%;
-      margin-left: -14px;
-    }
-    .footerPoster{
-      width: 110%;
-      margin-left: -14px;
-      margin-bottom: -50px;
-      margin-top: 20px;
-    }
-    
-    .cart-item-image {
-      width: 60px;
-      height: 60px;
-      margin-right: 15px;
-    }
-    
-    .cart-item-name {
-      font-size: 1.1rem;
-    }
-    
-    .cart-item-price {
-      margin-top: 10px;
-      margin-right: 15px;
-    }
-    
-    .remove-item-button {
-      position: absolute;
-      /* margin-left: 10%; */
-    }
-    .title-accent::after{
-      left:90px
-    }
-    .drop-4,.drop-5,.drop-6{
-      display: none;
-    }
-    
-    .product-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    
-    .product-card {
-      height: auto;
-      min-height: 400px;
-    }
-    
-    .product-badge {
-      padding: 6px 12px;
-      font-size: 0.75rem;
-    }
-    
-    .product-footer {
-      flex-direction: row;
-      gap: 0px;
-      align-items: flex-start;
-    }
-    
-    .cta-button {
-      width: 100%;
-      justify-content: center;
-    }
-    
-    .details-button {
-      align-self: center;
-      margin-top: -5px;
-    }
-    
-    .empty-cart-icon {
-      width: 80px;
-      height: 80px;
-    }
-    
-    .empty-cart h2 {
-      font-size: 1.5rem;
-    }
-    
-    /* Further reduce spacing in checkout for very small screens */
-    .checkout-page {
-      padding: 15px 10px;
-    }
-    
-    .cart-item {
-      padding: 12px 10px;
-    }
-    
-    .checkout-summary {
-      padding: 15px;
-    }
-    
-    .place-order-button {
-      padding: 12px;
-      font-size: 1rem;
-    }
+  .water-checkout-button {
+    min-width: 160px;
+    padding: 10px 20px;
   }
-  @media (max-width:380px) {
-    .cart-item {
-      flex-wrap: nowrap;
-      padding: 10px;
-    }
-    .ProductPoster{
-      margin-left:-10px ;
-      width:110%;
+  
+  .water-checkout-text,
+  .water-checkout-price {
+    font-size: 0.9rem;
+  }
+}
 
-    }
-    .footerPoster{
-     margin-bottom: 1px;
-     margin-left: -10px;
-     width: 110%;
-     height: 100%;
-    }
-
-    
-    .cart-item-image {
-      width: 60px;
-      height: 60px;
-      margin-right: 5px;
-    }
-    
-    .cart-item-name {
-      font-size: 0.7rem;
-    }
-    
-    .cart-item-price {
-      margin-top: 10px;
-      margin-right: 15px;
-    }
-    
-    .remove-item-button {
-      position: absolute;
-      /* margin-left: 10%px; */
-      
-    }
-    .back-button{
-      margin-top: 55px;
-      position: fixed;
-    }
+@media screen and (max-width: 480px) {
+  .water-product-page {
+    padding: 30px 15px 200px;
   }
   
-  /* Print styles */
-  @media print {
-    body {
-      background: white;
-      padding: 0;
-    }
-    
-    .product-page, .checkout-page {
-      padding: 0;
-      box-shadow: none;
-      background: none;
-    }
-    
-    .filter-tabs, .cart-container, .bubbles-container, 
-    .cta-button, .details-button, .place-order-button, 
-    .remove-item-button, .back-button, .return-button {
-      display: none !important;
-    }
-    
-    .product-card {
-      break-inside: avoid;
-      page-break-inside: avoid;
-      box-shadow: none;
-      border: 1px solid #eee;
-    }
-    
-    .product-grid {
-      display: block;
-    }
-    
-    .product-card:not(:last-child) {
-      margin-bottom: 20px;
-    }
-    
-    .cart-item {
-      border-bottom: 1px solid #eee;
-      page-break-inside: avoid;
-    }
-    
-    .checkout-summary {
-      background: none;
-      border: 1px solid #ddd;
-    }
+  .water-page-title {
+    font-size: 2rem;
   }
   
-  /* Accessibility improvements */
-  .skip-to-content {
-    position: absolute;
-    left: -9999px;
-    top: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    z-index: -999;
-    background: var(--primary);
-    color: white;
-    padding: 1rem;
-    border-radius: 0 0 5px 0;
-    font-weight: bold;
-    text-decoration: none;
+  .water-product-content {
+    padding: 20px;
   }
   
-  .skip-to-content:focus {
-    left: 0;
-    width: auto;
-    height: auto;
-    z-index: 1000;
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-  }
-  
-  /* Focus states */
-  .filter-button:focus,
-  .cta-button:focus,
-  .details-button:focus,
-  .checkout-button:focus,
-  .remove-item-button:focus,
-  .place-order-button:focus,
-  .back-button:focus,
-  .return-button:focus {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-  }
-  
-  /* Additional animations for product interactions */
-  @keyframes addedToCart {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  .product-card.added-to-cart {
-    animation: addedToCart 0.5s ease;
-  }
-  
-  /* Notification styles */
-  .notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--gradient-blue);
-    color: white;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px var(--shadow-color);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
+  .water-product-footer {
+    flex-direction: column;
     gap: 10px;
-    transform: translateX(120%);
-    transition: transform 0.3s ease;
   }
   
-  .notification.show {
-    transform: translateX(0);
-  }
-  
-  .notification-icon {
-    display: flex;
-    align-items: center;
+  .water-cta-button {
+    width: 100%;
     justify-content: center;
   }
   
-  .notification-message {
-    font-weight: 600;
+  .water-details-button {
+    align-self: flex-end;
   }
   
-  .notification-close {
-    margin-left: 10px;
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.2s ease;
+  .water-options-dropdown {
+    width: 200px;
+    min-width: 200px;
+    left: -50px;
   }
   
-  .notification-close:hover {
-    background: rgba(255, 255, 255, 0.2);
+  .water-checkout-summary {
+    padding: 20px;
   }
   
-  /* High contrast mode support */
-  @media (forced-colors: active) {
-    .cta-button,
-    .checkout-button,
-    .place-order-button,
-    .return-button {
-      forced-color-adjust: none;
-      background: ButtonFace;
-      color: ButtonText;
-      border: 2px solid ButtonText;
-    }
-    
-    .product-card {
-      border: 1px solid ButtonText;
-    }
-    
-    .product-badge,
-    .cart-item-feature {
-      border: 1px solid ButtonText;
-    }
+  .water-pincode-modal {
+    width: 95%;
+    padding: 1.5rem;
   }
+  
+  .water-pincode-modal-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  .water-product-page {
+    --wp-light-bg: #1a1a2e;
+    --wp-card-bg: #16213e;
+    --wp-text-dark: #eee;
+    --wp-text-light: #ccc;
+  }
+  
+  .water-product-card {
+    background-color: var(--wp-card-bg);
+  }
+  
+  .water-pincode-modal {
+    background-color: var(--wp-card-bg);
+    color: var(--wp-text-dark);
+  }
+  
+  .water-options-dropdown {
+    background: var(--wp-card-bg);
+    color: var(--wp-text-dark);
+  }
+}
+
+/* Print styles */
+@media print {
+  .water-product-page {
+    background: white !important;
+  }
+  
+  .water-cart-container,
+  .water-checkout-button,
+  .water-cta-button,
+  .water-details-button {
+    display: none !important;
+  }
+  
+  .water-product-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+  }
+}

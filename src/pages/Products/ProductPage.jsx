@@ -21,7 +21,7 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
     if (!showOptions) return;
     
     const handleClickOutside = (event) => {
-      if (!event.target.closest('.cart-options-container')) {
+      if (!event.target.closest('.water-cart-options-container')) {
         setShowOptions(false);
       }
     };
@@ -47,7 +47,7 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
     
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <svg key={`star-${i}`} className="star-icon" width="16" height="16" viewBox="0 0 24 24">
+        <svg key={`star-${i}`} className="water-star-icon" width="16" height="16" viewBox="0 0 24 24">
           <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
         </svg>
       );
@@ -55,7 +55,7 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
     
     if (hasHalfStar) {
       stars.push(
-        <svg key="half-star" className="star-icon" width="16" height="16" viewBox="0 0 24 24">
+        <svg key="half-star" className="water-star-icon" width="16" height="16" viewBox="0 0 24 24">
           <path fill="#FFD700" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fillOpacity="0.5"/>
           <path fill="#FFD700" d="M12 17.27V2l-2.81 6.63L2 9.24l5.46 4.73L5.82 21z"/>
         </svg>
@@ -98,13 +98,13 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
     if (!product.priceOptions || product.priceOptions.length === 0) {
       return (
         <div 
-          className="option-item"
+          className="water-option-item"
           onClick={(e) => selectOption(product.name, product.price, e)}
         >
-          <span className="option-name">{product.name}</span>
-          <span className="option-price">₹{product.price}</span>
+          <span className="water-option-name">{product.name}</span>
+          <span className="water-option-price">₹{product.price}</span>
           <button 
-            className="option-buy-now"
+            className="water-option-buy-now"
             onClick={(e) => {
               e.stopPropagation();
               selectOption(product.name, product.price, e);
@@ -120,13 +120,13 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
     return product.priceOptions.map((option, idx) => (
       <div 
         key={idx} 
-        className="option-item"
+        className="water-option-item"
         onClick={(e) => selectOption(option.name, option.price, e)}
       >
-        <span className="option-name">{option.name}</span>
-        <span className="option-price">₹{option.price}</span>
+        <span className="water-option-name">{option.name}</span>
+        <span className="water-option-price">₹{option.price}</span>
         <button 
-          className="option-buy-now"
+          className="water-option-buy-now"
           onClick={(e) => {
             e.stopPropagation();
             selectOption(option.name, option.price, e);
@@ -140,44 +140,44 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
   
   return (
     <div 
-      className={`product-card ${isHovered ? 'hovered' : ''} ${animateIn ? 'animate-in' : ''}`}
+      className={`water-product-card ${isHovered ? 'hovered' : ''} ${animateIn ? 'animate-in' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="product-top">
-        <div className="product-image-container">
+      <div className="water-product-top">
+        <div className="water-product-image-container">
           <div className="water-overlay"></div>
           <img 
             src={product.image} 
             alt={product.name} 
-            className="product-image"
+            className="water-product-image"
           />
-          <div className="product-price">₹{product.price}</div>
+          <div className="water-product-price">₹{product.price}</div>
         </div>
         
-        <div className="rating-container">
+        <div className="water-rating-container">
           {renderStars(product.rating)}
-          <span className="rating-text">{product.rating}</span>
+          <span className="water-rating-text">{product.rating}</span>
         </div>
       </div>
       
-      <div className="product-divider">
-        <svg className="wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="wave-fill"></path>
-          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" className="wave-fill"></path>
-          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" className="wave-fill"></path>
+      <div className="water-product-divider">
+        <svg className="water-wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="water-wave-fill"></path>
+          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" className="water-wave-fill"></path>
+          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" className="water-wave-fill"></path>
         </svg>
       </div>
       
-      <div className="product-content">
-        <h3 className="product-name">{product.name}</h3>
-        <p className="product-description">{product.description}</p>
+      <div className="water-product-content">
+        <h3 className="water-product-name">{product.name}</h3>
+        <p className="water-product-description">{product.description}</p>
         
-        <div className="product-footer">
-          <div className="cart-options-container">
-            <button className="cta-button" onClick={handleAddToCartClick}>
-              <span className="button-text">Add to Cart</span>
-              <span className="button-icon">
+        <div className="water-product-footer">
+          <div className="water-cart-options-container">
+            <button className="water-cta-button" onClick={handleAddToCartClick}>
+              <span className="water-button-text">Add to Cart</span>
+              <span className="water-button-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="9" cy="21" r="1"></circle>
                   <circle cx="20" cy="21" r="1"></circle>
@@ -188,14 +188,14 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
             
             {/* Options Dropdown */}
             {showOptions && (
-              <div className="options-dropdown">
+              <div className="water-options-dropdown">
                 {renderOptions()}
               </div>
             )}
           </div>
           
           {/* Add onClick handler to the Details button */}
-          <button className="details-button" onClick={navigateToProductDetails}>
+          <button className="water-details-button" onClick={navigateToProductDetails}>
             <span>Details</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
@@ -205,11 +205,11 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
       </div>
       
       {/* Bubble animation elements */}
-      <div className="bubbles-container">
+      <div className="water-bubbles-container">
         {Array.from({ length: 10 }).map((_, i) => (
           <div 
             key={i} 
-            className="bubble"
+            className="water-bubble"
             style={{
               left: `${Math.random() * 100}%`,
               width: `${Math.random() * 20 + 10}px`,
@@ -227,27 +227,27 @@ const ProductItem = ({ product, index, addToCart, showPincodeModal }) => {
 // Cart Component
 const Cart = ({ cartItems, totalPrice, navigateToCheckout }) => {
   return (
-    <div className="cart-container">
+    <div className="water-cart-container">
       <button 
-        className={`checkout-button ${cartItems.length > 0 ? 'has-items' : ''}`}
+        className={`water-checkout-button ${cartItems.length > 0 ? 'has-items' : ''}`}
         onClick={navigateToCheckout}
         disabled={cartItems.length === 0}
       >
-        <span className="checkout-icon">
+        <span className="water-checkout-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="9" cy="21" r="1"></circle>
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
         </span>
-        <span className="checkout-text">
+        <span className="water-checkout-text">
           Checkout
         </span>
-        <span className="checkout-price">
+        <span className="water-checkout-price">
           ₹{totalPrice.toFixed(2)}
         </span>
         {cartItems.length > 0 && (
-          <span className="cart-badge">{cartItems.length}</span>
+          <span className="water-cart-badge">{cartItems.length}</span>
         )}
       </button>
     </div>
@@ -294,12 +294,12 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor, productToAd
   if (!open) return null;
   
   return (
-    <div className="pincode-modal-overlay">
-      <div className="pincode-modal">
-        <div className="pincode-modal-header">
-          <h2 className="pincode-modal-title">Enter Your Location PIN!</h2>
+    <div className="water-pincode-modal-overlay">
+      <div className="water-pincode-modal">
+        <div className="water-pincode-modal-header">
+          <h2 className="water-pincode-modal-title">Enter Your Location PIN!</h2>
           <button 
-            className="pincode-close-button"
+            className="water-pincode-close-button"
             onClick={onClose}
             aria-label="Close"
           >
@@ -311,10 +311,10 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor, productToAd
           value={pincode}
           onChange={(e) => setPincode(e.target.value)}
           placeholder="e.g. 600001"
-          className="pincode-input"
+          className="water-pincode-input"
         />
         <button
-          className="pincode-submit-button"
+          className="water-pincode-submit-button"
           onClick={() => {
             const isValid = isTamilNaduPincode(pincode);
             handleValidationResult(isValid);
@@ -324,14 +324,14 @@ const PincodeModal = ({ open, onClose, primaryColor, secondaryColor, productToAd
         </button>
         
         {resultMessage && (
-          <div className={`pincode-result ${resultType}`}>
+          <div className={`water-pincode-result ${resultType}`}>
             {resultMessage}
           </div>
         )}
         
         {resultMessage && (
           <button
-            className="pincode-continue-button"
+            className="water-pincode-continue-button"
             onClick={handleContinue}
           >
             Continue
@@ -361,21 +361,21 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
   }
 
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <button className="back-button" onClick={goBackToProducts}>
+    <div className="water-checkout-page">
+      <div className="water-checkout-header">
+        <button className="water-back-button" onClick={goBackToProducts}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
           Back to Products
         </button>
-        <h1 className="checkout-title">Your Cart</h1>
+        <h1 className="water-checkout-title">Your Cart</h1>
       </div>
       
       {cartItems.length === 0 ? (
-        <div className="empty-cart">
-          <div className="empty-cart-icon">
+        <div className="water-empty-cart">
+          <div className="water-empty-cart-icon">
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1"></circle>
               <circle cx="20" cy="21" r="1"></circle>
@@ -384,34 +384,34 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
           </div>
           <h2>Your cart is empty</h2>
           <p>Looks like you haven't added any products to your cart yet.</p>
-          <button className="return-button" onClick={goBackToProducts}>
+          <button className="water-return-button" onClick={goBackToProducts}>
             Browse Products
           </button>
         </div>
       ) : (
         <>
-          <div className="cart-items">
+          <div className="water-cart-items">
             {cartItems.map((item, index) => (
-              <div key={`${item.id}-${index}`} className="cart-item">
+              <div key={`${item.id}-${index}`} className="water-cart-item">
                 <div 
-                  className="cart-item-content"
+                  className="water-cart-item-content"
                   onClick={() => goToProductDetails(item.id)}
                   style={{ cursor: 'pointer' }}
                 >
-                  <div className="cart-item-image">
+                  <div className="water-cart-item-image">
                     <img src={item.image} alt={item.name} />
                   </div>
-                  <div className="cart-item-details">
-                    <h3 className="cart-item-name">{item.name}</h3>
-                    <p className="cart-item-description">
-                      {item.selectedOption ? <span className="selected-option">{item.selectedOption} - </span> : ''}
+                  <div className="water-cart-item-details">
+                    <h3 className="water-cart-item-name">{item.name}</h3>
+                    <p className="water-cart-item-description">
+                      {item.selectedOption ? <span className="water-selected-option">{item.selectedOption} - </span> : ''}
                       {item.description}
                     </p>
                   </div>
-                  <div className="cart-item-price">₹{item.price}</div>
+                  <div className="water-cart-item-price">₹{item.price}</div>
                 </div>
                 <button 
-                  className="remove-item-button" 
+                  className="water-remove-item-button" 
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent navigation when clicking remove button
                     removeFromCart(index);
@@ -427,25 +427,25 @@ const CheckoutPage = ({ cartItems, totalPrice, goBackToProducts, removeFromCart 
             ))}
           </div>
           
-          <div className="checkout-summary">
-            <div className="summary-row">
+          <div className="water-checkout-summary">
+            <div className="water-summary-row">
               <span>Subtotal ({cartItems.length} items)</span>
               <span>₹{totalPrice.toFixed(2)}</span>
             </div>
-            <div className="summary-row">
+            <div className="water-summary-row">
               <span>Shipping</span>
               <span>Free</span>
             </div>
-            <div className="summary-row">
+            <div className="water-summary-row">
               <span>Tax</span>
               <span>₹{(totalPrice * 0.18).toFixed(2)}</span>
             </div>
-            <div className="summary-row total">
+            <div className="water-summary-row total">
               <span>Total</span>
               <span>₹{(totalPrice * 1.18).toFixed(2)}</span>
             </div>
             
-            <button className="place-order-button" onClick={goToCheckout}>
+            <button className="water-place-order-button" onClick={goToCheckout}>
               Place Order
             </button>
           </div>
@@ -611,10 +611,10 @@ const ProductPage = () => {
   
   return (
     <CartContext.Provider value={{ cartItems, addToCart, totalPrice, removeFromCart }}>
-      <div className="product-page">
+      <div className="water-product-page">
         {/* Background elements */}
         <div className="water-background"></div>
-        <div className="light-rays"></div>
+        <div className="water-light-rays"></div>
         
         {/* Pincode Modal - Now with product passing */}
         <PincodeModal 
@@ -632,36 +632,36 @@ const ProductPage = () => {
         {!showCheckout ? (
           <>
             {/* Header section */}
-            <div className="page-header">
-              <h1 className="page-title">
-                <span className="title-accent">Pure</span>Water Solutions
+            <div className="water-page-header">
+              <h1 className="water-page-title">
+                <span className="water-title-accent">Pure</span>Water Solutions
               </h1>
-              <div className="title-decoration">
-                <span className="drop drop-1"></span>
-                <span className="drop drop-2"></span>
-                <span className="drop drop-3"></span> 
-                <span className="drop drop-4"></span> 
-                <span className="drop drop-5"></span> 
-                <span className="drop drop-6"></span> 
+              <div className="water-title-decoration">
+                <span className="water-drop water-drop-1"></span>
+                <span className="water-drop water-drop-2"></span>
+                <span className="water-drop water-drop-3"></span> 
+                <span className="water-drop water-drop-4"></span> 
+                <span className="water-drop water-drop-5"></span> 
+                <span className="water-drop water-drop-6"></span> 
               </div>
             </div>
-            <img src={personProduct} alt="Poster" className="ProductPoster" />
+            <img src={personProduct} alt="Poster" className="water-product-poster" />
             {/* Loading state */}
             {loading ? (
-              <div className="loading-container">
-                <div className="loading-spinner"></div>
+              <div className="water-loading-container">
+                <div className="water-loading-spinner"></div>
                 <p>Loading products...</p>
               </div>
             ) : error ? (
-              <div className="error-container">
-                <p className="error-message">{error}</p>
-                <button className="retry-button" onClick={() => window.location.reload()}>
+              <div className="water-error-container">
+                <p className="water-error-message">{error}</p>
+                <button className="water-retry-button" onClick={() => window.location.reload()}>
                   Retry
                 </button>
               </div>
             ) : (
               /* Product grid */
-              <div className="product-grid">
+              <div className="water-product-grid">
                 {products.map((product, index) => (
                   <ProductItem 
                     key={product.id} 
@@ -673,7 +673,7 @@ const ProductPage = () => {
                 ))}
               </div>
             )}
-            <img src={footerProduct} alt="Poster" className="footerPoster" />
+            <img src={footerProduct} alt="Poster" className="water-footer-poster" />
             
             {/* Cart/Checkout Button */}
             <Cart 
