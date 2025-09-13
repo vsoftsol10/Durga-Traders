@@ -31,7 +31,7 @@ const WaterSoftening=()=> {
         <div className={`ro-hero ${isVisible ? 'visible' : ''}`}>
           <div className="ro-hero-content">
             <h1 className="ro-hero-title">Water Softening Services</h1>
-            <div className="ro-hero-image-container">
+            <div className="ro-hero-image-soft-container">
               <img src={WaterSofteningSystem} alt="Reverse Osmosis" className="ro-hero-image" />
               <div className="ro-hero-overlay">
                 <p className="ro-hero-tagline">Pure Water. Better Life.</p>

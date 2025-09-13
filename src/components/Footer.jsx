@@ -28,7 +28,7 @@ export default function Footer() {
 
   // Define navigation paths for main works
   const mainWorksPaths = {
-    "Reserve Osmosis": "/services/reverse-osmosis",
+    "Reverse Osmosis": "/services/reverse-osmosis",
     "SeaWater Desalination": "/services/seawater-desalination",
     "Surface Water Treatment": "/services/surface-water-treatment",
     "Water Softening System": "/services/water-softening",

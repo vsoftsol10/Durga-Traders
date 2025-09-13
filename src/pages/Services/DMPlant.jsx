@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Droplet, Settings, Wrench, Activity, ArrowLeft, Navigation } from 'lucide-react';
 import './DMPlant.css'; // Import the CSS file
-import DMplant from "../../assets/dmplant.jpg"
+import DMplant from "../../assets/dmplant.webp"
 import { useNavigate } from 'react-router-dom';
 const DMPlant=()=> {
   const [isVisible, setIsVisible] = useState(false);

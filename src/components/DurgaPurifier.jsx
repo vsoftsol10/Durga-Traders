@@ -1,25 +1,28 @@
 import React from "react";
 import "./DurgaPurifier.css"; // Import the CSS file
 import purifier1 from "../assets/bestseller1.png"; // Replace with your real image paths
-import purifier2 from "../assets/bestseller2.png";
-import purifier3 from "../assets/bestseller3.png";
+import purifier2 from "../assets/CommercialOne.jpeg";
+import purifier3 from "../assets/Iron-Removal.jpg";
 
 const DurgaPurifier = () => {
     const purifiers = [
         {
           image: purifier1,
           title: "RO Purifiers",
+          URL:"/personal-products",
           description: "Removes dissolved impurities and heavy metals, ensuring pure, great-tasting and safe drinking water for your family.",
         },
         {
           image: purifier2,
-          title: "RO+UV Purifiers",
-          description: "Combines RO and UV purification to eliminate impurities, viruses, and bacteria, providing safe and healthy water.",
+          title: "DT-250 AUTO",
+          URL:"/commercial-products",
+          description: "Advanced commercial water purification system designed for small to medium businesses.",
         },
         {
           image: purifier3,
-          title: "RO+UF+UV Purifiers",
-          description: "Offers multi-stage purification to remove contaminants, microorganisms, and suspended particles for 100% safe water.",
+          title: "Waste Water Treatment",
+          URL:"/services/iron-removal",
+          description: "Iron in water can cause staining, bad taste, and clogging in pipes and appliances, making iron removal systems crucial for many clients",
         },
       ];
       
@@ -27,14 +30,14 @@ const DurgaPurifier = () => {
 
   return (
     <section className="purifier-section">
-      <h2 className="purifier-title">Durga Family of Water Purifiers</h2>
+      <h2 className="purifier-title">Durga Family of Water Treatments!</h2>
       <div className="purifier-card-container">
         {purifiers.map((purifier, index) => (
           <div className="purifier-card" key={index}>
             <img src={purifier.image} alt={purifier.title} className="purifier-image" />
             <h3 className="purifier-card-title">{purifier.title}</h3>
             <p className="purifier-card-description">{purifier.description}</p>
-            <a href="/personal-products" className="purifier-explore">
+            <a href={purifier.URL} className="purifier-explore">
               Explore <span className="arrow">→</span>
             </a>
           </div>
