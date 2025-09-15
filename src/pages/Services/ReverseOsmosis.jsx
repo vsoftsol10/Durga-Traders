@@ -8,6 +8,7 @@ import {
   ArrowLeft,
   Navigation,
 } from "lucide-react";
+import { Box, Button } from "@mui/material";
 import "./ReverseOsmosis.css"; // Import the CSS file
 import reverseOsmosis from "../../assets/Reverse-Osmosis.jpg";
 import { useNavigate } from "react-router-dom";
@@ -203,16 +204,21 @@ const ReverseOsmosis = () => {
               },
             ]}
           />
+          <Box textAlign="center">
+            <Button
+              variant="contained"
+              href="https://wa.me/917094310049"
+              sx={{
+                backgroundColor: "#0277bd",
+                "&:hover": { backgroundColor: "#01579b" },
+                py: 1.5,
+                px: 4,
+              }}
+            >
+              Contact for Pricing
+            </Button>
+          </Box>
         </div>
-
-        {/* Call to Action */}
-        {/* <div className={`ro-cta-card ${isVisible ? 'visible' : ''}`}>
-          <h3 className="ro-cta-title">Ready for Pure, Clean Water?</h3>
-          <p className="ro-cta-text">Contact our experts today for consultation and installation</p>
-          <button className="ro-cta-button">
-            Get a Free Quote
-          </button>
-        </div> */}
       </div>
     </div>
   );

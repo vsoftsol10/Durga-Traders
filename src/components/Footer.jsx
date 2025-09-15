@@ -181,7 +181,7 @@ export default function Footer() {
       {/* Copyright section */}
       <div className="footer__bottom">
         <div className="footer__copyright">
-          © {currentYear} Durga Traders. All rights reserved. Website by Vsoft Solutions.
+          © {currentYear} Durga Traders. All rights reserved.
         </div>
       </div>
     </footer>
