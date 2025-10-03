@@ -28,7 +28,7 @@ export default function Footer() {
 
   // Define navigation paths for main works
   const mainWorksPaths = {
-    "Reserve Osmosis": "/services/reverse-osmosis",
+    "Reverse Osmosis": "/services/reverse-osmosis",
     "SeaWater Desalination": "/services/seawater-desalination",
     "Surface Water Treatment": "/services/surface-water-treatment",
     "Water Softening System": "/services/water-softening",
@@ -181,7 +181,7 @@ export default function Footer() {
       {/* Copyright section */}
       <div className="footer__bottom">
         <div className="footer__copyright">
-          © {currentYear} Durga Traders. All rights reserved. Website by Vsoft Solutions.
+          © {currentYear} Durga Traders. All rights reserved.
         </div>
       </div>
     </footer>

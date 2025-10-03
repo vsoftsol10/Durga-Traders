@@ -116,16 +116,16 @@ const CommercialProducts = () => {
         <Box sx={{ mb: 4, textAlign: 'center' }}>
           <Typography variant="h5" sx={{
             fontWeight: 'bold',
-            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '4rem' }, 
-            pb: 1,
-            display: 'inline-block',
+            fontSize: { xs: '1.5rem', sm: '1.7rem', md: '2rem', lg: '2.7rem' }, 
+            pb: 0,
+            display: 'block',
             color: primaryColor
           }}>
             Durga Commercial Water Product
           </Typography>
 
           <Typography sx={{
-            fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem', lg: '1.5rem' },
+            fontSize: { xs: '0.8rem', sm: '0.8rem', md: '0.8rem', lg: '1rem' },
             pb: 1,
             display: 'inline-block',
             color: primaryColor,
@@ -135,54 +135,7 @@ const CommercialProducts = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ width: '100%', backgroundColor: '#f0f6ff', borderRadius: '16px', mb: 6 }}>
-          <Container maxWidth="xl" sx={{ mb: 8, py: 6 }}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', md: 'row' },
-                alignItems: 'center',
-                gap: 8,
-                borderRadius: 2,
-                width: '100%',
-              }}
-            >
-              <Box sx={{ flex: 1.5, width: '100%' }}>
-                <Typography variant="h4" sx={{
-                  mb: 3,
-                  fontWeight: 'bold',
-                  color: primaryColor,
-                  fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem', lg: '2.5rem' }
-                }}>
-                  Clean, Safe, and Pure Water for Your Family
-                </Typography>
-                <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'black' }}>
-                  At <b>Durga Traders</b>, we provide cutting-edge commercial water systems designed to meet the highest standards of purity, performance, and reliability. Whether you're a business, factory, hotel, or healthcare center, our water solutions ensure your team and customers enjoy clean, safe, and great-tasting water every single time.
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  flex: 1,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                <img
-                  src={RoImg}
-                  alt="RO Water Purification System"
-                  style={{
-                    width: '90%',
-                    height: 'auto',
-                    borderRadius: '16px',
-                    objectFit: 'cover',
-                    boxShadow: '0 6px 20px rgba(0,0,0,0.1)'
-                  }}
-                />
-              </Box>
-            </Box>
-          </Container>
-        </Box>
+        
 
         {/* 100+ Happy Customers Section */}
         <Box sx={{ width: '100%', backgroundColor: '#022279', color: 'white', py: 5, mb: 6, borderRadius: '16px' }}>
@@ -201,7 +154,7 @@ const CommercialProducts = () => {
                   fontSize: { xs: '3rem', sm: '4rem', md: '5rem' },
                   color: '#00c7e8'
                 }}>
-                  100+
+                  2000+
                 </Typography>
                 <Typography variant="h5" sx={{ 
                   fontWeight: 'bold',
@@ -228,21 +181,7 @@ const CommercialProducts = () => {
           </Container>
         </Box>
 
-        <Box textAlign="center" mb={5}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-              fontWeight: 'bold',
-              color: primaryColor,
-              position: 'relative',
-              display: 'inline-block',
-            }}
-          >
-            Our Commercial Products
-          </Typography>
-        </Box>
+        
 
         {/* Alternating Product Layout */}
         <Box sx={{ mb: 8 }}>
@@ -359,6 +298,55 @@ const CommercialProducts = () => {
               </Box>
             </Box>
           ))}
+        </Box>
+
+        <Box sx={{ width: '100%', backgroundColor: '#f0f6ff', borderRadius: '16px', mb: 6 }}>
+          <Container maxWidth="xl" sx={{ mb: 8, py: 6 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                alignItems: 'center',
+                gap: 8,
+                borderRadius: 2,
+                width: '100%',
+              }}
+            >
+              <Box sx={{ flex: 1.5, width: '100%' }}>
+                <Typography variant="h4" sx={{
+                  mb: 3,
+                  fontWeight: 'bold',
+                  color: primaryColor,
+                  fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem', lg: '2.5rem' }
+                }}>
+                  Clean, Safe, and Pure Water for Your Family
+                </Typography>
+                <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'black' }}>
+                  At <b>Durga Traders</b>, we provide cutting-edge commercial water systems designed to meet the highest standards of purity, performance, and reliability. Whether you're a business, factory, hotel, or healthcare center, our water solutions ensure your team and customers enjoy clean, safe, and great-tasting water every single time.
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  flex: 1,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <img
+                  src={RoImg}
+                  alt="RO Water Purification System"
+                  style={{
+                    width: '90%',
+                    height: 'auto',
+                    borderRadius: '16px',
+                    objectFit: 'cover',
+                    boxShadow: '0 6px 20px rgba(0,0,0,0.1)'
+                  }}
+                />
+              </Box>
+            </Box>
+          </Container>
         </Box>
 
         <Container maxWidth="xl" sx={{ py: 6 }}>

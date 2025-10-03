@@ -11,64 +11,43 @@ function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isHeaderMinimized, setIsHeaderMinimized] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
   // Refs
   const navRef = useRef();
   const headerRef = useRef();
-  const searchInputRef = useRef();
 
   // Initialize cart count from localStorage and set up event listener
   useEffect(() => {
-    // Function to update cart count
     const updateCartCount = () => {
       try {
         const storedCart = localStorage.getItem('cartItems');
-        if (storedCart) {
-          const parsedCart = JSON.parse(storedCart);
-          setCartCount(parsedCart.length);
-        } else {
-          setCartCount(0);
-        }
+        const parsedCart = storedCart ? JSON.parse(storedCart) : [];
+        setCartCount(parsedCart.length);
       } catch (error) {
         console.error("Error reading cart from localStorage:", error);
         setCartCount(0);
       }
     };
 
-    // Initial cart count
     updateCartCount();
 
-    // Listen for cart updates
     const handleCartUpdate = (event) => {
       setCartCount(event.detail.count);
     };
 
     window.addEventListener('cartUpdated', handleCartUpdate);
-
-    // Clean up event listener
-    return () => {
-      window.removeEventListener('cartUpdated', handleCartUpdate);
-    };
+    return () => window.removeEventListener('cartUpdated', handleCartUpdate);
   }, []);
 
   // Check viewport size and handle scroll effects
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
-
+    const checkIfMobile = () => setIsMobile(window.innerWidth <= 1024);
+    
     const handleScroll = () => {
       const position = window.pageYOffset;
       setScrollPosition(position);
-
-      // Header behavior on scroll
-      if (position > 200) {
-        setIsHeaderMinimized(true);
-      } else {
-        setIsHeaderMinimized(false);
-      }
+      setIsHeaderMinimized(position > 200);
     };
 
     checkIfMobile();
@@ -81,23 +60,10 @@ function Navbar() {
     };
   }, []);
 
-  // Focus search input when opened
-  useEffect(() => {
-    if (searchOpen && searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  }, [searchOpen]);
-
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
     setIsNavOpen((prev) => !prev);
-
-    // Prevent body scrolling when nav is open
-    if (!isNavOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = !isNavOpen ? 'hidden' : 'auto';
   };
 
   const toggleDropdown = (e) => {
@@ -106,15 +72,11 @@ function Navbar() {
   };
 
   const handleMouseEnter = (linkName) => {
-    if (!isMobile) {
-      setActiveLink(linkName);
-    }
+    if (!isMobile) setActiveLink(linkName);
   };
 
   const handleMouseLeave = () => {
-    if (!isMobile) {
-      setActiveLink("");
-    }
+    if (!isMobile) setActiveLink("");
   };
 
   const handleLinkClick = () => {
@@ -123,17 +85,13 @@ function Navbar() {
     }
   };
 
-  const toggleSearch = () => {
-    setSearchOpen(prev => !prev);
-  };
-
   return (
     <header
       ref={headerRef}
-      className={`${isHeaderMinimized ? 'minimized' : ''} ${scrollPosition > 50 ? 'scrolled' : ''}`}
+      className={`${isHeaderMinimized ? "minimized" : ""} ${scrollPosition > 50 ? "scrolled" : ""}`}
     >
       <div className="header-container">
-        {/* Logo Section - Modified to always be visible */}
+        {/* Logo Section */}
         <div className="logoBackground">
           <div className="logo-container">
             <a href="/" className="logolink">
@@ -142,12 +100,11 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Navigation with modern interactions */}
+        {/* Navigation */}
         <nav ref={navRef}>
           <div className="nav-backdrop" onClick={showNavbar}></div>
           <div className="nav-content">
             <div className="mobile-nav-header">
-              {/* Remove duplicate logo from mobile menu */}
               <button className="nav-close-btn" onClick={showNavbar}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -197,11 +154,7 @@ function Navbar() {
                   <span>Our Product Categories</span>
                 </div>
                 <div className="dropdown-grid">
-                  <a
-                    href="/personal-products"
-                    className="dropdown-item"
-                    onClick={handleLinkClick}
-                  >
+                  <a href="/personal-products" className="dropdown-item" onClick={handleLinkClick}>
                     <div className="dropdown-item-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
@@ -212,13 +165,8 @@ function Navbar() {
                       <span className="dropdown-item-title">Residential Products</span>
                       <span className="dropdown-item-desc">Products for individual use</span>
                     </div>
-                    <span className="dropdown-item-bg"></span>
                   </a>
-                  <a
-                    href="/commercial-products"
-                    className="dropdown-item"
-                    onClick={handleLinkClick}
-                  >
+                  <a href="/commercial-products" className="dropdown-item" onClick={handleLinkClick}>
                     <div className="dropdown-item-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
@@ -229,16 +177,10 @@ function Navbar() {
                       <span className="dropdown-item-title">Commercial Products</span>
                       <span className="dropdown-item-desc">Solutions for businesses</span>
                     </div>
-                    <span className="dropdown-item-bg"></span>
                   </a>
-                  <a
-                    href="/services/water-softening"
-                    className="dropdown-item"
-                    onClick={handleLinkClick}
-                  >
+                  <a href="/services/water-softening" className="dropdown-item" onClick={handleLinkClick}>
                     <div className="dropdown-item-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" role="img" aria-labelledby="wsTitleInline">
-                        <title id="wsTitleInline">Water Softener</title>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 2s5 6 5 10a5 5 0 1 1-10 0c0-4 5-10 5-10z" />
                         <g transform="translate(16,5)">
                           <path d="M0 0 L0 2" />
@@ -251,16 +193,10 @@ function Navbar() {
                       <span className="dropdown-item-title">Water Softener</span>
                       <span className="dropdown-item-desc">Scalable water softening systems for businesses</span>
                     </div>
-                    <span className="dropdown-item-bg"></span>
                   </a>
-                  <a
-                    href="/services/iron-removal"
-                    className="dropdown-item"
-                    onClick={handleLinkClick}
-                  >
+                  <a href="/services/iron-removal" className="dropdown-item" onClick={handleLinkClick}>
                     <div className="dropdown-item-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="ironTitleInline">
-                        <title id="ironTitleInline">Iron Removal</title>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <rect x="6" y="3" width="12" height="18" rx="2" ry="2"></rect>
                         <path d="M2 7h4"></path>
                         <path d="M4 5l2 2-2 2"></path>
@@ -272,7 +208,40 @@ function Navbar() {
                       <span className="dropdown-item-title">Iron Removal</span>
                       <span className="dropdown-item-desc">Industrial & commercial water treatment</span>
                     </div>
-                    <span className="dropdown-item-bg"></span>
+                  </a>
+                  <a href="/services/stp-services" className="dropdown-item" onClick={handleLinkClick}>
+                    <div className="dropdown-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 512 512" fill="currentColor">
+                        <rect x="64" y="160" width="160" height="160" rx="16" ry="16" />
+                        <rect x="96" y="192" width="32" height="32" fill="#fff" />
+                        <rect x="144" y="192" width="32" height="32" fill="#fff" />
+                        <rect x="288" y="128" width="128" height="192" rx="16" ry="16" />
+                        <path d="M288 128a64 64 0 0 1 128 0" fill="none" stroke="currentColor" strokeWidth="32" />
+                        <path d="M224 240h64v48h-64v64H128v-64h64v-48z" fill="currentColor" />
+                        <ellipse cx="384" cy="400" rx="96" ry="48" fill="none" stroke="currentColor" strokeWidth="32" />
+                        <path d="M320 400c16 16 32 16 48 0s32-16 48 0 32 16 48 0" stroke="currentColor" strokeWidth="24" fill="none" />
+                      </svg>
+                    </div>
+                    <div className="dropdown-item-content">
+                      <span className="dropdown-item-title">STP</span>
+                      <span className="dropdown-item-desc">Sewage Treatment Plant</span>
+                    </div>
+                  </a>
+                  <a href="/services/etp-services" className="dropdown-item" onClick={handleLinkClick}>
+                    <div className="dropdown-item-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 512 512" fill="none" stroke="currentColor" strokeWidth="24" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="80" y="160" width="128" height="192" rx="16" ry="16" fill="none" stroke="currentColor" />
+                        <rect x="256" y="128" width="144" height="224" rx="24" ry="24" fill="none" stroke="currentColor" />
+                        <path d="M256 128a72 72 0 0 1 144 0" fill="none" stroke="currentColor" />
+                        <path d="M208 224h48v64h-48v64H128v-64h48v-64z" fill="none" stroke="currentColor" />
+                        <ellipse cx="368" cy="400" rx="96" ry="40" fill="none" stroke="currentColor" />
+                        <path d="M304 400c16 16 32 16 48 0s32-16 48 0 32 16 48 0" stroke="currentColor" />
+                      </svg>
+                    </div>
+                    <div className="dropdown-item-content">
+                      <span className="dropdown-item-title">ETP</span>
+                      <span className="dropdown-item-desc">Effluent Treatment Plant</span>
+                    </div>
                   </a>
                 </div>
               </div>
@@ -286,6 +255,22 @@ function Navbar() {
               onClick={handleLinkClick}
             >
               <span className="link-text">Services</span>
+              <span className="link-hover-effect"></span>
+            </a>
+
+            {/* Mobile Quote Button */}
+            {/* <a href="/contact" className="mobile-quote-btn" onClick={handleLinkClick}>
+              Get a Quote
+            </a> */}
+
+            <a
+              href="/contact"
+              className={`nav-link ${activeLink === "contact" ? "active" : ""}`}
+              onMouseEnter={() => handleMouseEnter("contact")}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleLinkClick}
+            >
+              <span className="link-text">Contact Us</span>
               <span className="link-hover-effect"></span>
             </a>
 
@@ -308,46 +293,8 @@ function Navbar() {
 
         {/* Header action buttons */}
         <div className="header-actions">
-          {/* Search button and form */}
-          {/* <div className="search-container">
-            <button className="search-btn" onClick={toggleSearch}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button>
-            {searchOpen && (
-              <div className="search-form-container">
-                <form className="search-form">
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Search products..."
-                    className="search-input"
-                  />
-                  <button type="submit" className="search-submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                  </button>
-                  <button type="button" className="search-close" onClick={toggleSearch}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                  </button>
-                </form>
-              </div>
-            )}
-          </div> */}
-
-          {/* Get a Quote button */}
-          <a href="/contact" className="quote-btn">
-            Get a Quote
-          </a>
-
-          {/* Cart button */}
+          <a href="/contact" className="quote-btn">Get a Quote</a>
+          
           <a href="/personal-products" className="cart-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="9" cy="21" r="1"></circle>
@@ -357,7 +304,6 @@ function Navbar() {
             <span className="cart-count">{cartCount}</span>
           </a>
 
-          {/* Mobile menu button */}
           <button className="mobile-menu-btn" onClick={showNavbar}>
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
@@ -366,11 +312,13 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Animated progress bar */}
+      {/* Scroll progress bar */}
       <div className="scroll-progress-container">
         <div
           className="scroll-progress-bar"
-          style={{ width: `${(scrollPosition / (document.body.scrollHeight - window.innerHeight)) * 100}%` }}
+          style={{
+            width: `${(scrollPosition / (document.body.scrollHeight - window.innerHeight)) * 100}%`,
+          }}
         ></div>
       </div>
     </header>
