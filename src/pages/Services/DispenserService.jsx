@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   Droplet,
-  Settings,
-  Wrench,
-  Activity,
-  ArrowUpCircle,
   Navigation,
   ArrowLeft,
 } from "lucide-react";
 import { Box, Button } from "@mui/material";
 import "./DispenserService.css"; // Import the CSS file
-import Dispenser from "../../assets/Dispenser-Services.jpg";
+import Dispenser from "../../assets/Dispenser-Services.png";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const DispenserService = () => {

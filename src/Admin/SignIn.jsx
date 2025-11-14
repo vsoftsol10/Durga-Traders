@@ -5,6 +5,7 @@ import "./SignIn.css";
 import water from "../assets/water.webp";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import logo from "../assets/durga-logo.png";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -102,7 +103,7 @@ const SignIn = () => {
           backgroundImage: `url(${water})`
         }}
       >
-        <div className="logo">Durga Traders</div>
+        <div className="logo"><img src={logo} alt="Logo" className="logo" /></div>
       </div>
       
       <div className="content-container">

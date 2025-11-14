@@ -95,7 +95,7 @@ function Navbar() {
         <div className="logoBackground">
           <div className="logo-container">
             <a href="/" className="logolink">
-              <img src={logo} alt="Durga Traders" className="logo" />
+              <img src={logo} alt="Durga Traders" className="logo-image" />
             </a>
           </div>
         </div>

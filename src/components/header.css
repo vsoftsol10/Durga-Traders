@@ -101,27 +101,23 @@ header.minimized {
   overflow: hidden;
 }
 
-.logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  z-index: 2;
-  overflow: hidden;
-  padding: 8px;
-  border-radius: 0px 120px 0px 120px;
-}
-
-.logo {
-  position: relative;
-  display: flex;
-  height: 50%;
-  max-width: 65%;
-  object-fit: contain;
-  margin-left: 35px;
-  margin-bottom: 25px;
-  padding: 5%;
-}
+.logo-container { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  height: 100%; 
+  z-index: 2; 
+  overflow: visible; 
+  padding: 8px; 
+  border-radius: 0px 120px 0px 120px; } 
+  .logo-image { 
+    position: relative; 
+    display: flex; 
+    height: 60%; 
+    max-width: 60%; 
+    object-fit: contain;
+    margin: 0; 
+    padding: 0; }
 
 .logolink {
   display: block;

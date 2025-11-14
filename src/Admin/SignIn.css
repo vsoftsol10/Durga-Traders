@@ -17,12 +17,14 @@
 
 /* Logo styling */
 .logo {
-  position: relative;
-  top: 1.25rem;
-  left: 1.25rem;
+  position: fixed;
+  top: 0.00rem;
+  left:0.05rem;
   color: white;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 500;
+  height: 50%;
+  width: 25%;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -93,7 +95,7 @@
 /* Input label */
 .input-label {
   display: block;
-  color: #06B6D4; /* cyan-500 */
+  color: #b2f3ff !important; /* cyan-500 */
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
